@@ -21,12 +21,7 @@ const UserSchema = new Schema(
         type: String,
       },
       
-      status: {
-        type: String,
-        default: "Unenroll",
-  
-        //Enroll,Unenroll
-      },
+     
        
       },
      
