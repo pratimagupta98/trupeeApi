@@ -58,4 +58,4 @@ router.post("/admin/addAdmin", multipleUpload, addAdmin);
 
 router.post("/admin/adminlogin", adminlogin);
 module.exports = router;
-adminlogin
+ 
