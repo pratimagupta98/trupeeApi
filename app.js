@@ -13,6 +13,7 @@ app.use(cors());
 //require
  
 const user = require("./routes/user")
+const admin = require("./routes/admin")
 
  
 
@@ -23,6 +24,7 @@ const user = require("./routes/user")
 
 //use
 app.use("/", user);
+app.use("/", admin);
 
 
 app.get("/", (req, res) => {
