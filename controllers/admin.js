@@ -1,9 +1,9 @@
 const Admin = require("../models/admin");
 const resp = require("../helpers/apiResponse");
-const bcrypt = require("bcryptjs");
-
+//const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const key = "verysecretkey";
+const bcrypt = require("bcrypt");
 
 
 exports.addAdmin = async (req, res) => {
