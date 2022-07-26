@@ -53,8 +53,8 @@ mongoose
     console.log(error);
   });
 
-app.listen(process.env.PORT || 9000, () => {
-  console.log("Example app listening on port 9000");
+app.listen(process.env.PORT || 8000, () => {
+  console.log("Example app listening on port 8000");
 });
 
 //    http://localhost:9000/admin
