@@ -22,9 +22,7 @@ const thisSchema = new Schema(
     cnfmPassword: {
       type: String,
     },
-   city:{
-    type: String, 
-   },
+   
  
   },
   { timestamps: true }
