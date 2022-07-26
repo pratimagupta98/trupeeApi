@@ -21,8 +21,13 @@ const UserSchema = new Schema(
         type: String,
       },
       
-     
-       
+      address:{
+        type: String,
+      },
+       status:{
+        type: String,
+        default:"Deactive"
+       }
       },
      
     { timestamps: true }

@@ -1,51 +1,7 @@
 const User = require("../models/user");
 
 
-// exports.signupsendotp = async (req, res) => {
-//     //       let length = 6;
-//     //     //   let otp = (
-//     //     //     "0".repeat(length) + Math.floor(Math.random() * 10 ** length)
-//     //     //   ).slice(-length);
-//     //     let otp = "123456";
-      
-//     //     const newUser = new User({
-//     //       mobile: mobile,
-//     //     });
-//     //     const findexist = await User.findOne({ mobile :mobile });
-//     //     if (findexist) {
-//     //       res.json({
-//     //         status: "success",
-//     //         msg: "Welcome Back Otp send successfully",
-//     //         registered: findexist?.mobile,
-//     //         _id: findexist?._id,
-//     //         otp: otp,
-//     //       });
-//     //     } else {
-//     //         newUser.otp = otp;
-//     //         newUser
-//     //         .save()
-//     //         .then((data) =>
-//     //           res.json({
-//     //             status: "success",
-//     //             msg: "Otp send successfully",
-//     //             registered: data?.mobile,
-//     //             _id: data?._id,
-//     //             otp: otp,
-//     //           })
-//     //         )
-//     //         .catch((error) => {
-//     //             res.status(400).json({
-//     //               status: false,
-//     //               msg: "error",
-//     //               error: error,
-//     //             });
-//     //           });
-//     //     }
-//     //   };
-    
-// }
-
-    
+  
     exports.signupsendotp = async (req, res) => {
             let length = 6;
           //   let otp = (
@@ -89,4 +45,47 @@ const User = require("../models/user");
         };
       
   
+        
+        exports.getuser = async (req, res) => {
+          const findall = await User.find().sort({
+            sortorder: 1,
+          });
+          if (findall) {
+            res.status(200).json({
+              status: true,
+              msg: "success",
+              data: findall,
+            });
+          } else {
+            res.status(400).json({
+              status: false,
+              msg: "error",
+              error: "error",
+            });
+          }
+        };
+
+        exports.editprofile = async (req, res) => {
+          const findandUpdateEntry = await User.findOneAndUpdate(
+            {
+               _id: req.params.id 
+            },
+            { $set: req.body },
+            { new: true }
+          );
+        
+          if (findandUpdateEntry) {
+            res.status(200).json({
+              status: true,
+              msg: "success",
+              data: findandUpdateEntry,
+            });
+          } else {
+            res.status(400).json({
+              status: false,
+              status: "error",
+              error: "error",
+            });
+          }
+        };
         
