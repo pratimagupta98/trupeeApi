@@ -7,7 +7,7 @@ const fs = require("fs");
 const {
     addAdmin,
     adminlogin,
-     updateprofilepic,
+    editAdmin,
      viewonepic
 //   deletecreditcustomer,
 //   updatcreditcustomer,
@@ -55,6 +55,7 @@ let multipleUpload = uploads.fields([
 //PATHS
 
 router.post("/admin/addAdmin", multipleUpload, addAdmin);
+router.post("/admin/editAdmin/:id", multipleUpload, editAdmin);
 
 router.post("/admin/adminlogin", adminlogin);
 module.exports = router;
