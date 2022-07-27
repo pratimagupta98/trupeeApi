@@ -89,6 +89,12 @@ exports.adminlogin = async (req, res) => {
   }
 };
 
+exports.viewoneadmin = async (req, res) => {
+  await Admin.findOne({ _id: req.params.id })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
 exports.editAdmin = async (req, res) => {
   const { name, email, mobile, password, cnfmPassword } = req.body;
   // const salt = await bcrypt.genSalt(10);
@@ -114,22 +120,48 @@ exports.editAdmin = async (req, res) => {
     let hashPassword = await bcrypt.hash(password, salt);
     data.cnfmPassword = hashPassword;
   }
-  if (req.file) {
-    const response = await cloudinary.uploader.upload(req.file.path);
-    data.adminimg = response.secure_url;
-    fs.unlinkSync(req.file.path);
+  if (req.files) {
+    if (req.files.Uplaod_Document) {
+      alluploads = [];
+      for (let i = 0; i < req.files.Uplaod_Document.length; i++) {
+        // console.log(i);
+        const resp = await cloudinary.uploader.upload(
+          req.files.Uplaod_Document[i].path,
+          { use_filename: true, unique_filename: false }
+        );
+        fs.unlinkSync(req.files.Uplaod_Document[i].path);
+        alluploads.push(resp.secure_url);
+      }
+      // newStore.storeImg = alluploads;
+      data.Uplaod_Document = alluploads;
+    }
+
+    if (data) {
+      const findandUpdateEntry = await FMotherEquipment.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: data },
+        { new: true }
+      )
+        .populate("Equipment")
+        .populate("dealer_Id");
+
+      if (findandUpdateEntry) {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: findandUpdateEntry,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: "error",
+        });
+      }
+    }
   }
-console.log(req.file)
-  if (data) {
+};
 
-    const findandUpdateEntry = await Admin.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: data },
-      { new: true }
-    )
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
-  };
-}
-
-
+    

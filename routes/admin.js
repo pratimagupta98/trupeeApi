@@ -8,7 +8,7 @@ const {
     addAdmin,
     adminlogin,
     editAdmin,
-     viewonepic
+    viewoneadmin
 //   deletecreditcustomer,
 //   updatcreditcustomer,
 //   namefindcreditcustomer
@@ -56,7 +56,9 @@ let multipleUpload = uploads.fields([
 
 router.post("/admin/addAdmin", multipleUpload, addAdmin);
 router.post("/admin/editAdmin/:id", multipleUpload, editAdmin);
+router.get("/admin/viewoneadmin/:id", multipleUpload, viewoneadmin);
 
+ 
 router.post("/admin/adminlogin", adminlogin);
 module.exports = router;
  
