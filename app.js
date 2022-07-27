@@ -14,6 +14,7 @@ app.use(cors());
  
 const user = require("./routes/user")
 const admin = require("./routes/admin")
+const membership = require("./routes/membership")
 
  
 
@@ -25,8 +26,9 @@ const admin = require("./routes/admin")
 //use
 app.use("/", user);
 app.use("/", admin);
+app.use("/", membership);
 
-
+ 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });

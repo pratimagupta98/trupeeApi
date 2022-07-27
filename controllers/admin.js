@@ -21,6 +21,8 @@ exports.addAdmin = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
+
+  
   const newAdmin = new Admin({
     name: name,
     password: hashPassword,
@@ -158,7 +160,7 @@ exports.editAdmin = async (req, res) => {
 
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
-  console.log(req.params._id);
+  
 };  
 
     
