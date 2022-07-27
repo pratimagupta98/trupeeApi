@@ -1,10 +1,19 @@
 const Admin = require("../models/admin");
 const resp = require("../helpers/apiResponse");
 //const bcrypt = require("bcryptjs");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
+
 const jwt = require("jsonwebtoken");
 const key = "verysecretkey";
 const bcrypt = require("bcrypt");
-
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.addAdmin = async (req, res) => {
   const { name, adminimg, email, mobile, password, cnfmPassword } =
@@ -121,47 +130,35 @@ exports.editAdmin = async (req, res) => {
     data.cnfmPassword = hashPassword;
   }
   if (req.files) {
-    if (req.files.Uplaod_Document) {
+    if (req.files.adminimg) {
       alluploads = [];
-      for (let i = 0; i < req.files.Uplaod_Document.length; i++) {
+      for (let i = 0; i < req.files.adminimg.length; i++) {
         // console.log(i);
-        const resp = await cloudinary.uploader.upload(
-          req.files.Uplaod_Document[i].path,
-          { use_filename: true, unique_filename: false }
-        );
-        fs.unlinkSync(req.files.Uplaod_Document[i].path);
+        const resp = await cloudinary.uploader.upload(req.files.adminimg[i].path, {
+          use_filename: true,
+          unique_filename: false,
+        });
+        fs.unlinkSync(req.files.adminimg[i].path);
         alluploads.push(resp.secure_url);
       }
       // newStore.storeImg = alluploads;
-      data.Uplaod_Document = alluploads;
+      data.adminimg = alluploads;
     }
+ }
+  await Admin.findOneAndUpdate(
+    {
+      _id: req.params.id,
+      //  console.log(req.params._id);
+    },
+    {
+      $set: data,
+    },
+    { new: true }
+  )
 
-    if (data) {
-      const findandUpdateEntry = await FMotherEquipment.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        { $set: data },
-        { new: true }
-      )
-        .populate("Equipment")
-        .populate("dealer_Id");
-
-      if (findandUpdateEntry) {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: findandUpdateEntry,
-        });
-      } else {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: "error",
-        });
-      }
-    }
-  }
-};
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+  console.log(req.params._id);
+};  
 
     
