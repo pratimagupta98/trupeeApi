@@ -95,7 +95,7 @@ exports.editAdmin = async (req, res) => {
   // const hashPassword = await bcrypt.hash(password, salt);
   data = {};
   if (name) {
-    data.adminname = adminname;
+    data.name = name;
   }
   if (email) {
     data.email = email;
@@ -119,7 +119,7 @@ exports.editAdmin = async (req, res) => {
     data.adminimg = response.secure_url;
     fs.unlinkSync(req.file.path);
   }
-
+console.log(req.file)
   if (data) {
 
     const findandUpdateEntry = await Admin.findOneAndUpdate(
