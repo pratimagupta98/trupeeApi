@@ -18,6 +18,6 @@ const {
 //router.post("/user/setting", tokenverify, setting);
 router.post("/user/signupsendotp", signupsendotp);
 router.get("/admin/getuser", getuser);
-router.post("/user/editprofile/:id", editprofile);
+router.post("/admin/editprofile/:id", editprofile);
 
 module.exports = router;
