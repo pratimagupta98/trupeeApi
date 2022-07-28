@@ -35,4 +35,4 @@ const membershipplan = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("membership", membershipplan);
+module.exports = mongoose.model("membershipplan", membershipplan);
