@@ -16,6 +16,7 @@ const user = require("./routes/user")
 const admin = require("./routes/admin")
 const membership = require("./routes/membership")
 const faq = require("./routes/faq")
+const script = require("./routes/script")
 
  
 
@@ -29,6 +30,7 @@ app.use("/", user);
 app.use("/", admin);
 app.use("/", membership);
 app.use("/", faq);
+app.use("/", script);
 
  
 app.get("/", (req, res) => {
