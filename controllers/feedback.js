@@ -9,7 +9,7 @@ exports.addFeedback = async (req, res) => {
     script_type:script_type,
     desc:desc
   });
-  const findexist = await Feedback.findOne({ userid: userid });
+  const findexist = await Feedback.findOne({   $and: [{ userid: userid }, { script_type: script_type}],});
   if (findexist) {
     resp.alreadyr(res);
   } else {
