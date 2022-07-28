@@ -20,6 +20,7 @@ const script = require("./routes/script")
 const feedback = require("./routes/feedback")
 const notification = require("./routes/notification")
 const about_us = require("./routes/about_us")
+const terms_condition = require("./routes/terms_condition")
 
 
 
@@ -36,8 +37,8 @@ app.use("/", script);
 app.use("/", feedback);
 app.use("/", notification);
 app.use("/", about_us);
+app.use("/", terms_condition);
 
- 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
