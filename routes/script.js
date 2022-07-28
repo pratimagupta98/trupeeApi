@@ -5,7 +5,9 @@ const router = express.Router();
 const {
     addScript,
     getScript,
-  
+    getone_script,
+    editScript,
+    deletescript
 } = require("../controllers/script");
 
  
@@ -13,10 +15,12 @@ const {
  
  
  
-//router.post("/user/setting", tokenverify, setting);
-router.post("/admin/addScript", addScript);
+ router.post("/admin/addScript", addScript);
 router.get("/admin/getScript", getScript);
-//router.post("/admin/editprofile/:id", editprofile);
+router.get("/admin/getone_script/:id", getone_script);
+
+router.post("/admin/editScript/:id", editScript);
+router.get("/admin/deletescript/:id", deletescript);
 
 module.exports = router;
 

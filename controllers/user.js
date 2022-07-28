@@ -99,3 +99,9 @@ const resp = require("../helpers/apiResponse");
           }
         };
         
+
+        exports.deletuser = async (req, res) => {
+          await User.deleteOne({ _id: req.params.id })
+            .then((data) => resp.deleter(res, data))
+            .catch((error) => resp.errorr(res, error));
+        };

@@ -6,7 +6,8 @@ const fs = require("fs");
 const {
     signupsendotp,
     getuser,
-    editprofile
+    editprofile,
+    deletuser
    
 } = require("../controllers/user");
 
@@ -19,5 +20,6 @@ const {
 router.post("/user/signupsendotp", signupsendotp);
 router.get("/admin/getuser", getuser);
 router.post("/admin/editprofile/:id", editprofile);
+router.get("/admin/deletuser/:id", deletuser);
 
 module.exports = router;

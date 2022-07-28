@@ -27,3 +27,30 @@ exports.getScript = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.getone_script = async (req, res) => {
+    await Script.findOne({ _id: req.params.id })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  
+
+  exports.editScript = async (req, res) => {
+    await Script.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: req.body },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  
+
+  exports.deletescript = async (req, res) => {
+    await Script.deleteOne({ _id: req.params.id })
+      .then((data) => resp.deleter(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  
