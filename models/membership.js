@@ -22,11 +22,11 @@ const membershipplan = new Schema(
       ref: "plan",
       trim: true,
     },
-    amount: {
-      type: Number,
-      trim: true,
-      default: null,
-    },
+    // amount: {
+    //   type: Number,
+    //   trim: true,
+    //   default: null,
+    // },
     status: {
       type: String,
       default: "Pending",
