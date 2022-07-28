@@ -15,10 +15,8 @@ const {
  
  
  
-//router.post("/user/setting", tokenverify, setting);
-router.post("/user/addmembership", addmembership);
+ router.post("/user/addmembership", addmembership);
 router.get("/admin/allmembership", allmembership);
-// router.post("/admin/editplan/:id", editplan);
-// router.get("/admin/viewoneplan/:id", viewoneplan);
+ 
 
 module.exports = router;
