@@ -25,4 +25,4 @@ const thisSchema = new Schema(
   );
 
 
-  module.exports = mongoose.model("membership", thisSchema);
+  module.exports = mongoose.model("plan", thisSchema);
