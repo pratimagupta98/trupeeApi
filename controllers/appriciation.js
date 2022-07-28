@@ -45,8 +45,8 @@ exports.appriciation_list = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-exports.deleteplan = async (req, res) => {
-  await Plan.deleteOne({ _id: req.params.id })
+exports.dlt_appriciation = async (req, res) => {
+  await Appriciation.deleteOne({ _id: req.params.id })
     .then((data) => resp.deleter(res, data))
     .catch((error) => resp.errorr(res, error));
 };
