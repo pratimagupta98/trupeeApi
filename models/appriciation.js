@@ -8,7 +8,7 @@ const thisSchema = new Schema(
     
      
       amt:{
-        type: String, 
+        type: Number, 
        },
        
       },
