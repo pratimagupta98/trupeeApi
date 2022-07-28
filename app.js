@@ -18,8 +18,9 @@ const membership = require("./routes/membership")
 const faq = require("./routes/faq")
 const script = require("./routes/script")
 const feedback = require("./routes/feedback")
+const notification = require("./routes/notification")
+const about_us = require("./routes/about_us")
 
- 
 
 
 
@@ -33,6 +34,8 @@ app.use("/", membership);
 app.use("/", faq);
 app.use("/", script);
 app.use("/", feedback);
+app.use("/", notification);
+app.use("/", about_us);
 
  
 app.get("/", (req, res) => {

@@ -10,33 +10,9 @@ const {
 } = require("../controllers/faq");
 
  
-
  
- 
- 
-//router.post("/user/setting", tokenverify, setting);
-router.post("/admin/addFAQ", addFAQ);
+ router.post("/admin/addFAQ", addFAQ);
 router.get("/admin/faq_list", faq_list);
-//router.post("/admin/editprofile/:id", editprofile);
-
+ 
 module.exports = router;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
