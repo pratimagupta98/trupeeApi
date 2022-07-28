@@ -14,7 +14,7 @@ app.use(cors());
  
 const user = require("./routes/user")
 const admin = require("./routes/admin")
-const membership = require("./routes/membership")
+const plan = require("./routes/plan")
 const faq = require("./routes/faq")
 const script = require("./routes/script")
 const feedback = require("./routes/feedback")
@@ -31,7 +31,7 @@ const appriciation = require("./routes/appriciation")
 //use
 app.use("/", user);
 app.use("/", admin);
-app.use("/", membership);
+app.use("/", plan);
 app.use("/", faq);
 app.use("/", script);
 app.use("/", feedback);

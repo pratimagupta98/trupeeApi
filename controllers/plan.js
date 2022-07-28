@@ -1,10 +1,10 @@
-const Membership = require("../models/membership");
+const Plan = require("../models/plan");
 const resp = require("../helpers/apiResponse");
 
-exports.addMembership = async (req, res) => {
+exports.addPlan = async (req, res) => {
   const { pack_name, mrp_price,des_price,status,desc } = req.body;
 
-  const newMembership = new Membership({
+  const newPlan = new Plan({
     pack_name: pack_name,
     mrp_price: mrp_price,
     des_price:des_price,
@@ -15,15 +15,15 @@ exports.addMembership = async (req, res) => {
 //   if (findexist) {
 //     resp.alreadyr(res);
 //   } else {
-    newMembership
+  newPlan
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
 
 
-exports.editMembership = async (req, res) => {
-  await Membership.findOneAndUpdate(
+exports.editplan = async (req, res) => {
+  await Plan.findOneAndUpdate(
     {
       _id: req.params.id,
     },
@@ -40,8 +40,8 @@ exports.viewoneplan = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-exports.membership_list = async (req, res) => {
-  await Membership.find()
+exports.plan_list = async (req, res) => {
+  await Plan.find()
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
