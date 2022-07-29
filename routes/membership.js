@@ -6,8 +6,9 @@ const fs = require("fs");
 const {
     addmembership,
     allmembership,
-    // editplan,
-    // viewoneplan
+    viewonemembership,
+    updatemembership
+
 } = require("../controllers/membership");
 
  
@@ -16,7 +17,9 @@ const {
  
  
  router.post("/user/addmembership", addmembership);
-//router.get("/admin/allmembership", allmembership);
- 
+router.get("/admin/allmembership", allmembership);
+ router.get("/admin/viewonemembership/:id", viewonemembership);
+ router.post("/admin/updatemembership/:id", updatemembership);
+
 
 module.exports = router;

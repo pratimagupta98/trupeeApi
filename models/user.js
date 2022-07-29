@@ -27,10 +27,10 @@ const UserSchema = new Schema(
       city:{
         type: String, 
        },
-       status:{
-        type: String,
-        default:"Deactive"
-       }
+      //  status:{
+      //   type: String,
+      //   default:"Deactive"
+      //  }
       },
      
     { timestamps: true }

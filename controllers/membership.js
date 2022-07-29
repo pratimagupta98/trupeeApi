@@ -8,9 +8,19 @@ let getCurrentDate = function () {
   const year = t.getFullYear();
   return `${year}-${month}-${date}`;
 };
-console.log("date de do yrr",getCurrentDate)
-exports.addmembership = async (req, res) => {
-  const { userid, transaction_id, status, date, planId } = req.body;
+ exports.addmembership = async (req, res) => {
+  const t = new Date()
+  const oneyr =new Date()
+
+  let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  const date1 = ("0" + qq.getDate()).slice(-2);
+  const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  const year = qq.getFullYear();
+let det= `${year}-${month}-${date1}`
+console.log("ffffff",det)
+
+
+  const { userid, transaction_id, status, date, planId ,expdate} = req.body;
   let member = await Membership.findOne({
     $and: [{ userid: userid }, { planId: planId }],
   });
@@ -26,6 +36,8 @@ exports.addmembership = async (req, res) => {
       transaction_id: transaction_id,
       planId: planId,
      status:status,
+     expdate:det,
+     status:status
     });
 
     newMembership
@@ -46,17 +58,17 @@ exports.addmembership = async (req, res) => {
       });
   }
 //}
-// exports.allmembership = async (req, res) => {
-//   // await membershipplan.remove();
-//   await Membership
-//     .find()
-//     .populate("planId")
-//     .populate("dealer_id")
+exports.allmembership = async (req, res) => {
+  // await membershipplan.remove();
+  await Membership
+    .find()
+    .populate("userid")
+    .populate("planId")
 
-//     .sort({ sortorder: 1 })
-//     .then((data) => resp.successr(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 // exports.allmembershipplanApp = async (req, res) => {
 //   await Membership
 //     .find({ dealer_id: req.params.dealer_id })
@@ -67,15 +79,15 @@ exports.addmembership = async (req, res) => {
 //     .then((data) => resp.successr(res, data))
 //     .catch((error) => resp.errorr(res, error));
 // };
-// exports.viewonemembership = async (req, res) => {
-//   await Membership
-//     .findOne({ _id: req.params.id })
-//     .populate("planId")
-//     .populate("dealer_id")
+exports.viewonemembership = async (req, res) => {
+  await Membership
+    .findOne({ _id: req.params.id })
+    .populate("planId")
+    .populate("userid")
 
-//     .then((data) => resp.successr(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 // exports.deletemembership = async (req, res) => {
 //   await Membership
 //     .deleteOne({ _id: req.params.id })
@@ -88,12 +100,12 @@ exports.addmembership = async (req, res) => {
 //     .findOne({ _id: req.params.id })
 //     .sort({ createdAt: -1 });
 
-//   let dealerid = obj.dealer_id;
+//   let userid = obj.userid;
 
 //  // console.log("old", dealerid);
-//   let dealer = await Dealershipform.findOneAndUpdate(
+//   let dealer = await User.findOneAndUpdate(
 //     {
-//       _id: dealerid,
+//       _id: userid,
 //       //console.log(dealerid);
 //     },
 //     {
@@ -121,6 +133,30 @@ exports.addmembership = async (req, res) => {
 //     .then((data) => resp.successr(res, data))
 //     .catch((error) => resp.errorr(res, error));
 // };
+
+
+exports.updatemembership = async (req, res) => {    
+    await Membership
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      )
+      .populate("planId")
+      .populate("userid")
+  
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  
+
+
 // exports.total7sayplan = async (req, res) => {
 //   await membershipplan
 //     .countDocuments({
