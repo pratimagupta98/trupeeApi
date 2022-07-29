@@ -22,7 +22,7 @@ const notification = require("./routes/notification")
 const about_us = require("./routes/about_us")
 const terms_condition = require("./routes/terms_condition")
 const appriciation = require("./routes/appriciation")
-//const membership = require("./routes/membership")
+const membership = require("./routes/membership")
 
 
 
@@ -40,7 +40,7 @@ app.use("/", notification);
 app.use("/", about_us);
 app.use("/", terms_condition);
 app.use("/", appriciation);
-//app.use("/", membership);
+app.use("/", membership);
 
 
 
@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
 
-//console.log(process.env.DATABASE);
+console.log(process.env.DATABASE);
 mongoose
   .connect(process.env.DB, {
     useNewUrlParser: true,

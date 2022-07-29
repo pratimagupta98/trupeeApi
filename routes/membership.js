@@ -6,8 +6,8 @@ const fs = require("fs");
 const {
     addmembership,
     allmembership,
-    editplan,
-    viewoneplan
+    // editplan,
+    // viewoneplan
 } = require("../controllers/membership");
 
  

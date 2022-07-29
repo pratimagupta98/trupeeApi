@@ -8,6 +8,7 @@ let getCurrentDate = function () {
   const year = t.getFullYear();
   return `${year}-${month}-${date}`;
 };
+console.log("date de do yrr",getCurrentDate)
 exports.addmembership = async (req, res) => {
   const { userid, transaction_id, status, date, planId } = req.body;
   let member = await Membership.findOne({
@@ -89,7 +90,7 @@ exports.updatemembership = async (req, res) => {
 
   let dealerid = obj.dealer_id;
 
-  console.log("old", dealerid);
+ // console.log("old", dealerid);
   let dealer = await Dealershipform.findOneAndUpdate(
     {
       _id: dealerid,
