@@ -24,6 +24,7 @@ const terms_condition = require("./routes/terms_condition")
 const appriciation = require("./routes/appriciation")
 const membership = require("./routes/membership")
 const startup = require("./routes/startup")
+const trupe_university = require("./routes/trupe_university")
 
 
 
@@ -43,6 +44,7 @@ app.use("/", terms_condition);
 app.use("/", appriciation);
 app.use("/", membership);
 app.use("/", startup);
+app.use("/", trupe_university);
 
 
 

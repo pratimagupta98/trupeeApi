@@ -115,22 +115,7 @@ data.video_link =video_link
       data.image = alluploads;
     }
  }
- if (req.files) {
-    if (req.files.video_link) {
-      allupload = [];
-      for (let i = 0; i < req.files.video_link.length; i++) {
-        // console.log(i);
-        const resp = await cloudinary.uploader.upload(req.files.video_link[i].path, {
-          use_filename: true,
-          unique_filename: false,
-        });
-        fs.unlinkSync(req.files.video_link[i].path);
-        allupload.push(resp.secure_url);
-      }
-      // newStore.storeImg = alluploads;
-      data.video_link = allupload;
-    }
- }
+  
   if (data) {
     await Startup.findOneAndUpdate(
       {
