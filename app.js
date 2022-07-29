@@ -25,6 +25,7 @@ const appriciation = require("./routes/appriciation")
 const membership = require("./routes/membership")
 const startup = require("./routes/startup")
 const trupe_university = require("./routes/trupe_university")
+const discount = require("./routes/discount")
 
 
 
@@ -45,6 +46,7 @@ app.use("/", appriciation);
 app.use("/", membership);
 app.use("/", startup);
 app.use("/", trupe_university);
+app.use("/", discount);
 
 
 
