@@ -23,6 +23,7 @@ const about_us = require("./routes/about_us")
 const terms_condition = require("./routes/terms_condition")
 const appriciation = require("./routes/appriciation")
 const membership = require("./routes/membership")
+const startup = require("./routes/startup")
 
 
 
@@ -41,6 +42,7 @@ app.use("/", about_us);
 app.use("/", terms_condition);
 app.use("/", appriciation);
 app.use("/", membership);
+app.use("/", startup);
 
 
 
