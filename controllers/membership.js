@@ -1,5 +1,5 @@
 const Membership = require("../models/membership");
- const resp = require("../helpers/apiresponse");
+const resp = require("../helpers/apiResponse");
 const _ = require("lodash");
 let getCurrentDate = function () {
   const t = new Date();
@@ -46,153 +46,153 @@ exports.addmembership = async (req, res) => {
       });
   }
 //}
-exports.allmembership = async (req, res) => {
-  // await membershipplan.remove();
-  await Membership
-    .find()
-    .populate("planId")
-    .populate("dealer_id")
+// exports.allmembership = async (req, res) => {
+//   // await membershipplan.remove();
+//   await Membership
+//     .find()
+//     .populate("planId")
+//     .populate("dealer_id")
 
-    .sort({ sortorder: 1 })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.allmembershipplanApp = async (req, res) => {
-  await Membership
-    .find({ dealer_id: req.params.dealer_id })
-    .populate("planId")
-    .populate("dealer_id")
+//     .sort({ sortorder: 1 })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.allmembershipplanApp = async (req, res) => {
+//   await Membership
+//     .find({ dealer_id: req.params.dealer_id })
+//     .populate("planId")
+//     .populate("dealer_id")
 
-    .sort({ sortorder: 1 })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.viewonemembership = async (req, res) => {
-  await Membership
-    .findOne({ _id: req.params.id })
-    .populate("planId")
-    .populate("dealer_id")
+//     .sort({ sortorder: 1 })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.viewonemembership = async (req, res) => {
+//   await Membership
+//     .findOne({ _id: req.params.id })
+//     .populate("planId")
+//     .populate("dealer_id")
 
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.deletemembership = async (req, res) => {
-  await Membership
-    .deleteOne({ _id: req.params.id })
-    .then((data) => resp.deleter(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.updatemembership = async (req, res) => {
-  // const { dealer_id } = req.body;
-  let obj = await Membership
-    .findOne({ _id: req.params.id })
-    .sort({ createdAt: -1 });
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.deletemembership = async (req, res) => {
+//   await Membership
+//     .deleteOne({ _id: req.params.id })
+//     .then((data) => resp.deleter(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.updatemembership = async (req, res) => {
+//   // const { dealer_id } = req.body;
+//   let obj = await Membership
+//     .findOne({ _id: req.params.id })
+//     .sort({ createdAt: -1 });
 
-  let dealerid = obj.dealer_id;
+//   let dealerid = obj.dealer_id;
 
- // console.log("old", dealerid);
-  let dealer = await Dealershipform.findOneAndUpdate(
-    {
-      _id: dealerid,
-      //console.log(dealerid);
-    },
-    {
-      $set: { planId: obj._id },
-    },
-    { new: true }
-  ).populate("planId");
+//  // console.log("old", dealerid);
+//   let dealer = await Dealershipform.findOneAndUpdate(
+//     {
+//       _id: dealerid,
+//       //console.log(dealerid);
+//     },
+//     {
+//       $set: { planId: obj._id },
+//     },
+//     { new: true }
+//   ).populate("planId");
 
-  console.log("updated", dealer);
-  await membershipplan
+//   console.log("updated", dealer);
+//   await membershipplan
 
-    .findOneAndUpdate(
-      {
-        _id: req.params.id,
-        //  console.log(req.params._id);
-      },
-      {
-        $set: req.body,
-      },
-      { new: true }
-    )
-    .populate("planId")
-    .populate("dealer_id")
+//     .findOneAndUpdate(
+//       {
+//         _id: req.params.id,
+//         //  console.log(req.params._id);
+//       },
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     )
+//     .populate("planId")
+//     .populate("dealer_id")
 
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.total7sayplan = async (req, res) => {
-  await membershipplan
-    .countDocuments({
-      $and: [{ planId: "6214a6adc26c6f9aa48030b3" }, { status: "Confirm" }],
-    })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.totalvasicplan = async (req, res) => {
-  await membershipplan
-    .countDocuments({
-      $and: [{ planId: "6214a6bcc26c6f9aa48030b6" }, { status: "Confirm" }],
-    })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.totalendtoendplan = async (req, res) => {
-  await membershipplan
-    .countDocuments({
-      $and: [{ planId: "6214a6c6c26c6f9aa48030bb" }, { status: "Confirm" }],
-    })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
-exports.total7dayplanearnig = async (req, res) => {
-  let amt = await membershipplan.find({
-    $and: [{ planId: "6214a6adc26c6f9aa48030b3" }, { status: "Confirm" }],
-  });
-  console.log(amt);
-  let amount = [];
-  for (const iterator of amt) {
-    amount.push(iterator.amount);
-  }
-  console.log(amount);
-  let total = _.sum([...amount]);
-  console.log(total);
-  res.json({
-    status: true,
-    Earning: total,
-  });
-};
-exports.totalbasicplanearning = async (req, res) => {
-  let amt = await membershipplan.find({
-    $and: [{ planId: "6214a6bcc26c6f9aa48030b6" }, { status: "Confirm" }],
-  });
-  console.log(amt);
-  let amount = [];
-  for (const iterator of amt) {
-    amount.push(iterator.amount);
-  }
-  console.log(amount);
-  let total = _.sum([...amount]);
-  console.log(total);
-  res.json({
-    status: true,
-    Earning: total,
-  });
-};
-exports.endtoendearning = async (req, res) => {
-  let amt = await membershipplan.find({
-    $and: [{ planId: "6214a6c6c26c6f9aa48030bb" }, { status: "Confirm" }],
-  });
-  console.log(amt);
-  let amount = [];
-  for (const iterator of amt) {
-    amount.push(iterator.amount);
-  }
-  console.log(amount);
-  let total = _.sum([...amount]);
-  console.log(total);
-  res.json({
-    status: true,
-    Earning: total,
-  });
-};
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.total7sayplan = async (req, res) => {
+//   await membershipplan
+//     .countDocuments({
+//       $and: [{ planId: "6214a6adc26c6f9aa48030b3" }, { status: "Confirm" }],
+//     })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.totalvasicplan = async (req, res) => {
+//   await membershipplan
+//     .countDocuments({
+//       $and: [{ planId: "6214a6bcc26c6f9aa48030b6" }, { status: "Confirm" }],
+//     })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.totalendtoendplan = async (req, res) => {
+//   await membershipplan
+//     .countDocuments({
+//       $and: [{ planId: "6214a6c6c26c6f9aa48030bb" }, { status: "Confirm" }],
+//     })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+// exports.total7dayplanearnig = async (req, res) => {
+//   let amt = await membershipplan.find({
+//     $and: [{ planId: "6214a6adc26c6f9aa48030b3" }, { status: "Confirm" }],
+//   });
+//   console.log(amt);
+//   let amount = [];
+//   for (const iterator of amt) {
+//     amount.push(iterator.amount);
+//   }
+//   console.log(amount);
+//   let total = _.sum([...amount]);
+//   console.log(total);
+//   res.json({
+//     status: true,
+//     Earning: total,
+//   });
+// };
+// exports.totalbasicplanearning = async (req, res) => {
+//   let amt = await membershipplan.find({
+//     $and: [{ planId: "6214a6bcc26c6f9aa48030b6" }, { status: "Confirm" }],
+//   });
+//   console.log(amt);
+//   let amount = [];
+//   for (const iterator of amt) {
+//     amount.push(iterator.amount);
+//   }
+//   console.log(amount);
+//   let total = _.sum([...amount]);
+//   console.log(total);
+//   res.json({
+//     status: true,
+//     Earning: total,
+//   });
+// };
+// exports.endtoendearning = async (req, res) => {
+//   let amt = await membershipplan.find({
+//     $and: [{ planId: "6214a6c6c26c6f9aa48030bb" }, { status: "Confirm" }],
+//   });
+//   console.log(amt);
+//   let amount = [];
+//   for (const iterator of amt) {
+//     amount.push(iterator.amount);
+//   }
+//   console.log(amount);
+//   let total = _.sum([...amount]);
+//   console.log(total);
+//   res.json({
+//     status: true,
+//     Earning: total,
+//   });
+// };

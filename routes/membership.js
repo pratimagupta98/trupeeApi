@@ -16,7 +16,7 @@ const {
  
  
  router.post("/user/addmembership", addmembership);
-router.get("/admin/allmembership", allmembership);
+//router.get("/admin/allmembership", allmembership);
  
 
 module.exports = router;
