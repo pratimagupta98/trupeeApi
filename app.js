@@ -26,6 +26,7 @@ const membership = require("./routes/membership")
 const startup = require("./routes/startup")
 const trupe_university = require("./routes/trupe_university")
 const discount = require("./routes/discount")
+const alltrade = require("./routes/alltrade")
 
 
 
@@ -47,7 +48,7 @@ app.use("/", membership);
 app.use("/", startup);
 app.use("/", trupe_university);
 app.use("/", discount);
-
+app.use("/", alltrade);
 
 
 
@@ -55,7 +56,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
 
-console.log(process.env.DATABASE);
+//console.log(process.env.DB);
 mongoose
   .connect(process.env.DB, {
     useNewUrlParser: true,
