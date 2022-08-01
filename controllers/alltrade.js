@@ -19,7 +19,7 @@ exports.addTrade= async (req, res) => {
     T4:T4,
     qty:qty,
     investment_amt:investment_amt,
-    no_of_lots:qty_of_lots,
+    no_of_lots:no_of_lots,
  
   });
  

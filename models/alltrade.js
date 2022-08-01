@@ -45,6 +45,8 @@ const thisSchema = new Schema(
        no_of_lots:{
         type : Number,
        },
+       status: { type: String,
+        default:"Active" },
        
       },
      

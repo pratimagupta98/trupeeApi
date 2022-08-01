@@ -17,15 +17,11 @@ const thisSchema = new Schema(
        script_name:
         { type: mongoose.Schema.Types.ObjectId, ref: "script" },
        
-       tip:{
-        type : String,
-       },
+     
        call_type:{
         type: String, 
        },
-       intraday: {
-        type: String, 
-       },
+     
       //  ['BTST', 'Short Term', 'Intraday or BTST','Intraday or BTST','Intraday (Risky)','Intraday (Trailed)','Intraday (Re-entry)','Intraday (Re-entry- Trailed)','Intraday (Hero-Zero)'],
        SL:{
         type: Number, 
@@ -46,10 +42,11 @@ const thisSchema = new Schema(
        investment_amt:{
         type: Number,
        },
-       qty_of_lots:{
+       no_of_lots:{
         type : Number,
        },
-       
+       status: { type: String,
+        default:"Active" },
       },
      
     { timestamps: true }
