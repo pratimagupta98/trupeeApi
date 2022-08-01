@@ -28,6 +28,7 @@ const trupe_university = require("./routes/trupe_university")
 const discount = require("./routes/discount")
 const alltrade = require("./routes/alltrade")
 const fno_index = require("./routes/fno_index")
+const fno_equity = require("./routes/fno_equity")
 
 
 
@@ -51,6 +52,7 @@ app.use("/", trupe_university);
 app.use("/", discount);
 app.use("/", alltrade);
 app.use("/", fno_index);
+app.use("/", fno_equity);
 
 
 
