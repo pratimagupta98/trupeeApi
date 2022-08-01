@@ -45,8 +45,8 @@ exports.tradelist = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.edit_discount = async (req, res) => {
-    await Discount.findOneAndUpdate(
+  exports.edit_trade = async (req, res) => {
+    await Alltrade.findOneAndUpdate(
       {
         _id: req.params.id,
       },
@@ -57,8 +57,8 @@ exports.tradelist = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
-  exports.dlt_discount = async (req, res) => {
-    await Discount.deleteOne({ _id: req.params.id })
+  exports.dlt_trade = async (req, res) => {
+    await Alltrade.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
