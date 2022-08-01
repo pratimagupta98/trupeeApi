@@ -9,14 +9,18 @@ const thisSchema = new Schema(
     //     type: String,
     //     default: ["SL", "PF", "", "canRead"],
     //   }],
-    equity_script: ['SL', 'PF', 'BUY','SELL',],
+    //['SL', 'PF', 'BUY','SELL',],
+  equity_script:{  type:  String,},
       active_value:{
         type: Number, 
        },
        call_type:{
         type: String, 
        },
-       intraday: ['BTST', 'Short Term', 'Intraday or BTST','Intraday or BTST','Intraday (Risky)','Intraday (Trailed)','Intraday (Re-entry)','Intraday (Re-entry- Trailed)','Intraday (Hero-Zero)'],
+       intraday: {
+        type: String, 
+       },
+      //  ['BTST', 'Short Term', 'Intraday or BTST','Intraday or BTST','Intraday (Risky)','Intraday (Trailed)','Intraday (Re-entry)','Intraday (Re-entry- Trailed)','Intraday (Hero-Zero)'],
        SL:{
         type: Number, 
        },
