@@ -3,7 +3,7 @@ const resp = require("../helpers/apiResponse");
 
 exports.addTrade= async (req, res) => {
     
-    const { equity_script,script_name,active_value,call_type,intraday,SL,T1,T2,T3,T4,qty,investment_amt,qty_of_lots } = req.body;
+    const { equity_script,script_name,tip,active_value,call_type,intraday,SL,T1,T2,T3,T4,qty,investment_amt,qty_of_lots } = req.body;
 
 
   
@@ -34,14 +34,14 @@ exports.addTrade= async (req, res) => {
 
 
 exports.tradelist = async (req, res) => {
-    await Alltrade.find()
+    await Alltrade.find().populate("script_name")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getone_tradelist = async (req, res) => {
-    await Alltrade.findOne({ _id: req.params.id })
+    await Alltrade.findOne({ _id: req.params.id }).populate("script_name")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
