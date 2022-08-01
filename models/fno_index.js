@@ -9,7 +9,7 @@ const thisSchema = new Schema(
     //     type: String,
     //     default: ["SL", "PF", "", "canRead"],
     //   }],
-    //['SL', 'PF', 'BUY','SELL',],
+    //['CE', 'PF', 'BUY','SELL',],
   equity_script:{  type:  String,},
       active_value:{
         type: Number, 

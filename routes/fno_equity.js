@@ -12,7 +12,7 @@ const {
 
  
  
- router.post("/admin/addTrade", add_fnoEquity);
+ router.post("/admin/add_fnoEquity", add_fnoEquity);
  router.get("/admin/fnoEquity_list", fnoEquity_list);
  router.get("/admin/getone_fnoEquity/:id", getone_fnoEquity);
  router.post("/admin/edit_fnoEquity/:id", edit_fnoEquity);
