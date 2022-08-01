@@ -1,4 +1,4 @@
-const FnoIndex = require("../models/alltrade");
+const FnoIndex = require("../models/fno_index");
 const resp = require("../helpers/apiResponse");
 
 exports.add_fnoIndex= async (req, res) => {
