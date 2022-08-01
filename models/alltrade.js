@@ -14,6 +14,12 @@ const thisSchema = new Schema(
       active_value:{
         type: Number, 
        },
+       script_name:
+        { type: mongoose.Schema.Types.ObjectId, ref: "script" },
+       
+       tip:{
+        type : String,
+       },
        call_type:{
         type: String, 
        },
@@ -45,9 +51,7 @@ const thisSchema = new Schema(
        qty_of_lots:{
         type : Number,
        },
-       script_name:{
-        type : String,
-       }
+       
       },
      
     { timestamps: true }

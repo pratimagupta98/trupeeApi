@@ -3,12 +3,14 @@ const resp = require("../helpers/apiResponse");
 
 exports.addTrade= async (req, res) => {
     
-    const { equity_script,active_value,call_type,intraday,SL,T1,T2,T3,T4,qty,investment_amt,qty_of_lots,script_name } = req.body;
+    const { equity_script,script_name,active_value,call_type,intraday,SL,T1,T2,T3,T4,qty,investment_amt,qty_of_lots } = req.body;
 
 
   
   const newAlltrade = new Alltrade({
     equity_script: equity_script,
+    script_name:script_name,
+    tip:tip,
     active_value:active_value,
     call_type:call_type,
     intraday :intraday,
@@ -20,8 +22,7 @@ exports.addTrade= async (req, res) => {
     qty:qty,
     investment_amt:investment_amt,
     qty_of_lots:qty_of_lots,
-    script_name:script_name
-
+ 
   });
  
     newAlltrade
