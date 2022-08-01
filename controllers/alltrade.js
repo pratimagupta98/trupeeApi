@@ -23,10 +23,7 @@ exports.addTrade= async (req, res) => {
     script_name:script_name
 
   });
-//   const findexist = await Discount.findOne({ title: title });
-//   if (findexist) {
-//     resp.alreadyr(res);
-//   } else {
+ 
     newAlltrade
       .save()
       .then((data) => resp.successr(res, data))
@@ -35,15 +32,15 @@ exports.addTrade= async (req, res) => {
 
 
 
-exports.discount_list = async (req, res) => {
-    await Discount.find()
+exports.tradelist = async (req, res) => {
+    await Alltrade.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.viewone_discount = async (req, res) => {
-    await Discount.findOne({ _id: req.params.id })
+  exports.getone_tradelist = async (req, res) => {
+    await Alltrade.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };

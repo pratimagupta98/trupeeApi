@@ -4,14 +4,16 @@ const router = express.Router();
 
 const {
     addTrade,
+    tradelist,
+    getone_tradelist
    
 } = require("../controllers/alltrade");
 
  
  
  router.post("/admin/addTrade", addTrade);
-// router.get("/admin/appriciation_list", appriciation_list);
-// router.get("/admin/dlt_appriciation/:id", dlt_appriciation);
+ router.get("/admin/tradelist", tradelist);
+ router.get("/admin/getone_tradelist/:id", getone_tradelist);
 
 module.exports = router;
 
