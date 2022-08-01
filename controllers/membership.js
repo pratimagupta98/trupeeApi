@@ -155,7 +155,11 @@ exports.updatemembership = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
-
+  exports.dlt_membership = async (req, res) => {
+    await Membership.deleteOne({ _id: req.params.id })
+      .then((data) => resp.deleter(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
 
 // exports.total7sayplan = async (req, res) => {
 //   await membershipplan

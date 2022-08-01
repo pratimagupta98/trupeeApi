@@ -7,7 +7,8 @@ const {
     addmembership,
     allmembership,
     viewonemembership,
-    updatemembership
+    updatemembership,
+    dlt_membership
 
 } = require("../controllers/membership");
 
@@ -20,6 +21,7 @@ const {
 router.get("/admin/allmembership", allmembership);
  router.get("/admin/viewonemembership/:id", viewonemembership);
  router.post("/admin/updatemembership/:id", updatemembership);
+ router.get("/admin/dlt_membership/:id", dlt_membership);
 
 
 module.exports = router;
