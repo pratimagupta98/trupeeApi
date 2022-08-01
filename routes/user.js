@@ -7,7 +7,8 @@ const {
     signupsendotp,
     getuser,
     editprofile,
-    deletuser
+    deletuser,
+    verifyotp
    
 } = require("../controllers/user");
 
@@ -18,6 +19,8 @@ const {
  
 //router.post("/user/setting", tokenverify, setting);
 router.post("/user/signupsendotp", signupsendotp);
+router.post("/user/verifyotp", verifyotp);
+
 router.get("/admin/getuser", getuser);
 router.post("/admin/editprofile/:id", editprofile);
 router.get("/admin/deletuser/:id", deletuser);

@@ -27,11 +27,14 @@ const UserSchema = new Schema(
       city:{
         type: String, 
        },
+       otp:{type:String},
+       userverified:{type:Boolean,default:false},
       //  status:{
       //   type: String,
       //   default:"Deactive"
       //  }
       },
+      
      
     { timestamps: true }
   );
