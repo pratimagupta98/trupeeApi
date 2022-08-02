@@ -35,7 +35,9 @@ const thisSchema = new Schema(
        T3:{
         type: Number,
        },
-      
+      trl:{
+        type: Number,
+      },
        qty:{
         type: Number,
        },
