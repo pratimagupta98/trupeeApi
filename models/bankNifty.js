@@ -22,10 +22,17 @@ const thisSchema = new Schema(
        no_of_lots:{
         type:Number 
        },
-       script_name:{
-        type:String 
-       }
-
+       script_name:
+        { type: mongoose.Schema.Types.ObjectId, ref: "script" },
+        av2:{
+          type:Number
+        },
+trl:{
+  type:Number
+},
+t1:{
+  type:Number
+}
        
       },
      
