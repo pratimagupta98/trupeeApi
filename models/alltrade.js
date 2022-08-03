@@ -10,6 +10,12 @@ const thisSchema = new Schema(
     //     default: ["SL", "PF", "", "canRead"],
     //   }],
     //['CE', 'PF', 'BUY','SELL',],
+    date :{
+      type: String, 
+    },
+    time:{
+      type: String, 
+    },
   equity_script:{  type:  String,},
       active_value:{
         type: Number, 

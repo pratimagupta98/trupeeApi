@@ -3,11 +3,13 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_fnoEquity   = async (req, res) => {
     
-    const { equity_script,script_name,active_value,call_type,SL,T1,T2,T3,T4,qty,investment_amt,no_of_lots } = req.body;
+    const {date,time, equity_script,script_name,active_value,call_type,SL,T1,T2,T3,T4,qty,investment_amt,no_of_lots } = req.body;
 
 
   
   const newFnoEquity = new FnoEquity({
+    date:date,
+    time:time,
     equity_script: equity_script,
     script_name:script_name,
     active_value:active_value,

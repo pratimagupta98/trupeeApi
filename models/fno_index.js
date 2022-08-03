@@ -3,7 +3,12 @@ const Schema = mongoose.Schema;
 const thisSchema = new Schema(
     {
      
-      
+      date :{
+        type: String, 
+      },
+      time:{
+        type: String, 
+      },
      
     //     equity_script: [{
     //     type: String,

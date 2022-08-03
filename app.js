@@ -31,6 +31,8 @@ const fno_index = require("./routes/fno_index")
 const fno_equity = require("./routes/fno_equity")
 const equityCash = require("./routes/equityCash")
 const mem_content = require("./routes/mem_content")
+const bankNifty = require("./routes/bankNifty")
+const nifty = require("./routes/nifty")
 
 
 
@@ -55,6 +57,8 @@ app.use("/", fno_index);
 app.use("/", fno_equity);
 app.use("/", equityCash);
 app.use("/", mem_content);
+app.use("/", bankNifty);
+app.use("/", nifty);
 
 
 
