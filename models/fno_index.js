@@ -19,6 +19,9 @@ const thisSchema = new Schema(
       active_value:{
         type: Number, 
        },
+       active_value2:{
+        type: Number, 
+       },
        script_name:
         { type: mongoose.Schema.Types.ObjectId, ref: "script" },
        
@@ -31,14 +34,27 @@ const thisSchema = new Schema(
        SL:{
         type: Number, 
        },
+       sl_type: {type: Number},
        T1:{
         type: Number,
+       },
+       t1_type:{
+        type: String,
+      default: false
        },
        T2:{
         type: Number,
        },
+       t2_type:{
+        type: String,
+      default: false
+       },
        T3:{
         type: Number,
+       },
+       t3_type:{
+        type: String,
+      default: false
        },
       trl:{
         type: Number,
@@ -61,6 +77,10 @@ const thisSchema = new Schema(
       profit_loss:{
         type : Number,
       },
+      trade_type:{
+        type : String
+      },
+
     },
 
      

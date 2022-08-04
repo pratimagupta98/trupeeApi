@@ -3,36 +3,60 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_fnoIndex= async (req, res) => {
     
-    const {date,time,equity_script,script_name,active_value,call_type,SL,T1,T2,T3,trl,qty,investment_amt,no_of_lots,status,pl_type,profit_loss } = req.body;
+    const {date,time,equity_script,script_name,active_value,call_type,SL,qty,investment_amt,no_of_lots,status,pl_type,profit_loss,trade_type } = req.body;
 
   
-  
-  const newFnoIndex = new FnoIndex({
-    date:date,
-    time:time,
-    equity_script: equity_script,
-    script_name:script_name,
-     
-    active_value:active_value,
-    call_type:call_type,
-    SL:SL,
-    T1:T1,
-    T2:T2,
-    T3:T3,
-    trl:trl,
-     qty:qty,
-    investment_amt:investment_amt,
-    no_of_lots:no_of_lots,
-    status:status,
-    pl_type:pl_type,
-    profit_loss:profit_loss,
+   
+  const getvalue = await FnoIndex.findOne({active_value :active_value})
+  if(getvalue)
+  console.log("STRING",getvalue)
+  let active_value2 = getvalue.active_value
+     let  av2 = parseInt(active_value2) + parseInt(10)
+       console.log(av2)
 
- 
-  });
- 
-  newFnoIndex
+      let trl = parseInt(av2) + parseInt(10)
+  console.log(trl)
+      let  T1 =parseInt (trl) + parseInt(20)
+       console.log(T1)
+       let T2 = parseInt (T1) + parseInt(20)
+       console.log(T2)
+       let T3 = parseInt (T2) + parseInt(20)
+       const newFnoIndex = new FnoIndex({
+        date:date,
+          time:time,
+          equity_script: equity_script,
+          script_name:script_name,
+           
+          active_value:active_value,
+          active_value2:active_value2,
+          call_type:call_type,
+           qty:qty,
+          investment_amt:investment_amt,
+          no_of_lots:no_of_lots,
+          status:status,
+          pl_type:pl_type,
+          profit_loss:profit_loss,
+          trade_type:trade_type,
+          T1:T1,
+          T2:T2,
+          T3:T3,
+          trl:trl,
+          active_value2:av2
+    
+      }); 
+    
+      newFnoIndex
       .save()
-      .then((data) => resp.successr(res, data))
+      .then((data)=>{
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data:data,
+          active_value2 :av2,
+          trl :trl,
+          t1:T1       
+        })
+       })
       .catch((error) => resp.errorr(res, error));
   }
 
