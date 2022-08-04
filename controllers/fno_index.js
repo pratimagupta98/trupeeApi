@@ -3,7 +3,7 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_fnoIndex= async (req, res) => {
     
-    const {date,time,equity_script,script_name,active_value,call_type,SL,T1,T2,T3,trl,qty,investment_amt,no_of_lots,status } = req.body;
+    const {date,time,equity_script,script_name,active_value,call_type,SL,T1,T2,T3,trl,qty,investment_amt,no_of_lots,status,pl_type,profit_loss } = req.body;
 
   
   
@@ -23,7 +23,10 @@ exports.add_fnoIndex= async (req, res) => {
      qty:qty,
     investment_amt:investment_amt,
     no_of_lots:no_of_lots,
-    status:status
+    status:status,
+    pl_type:pl_type,
+    profit_loss:profit_loss,
+
  
   });
  

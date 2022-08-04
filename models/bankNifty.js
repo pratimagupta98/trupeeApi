@@ -25,10 +25,13 @@ const thisSchema = new Schema(
        script_name:
         { type: mongoose.Schema.Types.ObjectId, ref: "script" },
         av2:{
-          type:Number
+          type:Number,
+          
         },
+       
 trl:{
-  type:Number
+  type:Number,
+  
 },
 t1:{
   type:Number

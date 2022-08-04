@@ -54,7 +54,15 @@ const thisSchema = new Schema(
        },
        status: { type: String,
         default:"Active" },
+    
+      pl_type:{
+        type: String,
       },
+      profit_loss:{
+        type : Number,
+      },
+    },
+
      
     { timestamps: true }
   );

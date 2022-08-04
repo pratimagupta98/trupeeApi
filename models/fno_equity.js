@@ -14,6 +14,9 @@ const thisSchema = new Schema(
       active_value:{
         type: Number, 
        },
+       active_value2:{
+        type:Number
+       },
        script_name:
         { type: mongoose.Schema.Types.ObjectId, ref: "script" },
        
@@ -74,7 +77,12 @@ const thisSchema = new Schema(
        },
        status: { type: String,
         default:"Active" },
-       
+        pl_type:{
+          type: String,
+        },  //Profit , Loss
+        profit_loss:{
+          type : String,
+        },
       },
      
     { timestamps: true }

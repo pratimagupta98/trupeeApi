@@ -3,7 +3,7 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_equityCash   = async (req, res) => {
     
-    const {date,time, equity_script,script_name,active_value,call_type,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_type,qty,investment_amt,no_of_lots } = req.body;
+    const {date,time, equity_script,script_name,active_value,active_value2,call_type,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_type,qty,investment_amt,no_of_lots,pl_type,profit_loss } = req.body;
 
 
   
@@ -14,6 +14,7 @@ exports.add_equityCash   = async (req, res) => {
     equity_script: equity_script,
     script_name:script_name,
     active_value:active_value,
+    active_value2:active_value2,
     call_type:call_type,
     SL:SL,
     sl_type:sl_type,
@@ -27,6 +28,8 @@ exports.add_equityCash   = async (req, res) => {
     qty:qty,
     investment_amt:investment_amt,
     no_of_lots:no_of_lots,
+    pl_type:pl_type,
+    profit_loss:profit_loss
  
   });
  

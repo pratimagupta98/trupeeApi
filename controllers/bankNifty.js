@@ -4,17 +4,7 @@ const resp = require("../helpers/apiResponse");
 exports.addBankNifty = async (req, res) => {
   const { equityScript,active_value,call_type,qty ,investment_amt,no_of_lots,script_name} = req.body;
 
-  const newBankNifty = new BankNifty({
-    equityScript: equityScript,
-    active_value:active_value,
-    call_type:call_type,
-    qty:qty,
-    investment_amt:investment_amt,
-    no_of_lots:no_of_lots,
-    script_name:script_name
-
-  }); 
-
+ 
   const getvalue = await BankNifty.findOne({active_value :active_value})
   if(getvalue)
   console.log("STRING",getvalue)
@@ -26,6 +16,18 @@ exports.addBankNifty = async (req, res) => {
   console.log(trl)
       let  t1 =parseInt (trl) + parseInt(20)
        console.log(t1)
+       const newBankNifty = new BankNifty({
+        equityScript: equityScript,
+        active_value:active_value,
+        call_type:call_type,
+        qty:qty,
+        investment_amt:investment_amt,
+        no_of_lots:no_of_lots,
+        script_name:script_name,
+        
+    
+      }); 
+    
     newBankNifty
       .save()
       .then((data)=>{
