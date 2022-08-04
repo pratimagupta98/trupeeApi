@@ -30,17 +30,37 @@ const thisSchema = new Schema(
        SL:{
         type: Number, 
        },
+       sl_type:{
+        type: Boolean,
+    //  default: false
+       },
        T1:{
         type: Number,
+       },
+       t1_type:{
+        type: Boolean,
+     // default: false
        },
        T2:{
         type: Number,
        },
+       t2_type:{
+        type: Boolean,
+       // default: false
+       },
        T3:{
         type: Number,
        },
+       t3_type:{
+        type: Boolean,
+     // default: false
+       },
        T4:{
         type: Number,
+       },
+       t4_type:{
+        type: Boolean,
+      //  default: false
        },
        qty:{
         type: Number,
