@@ -2,7 +2,17 @@ const User = require("../models/user");
 const resp = require("../helpers/apiResponse");
 const jwt = require("jsonwebtoken");
 const key = "verysecretkey";
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
 
+ const bcrypt = require("bcrypt");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 exports.signupsendotp = async (req, res) => {
