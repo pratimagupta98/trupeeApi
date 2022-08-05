@@ -5,7 +5,16 @@ const UserSchema = new Schema(
       userimg: {
         type: Array,
       },
-      fullname: {
+      firstname: {
+        type: String,
+      },
+      lastname:{
+        type: String,
+      },
+      dob:{
+        type: String,
+      },
+      gender:{
         type: String,
       },
       email: {
@@ -21,12 +30,12 @@ const UserSchema = new Schema(
         type: String,
       },
       
-      address:{
-        type: String,
-      },
-      city:{
-        type: String, 
-       },
+      // address:{
+      //   type: String,
+      // },
+      // city:{
+      //   type: String, 
+      //  },
        otp:{type:String},
        userverified:{type:Boolean,default:false},
       //  status:{
