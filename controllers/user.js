@@ -22,6 +22,7 @@ exports.signupsendotp = async (req, res) => {
       msg: "Welcome Back Otp send successfully",
       registered: findexist?.mobile,
       _id: findexist?._id,
+       
       otp: otp,
     });
   } else {
@@ -34,6 +35,7 @@ exports.signupsendotp = async (req, res) => {
           msg: "Otp send successfully",
           registered: data?.mobile,
           _id: data?._id,
+          userId: data._id,
           otp: otp,
         })
       )
@@ -58,11 +60,12 @@ exports.verifyotp = async (req, res) => {
           {
             userId: getuser._id,
           },
-          key,
+          process.env.TOKEN_SECRET,
           {
             expiresIn: "365d",
           }
         );
+        
         await User.findOneAndUpdate(
           {
             _id: getuser._id,
@@ -70,12 +73,14 @@ exports.verifyotp = async (req, res) => {
           { $set: { userverified: true } },
           { new: true }
         ).then((data) => {
-          res.json({
+          res.header("auth-token",token).status(200).send({
             status: "success",
             token: token,
             msg: "Welcome Back",
             otpverified: true,
             redirectto: "dashboard",
+            _id: data?._id,
+            userId: data._id,
             data: data,
           });
         });
@@ -144,6 +149,12 @@ exports.getuser = async (req, res) => {
   await User.find().sort({ createdAt: -1 })
 
     .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+exports.viewoneuser = async (req, res) => {
+  await User.findOne({ _id: req.userId})
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
