@@ -3,7 +3,7 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_fnoIndex= async (req, res) => {
     
-    const {date,time,equity_script,script_name,active_value,call_type,SL,qty,investment_amt,no_of_lots,status,pl_type,profit_loss,trade_type } = req.body;
+    const {date,time,equity_script,script_name,active_value,call_type,qty,investment_amt,no_of_lots,status,pl_type,profit_loss,trade_type } = req.body;
 
   
    
@@ -13,7 +13,7 @@ exports.add_fnoIndex= async (req, res) => {
   let active_value2 = getvalue.active_value
      let  av2 = parseInt(active_value2) + parseInt(10)
        console.log(av2)
-
+           let SL = parseInt(active_value2) -20
       let trl = parseInt(av2) + parseInt(10)
   console.log(trl)
       let  T1 =parseInt (trl) + parseInt(20)
@@ -40,6 +40,7 @@ exports.add_fnoIndex= async (req, res) => {
           T1:T1,
           T2:T2,
           T3:T3,
+          SL:SL,
           trl:trl,
           active_value2:av2
     
@@ -54,7 +55,10 @@ exports.add_fnoIndex= async (req, res) => {
           data:data,
           active_value2 :av2,
           trl :trl,
-          t1:T1       
+          t1:T1   ,
+          t2:T2,
+          t3:T3,
+          sl:SL    
         })
        })
       .catch((error) => resp.errorr(res, error));
