@@ -33,6 +33,7 @@ const equityCash = require("./routes/equityCash")
 const mem_content = require("./routes/mem_content")
 const bankNifty = require("./routes/bankNifty")
 const nifty = require("./routes/nifty")
+const trending_charts = require("./routes/trending_charts")
 
 
 
@@ -59,6 +60,7 @@ app.use("/", equityCash);
 app.use("/", mem_content);
 app.use("/", bankNifty);
 app.use("/", nifty);
+app.use("/", trending_charts);
 
 
 

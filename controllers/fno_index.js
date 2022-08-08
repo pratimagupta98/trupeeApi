@@ -7,8 +7,9 @@ exports.add_fnoIndex= async (req, res) => {
 
   
    
-  const getvalue = await FnoIndex.findOne({active_value :active_value})
+  const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
   if(getvalue)
+
   console.log("STRING",getvalue)
   let active_value2 = getvalue.active_value
      let  av2 = parseInt(active_value2) + parseInt(10)
@@ -21,6 +22,7 @@ exports.add_fnoIndex= async (req, res) => {
        let T2 = parseInt (T1) + parseInt(20)
        console.log(T2)
        let T3 = parseInt (T2) + parseInt(20)
+       
        const newFnoIndex = new FnoIndex({
         date:date,
           time:time,
@@ -45,7 +47,7 @@ exports.add_fnoIndex= async (req, res) => {
           active_value2:av2
     
       }); 
-    
+  
       newFnoIndex
       .save()
       .then((data)=>{
@@ -62,7 +64,8 @@ exports.add_fnoIndex= async (req, res) => {
         })
        })
       .catch((error) => resp.errorr(res, error));
-  }
+  
+}
 
 
 
