@@ -5,7 +5,7 @@ const thisSchema = new Schema(
 
 
     //['CE', 'PF', 'BUY','SELL',],
-    equity_script: { type: String, },
+    script_type: { type: String, },
     active_value: {
       type: Number,
     },
