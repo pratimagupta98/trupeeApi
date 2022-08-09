@@ -76,6 +76,8 @@ const thisSchema = new Schema(
         type : Number,
        },
        status: { type: String,
+        status: { type: String,
+          default:"Deactive" },
         default:"Active" },
         pl_type:{
           type: String,
