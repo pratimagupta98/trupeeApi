@@ -33,7 +33,7 @@ exports.add_fnoIndex= async (req, res) => {
        
         losspr = (loss*100)/req.body.investment_amt
        console.log("LOSS PERCENTAGE",losspr +'%')
-      }else if(valuetype.pl_type == "Profit"){
+      }else if( req.body.pl_type == "Profit"){
        profit = parseInt(req.body.profit_loss_amt) - parseInt(req.body.investment_amt)
        console.log("PROFIT", profit)
 
