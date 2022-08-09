@@ -84,11 +84,11 @@ const thisSchema = new Schema(
     },
     loss: {
       type: Number,
-      default: "0"
+       
     },
     losspr: {
       type: Number,
-      default: "0"
+      
     },
     profit: {
       type: Number
