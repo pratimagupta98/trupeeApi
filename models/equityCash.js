@@ -77,7 +77,7 @@ const thisSchema = new Schema(
         pl_type:{
           type: String,
         },
-        profit_loss:{
+        profit_loss_amt:{
           type : Number,
         },
         expiryDate: {
