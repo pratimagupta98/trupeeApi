@@ -3,7 +3,7 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_equityCash = async (req, res) => {
 
-  const { script_type, script_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, qty, investment_amt, no_of_lots, pl_type, profit_loss } = req.body;
+  const { script_type, script_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type,t5,t5_type, qty, investment_amt, no_of_lots, pl_type, profit_loss } = req.body;
 
 
 
