@@ -53,7 +53,8 @@ const thisSchema = new Schema(
       type: Number,
     },
     t3_type: {
-      type: false
+      type: String,
+      default: false
     },
 
     T4: {
