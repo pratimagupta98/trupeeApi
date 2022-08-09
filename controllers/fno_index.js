@@ -97,14 +97,14 @@ exports.add_fnoIndex= async (req, res) => {
 
 
 exports.fnoIndexlist = async (req, res) => {
-    await FnoIndex.find().populate("script_name")
+    await FnoIndex.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getone_fnoIndex = async (req, res) => {
-    await FnoIndex.findOne({ _id: req.params.id }).populate("script_name")
+    await FnoIndex.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };

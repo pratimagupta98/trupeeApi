@@ -43,14 +43,14 @@ exports.add_fnoEquity   = async (req, res) => {
 
 
 exports.fnoEquity_list = async (req, res) => {
-    await FnoEquity.find().populate("script_name")
+    await FnoEquity.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getone_fnoEquity = async (req, res) => {
-    await FnoEquity.findOne({ _id: req.params.id }).populate("script_name")
+    await FnoEquity.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
