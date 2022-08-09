@@ -2,13 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const thisSchema = new Schema(
     {
-      date :{
-        type: String, 
-      },
-      time:{
-        type: String, 
-      },
-  equity_script:{  type:  String,},
+      
+      script_type: { type: String, },
+     
      //['CE', 'PF', 'BUY','SELL',],
       active_value:{
         type: Number, 
@@ -17,8 +13,10 @@ const thisSchema = new Schema(
         type:Number
        },
        script_name:
-        { type: mongoose.Schema.Types.ObjectId, ref: "script" },
-       
+       // { type: mongoose.Schema.Types.ObjectId, ref: "script" },
+       {
+        type: String, 
+       },
        call_type:{
         type: String, 
        },
@@ -58,6 +56,13 @@ const thisSchema = new Schema(
         type: String,
         default: false
        },
+       t5:{
+        type: Number,
+       },
+       t5_type:{
+        type: String,
+        default: false
+       },
        qty:{
         type: Number,
        },
@@ -74,6 +79,9 @@ const thisSchema = new Schema(
         },
         profit_loss:{
           type : Number,
+        },
+        expiryDate: {
+          type: String
         },
        
       },
