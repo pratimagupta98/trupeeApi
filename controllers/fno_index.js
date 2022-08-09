@@ -7,14 +7,14 @@ exports.add_fnoIndex= async (req, res) => {
 
   
    
-  const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
-  if(getvalue)
+  // const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
+  // if(getvalue)
 
-  console.log("STRING",getvalue)
-  let active_value2 = getvalue.active_value
-     let  av2 = parseInt(active_value2) + parseInt(10)
+  // console.log("STRING",getvalue)
+// let active_value2 = active_value
+     let  av2 = parseInt(req.body.active_value) + parseInt(10)
        console.log(av2)
-           let SL = parseInt(active_value2) -20
+           let SL = parseInt(req.body.active_value) -20
       let trl = parseInt(av2) + parseInt(10)
   console.log(trl)
       let  T1 =parseInt (trl) + parseInt(20)
@@ -24,10 +24,10 @@ exports.add_fnoIndex= async (req, res) => {
        let T3 = parseInt (T2) + parseInt(20)
   
 
-      const valuetype = await FnoIndex.findOne({pl_type:req.body.pl_type})
+    //  const valuetype = await FnoIndex.findOne({pl_type:req.body.pl_type})
    //   console.log("dffrgtf",valuetype)
-      if(valuetype.pl_type == 'Loss'){
-        console.log("STRING",valuetype)
+      if(req.body.pl_type == 'Loss'){
+       
         loss = parseInt(req.body.investment_amt) - parseInt(req.body.profit_loss)
        console.log("LOSS", loss)
        
@@ -46,7 +46,7 @@ exports.add_fnoIndex= async (req, res) => {
           script_name:script_name,
            
           active_value:active_value,
-          active_value2:active_value2,
+          active_value2:av2,
           call_type:call_type,
            qty:qty,
           investment_amt:investment_amt,
