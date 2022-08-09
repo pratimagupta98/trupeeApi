@@ -53,7 +53,7 @@ exports.add_fnoIndex= async (req, res) => {
           no_of_lots:no_of_lots,
           status:status,
           pl_type:pl_type,
-          profit_loss:profit_loss,
+          profit_loss_amt:profit_loss_amt,
           trade_type:trade_type,
           T1:T1,
           T2:T2,
