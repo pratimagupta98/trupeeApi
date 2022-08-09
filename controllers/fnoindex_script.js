@@ -1,7 +1,7 @@
 const FnoScript = require("../models/fnoindex_script");
 const resp = require("../helpers/apiResponse");
 
-exports.addFeedback = async (req, res) => {
+exports.addFnoScript = async (req, res) => {
   const { scriptName,status  } = req.body;
 
   const newFnoScript = new FnoScript({
@@ -21,16 +21,16 @@ exports.addFeedback = async (req, res) => {
 }
 
 
-exports.getFeedback = async (req, res) => {
-    await Feedback.find()
-      .sort({ sortorder: 1 }).populate("userid").populate("script_type")
+exports.getFnoScript = async (req, res) => {
+    await FnoScript.find()
+      .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
 
-  exports.dltFeedback = async (req, res) => {
-    await Feedback.deleteOne({ _id: req.params.id })
+  exports.dltFnoScript = async (req, res) => {
+    await FnoScript.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };

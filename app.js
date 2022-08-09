@@ -34,6 +34,7 @@ const mem_content = require("./routes/mem_content")
 const bankNifty = require("./routes/bankNifty")
 const nifty = require("./routes/nifty")
 const trending_charts = require("./routes/trending_charts")
+const fnoindex_script = require("./routes/fnoindex_script")
 
 
 
@@ -61,6 +62,7 @@ app.use("/", mem_content);
 app.use("/", bankNifty);
 app.use("/", nifty);
 app.use("/", trending_charts);
+app.use("/", fnoindex_script);
 
 
 
