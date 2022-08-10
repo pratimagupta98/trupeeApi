@@ -38,6 +38,7 @@ const fnoindex_script = require("./routes/fnoindex_script")
 const fnoequity_script = require("./routes/fnoequity_script")
 const cash_script = require("./routes/cash_script")
 const opportunity = require("./routes/opportunity")
+const prformncesheet = require("./routes/prformncesheet")
 
  
 //use
@@ -68,6 +69,7 @@ app.use("/", fnoequity_script);
 
 app.use("/", cash_script);
 app.use("/", opportunity);
+app.use("/", prformncesheet);
 
 
 app.get("/", (req, res) => {
