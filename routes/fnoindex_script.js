@@ -5,8 +5,8 @@ const router = express.Router();
 const {
     addFnoScript,
     getFnoScript,
-    getone_fnoIndex,
-    edit_fnoIndex,
+    getoneFnoScript,
+    editFnoScript,
     dltFnoScript
 } = require("../controllers/fnoindex_script");
 
@@ -14,8 +14,8 @@ const {
  
  router.post("/admin/addFnoScript", addFnoScript);
  router.get("/admin/getFnoScript", getFnoScript);
- //router.get("/admin/getone_fnoIndex/:id", getone_fnoIndex);
- //router.post("/admin/edit_fnoIndex/:id", edit_fnoIndex);
+ router.get("/admin/getoneFnoScript/:id", getoneFnoScript);
+ router.post("/admin/editFnoScript/:id", editFnoScript);
  router.get("/admin/dltFnoScript/:id", dltFnoScript);
 
 module.exports = router;
