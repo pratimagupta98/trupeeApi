@@ -13,7 +13,7 @@ const thisSchema = new Schema(
         type:Number
        },
        script_name:
-        { type: mongoose.Schema.Types.ObjectId, ref: "cash_script" },
+        { type: mongoose.Schema.Types.ObjectId, ref: "cashScript" },
        
        call_type:{
         type: String, 
