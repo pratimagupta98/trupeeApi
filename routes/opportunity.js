@@ -57,7 +57,7 @@ const storage = multer.diskStorage({
 router.get("/admin/getOportunity", getOportunity);
 router.get("/admin/getoneOportunity/:id", getoneOportunity);
 
-router.post("/admin/editOportunity/:id", editOportunity);
+router.post("/admin/editOportunity/:id",multipleUpload, editOportunity);
 router.get("/admin/dltOportunity/:id", dltOportunity);
 
  
