@@ -28,6 +28,28 @@ exports.getFnoScript = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
+  exports.getoneFnoScript = async (req, res) => {
+    await FnoScript.findOne({ _id: req.params.id })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+  exports.editFnoScript = async (req, res) => {    
+    await FnoScript
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
 
   exports.dltFnoScript = async (req, res) => {
     await FnoScript.deleteOne({ _id: req.params.id })

@@ -13,10 +13,8 @@ const thisSchema = new Schema(
       type: Number,
     },
     script_name:
-    {
-      type: String,
-    },
-    // { type: mongoose.Schema.Types.ObjectId, ref: "script" },
+     
+    { type: mongoose.Schema.Types.ObjectId, ref: "fno_script" },
 
 
     call_type: {

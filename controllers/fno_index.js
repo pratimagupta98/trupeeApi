@@ -97,7 +97,7 @@ exports.add_fnoIndex= async (req, res) => {
 
 
 exports.fnoIndexlist = async (req, res) => {
-    await FnoIndex.find()
+    await FnoIndex.find().populate("script_name")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));

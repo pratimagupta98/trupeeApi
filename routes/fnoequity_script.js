@@ -5,8 +5,8 @@ const router = express.Router();
 const {
     addEquityScript,
     getEquityScript,
-    getone_fnoIndex,
-    edit_fnoIndex,
+    getoneEquityScript,
+    editEquityScript,
     dltEquityScript
 } = require("../controllers/fnoequity_script");
 
@@ -14,8 +14,8 @@ const {
  
  router.post("/admin/addEquityScript", addEquityScript);
  router.get("/admin/getEquityScript", getEquityScript);
- //router.get("/admin/getone_fnoIndex/:id", getone_fnoIndex);
- //router.post("/admin/edit_fnoIndex/:id", edit_fnoIndex);
+ router.get("/admin/getoneEquityScript/:id", getoneEquityScript);
+ router.post("/admin/editEquityScript/:id", editEquityScript);
  router.get("/admin/dltEquityScript/:id", dltEquityScript);
 
 module.exports = router;

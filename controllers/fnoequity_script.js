@@ -27,7 +27,28 @@ exports.getEquityScript = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+  exports.getoneEquityScript = async (req, res) => {
+    await EquityScript.findOne({ _id: req.params.id })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
 
+  exports.editEquityScript = async (req, res) => {    
+    await EquityScript
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
 
   exports.dltEquityScript = async (req, res) => {
     await EquityScript.deleteOne({ _id: req.params.id })
