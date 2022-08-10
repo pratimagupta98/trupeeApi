@@ -7,12 +7,15 @@ const thisSchema = new Schema(
       title:{
         type: String,
       },
-      flat_price:{
-        type: Number, 
+      dis_type:{
+        type: String, 
        },
-       percentage:{
+       //flat,percentage
+       dis_amt:{
         type:String
        },
+       plan:{ type: Schema.Types.ObjectId, ref: "plan" },
+       userid:{ type: Schema.Types.ObjectId, ref: "user" },
        code:{
         type :String
        },

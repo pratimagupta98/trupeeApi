@@ -2,7 +2,7 @@ const Discount = require("../models/discount");
 const resp = require("../helpers/apiResponse");
 
 exports.add_discount= async (req, res) => {
-  const { title,flat_price,percentage,code,startdate,expdate } = req.body;
+  const { title,dis_type,dis_amt,plan,userid, code,startdate,expdate } = req.body;
 
 
   create_random_string(6);
@@ -19,8 +19,10 @@ exports.add_discount= async (req, res) => {
   }
   const newDiscount = new Discount({
     title: title,
-    flat_price:flat_price,
-    percentage:percentage,
+    dis_type:dis_type,
+    dis_amt:dis_amt,
+    plan :plan,
+    userid:userid,
     code :random_string,
     startdate:startdate,
     expdate:expdate
@@ -38,14 +40,14 @@ exports.add_discount= async (req, res) => {
 
 
 exports.discount_list = async (req, res) => {
-    await Discount.find()
+    await Discount.find().populate("plan").populate("userid")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.viewone_discount = async (req, res) => {
-    await Discount.findOne({ _id: req.params.id })
+    await Discount.findOne({ _id: req.params.id }).populate("plan").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
