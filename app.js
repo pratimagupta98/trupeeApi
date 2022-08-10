@@ -35,6 +35,7 @@ const bankNifty = require("./routes/bankNifty")
 const nifty = require("./routes/nifty")
 const trending_charts = require("./routes/trending_charts")
 const fnoindex_script = require("./routes/fnoindex_script")
+const fnoequity_script = require("./routes/fnoequity_script")
 
 
 
@@ -63,8 +64,9 @@ app.use("/", bankNifty);
 app.use("/", nifty);
 app.use("/", trending_charts);
 app.use("/", fnoindex_script);
+app.use("/", fnoequity_script);
 
-
+ 
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
