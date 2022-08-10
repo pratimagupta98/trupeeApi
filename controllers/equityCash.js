@@ -43,7 +43,7 @@ exports.add_equityCash = async (req, res) => {
 
 
 exports.equityCash_list = async (req, res) => {
-  await EquityCash.find()
+  await EquityCash.find().populate("script_name")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
