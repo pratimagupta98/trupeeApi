@@ -37,8 +37,9 @@ const trending_charts = require("./routes/trending_charts")
 const fnoindex_script = require("./routes/fnoindex_script")
 const fnoequity_script = require("./routes/fnoequity_script")
 
+const cash_script = require("./routes/cash_script")
 
-
+ 
  
 //use
 app.use("/", user);
@@ -66,7 +67,8 @@ app.use("/", trending_charts);
 app.use("/", fnoindex_script);
 app.use("/", fnoequity_script);
 
- 
+app.use("/", cash_script);
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");

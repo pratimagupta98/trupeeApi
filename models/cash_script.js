@@ -17,4 +17,4 @@ const thisSchema = new Schema(
 );
 
 
-module.exports = mongoose.model("cash_script", thisSchema);
+module.exports = mongoose.model("cashScript", thisSchema);
