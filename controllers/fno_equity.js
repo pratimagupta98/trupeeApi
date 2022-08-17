@@ -42,7 +42,7 @@ exports.add_fnoEquity   = async (req, res) => {
 
 
 
-exports.fnoEquity_list = async (req, res) => {
+exports.fnoEquity_listt = async (req, res) => {
     await FnoEquity.find().populate("script_name")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))

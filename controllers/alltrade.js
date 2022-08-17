@@ -196,14 +196,14 @@ exports.fnoIndexlist = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-exports.fno_equity_list = async (req, res) => {
+exports.fnoEquity_list = async (req, res) => {
   await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 
-exports.equity_Cash_list = async (req, res) => {
+exports.equityCash_list = async (req, res) => {
   await Alltrade.find({type : "Cash"}).populate("cash_scrpt_name")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))

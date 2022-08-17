@@ -8,8 +8,8 @@ const {
     add_equityCash,
     tradelist,
     fnoIndexlist,
-    fno_equity_list,
-    equity_Cash_list,
+    fnoEquity_list,
+    equityCash_list,
     getone_tradelist,
     edit_trade,
     dlt_trade
@@ -23,8 +23,8 @@ const {
 
  router.get("/admin/tradelist", tradelist);
  router.get("/admin/fnoIndexlist", fnoIndexlist);
- router.get("/admin/fno_equity_list", fno_equity_list);
- router.get("/admin/equity_Cash_list", equity_Cash_list);
+ router.get("/admin/fnoEquity_list", fnoEquity_list);
+ router.get("/admin/equityCash_list", equityCash_list);
 
 //  router.get("/admin/getone_tradelist/:id", getone_tradelist);
 //  router.post("/admin/edit_trade/:id", edit_trade);
