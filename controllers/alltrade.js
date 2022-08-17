@@ -189,7 +189,7 @@ exports.tradelist = async (req, res) => {
 };
 
 
-exports.fno_index_list = async (req, res) => {
+exports.fnoIndexlist = async (req, res) => {
   await Alltrade.find({type : "Index"}).populate("fnoindex_scrpt_name")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))

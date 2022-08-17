@@ -239,6 +239,7 @@ exports.myprofile = async (req, res) => {
     let hashPassword = await bcrypt.hash(password, salt);
     data.password = hashPassword;
   }
+  
   if (cnfmPassword) {
     const salt = await bcrypt.genSalt(10);
     let hashPassword = await bcrypt.hash(password, salt);
@@ -304,6 +305,7 @@ const type = detectMimeType(userimg);
 //       data.userimg = alluploads;
 //     }
   //}
+
   await User.findOneAndUpdate(
     {
       _id: req.userId,

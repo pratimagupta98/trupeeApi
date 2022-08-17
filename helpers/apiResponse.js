@@ -1,5 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
+const fs = require('fs');
 
 dotenv.config();
 cloudinary.config({
@@ -8,6 +9,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+
+// const s3 = new AWS.S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
 
 exports.alreadyr = function (res) {
     var data = {
@@ -82,10 +88,10 @@ exports.alreadyr = function (res) {
     };
     console.log(params,"%%%%%%%%%%%%");
     // Uploading files to the bucket
-    return new Promise(function(resolve, reject) {
-        //fileStream.once('error', reject);
-        cloudinary.uploader.upload(params).promise().then(resolve, reject);
-    });
+    // return new Promise(function(resolve, reject) {
+    //     //fileStream.once('error', reject);
+    //     cloudinary.uploader.upload(params).promise().then(resolve, reject);
+    // });
     }catch(e){
       throw e;  
     }

@@ -7,7 +7,7 @@ const {
     add_fnoEquity,
     add_equityCash,
     tradelist,
-    fno_index_list,
+    fnoIndexlist,
     fno_equity_list,
     equity_Cash_list,
     getone_tradelist,
@@ -22,7 +22,7 @@ const {
  router.post("/admin/add_equityCash", add_equityCash);
 
  router.get("/admin/tradelist", tradelist);
- router.get("/admin/fno_index_list", fno_index_list);
+ router.get("/admin/fnoIndexlist", fnoIndexlist);
  router.get("/admin/fno_equity_list", fno_equity_list);
  router.get("/admin/equity_Cash_list", equity_Cash_list);
 
