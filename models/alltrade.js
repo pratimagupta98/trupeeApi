@@ -106,7 +106,8 @@ const thisSchema = new Schema(
       type: String
     },
 type :{
-  type: String
+  type: String,
+  required:true
   //Fno,Equity,Cash
 },
   },

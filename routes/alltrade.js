@@ -12,7 +12,7 @@ const {
     equityCash_list,
     getone_tradelist,
     edit_trade,
-    dlt_trade
+    dlt_alltrade
 } = require("../controllers/alltrade");
 
  
@@ -28,7 +28,7 @@ const {
 
 //  router.get("/admin/getone_tradelist/:id", getone_tradelist);
 //  router.post("/admin/edit_trade/:id", edit_trade);
-//  router.get("/admin/dlt_trade/:id", dlt_trade);
+  router.get("/admin/dlt_alltrade/:id", dlt_alltrade);
 
 module.exports = router;
-
+ 
