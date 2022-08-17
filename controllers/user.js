@@ -5,6 +5,7 @@ const key = "verysecretkey";
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 const fs = require("fs");
+const { uploadBase64ImageFile } = require("../helpers/apiResponse");
 
  const bcrypt = require("bcrypt");
 dotenv.config();
@@ -13,6 +14,21 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+var signatures = {
+  JVBERi0: "application/pdf",
+  R0lGODdh: "image/gif",
+  R0lGODlh: "image/gif",
+  iVBORw0KGgo: "image.png",
+  "/9j/": "image.jpg"
+};
+
+function detectMimeType(b64) {
+  for (var s in signatures) {
+    if (b64.indexOf(s) === 0) {
+      return signatures[s];
+    }
+  }
+}
 
 
 exports.signupsendotp = async (req, res) => {
@@ -98,7 +114,7 @@ exports.verifyotp = async (req, res) => {
         if (!getuser.userverified) {
           const token = jwt.sign(
             {
-              userId: getuser._id,
+              id: getuser._id,
             },
             key,
             {
@@ -117,6 +133,7 @@ exports.verifyotp = async (req, res) => {
             msg: "Continue signup",
             otpverified: true,
             redirectto: "signupdetail",
+            _id: getuser._id,
           });
         }
       }
@@ -164,10 +181,11 @@ exports.getuser = async (req, res) => {
 };
 
 exports.viewoneuser = async (req, res) => {
-  await User.findOne({ _id: req.userId})
+  await User.findOne({ userId: req.userId})
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
 exports.editprofile = async (req, res) => {
   const findandUpdateEntry = await User.findOneAndUpdate(
     {
@@ -192,7 +210,7 @@ exports.editprofile = async (req, res) => {
   }
 };
 exports.myprofile = async (req, res) => {
-  const { firstname,lastname,gender, dob,email, mobile, password, cnfmPassword } = req.body;
+  const { firstname,lastname,gender, dob,email, mobile, password, cnfmPassword,userimg } = req.body;
   // const salt = await bcrypt.genSalt(10);
   // const hashPassword = await bcrypt.hash(password, salt);
   data = {};
@@ -228,22 +246,64 @@ exports.myprofile = async (req, res) => {
   }
  
 
-  if (req.files) {
-    if (req.files.userimg) {
-      alluploads = [];
-      for (let i = 0; i < req.files.userimg.length; i++) {
-        // console.log(i);
-        const resp = await cloudinary.uploader.upload(req.files.userimg[i].path, {
-          use_filename: true,
-          unique_filename: false,
-        });
-        fs.unlinkSync(req.files.userimg[i].path);
-        alluploads.push(resp.secure_url);
-      }
-      // newStore.storeImg = alluploads;
-      data.userimg = alluploads;
-    }
- }
+//   if (userimg) {
+//     //if (req.files.userimg) {
+
+//       alluploads = [];
+//       const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
+// detectMimeType(base64Data);
+// const type = detectMimeType(userimg);
+//    // console.log(newCourse,"@@@@@");
+//    const geturl = await uploadBase64ImageFile(
+//     base64Data,
+//     newUser.id,
+//    type
+//   );
+//   console.log(geturl,"&&&&");
+//   if (geturl) {
+//     newUser.userimg = geturl.Location;
+   
+//     //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+//   }
+// }
+//$$$$$$$$$$$$
+if(userimg){
+  if(userimg){
+const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
+detectMimeType(base64Data);
+const type = detectMimeType(userimg);
+   // console.log(newCourse,"@@@@@");
+   const geturl = await uploadBase64ImageFile(
+    base64Data,
+    //newUser.id,
+   type
+  );
+  console.log( "&&&&",geturl);
+  if (geturl) {
+    console.log( "&&&&",geturl);
+    newUser.userimg = geturl.Location;
+   
+    //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+  }
+}
+
+  
+}
+
+////////############
+//       for (let i = 0; i < req.files.userimg.length; i++) {
+//         // console.log(i);
+//         const resp = await cloudinary.uploader.upload(req.files.userimg[i].path, {
+//           use_filename: true,
+//           unique_filename: false,
+//         });
+//         fs.unlinkSync(req.files.userimg[i].path);
+//         alluploads.push(resp.secure_url);
+//       }
+//       // newStore.storeImg = alluploads;
+//       data.userimg = alluploads;
+//     }
+  //}
   await User.findOneAndUpdate(
     {
       _id: req.userId,
