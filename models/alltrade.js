@@ -107,7 +107,7 @@ const thisSchema = new Schema(
     },
 type :{
   type: String,
-  required:true
+ // required:true
   //Fno,Equity,Cash
 },
   },
