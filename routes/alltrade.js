@@ -10,7 +10,7 @@ const {
     fnoIndexlist,
     fnoEquity_list,
     equityCash_list,
-    getone_tradelist,
+    viewonetrades,
     editalltrade,
     dlt_alltrade
 } = require("../controllers/alltrade");
@@ -26,7 +26,7 @@ const {
  router.get("/admin/fnoEquity_list", fnoEquity_list);
  router.get("/admin/equityCash_list", equityCash_list);
 
-//  router.get("/admin/getone_tradelist/:id", getone_tradelist);
+ router.get("/admin/viewonetrades/:id", viewonetrades);
   router.post("/admin/editalltrade/:id", editalltrade);
   router.get("/admin/dlt_alltrade/:id", dlt_alltrade);
 
