@@ -66,6 +66,10 @@ const thisSchema = new Schema(
     trl: {
       type: Number,
     },
+    trl_type:{
+      type: String,
+      default: false
+    },
     qty: {
       type: Number,
     },
