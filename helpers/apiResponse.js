@@ -98,9 +98,9 @@ exports.alreadyr = function (res) {
   //         res.json(result);
   //     });
  /// cloudinary.uploader.upload(params).promise().then(resolve, reject);
- try {
-  const myCloud = await cloudinary.v2.uploader.upload(params).promise().then(resolve, reject);
-  
+ 
+  const myCloud = await cloudinary.uploader.upload(params).promise().then(resolve, reject);
+  console.log("ttttt",myCloud)
   }catch (error) {
      
   
@@ -113,10 +113,7 @@ exports.alreadyr = function (res) {
     // });
 
     
-    }catch(e){
-      throw e;  
-    }
-    
+   
 };
 
 

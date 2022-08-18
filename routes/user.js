@@ -66,7 +66,7 @@ router.get("/admin/getuser", getuser);
 router.get("/user/viewoneuser",verifytoken, viewoneuser);
 
 router.post("/admin/editprofile/:id", editprofile);
-router.post("/user/myprofile", multipleUpload,verifytoken,myprofile);
+router.post("/user/myprofile/:id", multipleUpload,myprofile);
 //router.post("/user/uploadImageBase64", multipleUpload,verifytoken,uploadImageBase64);
 router.get("/admin/getoneuser/:id", getoneuser);
 

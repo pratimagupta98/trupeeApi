@@ -255,12 +255,13 @@ exports.myprofile = async (req, res) => {
     if(userimg){
   const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
   detectMimeType(base64Data);
+  console.log("^^^^^^",base64Data)
   const type = detectMimeType(userimg);
      // console.log(newCourse,"@@@@@");
      const geturl = await uploadBase64ImageFile(
-      base64Data,
-      data.id,
-     type
+     base64Data,
+     data.id,
+    type
     );
     console.log(geturl,"&&&&");
     if (geturl) {
@@ -269,8 +270,9 @@ exports.myprofile = async (req, res) => {
       //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
     }
   }
-}
-  
+
+ 
+  }
   if (data) {
     await User.findOneAndUpdate(
       {
@@ -282,7 +284,7 @@ exports.myprofile = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-}
+};
 
 ////////############
 //       for (let i = 0; i < req.files.userimg.length; i++) {
