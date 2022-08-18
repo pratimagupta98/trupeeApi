@@ -181,11 +181,15 @@ exports.getuser = async (req, res) => {
 };
 
 exports.viewoneuser = async (req, res) => {
-  await User.findOne({ userId: req.userId})
+  await User.findOne({ _id: req.userId})
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
+exports.getoneuser = async (req, res) => {
+  await User.findOne({ _id: req.params.id})
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 exports.editprofile = async (req, res) => {
   const findandUpdateEntry = await User.findOneAndUpdate(
     {
@@ -246,49 +250,38 @@ exports.myprofile = async (req, res) => {
     data.cnfmPassword = hashPassword;
   }
  
-
-//   if (userimg) {
-//     //if (req.files.userimg) {
-
-//       alluploads = [];
-//       const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
-// detectMimeType(base64Data);
-// const type = detectMimeType(userimg);
-//    // console.log(newCourse,"@@@@@");
-//    const geturl = await uploadBase64ImageFile(
-//     base64Data,
-//     newUser.id,
-//    type
-//   );
-//   console.log(geturl,"&&&&");
-//   if (geturl) {
-//     newUser.userimg = geturl.Location;
-   
-//     //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
-//   }
-// }
-//$$$$$$$$$$$$
-if(userimg){
+  
   if(userimg){
-const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
-detectMimeType(base64Data);
-const type = detectMimeType(userimg);
-   // console.log(newCourse,"@@@@@");
-   const geturl = await uploadBase64ImageFile(
-    base64Data,
-    //newUser.id,
-   type
-  );
-  console.log( "&&&&",geturl);
-  if (geturl) {
-    console.log( "&&&&",geturl);
-    newUser.userimg = geturl.Location;
-   
-    //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+    if(userimg){
+  const base64Data   = new Buffer.from(userimg.replace(/^data:image\/\w+;base64,/, ""),'base64')
+  detectMimeType(base64Data);
+  const type = detectMimeType(userimg);
+     // console.log(newCourse,"@@@@@");
+     const geturl = await uploadBase64ImageFile(
+      base64Data,
+      data.id,
+     type
+    );
+    console.log(geturl,"&&&&");
+    if (geturl) {
+      data.userimg = geturl.Location;
+     
+      //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+    }
   }
 }
-
   
+  if (data) {
+    await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  }
 }
 
 ////////############
@@ -306,24 +299,52 @@ const type = detectMimeType(userimg);
 //     }
   //}
 
-  await User.findOneAndUpdate(
-    {
-      _id: req.userId,
-      //  console.log(req.params._id);
-    },
-    {
-      $set: data,
-    },
-    { new: true }
-  )
+//   await User.findOneAndUpdate(
+//     {
+//       _id: req.userId,
+//       //  console.log(req.params._id);
+//     },
+//     {
+//       $set: data,
+//     },
+//     { new: true }
+//   )
 
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
   
-};
+// };
 
 exports.deletuser = async (req, res) => {
   await User.deleteOne({ _id: req.params.id })
     .then((data) => resp.deleter(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
+
+
+
+const mime = require('mime');
+// exports.uploadImageBase64 = async (req, res, next) => {
+//   // to declare some path to store your converted image
+//   var matches = req.body.userimg.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
+//   response = {};
+   
+//   if (matches.length !== 3) {
+//   return new Error('Invalid input string');
+//   }
+   
+//   response.type = matches[1];
+//   response.data =  Buffer.from(matches[2], 'base64');
+//   let decodedImg = response;
+//   let imageBuffer = decodedImg.data;
+//   let type = decodedImg.type;
+//   let extension = mime.extension(type);
+//   let fileName = "image." + extension;
+//   try {
+//   fs.writeFileSync("./uploads/" + fileName, imageBuffer, 'utf8');
+//   return res.send({"status":"success"});
+//   } catch (e) {
+//   next(e);
+//   }
+//   }

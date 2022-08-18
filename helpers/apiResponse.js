@@ -8,12 +8,14 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+const s3 = {
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+}
 
 
-// const s3 = new AWS.S3({
-//   accessKeyId: process.env.AWS_ACCESS_KEY,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-// });
+ 
 
 exports.alreadyr = function (res) {
     var data = {
@@ -73,7 +75,7 @@ exports.alreadyr = function (res) {
 
 
 
-  exports.uploadBase64ImageFile = (base64Data,fileName,type) => {
+  exports.uploadBase64ImageFile =async (base64Data,fileName,type) => {
     try{
         // Read content from the file
     
@@ -87,11 +89,30 @@ exports.alreadyr = function (res) {
         //ACL: 'public-read',   
     };
     console.log(params,"%%%%%%%%%%%%");
+  //   cloudinary.uploader.upload(params, {
+  //     overwrite: true,
+  //     invalidate: true,
+  //     width: 810, height: 456, crop: "fill"
+  // },
+  //     function (error, result) {
+  //         res.json(result);
+  //     });
+ /// cloudinary.uploader.upload(params).promise().then(resolve, reject);
+ try {
+  const myCloud = await cloudinary.v2.uploader.upload(params).promise().then(resolve, reject);
+  
+  }catch (error) {
+     
+  
+  }
+ // return next(new ErrorHandler(error.message, 500));   }
     // Uploading files to the bucket
     // return new Promise(function(resolve, reject) {
     //     //fileStream.once('error', reject);
     //     cloudinary.uploader.upload(params).promise().then(resolve, reject);
     // });
+
+    
     }catch(e){
       throw e;  
     }
@@ -105,7 +126,7 @@ exports.alreadyr = function (res) {
 
  const mime = require('mime');
 
-exports.uploadImage = async (req, res, next) => {
+exports.uploadImageBase64 = async (req, res, next) => {
   // to declare some path to store your converted image
   var matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
   response = {};
@@ -115,7 +136,7 @@ exports.uploadImage = async (req, res, next) => {
   }
    
   response.type = matches[1];
-  response.data = new Buffer(matches[2], 'base64');
+  response.data =  Buffer.from(matches[2], 'base64');
   let decodedImg = response;
   let imageBuffer = decodedImg.data;
   let type = decodedImg.type;

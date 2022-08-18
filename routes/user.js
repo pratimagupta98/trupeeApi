@@ -11,8 +11,9 @@ const {
     editprofile,
     deletuser,
     verifyotp,
-    myprofile
-   
+    myprofile,
+    uploadImageBase64,
+    getoneuser
 } = require("../controllers/user");
 
  
@@ -66,7 +67,10 @@ router.get("/user/viewoneuser",verifytoken, viewoneuser);
 
 router.post("/admin/editprofile/:id", editprofile);
 router.post("/user/myprofile", multipleUpload,verifytoken,myprofile);
+//router.post("/user/uploadImageBase64", multipleUpload,verifytoken,uploadImageBase64);
+router.get("/admin/getoneuser/:id", getoneuser);
 
 router.get("/admin/deletuser/:id", deletuser);
-
+ 
 module.exports = router;
+ 
