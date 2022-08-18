@@ -2,14 +2,12 @@ const Alltrade = require("../models/alltrade");
 const resp = require("../helpers/apiResponse");
 
 
-
-
 exports.add_fnoIndex= async (req, res) => {
     
   const {script_type,fnoindex_scrpt_name,active_value,call_type,t5,qty,investment_amt,no_of_lots,status,pl_type,profit_loss_amt,trade_type,expiryDate,type } = req.body;
 
 
- 
+
 // const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
 // if(getvalue)
 
@@ -213,5 +211,23 @@ exports.equityCash_list = async (req, res) => {
 exports.dlt_alltrade = async (req, res) => {
   await Alltrade.deleteOne({ _id: req.params.id })
     .then((data) => resp.deleter(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+exports.editalltrade = async (req, res) => {    
+  await Alltrade
+
+    .findOneAndUpdate(
+      {
+        _id: req.params.id,
+        //  console.log(req.params._id);
+      },
+      {
+        $set: req.body,
+      },
+      { new: true }
+    )
+    .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };

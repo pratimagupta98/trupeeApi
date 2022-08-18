@@ -11,7 +11,7 @@ const {
     fnoEquity_list,
     equityCash_list,
     getone_tradelist,
-    edit_trade,
+    editalltrade,
     dlt_alltrade
 } = require("../controllers/alltrade");
 
@@ -27,7 +27,7 @@ const {
  router.get("/admin/equityCash_list", equityCash_list);
 
 //  router.get("/admin/getone_tradelist/:id", getone_tradelist);
-//  router.post("/admin/edit_trade/:id", edit_trade);
+  router.post("/admin/editalltrade/:id", editalltrade);
   router.get("/admin/dlt_alltrade/:id", dlt_alltrade);
 
 module.exports = router;
