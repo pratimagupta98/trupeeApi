@@ -9,7 +9,7 @@ const thisSchema = new Schema(
         type: String,
       },
       plan_price: {
-        type: Number,
+        type: String,
       }
        
       },

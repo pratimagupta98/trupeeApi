@@ -71,10 +71,6 @@ exports.alreadyr = function (res) {
   };
   
 
-
-
-
-
   exports.uploadBase64ImageFile =async (base64Data,fileName,type) => {
     try{
         // Read content from the file
@@ -112,13 +108,7 @@ exports.alreadyr = function (res) {
     //     cloudinary.uploader.upload(params).promise().then(resolve, reject);
     // });
 
-    
-   
 };
-
-
-
-
 
 
  const mime = require('mime');
