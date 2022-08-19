@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const UserSchema = new Schema(
     {
-      userimg: {
-        type: Array,
-      },
+      // userimg: {
+      //   type: Array,
+      // },
       firstname: {
         type: String,
       },
