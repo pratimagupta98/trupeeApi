@@ -39,6 +39,7 @@ const fnoequity_script = require("./routes/fnoequity_script")
 const cash_script = require("./routes/cash_script")
 const opportunity = require("./routes/opportunity")
 const prformncesheet = require("./routes/prformncesheet")
+const user_persheet = require("./routes/user_persheet")
 
  
 //use
@@ -70,6 +71,7 @@ app.use("/", fnoequity_script);
 app.use("/", cash_script);
 app.use("/", opportunity);
 app.use("/", prformncesheet);
+app.use("/", user_persheet);
 
 
 app.get("/", (req, res) => {
