@@ -151,6 +151,10 @@ exports.verifyotp = async (req, res) => {
   }
 };
 
+
+
+
+
 // exports.getuser = async (req, res) => {
 //   const findall = await User.find().sort({
 //     sortorder: 1,

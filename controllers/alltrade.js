@@ -4,10 +4,11 @@ const resp = require("../helpers/apiResponse");
 
 exports.add_fnoIndex= async (req, res) => {
     
-  const {script_type,fnoindex_scrpt_name,active_value,call_type,t5,qty,investment_amt,no_of_lots,status,pl_type,profit_loss_amt,trade_type,expiryDate,type } = req.body;
+  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type } = req.body;
 
 
-
+  investment_amt =  (req.body.no_of_lots)*(req.body.qty)*(req.body.active_value)
+  console.log("InvestAMT",investment_amt)
 // const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
 // if(getvalue)
 
@@ -18,15 +19,21 @@ exports.add_fnoIndex= async (req, res) => {
          let SL = parseInt(req.body.active_value) -20
     let trl = parseInt(av2) + parseInt(10)
 console.log(trl)
-    let  T1 =parseInt (trl) + parseInt(20)
-     console.log(T1)
-     let T2 = parseInt (T1) + parseInt(20)
-     console.log("T2222",T2)
-     let T3 = parseInt (T2) + parseInt(20)
-
+    let  FT1 =parseInt (trl) + parseInt(20)
+     console.log("FT1",FT1)
+     let FT2 = parseInt (FT1) + parseInt(20)
+     console.log("FT2",FT2)
+     let FT3 = parseInt (FT2) + parseInt(20)
+     console.log("FT3",FT2)
 
   //  const valuetype = await FnoIndex.findOne({pl_type:req.body.pl_type})
  //   console.log("dffrgtf",valuetype)
+ const getamt = await Alltrade.findOne({investment_amt:investment_amt})
+ if(getamt){
+  console.log("GETAMT",getamt.investment_amt )
+  invstamt = getamt.investment_amt
+
+ }
     if(req.body.pl_type == 'Loss'){
      
       loss = parseInt(req.body.investment_amt) - parseInt(req.body.profit_loss_amt)
@@ -53,13 +60,11 @@ console.log(trl)
         investment_amt:investment_amt,
         no_of_lots:no_of_lots,
         status:status,
-        pl_type:pl_type,
-        profit_loss_amt:profit_loss_amt,
         trade_type:trade_type,
-        T1:T1,
-        T2:T2,
-        T3:T3,
-        t5:t5,
+        FT1:FT1,
+        FT2:FT2,
+        FT3:FT3,
+        FT5:FT5,
         SL:SL,
         trl:trl,
         active_value2:av2,
@@ -81,10 +86,11 @@ console.log(trl)
         msg: "success",
         data:data,
         active_value2 :av2,
+        investment_amt:investment_amt,
         trl :trl,
-        t1:T1   ,
-        t2:T2,
-        t3:T3,
+        FT1:FT1   ,
+        FT2:FT2,
+        FT3:FT3,
         sl:SL    ,
         loss:loss,
         losspr:losspr,

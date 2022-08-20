@@ -83,13 +83,6 @@ const thisSchema = new Schema(
       type: String,
       default: "Deactive"
     },
-
-    pl_type: {
-      type: String,
-    },
-    profit_loss_amt: {
-      type: Number,
-    },
     trade_type: {
       type: String
     },
@@ -114,6 +107,34 @@ type :{
   type: String,
  // required:true
   //Fno,Equity,Cash
+},
+FT1:{
+  type: Number,
+},
+FT1_type :{
+  type: String,
+  default: false
+},
+FT2:{
+  type: Number,
+},
+FT2_type:{
+  type: String,
+  default: false
+},
+FT3:{
+  type: Number,
+},
+FT3_type:{
+  type: String,
+  default: false
+},
+FT5:{
+  type: Number,
+},
+FT5_type:{
+  type: String,
+  default: false
 },
   },
 
