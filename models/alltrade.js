@@ -90,7 +90,10 @@ const thisSchema = new Schema(
       type: Number,
        
     },
-    losspr: {
+    pl:{
+      type: Number,
+    },
+    pl_per: {
       type: Number,
       
     },

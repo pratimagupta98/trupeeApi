@@ -7,9 +7,11 @@ exports.add_fnoIndex= async (req, res) => {
   const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type } = req.body;
 
 
-  investment_amt =  (req.body.no_of_lots)*(req.body.qty)*(req.body.active_value)
-  console.log("InvestAMT",investment_amt)
-// const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
+ // investment_amt =  (req.body.no_of_lots)*(req.body.qty)*(req.body.active_value)
+ 
+
+
+ // const getvalue = await FnoIndex.findOne({active_value :req.body.active_value})
 // if(getvalue)
 
 // console.log("STRING",getvalue)
@@ -26,28 +28,60 @@ console.log(trl)
      let FT3 = parseInt (FT2) + parseInt(20)
      console.log("FT3",FT2)
 
+
+     investment_amt =  (req.body.qty)*(req.body.active_value)
+     console.log("InvestAMT",investment_amt)
+   
+getsl = await Alltrade.findOne({SL:SL})
+if(getsl){
+  slval = getsl.SL
+  getqty = getsl.qty
+  getav =getsl.active_value
+  console.log("SL",slval)
+  pl = qty *(slval -  active_value)
+  console.log("pl",pl)
+}
+ getpl = await Alltrade.findOne({pl:pl})
+ if (getpl){
+ console.log("$$$$$$$$",getpl)
+  tpl =getpl.pl
+  console.log("###",tpl)
+  invest_amt = getpl.investment_amt
+  console.log("***",invest_amt)
+  pl_per = tpl/invest_amt*100
+  console.log("%%%%",pl_per)
+ }
+// tpl =getpl.pl
+//  invest_amt = getpl.investment_amt
+
+// pl_per = tpl/invest_amt*100
+// console.log ("plPERCENTAGE",pl_per)
+// }
+ 
+
+
   //  const valuetype = await FnoIndex.findOne({pl_type:req.body.pl_type})
  //   console.log("dffrgtf",valuetype)
- const getamt = await Alltrade.findOne({investment_amt:investment_amt})
- if(getamt){
-  console.log("GETAMT",getamt.investment_amt )
-  invstamt = getamt.investment_amt
+//  const getamt = await Alltrade.findOne({investment_amt:investment_amt})
+//  if(getamt){
+//   console.log("GETAMT",getamt.investment_amt )
+//   invstamt = getamt.investment_amt
 
- }
-    if(req.body.pl_type == 'Loss'){
+//  }
+//     if(req.body.pl_type == 'Loss'){
      
-      loss = parseInt(req.body.investment_amt) - parseInt(req.body.profit_loss_amt)
-     console.log("LOSS", loss)
+//       loss = parseInt(req.body.investment_amt) - parseInt(req.body.profit_loss_amt)
+//      console.log("LOSS", loss)
      
-      losspr = (loss*100)/req.body.investment_amt
-     console.log("LOSS PERCENTAGE",losspr +'%')
-    }else if( req.body.pl_type == "Profit"){
-     profit = parseInt(req.body.profit_loss_amt) - parseInt(req.body.investment_amt)
-     console.log("PROFIT", profit)
+//       losspr = (loss*100)/req.body.investment_amt
+//      console.log("LOSS PERCENTAGE",losspr +'%')
+//     }else if( req.body.pl_type == "Profit"){
+//      profit = parseInt(req.body.profit_loss_amt) - parseInt(req.body.investment_amt)
+//      console.log("PROFIT", profit)
 
-   profitprr = (profit *100)/req.body.investment_amt
-  console.log("PROFIT PERCENTAGE",profitprr + '%')
-    }
+//    profitprr = (profit *100)/req.body.investment_amt
+//   console.log("PROFIT PERCENTAGE",profitprr + '%')
+//     }
      const newAlltrade = new Alltrade({
        
       script_type: script_type,
@@ -69,7 +103,9 @@ console.log(trl)
         trl:trl,
         active_value2:av2,
         expiryDate:expiryDate,
-        type:type
+        type:type,
+        pl:pl,
+       // pl_per :pl_per
         // loss:loss,
         // losspr:losspr,
         //profit:profit,
@@ -92,8 +128,10 @@ console.log(trl)
         FT2:FT2,
         FT3:FT3,
         sl:SL    ,
-        loss:loss,
-        losspr:losspr,
+        pl:pl,
+       // pl_per:pl_per
+       // loss:loss,
+       // losspr:losspr,
        // profit:profit,
        // profitprr:profitprr
       })
