@@ -143,8 +143,11 @@ if(getsl){
 
 exports.add_fnoEquity   = async (req, res) => {
     
-  const {script_type,fnoequty_scrpt_name,active_value,active_value2,call_type,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_typet,t5,t5_type,qty,investment_amt,no_of_lots,pl_type,profit_loss_amt,expiryDate,type } = req.body;
+  const {script_type,fnoequty_scrpt_name,active_value,active_value2,call_type,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_typet,t5,t5_type,qty,no_of_lots,pl_type,profit_loss_amt,expiryDate,type } = req.body;
 
+
+  investment_amt =  (req.body.qty)*(req.body.active_value)
+  console.log("InvestAMT",investment_amt)
 
 
 const newAlltrade = new Alltrade({
@@ -183,9 +186,11 @@ newAlltrade
 
 exports.add_equityCash = async (req, res) => {
 
-  const { script_type, cash_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type,t5,t5_type, qty, investment_amt, no_of_lots, pl_type, profit_loss_amt,expiryDate,type } = req.body;
+  const { script_type, cash_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type,t5,t5_type, qty, no_of_lots, pl_type, profit_loss_amt,expiryDate,type } = req.body;
 
 
+  investment_amt =  (req.body.qty)*(req.body.active_value)
+  console.log("InvestAMT",investment_amt)
 
   const newnewAlltrade = new Alltrade({
 
