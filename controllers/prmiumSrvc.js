@@ -39,7 +39,7 @@ exports.addPrmiumSrvc = async (req, res) => {
 // };
 
 exports.serviceslist = async (req, res) => {
-  await PreminumSrvc.find()
+  await PreminumSrvc.find().populate("planId")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
