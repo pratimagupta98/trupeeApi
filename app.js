@@ -40,6 +40,7 @@ const cash_script = require("./routes/cash_script")
 const opportunity = require("./routes/opportunity")
 const prformncesheet = require("./routes/prformncesheet")
 const user_persheet = require("./routes/user_persheet")
+const prmiumSrvc = require("./routes/prmiumSrvc")
 
  
 //use
@@ -72,8 +73,9 @@ app.use("/", cash_script);
 app.use("/", opportunity);
 app.use("/", prformncesheet);
 app.use("/", user_persheet);
+app.use("/", prmiumSrvc);
 
-
+ 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
