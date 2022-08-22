@@ -105,7 +105,7 @@ if(getsl){
         expiryDate:expiryDate,
         type:type,
         pl:pl,
-       // pl_per :pl_per
+        pl_per :pl_per
         // loss:loss,
         // losspr:losspr,
         //profit:profit,
@@ -129,7 +129,7 @@ if(getsl){
         FT3:FT3,
         sl:SL    ,
         pl:pl,
-       // pl_per:pl_per
+        pl_per:pl_per
        // loss:loss,
        // losspr:losspr,
        // profit:profit,
