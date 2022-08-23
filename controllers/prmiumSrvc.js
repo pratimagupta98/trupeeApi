@@ -44,9 +44,8 @@ exports.serviceslist = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
-// exports.deleteplan = async (req, res) => {
-//   await Plan.deleteOne({ _id: req.params.id })
-//     .then((data) => resp.deleter(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+ exports.dltPsrvc = async (req, res) => {
+  await PreminumSrvc.deleteOne({ _id: req.params.id })
+    .then((data) => resp.deleter(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
