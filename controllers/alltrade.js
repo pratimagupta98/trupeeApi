@@ -150,6 +150,8 @@ exports.add_fnoEquity   = async (req, res) => {
   console.log("InvestAMT",investment_amt)
 
 
+  
+
 const newAlltrade = new Alltrade({
  
   script_type: script_type,
