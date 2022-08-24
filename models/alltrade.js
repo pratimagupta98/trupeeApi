@@ -103,9 +103,9 @@ const thisSchema = new Schema(
     profitprr: {
       type: Number
     },
-    expiryDate: {
-      type: String
-    },
+    expiryDate: 
+      { type: mongoose.Schema.Types.ObjectId, ref: "exp_date" },
+    
 type :{
   type: String,
  // required:true
