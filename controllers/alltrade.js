@@ -232,19 +232,6 @@ exports.dlt_alltrade = async (req, res) => {
 exports.editFnoindex = async (req, res) => {  
   const{qty,active_value,sl_type,FT1_type,FT2_type,FT3_type}  = req.body
 
- 
-//          let SL = parseInt(req.body.active_value) -20
-//     let trl = parseInt(av2) + parseInt(10)
-// console.log(trl)
-//     let  FT1 =parseInt (trl) + parseInt(20)
-//      console.log("FT1",FT1)
-//      let FT2 = parseInt (FT1) + parseInt(20)
-//      console.log("FT2",FT2)
-//      let FT3 = parseInt (FT2) + parseInt(20)
-//      console.log("FT3",FT2)
- 
-
-    
 
 
        if (sl_type == "true") {
@@ -365,7 +352,7 @@ exports.editFnoindex = async (req, res) => {
        pl = req.body.qty *(FT3 -  req.body.active_value)
        console.log("PL",pl)
 
-       pl_per = pl/investment_amt*100
+       pl_per = (pl/investment_amt*100 ).toFixed(2);
        console.log("PL%%%%",pl_per)
       
     
@@ -378,26 +365,45 @@ exports.editFnoindex = async (req, res) => {
       //{ $set: {status:"success"} },
       { new: true }
     
-    );
+    )
+
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error));
+
+if (update) {
+  res.status(200).json({
+    status: true,
+    msg: "success",
+    data: update,
+  });
+} else {
+  res.status(400).json({
+    status: false,
+    msg: "error",
+    error: "error",
+  });
+}
     }
+}
+
   
 
 
-  await Alltrade
+//   await Alltrade
 
-    .findOneAndUpdate(
-      {
-        _id: req.params.id,
-        //  console.log(req.params._id);
-      },
-      {
-        $set: req.body,
-      },
-      { new: true }
-    )
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
+//     .findOneAndUpdate(
+//       {
+//         _id: req.params.id,
+//         //  console.log(req.params._id);
+//       },
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     )
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
 
 
 exports.editalltrade = async (req, res) => {    
