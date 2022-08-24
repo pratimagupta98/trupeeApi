@@ -27,30 +27,18 @@ console.log(trl)
      console.log("FT2",FT2)
      let FT3 = parseInt (FT2) + parseInt(20)
      console.log("FT3",FT2)
-
+ 
 
      investment_amt =  (req.body.qty)*(req.body.active_value)
      console.log("InvestAMT",investment_amt)
-   
-getsl = await Alltrade.findOne({SL:SL})
-if(getsl){
-  slval = getsl.SL
-  getqty = getsl.qty
-  getav =getsl.active_value
-  console.log("SL",slval)
-  pl = qty *(slval -  active_value)
-  console.log("pl",pl)
-}
- getpl = await Alltrade.findOne({pl:pl})
- if (getpl){
- console.log("$$$$$$$$",getpl)
-  tpl =getpl.pl
-  console.log("###",tpl)
-  invest_amt = getpl.investment_amt
-  console.log("***",invest_amt)
-  pl_per = tpl/invest_amt*100
-  console.log("%%%%",pl_per)
- }
+     if (FT1_type == "true") {
+      greeting = "Good morning";
+    } else if (time < 20) {
+      greeting = "Good day";
+    } else {
+      greeting = "Good evening";
+    }
+ 
 // tpl =getpl.pl
 //  invest_amt = getpl.investment_amt
 

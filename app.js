@@ -41,6 +41,7 @@ const opportunity = require("./routes/opportunity")
 const prformncesheet = require("./routes/prformncesheet")
 const user_persheet = require("./routes/user_persheet")
 const prmiumSrvc = require("./routes/prmiumSrvc")
+const exp_date = require("./routes/exp_date")
 
  
 //use
@@ -74,6 +75,7 @@ app.use("/", opportunity);
 app.use("/", prformncesheet);
 app.use("/", user_persheet);
 app.use("/", prmiumSrvc);
+app.use("/", exp_date);
 
  
 app.get("/", (req, res) => {

@@ -8,7 +8,8 @@ const {
     addAdmin,
     adminlogin,
     editAdmin,
-    viewoneadmin
+    viewoneadmin,
+    chngpass
 //   deletecreditcustomer,
 //   updatcreditcustomer,
 //   namefindcreditcustomer
@@ -58,7 +59,8 @@ router.post("/admin/addAdmin", multipleUpload, addAdmin);
 router.post("/admin/editAdmin/:id", multipleUpload, editAdmin);
 router.get("/admin/viewoneadmin/:id", multipleUpload, viewoneadmin);
 
- 
+router.post("/admin/chngpass/:id", chngpass);
+
 router.post("/admin/adminlogin", adminlogin);
 module.exports = router;
  
