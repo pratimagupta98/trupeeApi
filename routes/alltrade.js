@@ -12,7 +12,9 @@ const {
     equityCash_list,
     viewonetrades,
     editalltrade,
-    dlt_alltrade
+    dlt_alltrade,
+    editFnoindex,
+    
 } = require("../controllers/alltrade");
 
  
@@ -29,6 +31,7 @@ const {
  router.get("/admin/viewonetrades/:id", viewonetrades);
   router.post("/admin/editalltrade/:id", editalltrade);
   router.get("/admin/dlt_alltrade/:id", dlt_alltrade);
+  router.post("/admin/editFnoindex/:id", editFnoindex);
 
 module.exports = router;
  
