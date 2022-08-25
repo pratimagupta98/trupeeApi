@@ -205,11 +205,11 @@ exports.dlt_alltrade = async (req, res) => {
 };
 
 exports.editFnoindex = async (req, res) => {  
-  const{qty,active_value,sl_type,FT1_type,FT2_type,FT3_type,status}  = req.body
+  const{qty,active_value,sl_type,FT1_type,FT2_type,FT3_type,status,t5}  = req.body
 
 
 
-       if (sl_type == "true") {
+       if (sl_type == true) {
         investment_amt =  (req.body.qty)*(req.body.active_value)
         console.log("InvestAMT",investment_amt)
 
@@ -227,13 +227,13 @@ exports.editFnoindex = async (req, res) => {
         let update=  await Alltrade.findOneAndUpdate(
          { _id: req.params.id },
          
-         {$set: {FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status}} ,
+         {$set: {FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5}} ,
        
        //{ $set: {status:"success"} },
        { new: true }
      
      );
-    } else if (FT1_type == "true") {
+    } else if (FT1_type == true) {
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
       let  av2 = parseInt(req.body.active_value) + parseInt(10)
@@ -263,14 +263,14 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,FT1,status}} ,
+        {$set: {sl_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,FT1,status,t5}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
     
     );
        
-    } else if (FT2_type == "true"){
+    } else if (FT2_type == true){
       
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
@@ -303,14 +303,14 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1_type:"false",FT3_type:"false",pl_per,pl,investment_amt,FT2,status}} ,
+        {$set: {sl_type:"false",FT1_type:"false",FT3_type:"false",pl_per,pl,investment_amt,FT2,status,t5}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
     
     );
        
-    }else if (FT3_type == "true"){
+    }else if (FT3_type == true){
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
       let  av2 = parseInt(req.body.active_value) + parseInt(10)
@@ -335,7 +335,7 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1_type:"false",FT2_type:"false",pl_per,pl,investment_amt,FT3,status}} ,
+        {$set: {sl_type:"false",FT1_type:"false",FT2_type:"false",pl_per,pl,investment_amt,FT3,status,t5}} ,
       
       //{ $set: {status:"success"} },
       { new: true }

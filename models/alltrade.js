@@ -26,48 +26,48 @@ const thisSchema = new Schema(
     SL: {
       type: Number,
     },
-    sl_type: { type: String,
+    sl_type: { type: Boolean,
       default: false },
     T1: {
       type: Number,
     },
     t1_type: {
-      type: String,
+      type: Boolean,
       default: false
     },
     T2: {
       type: Number,
     },
     t2_type: {
-      type: String,
+      type: Boolean,
       default: false
     },
     T3: {
       type: Number,
     },
     t3_type: {
-      type: String,
+      type: Boolean,
       default: false
     },
     T4: {
       type: Number,
     },
     t4_type: {
-      type: String,
+      type: Boolean,
       default: false
     },
     t5: {
       type: Number,
     },
     t5_type: {
-      type: String,
+      type: Boolean,
       default: false
     },
     trl: {
       type: Number,
     },
     trl_type:{
-      type: String,
+      type: Boolean,
       default: false
     },
     qty: {
@@ -116,28 +116,28 @@ FT1:{
   type: Number,
 },
 FT1_type :{
-  type: String,
+  type: Boolean,
   default: false
 },
 FT2:{
   type: Number,
 },
 FT2_type:{
-  type: String,
+  type: Boolean,
   default: false
 },
 FT3:{
   type: Number,
 },
 FT3_type:{
-  type: String,
+  type: Boolean,
   default: false
 },
 FT5:{
   type: Number,
 },
 FT5_type:{
-  type: String,
+  type: Boolean,
   default: false
 },
   },
