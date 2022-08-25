@@ -209,7 +209,7 @@ exports.editFnoindex = async (req, res) => {
 
 
 
-       if (sl_type == true) {
+       if (sl_type == "true") {
         investment_amt =  (req.body.qty)*(req.body.active_value)
         console.log("InvestAMT",investment_amt)
 
@@ -233,7 +233,7 @@ exports.editFnoindex = async (req, res) => {
        { new: true }
      
      );
-    } else if (FT1_type == true) {
+    } else if (FT1_type == "true") {
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
       let  av2 = parseInt(req.body.active_value) + parseInt(10)
@@ -270,7 +270,7 @@ exports.editFnoindex = async (req, res) => {
     
     );
        
-    } else if (FT2_type == true){
+    } else if (FT2_type == "true"){
       
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
@@ -310,7 +310,7 @@ exports.editFnoindex = async (req, res) => {
     
     );
        
-    }else if (FT3_type == true){
+    }else if (FT3_type == "true"){
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
       let  av2 = parseInt(req.body.active_value) + parseInt(10)
