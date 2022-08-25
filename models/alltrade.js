@@ -92,9 +92,10 @@ const thisSchema = new Schema(
     },
     pl:{
       type: Number,
+      default: 0
     },
     pl_per: {
-      type: Number,
+      default: 0
       
     },
     profit: {
