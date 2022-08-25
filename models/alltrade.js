@@ -27,7 +27,7 @@ const thisSchema = new Schema(
       type: Number,
     },
     sl_type: { type: String,
-      default: false },
+      default: false},
     T1: {
       type: Number,
     },

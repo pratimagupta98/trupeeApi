@@ -232,7 +232,9 @@ exports.editFnoindex = async (req, res) => {
        //{ $set: {status:"success"} },
        { new: true }
      
-     );
+     )
+     .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
     } else if (FT1_type == "true") {
       investment_amt =  (req.body.qty)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
@@ -268,7 +270,9 @@ exports.editFnoindex = async (req, res) => {
       //{ $set: {status:"success"} },
       { new: true }
     
-    );
+    )
+    .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
        
     } else if (FT2_type == "true"){
       
@@ -308,7 +312,9 @@ exports.editFnoindex = async (req, res) => {
       //{ $set: {status:"success"} },
       { new: true }
     
-    );
+    )
+    .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
        
     }else if (FT3_type == "true"){
       investment_amt =  (req.body.qty)*(req.body.active_value)
