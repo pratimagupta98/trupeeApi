@@ -14,7 +14,7 @@ const {
     editalltrade,
     dlt_alltrade,
     editFnoindex,
-    
+    editfnoOption
 } = require("../controllers/alltrade");
 
  
@@ -32,6 +32,7 @@ const {
   router.post("/admin/editalltrade/:id", editalltrade);
   router.get("/admin/dlt_alltrade/:id", dlt_alltrade);
   router.post("/admin/editFnoindex/:id", editFnoindex);
+  router.post("/admin/editfnoOption/:id", editfnoOption);
 
 module.exports = router;
  
