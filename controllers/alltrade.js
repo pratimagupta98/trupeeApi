@@ -193,7 +193,7 @@ exports.AppindexList = async (req, res) => {
 
 
 exports.fnoEquity_list = async (req, res) => {
-  await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name")
+  await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
