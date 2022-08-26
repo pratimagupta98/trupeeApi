@@ -184,6 +184,13 @@ exports.fnoIndexlist = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+exports.AppindexList = async (req, res) => {
+  await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
 exports.fnoEquity_list = async (req, res) => {
   await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name")
     .sort({ sortorder: 1 })
@@ -355,7 +362,6 @@ exports.editFnoindex = async (req, res) => {
 }
 
 
-
 exports.editfnoOption = async (req, res) => {  
   const{qty,active_value,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_type,status,t5,t5_type}  = req.body
 
@@ -489,11 +495,8 @@ exports.editfnoOption = async (req, res) => {
        
 }
 
+
 exports.editalltrade = async (req, res) => {    
-
- 
-
-
   await Alltrade
 
     .findOneAndUpdate(
@@ -509,6 +512,7 @@ exports.editalltrade = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
 
 exports.viewonetrades = async (req, res) => {
   await Alltrade.findOne({ _id: req.params.id })
