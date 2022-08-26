@@ -15,7 +15,8 @@ const {
     dlt_alltrade,
     editFnoindex,
     editfnoOption,
-    AppindexList
+    AppindexList,
+    AppOptionList
 } = require("../controllers/alltrade");
 
  
@@ -25,7 +26,9 @@ const {
  router.post("/admin/add_equityCash", add_equityCash);
 
  router.get("/admin/tradelist", tradelist);
- router.get("/user/AppindexList", AppindexList);
+ router.get("/admin/AppindexList", AppindexList);
+ router.get("/admin/AppOptionList", AppOptionList);
+
  router.get("/admin/fnoIndexlist", fnoIndexlist);
  router.get("/admin/fnoEquity_list", fnoEquity_list);
  router.get("/admin/equityCash_list", equityCash_list);

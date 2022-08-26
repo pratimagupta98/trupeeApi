@@ -191,8 +191,15 @@ exports.AppindexList = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+
 exports.fnoEquity_list = async (req, res) => {
   await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name")
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+exports.AppOptionList = async (req, res) => {
+  await Alltrade.find({ $and: [{ type: "Equity" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
