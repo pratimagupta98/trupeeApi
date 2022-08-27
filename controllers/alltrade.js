@@ -212,7 +212,7 @@ exports.AppOptionList = async (req, res) => {
 
 //ADMIN
 exports.equityCash_list = async (req, res) => {
-  await Alltrade.find({type : "Cash"}).populate("cash_scrpt_name")
+  await Alltrade.find({type : "Cash"}).populate("cash_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
