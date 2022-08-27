@@ -171,7 +171,7 @@ exports.add_equityCash = async (req, res) => {
 }
 
  
-
+//APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
   await Alltrade.find({status:"Active"}).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
@@ -179,7 +179,7 @@ exports.tradelist = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-
+//ADMIN
 exports.fnoIndexlist = async (req, res) => {
   await Alltrade.find({type : "Index"}).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
@@ -187,6 +187,7 @@ exports.fnoIndexlist = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+//APP
 exports.AppindexList = async (req, res) => {
   await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
@@ -194,13 +195,14 @@ exports.AppindexList = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-
+//ADMIN
 exports.fnoEquity_list = async (req, res) => {
   await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+//APP
 exports.AppOptionList = async (req, res) => {
   await Alltrade.find({ $and: [{ type: "Equity" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
@@ -208,16 +210,23 @@ exports.AppOptionList = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+//ADMIN
 exports.equityCash_list = async (req, res) => {
   await Alltrade.find({type : "Cash"}).populate("cash_scrpt_name")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
+//APP
 exports.dlt_alltrade = async (req, res) => {
   await Alltrade.deleteOne({ _id: req.params.id })
     .then((data) => resp.deleter(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+exports.AppCashList = async (req, res) => {
+  await Alltrade.find({ $and: [{ type: "Cash" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 
@@ -505,6 +514,138 @@ exports.editfnoOption = async (req, res) => {
        
 }
 
+exports.editCash = async (req, res) => {  
+  const{qty,active_value,SL,sl_type,T1,t1_type,T2,t2_type,T3,t3_type,T4,t4_type,status,t5,t5_type}  = req.body
+
+
+
+       if (sl_type == "true") {
+        investment_amt =  (req.body.qty*400)*(req.body.active_value)
+        console.log("InvestAMT",investment_amt)
+
+
+        
+        
+        pl = (req.body.qty*400) *(req.body.SL -  req.body.active_value)
+        console.log("PL",pl)
+ 
+        pl_per = pl/investment_amt*100
+        console.log("PL%%%%",pl_per)
+     
+
+        let update=  await Alltrade.findOneAndUpdate(
+         { _id: req.params.id },
+         
+         {$set: {SL,sl_type:"true",T1,t1_type:"false",T2,t2_type:"false",T3,t3_type:"false",T4,t4_type:"false",pl_per,pl,investment_amt,status,t5,t5_type}} ,
+       
+       //{ $set: {status:"success"} },
+       { new: true }
+     
+     )
+     .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
+    } else if (t1_type == "true") {
+      investment_amt =  (req.body.qty*400)*(req.body.active_value)
+      console.log("InvestAMT",investment_amt)
+
+            
+       pl = (req.body.qty*400) *(req.body.T1 -  req.body.active_value)
+       console.log("PL",pl)
+
+       pl_per = pl/investment_amt*100
+       console.log("PL%%%%",pl_per)
+      
+      
+       let update=  await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        
+        {$set: {T1,t1_type:"true",SL,sl_type:"false",T2,t2_type:"false",T3,t3_type:"false",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+    
+    )
+    .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
+       
+    } else if (t2_type == "true"){
+      
+      investment_amt =  (req.body.qty*400)*(req.body.active_value)
+      console.log("InvestAMT",investment_amt)
+
+            
+       pl = (req.body.qty*400) *(req.body.T2 -  req.body.active_value)
+       console.log("PL",pl)
+
+       pl_per = pl/investment_amt*100
+       console.log("PL%%%%",pl_per)
+      
+      
+       let update=  await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        
+        {$set: {T1,t1_type:"false",SL,sl_type:"false",T2,t2_type:"true",T3,t3_type:"false",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+    
+    )
+    .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
+       
+    }else if (t3_type == "true"){
+      investment_amt =  (req.body.qty*400)*(req.body.active_value)
+      console.log("InvestAMT",investment_amt)
+
+            
+       pl = (req.body.qty*400) *(req.body.T3 -  req.body.active_value)
+       console.log("PL",pl)
+
+       pl_per = pl/investment_amt*100
+       console.log("PL%%%%",pl_per)
+      
+      
+       let update=  await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        
+        {$set: {T1,t1_type:"false",SL,sl_type:"false",T2,t2_type:"false",T3,t3_type:"true",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+    
+    )
+       
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+}else if (t4_type == "true"){
+  investment_amt =  (req.body.qty*400)*(req.body.active_value)
+  console.log("InvestAMT",investment_amt)
+
+        
+   pl = (req.body.qty*400) *(req.body.T4 -  req.body.active_value)
+   console.log("PL",pl)
+
+   pl_per = pl/investment_amt*100
+   console.log("PL%%%%",pl_per)
+  
+  
+   let update=  await Alltrade.findOneAndUpdate(
+    { _id: req.params.id },
+    
+    {$set: {T1,t1_type:"false",SL,sl_type:"false",T2,t2_type:"false",T3,t3_type:"false",T4,t4_type:"true",pl_per,pl,investment_amt,  status,t5,t5_type}} ,
+  
+  //{ $set: {status:"success"} },
+  { new: true }
+
+)
+   
+.then((data) => resp.successr(res, data))
+.catch((error) => resp.errorr(res, error));
+};
+
+
+       
+}
 
 exports.editalltrade = async (req, res) => {    
   await Alltrade
