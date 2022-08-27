@@ -8,7 +8,10 @@ const thisSchema = new Schema(
       year: {
         type: String,
       },
-      plan_price: {
+      mrp:{
+        type: String,
+      },
+      dst_price: {
         type: String,
       }
        

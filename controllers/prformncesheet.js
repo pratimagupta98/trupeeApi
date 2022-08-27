@@ -2,12 +2,13 @@ const PrformnceSheet = require("../models/prformncesheet");
 const resp = require("../helpers/apiResponse");
 
 exports.addper_Sheet = async (req, res) => {
-  const { month,year,plan_price } = req.body;
+  const { month,year,mrp,dst_price } = req.body;
 
   const newPrformnceSheet = new PrformnceSheet({
     month:month,
     year: year,
-    plan_price:plan_price
+    mrp:mrp,
+    dst_price :dst_price
   });
   
     newPrformnceSheet
