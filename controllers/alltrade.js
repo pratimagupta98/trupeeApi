@@ -333,7 +333,7 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1_type:"false",FT2_type:"true",FT3_type:"false",pl_per,pl,investment_amt,FT2,status,t5}} ,
+        {$set: {sl_type:"false",FT1_type:"true",FT2_type:"true",FT3_type:"false",pl_per,pl,investment_amt,FT2,status,t5}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -367,7 +367,7 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1_type:"false",FT2_type:"false",FT3_type:"true",pl_per,pl,investment_amt,FT3,status,t5}} ,
+        {$set: {sl_type:"false",FT1_type:"true",FT2_type:"true",FT3_type:"true",pl_per,pl,investment_amt,FT3,status,t5}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
