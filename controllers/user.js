@@ -237,6 +237,12 @@ exports.deletuser = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+exports.dltMyaccount = async (req, res) => {
+  await User.deleteOne({ _id: req.params.id })
+    .then((data) => resp.deleter(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
 
 
 

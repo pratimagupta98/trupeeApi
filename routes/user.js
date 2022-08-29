@@ -13,7 +13,8 @@ const {
     verifyotp,
     myprofile,
     uploadImageBase64,
-    getoneuser
+    getoneuser,
+    dltMyaccount
 } = require("../controllers/user");
 
  
@@ -71,6 +72,7 @@ router.post("/user/myprofile",verifytoken,myprofile);
 router.get("/admin/getoneuser/:id", getoneuser);
 
 router.get("/admin/deletuser/:id", deletuser);
- 
+router.get("/admin/dltMyaccount/:id", dltMyaccount);
+
 module.exports = router;
  
