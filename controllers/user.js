@@ -37,10 +37,23 @@ exports.signupsendotp = async (req, res) => {
   //     "0".repeat(length) + Math.floor(Math.random() * 10 ** length)
   //   ).slice(-length);
   let otp = "123456";
-
+  create_random_string(6);
+  function create_random_string(string_length) {
+    (random_string = ""),
+      (characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+    for (var i, i = 0; i < string_length; i++) {
+      random_string += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return random_string;
+  }
   const newUser = new User({
     mobile: req.body.mobile,
+    refral_Code:random_string
   });
+  console.log("hghg",newUser)
   const findexist = await User.findOne({ mobile: req.body.mobile });
   if (findexist) {
     res.json({
@@ -63,6 +76,7 @@ exports.signupsendotp = async (req, res) => {
           _id: data?._id,
           userId: data._id,
           otp: otp,
+          refral_Code:random_string
         })
       )
       .catch((error) => {

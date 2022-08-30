@@ -1,6 +1,18 @@
 const Alltrade = require("../models/alltrade");
 const resp = require("../helpers/apiResponse");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
 
+const jwt = require("jsonwebtoken");
+const key = "verysecretkey";
+const bcrypt = require("bcrypt");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.add_fnoIndex= async (req, res) => {
     
@@ -667,6 +679,54 @@ exports.editalltrade = async (req, res) => {
 
 exports.viewonetrades = async (req, res) => {
   await Alltrade.findOne({ _id: req.params.id })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+
+
+
+
+exports.add_notificationss = async (req, res) => {
+  const { title,desc,img,noti_status} = req.body;
+
+  const newAlltrade = new Alltrade({
+    title: title,
+    desc:desc,
+    noti_status:noti_status
+     
+   });
+
+  const findexist = await Alltrade.findOne({ title: title });
+  if (findexist) {
+    resp.alreadyr(res);
+  } else {
+    if (req.files) {
+      if (req.files.img[0].path) {
+        alluploads = [];
+        for (let i = 0; i < req.files.img.length; i++) {
+          const resp = await cloudinary.uploader.upload(
+            req.files.img[i].path,
+            { use_filename: true, unique_filename: false }
+          );
+          fs.unlinkSync(req.files.img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        newAlltrade.img = alluploads;
+      }
+    }
+    newAlltrade
+      .save()
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  }
+}
+
+
+exports.notificationList = async (req, res) => {
+  await Alltrade.find({$or: [{ status: "Active" }, { noti_status: "Notification" }]}).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+    .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };

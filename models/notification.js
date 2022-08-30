@@ -8,6 +8,9 @@ const thisSchema = new Schema(
       desc:{
         type: String, 
        },
+       img:{
+        type: Array, 
+       },
        
       },
      
@@ -16,3 +19,5 @@ const thisSchema = new Schema(
 
 
   module.exports = mongoose.model("notification", thisSchema);
+
+//alltrade notification

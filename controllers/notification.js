@@ -1,17 +1,46 @@
 const Notification = require("../models/notification");
 const resp = require("../helpers/apiResponse");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
+
+const jwt = require("jsonwebtoken");
+const key = "verysecretkey";
+const bcrypt = require("bcrypt");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.add_notification = async (req, res) => {
-  const { title,desc} = req.body;
+  const { title,desc,img} = req.body;
 
   const newNotification = new Notification({
     title: title,
     desc:desc,
+     
    });
+
   const findexist = await Notification.findOne({ title: title });
   if (findexist) {
     resp.alreadyr(res);
   } else {
+    if (req.files) {
+      if (req.files.img[0].path) {
+        alluploads = [];
+        for (let i = 0; i < req.files.img.length; i++) {
+          const resp = await cloudinary.uploader.upload(
+            req.files.img[i].path,
+            { use_filename: true, unique_filename: false }
+          );
+          fs.unlinkSync(req.files.img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        newNotification.img = alluploads;
+      }
+    }
     newNotification
       .save()
       .then((data) => resp.successr(res, data))

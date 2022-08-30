@@ -141,7 +141,21 @@ FT5_type:{
   type: String,
   default: "false"
 },
+title:{
+  type: String,
+},
+desc:{
+  type: String,
+},
+img:{
+type :Array
+},
+noti_status:{
+  type: String,
+ 
+},
   },
+
 
 
   { timestamps: true }
