@@ -154,6 +154,9 @@ noti_status:{
   type: String,
  //Active
 },
+tradeId:{
+   type: Schema.Types.ObjectId, ref: "alltrade" 
+},
   },
 
 

@@ -21,7 +21,8 @@ const {
     AppCashList,
     editCash,
     add_notificationss,
-    notificationList
+    notificationList,
+    addTnotification
 } = require("../controllers/alltrade");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -82,6 +83,7 @@ let multipleUpload = uploads.fields([
 
   router.post("/admin/add_notificationss",multipleUpload, add_notificationss);
   router.get("/admin/notificationList", notificationList);
+  router.post("/admin/addTnotification", addTnotification);
 
 module.exports = router;
  
