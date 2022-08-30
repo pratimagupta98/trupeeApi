@@ -16,7 +16,7 @@ cloudinary.config({
 
 exports.add_fnoIndex= async (req, res) => {
     
-  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type } = req.body;
+  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5 } = req.body;
 
 
   investment_amt =  (req.body.qty*25)*(req.body.active_value)
@@ -52,6 +52,7 @@ console.log(trl)
         FT2:FT2,
         FT3:FT3,
         FT5:FT5,
+        t5:t5,
         SL:SL,
         trl:trl,
         active_value2:av2,

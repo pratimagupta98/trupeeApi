@@ -135,7 +135,7 @@ FT3_type:{
   default: "false"
 },
 FT5:{
-  type: Number,
+  type: String,
 },
 FT5_type:{
   type: String,
