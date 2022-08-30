@@ -67,18 +67,30 @@ exports.signupsendotp = async (req, res) => {
   } else {
     newUser.otp = otp;
     newUser
-      .save()
-      .then((data) =>
-        res.json({
+    .save()
+      .then((result) => {
+        const token = jwt.sign(
+          {
+            userId: result._id,
+          },
+          process.env.TOKEN_SECRET,
+          {
+            expiresIn: 86400000,
+          }
+        );
+        res.header("auth-token", token).status(200).json({
+         
+          token: token,
           status: "success",
-          msg: "Otp send successfully",
-          registered: data?.mobile,
-          _id: data?._id,
-          userId: data._id,
-          otp: otp,
-          refral_Code:random_string
-        })
-      )
+               msg: "Otp send successfully",
+              // registered: data?.mobile,
+              // _id: data?._id,
+              // userId: data._id,
+              // otp: otp,
+              // refral_Code:random_string
+          
+        });
+      })
       .catch((error) => {
         res.status(400).json({
           status: false,
@@ -87,7 +99,27 @@ exports.signupsendotp = async (req, res) => {
         });
       });
   }
-};
+}
+      // .then((data) =>
+      //   res.json({
+      //     status: "success",
+      //     msg: "Otp send successfully",
+      //     registered: data?.mobile,
+      //     _id: data?._id,
+      //     userId: data._id,
+      //     otp: otp,
+      //     refral_Code:random_string
+      //   })
+      // )
+//       .catch((error) => {
+//         res.status(400).json({
+//           status: false,
+//           msg: "error",
+//           error: error,
+//         });
+//       });
+//   }
+// };
 
 exports.verifyotp = async (req, res) => {
 
