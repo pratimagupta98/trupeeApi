@@ -152,7 +152,7 @@ type :Array
 },
 noti_status:{
   type: String,
- 
+ //Active
 },
   },
 
