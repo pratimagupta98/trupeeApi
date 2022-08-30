@@ -741,21 +741,9 @@ exports.addTnotification = async (req, res) => {
     tradeId: tradeId,
     desc:desc,
     noti_status:noti_status
-  });
+  })
  
-  newAlltrade.save().then((data)=>{
-    res.status(200).json({
-        status : true,
-        msg : "success",
-        Api : data,
-        
-    })
-}).catch((error)=>{
-    res.status(400).json({
-        status : false,
-        error : "error",
-        error : error
-    })
-})
-
+  newAlltrade.save()
+  .then((data) => resp.successr(res, data))
+  .catch((error) => resp.errorr(res, error));
 }
