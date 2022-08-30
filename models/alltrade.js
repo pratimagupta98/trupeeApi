@@ -57,7 +57,7 @@ const thisSchema = new Schema(
       default: "false"
     },
     t5: {
-      type: Number,
+      type: String,
     },
     t5_type: {
       type: String,
