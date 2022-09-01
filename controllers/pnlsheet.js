@@ -23,9 +23,10 @@ function detectMimeType(b64) {
 }
 
 exports.addPnlsheet = async (req, res) => {
-        const { pnlimg } = req.body;
+        const { userId,pnlimg } = req.body;
       
         const newPnlSheet = new PnlSheet({
+            userId:req.userId,
             pnlimg:pnlimg
         });
       
@@ -56,7 +57,12 @@ exports.addPnlsheet = async (req, res) => {
           .catch((error) => resp.errorr(res, error));
       };
       
-
+      exports.getPnlSheet = async (req, res) => {
+        await PnlSheet.find().populate("userId")
+          .sort({ sortorder: 1 })
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      };
 
 
 

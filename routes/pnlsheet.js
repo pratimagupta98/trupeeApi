@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const multer = require("multer");
- 
+const { verifytoken } = require("../functions/verifytoken");
+
 
 if (!fs.existsSync("./uploads")) {
   fs.mkdirSync("./uploads");
@@ -27,13 +28,14 @@ const upload = multer({ storage: storage });
 
 const {
     addPnlsheet,
+    getPnlSheet
  
 } = require("../controllers/pnlsheet");
 
 //PATHS
 
 router.post(
-  "/admin/addPnlsheet",
+  "/admin/addPnlsheet",verifytoken,
    
   upload.fields([
     {
@@ -43,9 +45,10 @@ router.post(
   ]),
   addPnlsheet
 );
+router.get("/admin/getPnlSheet", getPnlSheet);
 
  
-
+ 
 
 module.exports = router;
  

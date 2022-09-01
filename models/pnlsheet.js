@@ -5,6 +5,10 @@ const thisSchema = new Schema(
       
       pnlimg:{
         type: Array,
+      },
+      userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
       }
        
       },
