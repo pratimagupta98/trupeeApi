@@ -42,6 +42,7 @@ const prformncesheet = require("./routes/prformncesheet")
 const user_persheet = require("./routes/user_persheet")
 const prmiumSrvc = require("./routes/prmiumSrvc")
 const exp_date = require("./routes/exp_date")
+const pnlsheet = require("./routes/pnlsheet")
 
  
 //use
@@ -76,8 +77,8 @@ app.use("/", prformncesheet);
 app.use("/", user_persheet);
 app.use("/", prmiumSrvc);
 app.use("/", exp_date);
+app.use("/", pnlsheet);
 
- 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
