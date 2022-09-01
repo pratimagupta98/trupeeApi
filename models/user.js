@@ -39,7 +39,7 @@ const UserSchema = new Schema(
        otp:{type:String},
        userverified:{type:Boolean,default:false},
        refral_Code :{
-        String
+        type: String,
        },
       //  status:{
       //   type: String,

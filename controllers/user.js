@@ -61,7 +61,7 @@ exports.signupsendotp = async (req, res) => {
       msg: "Welcome Back Otp send successfully",
       registered: findexist?.mobile,
       _id: findexist?._id,
-       
+      refral_Code: findexist?.refral_Code,
       otp: otp,
     });
   } else {
@@ -87,7 +87,7 @@ exports.signupsendotp = async (req, res) => {
               _id: result?._id,
                userId: result._id,
               otp: result.otp,
-             refral_Code:result.random_string
+             refral_Code:random_string
           
         });
       })
