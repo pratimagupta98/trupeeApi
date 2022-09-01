@@ -137,7 +137,7 @@ exports.verifyotp = async (req, res) => {
             expiresIn: "365d",
           }
         );
-        
+       
         await User.findOneAndUpdate(
           {
             _id: getuser._id,
@@ -173,14 +173,20 @@ exports.verifyotp = async (req, res) => {
             },
             { $set: { userverified: true } },
             { new: true });
-          res.json({
+          // res.json({
+          //   status: "success",
+          //   token: token,
+          //   msg: "Continue signup",
+          //   otpverified: true,
+          //   redirectto: "signupdetail",
+          //   _id: getuser._id,
+          // });
+          res.header("auth-token", token).status(200).json({
             status: "success",
             token: token,
-            msg: "Continue signup",
-            otpverified: true,
-            redirectto: "signupdetail",
-            _id: getuser._id,
-          });
+            msg: "success",
+            user: getuser,
+           });
         }
       }
     } else {
