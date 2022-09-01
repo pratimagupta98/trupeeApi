@@ -83,11 +83,11 @@ exports.signupsendotp = async (req, res) => {
           token: token,
           status: "success",
                msg: "Otp send successfully",
-              // registered: data?.mobile,
-              // _id: data?._id,
-              // userId: data._id,
-              // otp: otp,
-              // refral_Code:random_string
+               registered: result?.mobile,
+              _id: result?._id,
+               userId: result._id,
+              otp: result.otp,
+             refral_Code:result.random_string
           
         });
       })
