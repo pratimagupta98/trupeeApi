@@ -157,6 +157,9 @@ noti_status:{
 tradeId:{
    type: Schema.Types.ObjectId, ref: "alltrade" 
 },
+cstmMsg:{
+  type: String,
+}
   },
 
 
