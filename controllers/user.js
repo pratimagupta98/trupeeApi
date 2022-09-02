@@ -166,27 +166,44 @@ exports.verifyotp = async (req, res) => {
             {
               expiresIn: "365d",
             }
-          );
+            
+          )
+      //     res.header("auth-token", token).status(200).send({
+      //       status: true,
+      //       token: token,
+      //       msg: "success",
+      //     //  user: finddetails,
+      //       //user_type: "user",
+      //     });
+      //   }
+      // }
           await User.findOneAndUpdate(
             {
               _id: getuser._id,
             },
             { $set: { userverified: true } },
-            { new: true });
-          // res.json({
+            { new: true })
+            .then((data) => {
+              res.header("auth-token",token).status(200).send({
+                status: "success",
+                token: token,
+                msg: "Welcome Back",
+                otpverified: true,
+                redirectto: "dashboard",
+                _id: data?._id,
+                userId: data._id,
+                data: data,
+              });
+            });
+          // res.header("auth-token", token).status(200).send({
           //   status: "success",
-          //   token: token,
+          //   token:token,
           //   msg: "Continue signup",
           //   otpverified: true,
+          //   userdata:userdata,
           //   redirectto: "signupdetail",
           //   _id: getuser._id,
           // });
-          res.header("auth-token", token).status(200).json({
-            status: "success",
-            token: token,
-            msg: "success",
-            user: getuser,
-           });
         }
       }
     } else {
@@ -204,6 +221,60 @@ exports.verifyotp = async (req, res) => {
 };
 
 
+
+// exports.adminverifyOtp = async (req, res) => {
+//   const { mobile, otp } = req.body;
+
+//   const findone = await User.findOne({ mobile: mobile });
+
+//   if (findone) {
+//     if (otp == "123456") {
+//     const token = jwt.sign(
+//       {
+//         userId: findone._id,
+//       },
+//       process.env.TOKEN_SECRET,
+//       {
+//         expiresIn: 86400000,
+//       }
+//     )
+//     // res.header("auth-token", token).status(200).send({
+//     //   status: true,
+//     //   token: token,
+//     //   msg: "success",
+//     //   user: findone,
+//     // })
+//     .then((result) => {
+//       const token = jwt.sign(
+//         {
+//           userId: result._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       );
+//       res.header("auth-token", token).status(200).json({
+//         status: true,
+//         token: token,
+//         msg: "success",
+//         user: result,
+//       });
+//     })
+//     res.status(200).json({
+//       status: true,
+//       msg: "otp verified",
+//       data: findone,
+//     });
+
+//   } 
+// }else {
+//     res.status(200).json({
+//       status: false,
+//       msg: "Incorrect Otp",
+//     });
+//   }
+// };
 
 
 
@@ -225,7 +296,77 @@ exports.verifyotp = async (req, res) => {
 //     });
 //   }
 // };
-
+exports.adminverifyOtp = async (req, res) => {
+   
+    const { mobile, otp } = req.body;
+    const dealerDetail = await User.findOne({ mobile: mobile });
+    if (dealerDetail) {
+      if (otp == "123456") {
+        if (dealerDetail.userverified) {
+          const token = jwt.sign(
+            {
+              userId: dealerDetail._id,
+            },
+            key,
+            {
+              expiresIn: "365d",
+            }
+          );
+          await User.findOneAndUpdate(
+            {
+              _id: dealerDetail._id,
+            },
+            { $set: { userverified: true } },
+            { new: true }
+          ).then((data) => {
+            res.json({
+              status: "success",
+              token: token,
+              msg: "Welcome Back",
+              otpverified: true,
+              redirectto: "dashboard",
+              data: data,
+            });
+          });
+        } else {
+          if (!dealerDetail.userverified) {
+            const token = jwt.sign(
+              {
+                userId: dealerDetail._id,
+              },
+              key,
+              {
+                expiresIn: "365d",
+              }
+            );
+            await User.findOneAndUpdate(
+              {
+                _id:  dealerDetail._id,
+              },
+              { $set: { userverified: true } },
+              { new: true });
+            res.json({
+              status: "success",
+              token: token,
+              msg: "Continue signup",
+              otpverified: true,
+              redirectto: "signupdetail",
+            });
+          }
+        }
+      } else {
+        res.json({
+          status: "failed",
+          msg: "Incorrect OTP",
+        });
+      }
+    } else {
+      res.json({
+        status: "error",
+        msg: "User doesnot exist",
+      });
+    }
+  };
 
 
 exports.getuser = async (req, res) => {

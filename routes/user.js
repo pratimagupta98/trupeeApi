@@ -14,7 +14,8 @@ const {
     myprofile,
     uploadImageBase64,
     getoneuser,
-    dltMyaccount
+    dltMyaccount,
+    adminverifyOtp
 } = require("../controllers/user");
 
  
@@ -73,6 +74,7 @@ router.get("/admin/getoneuser/:id", getoneuser);
 
 router.get("/admin/deletuser/:id", deletuser);
 router.get("/admin/dltMyaccount/:id", dltMyaccount);
+router.post("/user/adminverifyOtp", adminverifyOtp);
 
 module.exports = router;
  
