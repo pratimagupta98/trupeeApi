@@ -157,7 +157,7 @@ exports.verifyotp = async (req, res) => {
           });
         });
       } else {
-        if (!getuser.userverified) {
+        if (!getuser.userverified == true) {
           const token = jwt.sign(
             {
               id: getuser._id,
@@ -302,8 +302,7 @@ exports.adminverifyOtp = async (req, res) => {
     const dealerDetail = await User.findOne({ mobile: mobile });
     if (dealerDetail) {
       if (otp == "123456") {
-        if (dealerDetail.userverified) {
-          const token = jwt.sign(
+           const token = jwt.sign(
             {
               userId: dealerDetail._id,
             },
@@ -312,6 +311,10 @@ exports.adminverifyOtp = async (req, res) => {
               expiresIn: "365d",
             }
           );
+        if (!dealerDetail.userverified) {
+
+          console.log("@@@@@",dealerDetail)
+        
           await User.findOneAndUpdate(
             {
               _id: dealerDetail._id,
@@ -329,7 +332,8 @@ exports.adminverifyOtp = async (req, res) => {
             });
           });
         } else {
-          if (!dealerDetail.userverified) {
+          if (dealerDetail.userverified  ) {
+            console.log("@@@@@@@@@@",dealerDetail)
             const token = jwt.sign(
               {
                 userId: dealerDetail._id,
@@ -439,7 +443,7 @@ exports.dltMyaccount = async (req, res) => {
 
 
 
-const mime = require('mime');
+//const mime = require('mime');
 // exports.uploadImageBase64 = async (req, res, next) => {
 //   // to declare some path to store your converted image
 //   var matches = req.body.userimg.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
