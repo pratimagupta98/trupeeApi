@@ -69,3 +69,7 @@ exports.discount_list = async (req, res) => {
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.applyCode= async (req, res) => {
+    const{code ,plan,} = req.body
+  }
