@@ -120,8 +120,8 @@ exports.signupsendotp = async (req, res) => {
 //       });
 //   }
 // };
-
-exports.verifyotp = async (req, res) => {
+ 
+exports.adminverifyOtp = async (req, res) => {
 
   const { mobile, otp } = req.body;
   const getuser = await User.findOne({ mobile: mobile });
@@ -296,81 +296,201 @@ exports.verifyotp = async (req, res) => {
 //     });
 //   }
 // };
-exports.adminverifyOtp = async (req, res) => {
+// exports.adminverifyOtp = async (req, res) => {
    
-    const { mobile, otp } = req.body;
-    const dealerDetail = await User.findOne({ mobile: mobile });
-    if (dealerDetail) {
-      if (otp == "123456") {
-           const token = jwt.sign(
-            {
-              userId: dealerDetail._id,
-            },
-            key,
-            {
-              expiresIn: "365d",
-            }
-          );
-        if (!dealerDetail.userverified) {
+//     const { mobile, otp } = req.body;
+//     const dealerDetail = await User.findOne({ mobile: mobile });
+ 
+//     if(dealerDetail){
+//       console.log("dealerDetail")
+       
+//       // if(otp == "123456"){
 
-          console.log("@@@@@",dealerDetail)
-        
-          await User.findOneAndUpdate(
-            {
-              _id: dealerDetail._id,
-            },
-            { $set: { userverified: true } },
-            { new: true }
-          ).then((data) => {
-            res.json({
-              status: "success",
-              token: token,
-              msg: "Welcome Back",
-              otpverified: true,
-              redirectto: "dashboard",
-              data: data,
-            });
-          });
-        } else {
-          if (dealerDetail.userverified  ) {
-            console.log("@@@@@@@@@@",dealerDetail)
-            const token = jwt.sign(
-              {
-                userId: dealerDetail._id,
-              },
-              key,
-              {
-                expiresIn: "365d",
-              }
-            );
-            await User.findOneAndUpdate(
-              {
-                _id:  dealerDetail._id,
-              },
-              { $set: { userverified: true } },
-              { new: true });
-            res.json({
-              status: "success",
-              token: token,
-              msg: "Continue signup",
-              otpverified: true,
-              redirectto: "signupdetail",
-            });
-          }
+//         const token = jwt.sign(
+//           {
+//             userId: dealerDetail._id,
+//           },
+//           process.env.TOKEN_SECRET,
+//           {
+//             expiresIn: "365d",
+//           }
+//         )
+//         res.status(200).send({
+//           status: "success",
+//           token: token,
+//           msg: "Welcome Back",
+//           otpverified: true,
+//           redirectto: "dashboard",
+//           _id: dealerDetail?._id,
+//           userId: dealerDetail._id,
+//           data: dealerDetail,
+//         });
+
+
+
+
+//       }
+ 
+
+//  }
+
+exports.verifyotp = async (req, res) => {
+  const { mobile, otp } = req.body;
+
+  if (otp == "123456") {
+    const findone = await User.findOne({ mobile: mobile });
+    const x = findone.userverified
+    console.log("X",x)
+    if(x == true){
+ console.log(x)
+
+
+ const token = jwt.sign(
+        {
+          userId: findone._id,
+        },
+        process.env.TOKEN_SECRET,
+        {
+          expiresIn: 86400000,
         }
-      } else {
-        res.json({
-          status: "failed",
-          msg: "Incorrect OTP",
+      )
+      await User.findOneAndUpdate(
+        {
+          _id: findone._id,
+        },
+        { $set: { userverified: true } },
+        { new: true })
+        .then((data) => {
+          res.header("auth-token",token).status(200).send({
+            status: "success",
+            token: token,
+            msg: "Welcome Back",
+            otpverified: true,
+            redirectto: "dashboard",
+            _id: data?._id,
+            userId: data._id,
+            data: data,
+          });
         });
-      }
-    } else {
-      res.json({
-        status: "error",
-        msg: "User doesnot exist",
-      });
-    }
-  };
+    //   res.header("auth-token", token).status(200).json({
+    //     status: true,
+    //     msg: "otp verified please register",
+    //  //   alreadyexist: false,
+    //     mobile: mobile,
+    //    // otp: defaultotp,
+    //    data :x,
+    //    token:token
+    //   });
+    }else  {
+      const token = jwt.sign(
+        {
+          userId: findone._id,
+        },
+        process.env.TOKEN_SECRET,
+        {
+          expiresIn: 86400000,
+        }
+      )
+    await User.findOneAndUpdate(
+      {
+        _id: findone._id,
+      },
+      { $set: { userverified: true } },
+      { new: true })
+      .then((data) => {
+       res.header("auth-token", token).status(200).send({
+            status: "success",
+            token:token,
+            msg: "Continue signup",
+            otpverified: true,
+            //userdata:userdata,
+            redirectto: "signupdetail",
+           // _id: findone._id,
+            
+          });
+        })
+    }  
+  
+}else {
+  res.status(400).json({
+    status: false,
+    msg: "Incorrect otp",
+  });
+}
+}
+ // }
+  //   if (dealerDetail) {
+  //     if (otp == "123456") {
+  //   //  if (otp == "123456") {
+  //          const token = jwt.sign(
+  //           {
+  //             userId: dealerDetail._id,
+  //           },
+  //           key,
+  //           {
+  //             expiresIn: "365d",
+  //           }
+  //         );
+  //       if (!dealerDetail.userverified) {
+
+  //         console.log("@@@@@",dealerDetail)
+        
+  //         await User.findOneAndUpdate(
+  //           {
+  //             _id: dealerDetail._id,
+  //           },
+  //           { $set: { userverified: true } },
+  //           { new: true }
+  //         ).then((data) => {
+  //           res.json({
+  //             status: "success",
+  //             token: token,
+  //             msg: "Welcome Back",
+  //             otpverified: true,
+  //             redirectto: "dashboard",
+  //             data: data,
+  //           });
+  //         });
+  //       } else {
+  //         if (dealerDetail.userverified  ) {
+  //           console.log("@@@@@@@@@@",dealerDetail)
+  //           const token = jwt.sign(
+  //             {
+  //               userId: dealerDetail._id,
+  //             },
+  //             key,
+  //             {
+  //               expiresIn: "365d",
+  //             }
+  //           );
+  //           await User.findOneAndUpdate(
+  //             {
+  //               _id:  dealerDetail._id,
+  //             },
+  //             { $set: { userverified: true } },
+  //             { new: true });
+  //           res.json({
+  //             status: "success",
+  //             token: token,
+  //             msg: "Continue signup",
+  //             otpverified: true,
+  //             redirectto: "signupdetail",
+  //           });
+  //         }
+  //       }
+  //     } else {
+  //       res.json({
+  //         status: "failed",
+  //         msg: "Incorrect OTP",
+  //       });
+  //     }
+  //   } else {
+  //     res.json({
+  //       status: "error",
+  //       msg: "User doesnot exist",
+  //     });
+  //   }
+  // };
 
 
 exports.getuser = async (req, res) => {
