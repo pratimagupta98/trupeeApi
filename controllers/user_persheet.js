@@ -2,11 +2,11 @@ const UserpSheet = require("../models/user_persheet");
 const resp = require("../helpers/apiResponse");
 
 exports.ad_user_persheet= async (req, res) => {
-  const { plan,userId,email} = req.body;
+  const { plan,email} = req.body;
 
   const newUserpSheet = new UserpSheet({
     plan:plan,
-    userId:userId,
+    userId:req.userId,
     email:email
    });
  
