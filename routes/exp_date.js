@@ -6,7 +6,8 @@ const {
     addExpDate,
     datelist,
     dltDate,
-    editDate
+    editDate,
+    getoneexpDate
    
 } = require("../controllers/exp_date");
 
@@ -16,6 +17,7 @@ const {
 router.get("/admin/datelist", datelist);
 router.get("/admin/dltDate/:id", dltDate);
 router.post("/admin/editDate/:id", editDate);
+router.get("/admin/getoneexpDate/:id", getoneexpDate);
 
 module.exports = router;
 

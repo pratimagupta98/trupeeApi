@@ -26,6 +26,12 @@ exports.datelist = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+  exports.getoneexpDate = async (req, res) => {
+    await ExpDate.findOne({ _id: req.params.id })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  
 
   exports.dltDate = async (req, res) => {
     await ExpDate.deleteOne({ _id: req.params.id })
