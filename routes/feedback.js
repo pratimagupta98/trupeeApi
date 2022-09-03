@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
- 
+const { verifytoken } = require("../functions/verifytoken");
+
 
 const {
     addFeedback,
@@ -13,7 +14,7 @@ const {
  
  
  
- router.post("/admin/addFeedback", addFeedback);
+ router.post("/admin/addFeedback",verifytoken, addFeedback);
 router.get("/admin/getFeedback", getFeedback);
   router.get("/admin/dltFeedback/:id", dltFeedback);
 

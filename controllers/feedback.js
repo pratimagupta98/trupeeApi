@@ -2,14 +2,14 @@ const Feedback = require("../models/feedback");
 const resp = require("../helpers/apiResponse");
 
 exports.addFeedback = async (req, res) => {
-  const { userid,title,desc } = req.body;
+  const { title,desc } = req.body;
 
   const newFeedback = new Feedback({
-    userid: userid,
+    userid: req.userId,
     title:title,
     desc:desc
   });
-  const findexist = await Feedback.findOne({   $and: [{ userid: userid }, { title: title}],});
+  const findexist = await Feedback.findOne({   $and: [{ userid:  req.userId }, { title: title}],});
   if (findexist) {
     resp.alreadyr(res);
   } else {
