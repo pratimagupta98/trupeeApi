@@ -14,7 +14,7 @@ const thisSchema = new Schema(
        dis_amt:{
         type:String
        },
-       plan:{ type: Schema.Types.ObjectId, ref: "plan" },
+       plan:{ type:  String,default:"Free"},
        userid:{ type: Schema.Types.ObjectId, ref: "user" },
        code:{
         type :String

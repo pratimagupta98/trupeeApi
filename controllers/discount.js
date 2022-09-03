@@ -1,5 +1,6 @@
 const Discount = require("../models/discount");
 const resp = require("../helpers/apiResponse");
+const PromoCode = require("../models/promoCode");
 
 exports.add_discount= async (req, res) => {
   const { title,dis_type,dis_amt,plan,userid, code,startdate,expdate } = req.body;
@@ -71,8 +72,49 @@ exports.discount_list = async (req, res) => {
   };
 
   exports.applyCode= async (req, res) => {
-    const{code ,plan,} = req.body
+    const{code ,plan,userid} = req.body
 
 
-    const getdata = await Discount.findOne({userId:req.body.refer_from_id}).sort({ createdAt: -1,})
+    const getdata = await Discount.findOne({$and :[{userid:req.userId},{code :req.body.code}]}).sort({ createdAt: -1,})
+    console.log("####",getdata)
+    if(getdata){
+
+      const findexist = await PromoCode.findOne({ userid: userid });
+      if (findexist) {
+        resp.alreadyr(res);
+      }else{
+      const newPromoCode = new PromoCode({
+        code:code,
+        userid:userid,
+        plan :plan
+      })
+
+      newPromoCode.save().then((data) => {
+     res.status(200).json({
+       status: true,
+       msg: "success",
+       data: data,
+      
+     });
+   })
+  
+   .catch((error) => {
+     res.status(200).json({
+       status: false,
+       msg: "error",
+       error: error,
+     });
+   });
   }
+     }else{
+      res.status(400).json({
+        status: false,
+        msg: "Incorrect Otp",
+        error: "error",
+      });
+     }
+
+  
+}
+  
+
