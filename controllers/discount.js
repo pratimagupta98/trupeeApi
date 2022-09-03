@@ -72,20 +72,20 @@ exports.discount_list = async (req, res) => {
   };
 
   exports.applyCode= async (req, res) => {
-    const{code ,plan,userid} = req.body
+    const{code ,plan} = req.body
 
 
     const getdata = await Discount.findOne({$and :[{userid:req.userId},{code :req.body.code}]}).sort({ createdAt: -1,})
     console.log("####",getdata)
     if(getdata){
 
-      const findexist = await PromoCode.findOne({ userid: userid });
+      const findexist = await PromoCode.findOne({ userid: req.userId });
       if (findexist) {
         resp.alreadyr(res);
       }else{
       const newPromoCode = new PromoCode({
         code:code,
-        userid:userid,
+        userid:req.userId,
         plan :plan
       })
 
