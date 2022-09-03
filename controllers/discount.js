@@ -72,4 +72,7 @@ exports.discount_list = async (req, res) => {
 
   exports.applyCode= async (req, res) => {
     const{code ,plan,} = req.body
+
+
+    const getdata = await Discount.findOne({userId:req.body.refer_from_id}).sort({ createdAt: -1,})
   }
