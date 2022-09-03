@@ -28,7 +28,8 @@ const upload = multer({ storage: storage });
 
 const {
     addPnlsheet,
-    getPnlSheet
+    getPnlSheet,
+    dltPnlsheet
  
 } = require("../controllers/pnlsheet");
 
@@ -46,10 +47,10 @@ router.post(
   addPnlsheet
 );
 router.get("/admin/getPnlSheet", getPnlSheet);
+router.get("/admin/dltPnlsheet/:id", dltPnlsheet);
 
  
  
-
 module.exports = router;
  
 

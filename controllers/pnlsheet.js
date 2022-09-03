@@ -66,3 +66,8 @@ exports.addPnlsheet = async (req, res) => {
 
 
 
+      exports.dltPnlsheet = async (req, res) => {
+        await PnlSheet.deleteOne({ _id: req.params.id })
+          .then((data) => resp.deleter(res, data))
+          .catch((error) => resp.errorr(res, error));
+      };
