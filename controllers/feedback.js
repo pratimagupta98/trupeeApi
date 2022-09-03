@@ -9,16 +9,13 @@ exports.addFeedback = async (req, res) => {
     title:title,
     desc:desc
   });
-  const findexist = await Feedback.findOne({   $and: [{ userid:  req.userId }, { title: title}],});
-  if (findexist) {
-    resp.alreadyr(res);
-  } else {
+  
+ 
     newFeedback
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-}
 
 
 exports.getFeedback = async (req, res) => {
