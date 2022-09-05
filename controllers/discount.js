@@ -99,7 +99,7 @@ exports.discount_list = async (req, res) => {
    })
   
    .catch((error) => {
-     res.status(200).json({
+     res.status(400).json({
        status: false,
        msg: "error",
        error: error,
@@ -107,9 +107,9 @@ exports.discount_list = async (req, res) => {
    });
   }
      }else{
-      res.status(400).json({
-        status: false,
-        msg: "Incorrect Otp",
+      res.status(200).json({
+        status: true,
+        msg: "Incorrect Code",
         error: "error",
       });
      }
@@ -117,4 +117,9 @@ exports.discount_list = async (req, res) => {
   
 }
   
-
+exports.promoCode_list = async (req, res) => {
+  await PromoCode.find()
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};

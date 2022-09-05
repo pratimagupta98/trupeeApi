@@ -9,7 +9,8 @@ const {
     viewone_discount,
     edit_discount,
     dlt_discount,
-    applyCode
+    applyCode,
+    promoCode_list
 } = require("../controllers/discount");
 
  
@@ -20,6 +21,8 @@ router.get("/admin/viewone_discount/:id", viewone_discount);
 router.post("/admin/edit_discount/:id", edit_discount);
 router.get("/admin/dlt_discount/:id", dlt_discount);
 router.post("/admin/applyCode",verifytoken, applyCode);
+router.get("/admin/promoCode_list", promoCode_list);
+
 
 module.exports = router;
 
