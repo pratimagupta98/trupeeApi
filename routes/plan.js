@@ -7,7 +7,8 @@ const {
     addPlan,
     plan_list,
     editplan,
-    viewoneplan
+    viewoneplan,
+    deleteplan
 } = require("../controllers/plan");
 
  
@@ -20,5 +21,7 @@ router.post("/admin/addPlan", addPlan);
 router.get("/admin/plan_list", plan_list);
 router.post("/admin/editplan/:id", editplan);
 router.get("/admin/viewoneplan/:id", viewoneplan);
+router.get("/admin/deleteplan/:id", deleteplan);
+
 
 module.exports = router;
