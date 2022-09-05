@@ -575,7 +575,7 @@ exports.editCash = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {T1,t1_type:"true",SL,sl_type:"false",T2,t2_type:"false",T3,t3_type:"false",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
+        {$set: {T1,t1_type,SL,sl_type:"false",T2,t2_type,T3,t3_type,T4,t4_type,pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -600,7 +600,7 @@ exports.editCash = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {T1,t1_type:"true",SL,sl_type:"false",T2,t2_type:"true",T3,t3_type:"false",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
+        {$set: {T1,t1_type,SL,sl_type:"false",T2,t2_type,T3,t3_type,T4,t4_type,pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -624,7 +624,7 @@ exports.editCash = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {T1,t1_type:"true",SL,sl_type:"false",T2,t2_type:"true",T3,t3_type:"true",T4,t4_type:"false",pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
+        {$set: {T1,t1_type,SL,sl_type:"false",T2,t2_type,T3,t3_type,T4,t4_type,pl_per,pl,investment_amt,status,t5,t5_type,cstmMsg}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -648,7 +648,7 @@ exports.editCash = async (req, res) => {
    let update=  await Alltrade.findOneAndUpdate(
     { _id: req.params.id },
     
-    {$set: {T1,t1_type:"true",SL,sl_type:"false",T2,t2_type:"true",T3,t3_type:"true",T4,t4_type:"true",pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
+    {$set: {T1,t1_type,SL,sl_type:"false",T2,t2_type,T3,t3_type,T4,t4_type,pl_per,pl,investment_amt,  status,t5,t5_type,cstmMsg}} ,
   
   //{ $set: {status:"success"} },
   { new: true }
