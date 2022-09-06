@@ -355,42 +355,7 @@ exports.editFnoindex = async (req, res) => {
     )
     .then((data) => resp.successr(res, data))
      .catch((error) => resp.errorr(res, error));
-} else if(FT2_type == "true" && FT3_type == "true"){
-  console.log("JKLM")
-      investment_amt =  (req.body.qty*25)*(req.body.active_value)
-      console.log("InvestAMT",investment_amt)
-      let  av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2",av2)
-         let trl = parseInt(av2) + parseInt(10)
-        console.log("TRL",trl)
-       let  FT1 =parseInt (trl) + parseInt(20)
-       console.log("FT1",FT1)
-     let  FT2 = parseInt (FT1) + parseInt(20)
-       console.log("FT2",FT2)
-
-      let FT3 = parseInt (FT2) + parseInt(20)
-       console.log("FT3",FT3)
-       pl =(req.body.qty*25) *(FT3 -  req.body.active_value)
-       console.log("PL",pl)
-
-       pl_per = (pl/investment_amt*100 ).toFixed(2);
-       console.log("PL%%%%",pl_per)
-      
-    
-    
-       let update=  await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg}} ,
-      
-      //{ $set: {status:"success"} },
-      { new: true }
-    
-    )
-       
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error))
-}
+}  
     else if (  FT1_type == "true") {
       console.log("abcd")
       investment_amt =  (req.body.qty*25)*(req.body.active_value)
