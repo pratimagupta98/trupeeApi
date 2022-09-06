@@ -41,6 +41,11 @@ const UserSchema = new Schema(
        refral_Code :{
         type: String,
        },
+       walletId:{
+        type: String,
+        default:"0"
+         
+       },
       //  status:{
       //   type: String,
       //   default:"Deactive"

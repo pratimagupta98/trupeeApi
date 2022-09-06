@@ -32,6 +32,7 @@ function detectMimeType(b64) {
 
 
 exports.signupsendotp = async (req, res) => {
+  const {walletId}  = req.body
   let length = 6;
   //   let otp = (
   //     "0".repeat(length) + Math.floor(Math.random() * 10 ** length)
@@ -51,7 +52,9 @@ exports.signupsendotp = async (req, res) => {
   }
   const newUser = new User({
     mobile: req.body.mobile,
-    refral_Code:random_string
+    refral_Code:random_string,
+    walletId :walletId
+    
   });
   console.log("hghg",newUser)
   const findexist = await User.findOne({ mobile: req.body.mobile });
@@ -63,9 +66,17 @@ exports.signupsendotp = async (req, res) => {
       _id: findexist?._id,
       refral_Code: findexist?.refral_Code,
       otp: otp,
+      walletId:walletId
     });
   } else {
+      const newUser = new User({
+    mobile: req.body.mobile,
+    refral_Code:random_string,
+    walletId :walletId
+    
+  });
     newUser.otp = otp;
+    newUser.walletId   =walletId
     newUser
     .save()
       .then((result) => {
@@ -87,8 +98,8 @@ exports.signupsendotp = async (req, res) => {
               _id: result?._id,
                userId: result._id,
               otp: result.otp,
-             refral_Code:random_string
-          
+             refral_Code:random_string,
+             walletId:result._id
         });
       })
       .catch((error) => {
@@ -98,28 +109,11 @@ exports.signupsendotp = async (req, res) => {
           error: error,
         });
       });
+      
   }
+  
 }
-      // .then((data) =>
-      //   res.json({
-      //     status: "success",
-      //     msg: "Otp send successfully",
-      //     registered: data?.mobile,
-      //     _id: data?._id,
-      //     userId: data._id,
-      //     otp: otp,
-      //     refral_Code:random_string
-      //   })
-      // )
-//       .catch((error) => {
-//         res.status(400).json({
-//           status: false,
-//           msg: "error",
-//           error: error,
-//         });
-//       });
-//   }
-// };
+      
  
 exports.adminverifyOtp = async (req, res) => {
 
@@ -335,7 +329,7 @@ exports.adminverifyOtp = async (req, res) => {
 //  }
 
 exports.verifyotp = async (req, res) => {
-  const { mobile, otp } = req.body;
+  const { mobile, otp,walletId } = req.body;
 
   if (otp == "123456") {
     const findone = await User.findOne({ mobile: mobile });
@@ -358,7 +352,7 @@ exports.verifyotp = async (req, res) => {
         {
           _id: findone._id,
         },
-        { $set: { userverified: true } },
+        { $set: { userverified: true },walletId },
         { new: true })
         .then((data) => {
           res.header("auth-token",token).status(200).send({
@@ -369,7 +363,8 @@ exports.verifyotp = async (req, res) => {
             redirectto: "dashboard",
             _id: data?._id,
             userId: data._id,
-            data: data,
+           // data: data,
+            walletId:data._id
           });
         });
     //   res.header("auth-token", token).status(200).json({
@@ -395,7 +390,7 @@ exports.verifyotp = async (req, res) => {
       {
         _id: findone._id,
       },
-      { $set: { userverified: true } },
+      { $set: { userverified: true,walletId } },
       { new: true })
       .then((data) => {
        res.header("auth-token", token).status(200).send({
@@ -405,7 +400,7 @@ exports.verifyotp = async (req, res) => {
             otpverified: true,
             //userdata:userdata,
             redirectto: "signupdetail",
-           // _id: findone._id,
+            walletId:data._id
             
           });
         })
