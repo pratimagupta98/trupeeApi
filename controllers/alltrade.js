@@ -247,7 +247,7 @@ exports.AppCashList = async (req, res) => {
 };
 
 exports.editFnoindex = async (req, res) => {  
-  const{qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg}  = req.body
+  const{qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus}  = req.body
 
 
 
@@ -269,7 +269,7 @@ exports.editFnoindex = async (req, res) => {
         let update=  await Alltrade.findOneAndUpdate(
          { _id: req.params.id },
          
-         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg}} ,
+         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
        
        //{ $set: {status:"success"} },
        { new: true }
@@ -303,7 +303,7 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -464,7 +464,7 @@ exports.editFnoindex = async (req, res) => {
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
