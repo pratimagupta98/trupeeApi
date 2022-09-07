@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 const fs = require("fs");
 const { uploadBase64ImageFile } = require("../helpers/apiResponse");
+ const crypto = require("crypto");
 
  const bcrypt = require("bcrypt");
 dotenv.config();
@@ -32,7 +33,7 @@ function detectMimeType(b64) {
 
 
 exports.signupsendotp = async (req, res) => {
-  const {walletId}  = req.body
+  
   let length = 6;
   //   let otp = (
   //     "0".repeat(length) + Math.floor(Math.random() * 10 ** length)
@@ -50,33 +51,33 @@ exports.signupsendotp = async (req, res) => {
     }
     return random_string;
   }
+
+  // Generate id For WALLET
+  // const Wltid = crypto.randomBytes(16).toString("hex");
+  // console.log(Wltid);
   const newUser = new User({
     mobile: req.body.mobile,
     refral_Code:random_string,
-    walletId :walletId
+    walletId :  req.body.walletId,
     
   });
   console.log("hghg",newUser)
   const findexist = await User.findOne({ mobile: req.body.mobile });
   if (findexist) {
+    console.log("STRING",findexist)
     res.json({
       status: "success",
       msg: "Welcome Back Otp send successfully",
       registered: findexist?.mobile,
-      _id: findexist?._id,
-      refral_Code: findexist?.refral_Code,
+    //  _id: findexist?._id,
+     // refral_Code: findexist?.refral_Code,
       otp: otp,
-      walletId:walletId
-    });
+
+      
+    })
   } else {
-      const newUser = new User({
-    mobile: req.body.mobile,
-    refral_Code:random_string,
-    walletId :walletId
-    
-  });
-    newUser.otp = otp;
-    newUser.walletId   =walletId
+       newUser.otp = otp;
+      //newUser.walletId = Wltid
     newUser
     .save()
       .then((result) => {
@@ -99,7 +100,8 @@ exports.signupsendotp = async (req, res) => {
                userId: result._id,
               otp: result.otp,
              refral_Code:random_string,
-             walletId:result._id
+          //   walletId:Wltid,
+             
         });
       })
       .catch((error) => {
@@ -352,7 +354,7 @@ exports.verifyotp = async (req, res) => {
         {
           _id: findone._id,
         },
-        { $set: { userverified: true },walletId },
+        { $set: { userverified: true } },
         { new: true })
         .then((data) => {
           res.header("auth-token",token).status(200).send({
@@ -363,19 +365,10 @@ exports.verifyotp = async (req, res) => {
             redirectto: "dashboard",
             _id: data?._id,
             userId: data._id,
-           // data: data,
-            walletId:data._id
+          
+           
           });
         });
-    //   res.header("auth-token", token).status(200).json({
-    //     status: true,
-    //     msg: "otp verified please register",
-    //  //   alreadyexist: false,
-    //     mobile: mobile,
-    //    // otp: defaultotp,
-    //    data :x,
-    //    token:token
-    //   });
     }else  {
       const token = jwt.sign(
         {
@@ -390,7 +383,7 @@ exports.verifyotp = async (req, res) => {
       {
         _id: findone._id,
       },
-      { $set: { userverified: true,walletId } },
+      { $set: { userverified: true,walletId: findone._id } },
       { new: true })
       .then((data) => {
        res.header("auth-token", token).status(200).send({
@@ -400,7 +393,7 @@ exports.verifyotp = async (req, res) => {
             otpverified: true,
             //userdata:userdata,
             redirectto: "signupdetail",
-            walletId:data._id
+            walletId: data.walletId,
             
           });
         })
@@ -413,81 +406,39 @@ exports.verifyotp = async (req, res) => {
   });
 }
 }
- // }
-  //   if (dealerDetail) {
-  //     if (otp == "123456") {
-  //   //  if (otp == "123456") {
-  //          const token = jwt.sign(
-  //           {
-  //             userId: dealerDetail._id,
-  //           },
-  //           key,
-  //           {
-  //             expiresIn: "365d",
-  //           }
-  //         );
-  //       if (!dealerDetail.userverified) {
+  
 
-  //         console.log("@@@@@",dealerDetail)
-        
-  //         await User.findOneAndUpdate(
-  //           {
-  //             _id: dealerDetail._id,
-  //           },
-  //           { $set: { userverified: true } },
-  //           { new: true }
-  //         ).then((data) => {
-  //           res.json({
-  //             status: "success",
-  //             token: token,
-  //             msg: "Welcome Back",
-  //             otpverified: true,
-  //             redirectto: "dashboard",
-  //             data: data,
-  //           });
-  //         });
-  //       } else {
-  //         if (dealerDetail.userverified  ) {
-  //           console.log("@@@@@@@@@@",dealerDetail)
-  //           const token = jwt.sign(
-  //             {
-  //               userId: dealerDetail._id,
-  //             },
-  //             key,
-  //             {
-  //               expiresIn: "365d",
-  //             }
-  //           );
-  //           await User.findOneAndUpdate(
-  //             {
-  //               _id:  dealerDetail._id,
-  //             },
-  //             { $set: { userverified: true } },
-  //             { new: true });
-  //           res.json({
-  //             status: "success",
-  //             token: token,
-  //             msg: "Continue signup",
-  //             otpverified: true,
-  //             redirectto: "signupdetail",
-  //           });
-  //         }
-  //       }
-  //     } else {
-  //       res.json({
-  //         status: "failed",
-  //         msg: "Incorrect OTP",
-  //       });
-  //     }
-  //   } else {
-  //     res.json({
-  //       status: "error",
-  //       msg: "User doesnot exist",
-  //     });
-  //   }
-  // };
+exports.myWallet = async (req, res) => {
+  const getdata = await User.findOne({_id:req.userId})
+//   console.log(getdata)
+ if(getdata){
 
+//    let oldamt = getdata.amount
+//    console.log("amout",oldamt)
+  
+//     currntbalance = parseInt(oldamt)+ parseInt(req.body.amount)
+//    console.log("Result",currntbalance)
+ 
 
+    
+   // console.log(sum);
+    //console.log(findone)
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: getdata,
+       // total: sum,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
+
+   
 exports.getuser = async (req, res) => {
   await User.find().sort({ createdAt: -1 })
 

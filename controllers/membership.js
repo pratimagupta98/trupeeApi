@@ -1,6 +1,11 @@
 const Membership = require("../models/membership");
+const User = require("../models/user");
+const Plan = require("../models/plan");
+
 const resp = require("../helpers/apiResponse");
 const _ = require("lodash");
+const user = require("../models/user");
+const { findByIdAndDelete } = require("../models/refEarn");
 let getCurrentDate = function () {
   const t = new Date();
   const date = ("0" + t.getDate()).slice(-2);
@@ -88,51 +93,7 @@ exports.viewonemembership = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-// exports.deletemembership = async (req, res) => {
-//   await Membership
-//     .deleteOne({ _id: req.params.id })
-//     .then((data) => resp.deleter(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
-// exports.updatemembership = async (req, res) => {
-//   // const { dealer_id } = req.body;
-//   let obj = await Membership
-//     .findOne({ _id: req.params.id })
-//     .sort({ createdAt: -1 });
-
-//   let userid = obj.userid;
-
-//  // console.log("old", dealerid);
-//   let dealer = await User.findOneAndUpdate(
-//     {
-//       _id: userid,
-//       //console.log(dealerid);
-//     },
-//     {
-//       $set: { planId: obj._id },
-//     },
-//     { new: true }
-//   ).populate("planId");
-
-//   console.log("updated", dealer);
-//   await membershipplan
-
-//     .findOneAndUpdate(
-//       {
-//         _id: req.params.id,
-//         //  console.log(req.params._id);
-//       },
-//       {
-//         $set: req.body,
-//       },
-//       { new: true }
-//     )
-//     .populate("planId")
-//     .populate("dealer_id")
-
-//     .then((data) => resp.successr(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+  
 
 
 exports.updatemembership = async (req, res) => {    
@@ -236,3 +197,172 @@ exports.updatemembership = async (req, res) => {
 //     Earning: total,
 //   });
 // };
+
+exports.verifyCode = async (req, res) => {
+  const { refral_Code } = req.body
+
+  const findone = await User.findOne({ refral_Code: req.body.refral_Code })
+  //console.log("CODE", findone)
+  if (findone) {
+    res.status(200).send({
+      status: true,
+      message: "success",
+      data: findone,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "Code Doesn't exist",
+      error: "error",
+    });
+
+  }
+}
+
+
+exports.MemeberSHIP = async (req, res) => {
+  const t = new Date()
+  const oneyr =new Date()
+
+  let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  const date1 = ("0" + qq.getDate()).slice(-2);
+  const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  const year = qq.getFullYear();
+let det= `${year}-${month}-${date1}`
+console.log("ffffff",det)
+  const { userid, transaction_id, status, date, planId ,expdate,refral_Code} = req.body;
+  // let member = await Membership.findOne({
+  //   $and: [{ userid: userid }, { planId: planId }],
+  // });
+//   if (member) {
+//     res.status(400).json({
+//       status: false,
+//       msg: "Your request is alredy Pandding  ",
+//     });
+//   } else {
+    const newMembership = new Membership({
+        userid: userid,
+      date: getCurrentDate(),
+      transaction_id: transaction_id,
+      planId: planId,
+     status:status,
+     expdate:det,
+     status:status,
+     refral_Code:refral_Code
+    });
+    const findexist = await Membership.findOne({ userid: userid });
+    if (findexist) {
+      resp.alreadyr(res);
+    }
+    else{
+    const findone = await User.findOne({refral_Code:req.body.refral_Code})
+    if(findone.refral_Code){
+      getplan = await Plan.findOne({planId :planId})
+      console.log("PLAN",getplan)
+      jj = getplan.des_price
+      console.log("JJ",jj)
+      price = jj/12*100
+      console.log("TOTAL PRICE",price)
+      const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+if(getdetail.refral_Code){
+  console.log("GETDETAIL",getdetail)
+  console.log("@@@",getdetail)
+  wolt = getdetail.amount
+  addamt = parseInt(price) +parseInt(wolt)
+  console.log("ADD HO GYA",addamt)
+ await User.findOneAndUpdate(
+  {
+    _id: getdetail._id,
+  },
+  { $set: {amount :addamt } },
+  { new: true }
+)
+newMembership
+      .save()
+  .then((data) => resp.successr(res, data))
+  .catch((error) => resp.errorr(res, error));
+}
+} else if(!findone.refral_Code){
+  const getwallet = await User.findOne({_id : req.body.userid})
+  if(getwallet){
+    console.log("PPPP",getwallet)
+    pp = getwallet.amount
+    console.log("PAISA",pp)
+    getplan = await Plan.findOne({planId :req.body.planId})
+    if(getplan){
+      plnprice =  getplan.des_price
+      console.log("DSTP",plnprice)
+    }
+    totalamtpay = plnprice - pp
+    console.log("Final",totalamtpay)
+newMembership
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success", 
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: error,
+        });
+      });
+  }
+
+}
+}
+}
+    
+      // newMembership
+      // .save()
+      // .then((data) => {
+      //   res.status(200).json({
+      //     status: true,
+      //     msg: "success", 
+      //     data: findone,
+      //   });
+      // })
+      // .catch((error) => {
+      //   res.status(400).json({
+      //     status: false,
+      //     msg: "error",
+      //     error: error,
+      //   });
+      // });
+    
+  //  }
+    // else if (findone.refral_Code){
+
+    //   newMembership
+    //   .save()
+    //   .then((data) => {
+    //     res.status(200).json({
+    //       status: true,
+    //       msg: "success", 
+    //       data: findone,
+    //     });
+    //   }) .catch((error) => {
+    //     res.status(400).json({
+    //       status: false,
+    //       msg: "error",
+    //       error: error,
+    //     });
+    //   });
+    // }
+
+  
+
+
+
+
+
+
+
+
+
+
+   

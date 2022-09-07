@@ -8,7 +8,9 @@ const {
     allmembership,
     viewonemembership,
     updatemembership,
-    dlt_membership
+    dlt_membership,
+    MemeberSHIP,
+    verifyCode
 
 } = require("../controllers/membership");
 
@@ -22,6 +24,9 @@ router.get("/admin/allmembership", allmembership);
  router.get("/admin/viewonemembership/:id", viewonemembership);
  router.post("/admin/updatemembership/:id", updatemembership);
  router.get("/admin/dlt_membership/:id", dlt_membership);
+
+ router.post("/user/MemeberSHIP", MemeberSHIP);
+ router.post("/user/verifyCode", verifyCode);
 
 
 module.exports = router;

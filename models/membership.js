@@ -24,6 +24,7 @@ const membershipplan = new Schema(
       ref: "plan",
       trim: true,
     },
+    refral_Code:{type: String},
     // amount: {
     //   type: Number,
     //   trim: true,

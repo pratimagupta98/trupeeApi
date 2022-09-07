@@ -29,7 +29,11 @@ type:String
     },
     usd:{
       type:Number
-    }
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   { timestamps: true }
 );
