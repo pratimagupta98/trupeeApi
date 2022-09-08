@@ -230,6 +230,7 @@ exports.MemeberSHIP = async (req, res) => {
   const year = qq.getFullYear();
 let det= `${year}-${month}-${date1}`
 console.log("ffffff",det)
+
   const { userid, transaction_id, status, date, planId ,expdate,refral_Code} = req.body;
   // let member = await Membership.findOne({
   //   $and: [{ userid: userid }, { planId: planId }],
@@ -261,7 +262,7 @@ console.log("ffffff",det)
       console.log("PLAN",getplan)
       jj = getplan.des_price
       console.log("JJ",jj)
-      price = jj/12*100
+      price = jj*12/100
       console.log("TOTAL PRICE",price)
       const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
 if(getdetail.refral_Code){
