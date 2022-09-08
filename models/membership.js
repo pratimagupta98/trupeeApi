@@ -34,6 +34,9 @@ const membershipplan = new Schema(
       type: String,
       default: "Pending",
     },
+    razorpay_payment_id:{
+      type:String
+    }
   },
   { timestamps: true }
 );

@@ -20,7 +20,7 @@ exports.addFeedback = async (req, res) => {
 
 exports.getFeedback = async (req, res) => {
     await Feedback.find()
-      .sort({ sortorder: 1 }).populate("userid").populate("script_type")
+      .sort({ sortorder: 1 }).populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
