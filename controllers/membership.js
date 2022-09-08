@@ -220,7 +220,7 @@ exports.verifyCode = async (req, res) => {
 }
 
 
-exports.MemeberSHIP = async (req, res) => {
+exports.addMemeberShip = async (req, res) => {
   const t = new Date()
   const oneyr =new Date()
 
