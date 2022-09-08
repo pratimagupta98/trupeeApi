@@ -319,128 +319,383 @@ exports.verifyCode = async (req, res) => {
 
 
 
-    exports.addMemeberShip = async (req, res) => {
-      const {  transaction_id, status, date, planId ,expdate,refral_Code,razorpay_payment_id} = req.body;
+    // exports.addMemeberShip = async (req, res) => {
+    //   const { userid, transaction_id, status, date, planId ,expdate,refral_Code} = req.body;
 
-      const t = new Date()
-        const oneyr =new Date()
-      
-        let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-        const date1 = ("0" + qq.getDate()).slice(-2);
-        const month = ("0" + (qq.getMonth() + 1)).slice(-2);
-        const year = qq.getFullYear();
-      let det= `${year}-${month}-${date1}`
-      console.log("ffffff",det)
-      const newMembership = new Membership({
-        userid: req.userId,
-      date: getCurrentDate(),
-      transaction_id: transaction_id,
-      planId: planId,
-     status:status,
-     expdate:det,
-     status:status,
-     refral_Code:refral_Code,
-     razorpay_payment_id:razorpay_payment_id
-    });
 
-    const findexist = await Membership.findOne({
-      userid: req.userId
-    });
-    if (findexist) {
-      res.status(400).json({
-        msg: "already"
-      })
-    } else {
-      const findone = await User.findOne({refral_Code:req.body.refral_Code})
-      
-      if (findone.refral_Code) {
-        getplan = await Plan.findOne({planId :planId})
-        let Code = findone?.refral_Code
-        console.log("PLAN",getplan)
-        jj = getplan.des_price
-        console.log("JJ",jj)
-        price = jj*12/100
-        console.log("TOTAL PRICE",price)
-        const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+    //   const newMembership = new Membership({
+    //     userid: req.userId,
+    // //  date: getCurrentDate(),
+    //   transaction_id: transaction_id,
+    //   planId: planId,
+    //  status:status,
+    //  //expdate:det,
+    //  status:status,
+    //  refral_Code:refral_Code
+    // });
 
-         if(getdetail.refral_Code){
-            console.log("GETDETAIL",getdetail)
-            console.log("@@@",getdetail)
-            wolt = getdetail.amount
-            addamt = parseInt(price) +parseInt(wolt)
-            console.log("ADD HO GYA",addamt)
-           await User.findOneAndUpdate(
-            {
-              _id: getdetail._id,
-            },
-            { $set: {amount :addamt } },
-            { new: true }
-          )
-          newMembership
-                .save()
-            .then((data) => resp.successr(res, data))
-            .catch((error) => resp.errorr(res, error))
+    // const findexist = await Membership.findOne({
+    //   userid: req.userId
+    // });
+    // if (findexist) {
+    //   res.status(400).json({
+    //     msg: "already"
+    //   })
+    // } else {
+    //   const findone = await User.findOne({refral_Code:req.body.refral_Code})
+    //   rr =findone?.refral_Code
+    //   if(rr){
+    //   if (rr == req.body.refral_Code) {
+    //     getplan = await Plan.findOne({planId :planId})
+    //     let Code = findone?.refral_Code
+    //     console.log("PLAN",getplan)
+    //     jj = getplan.des_price
+    //     console.log("JJ",jj)
+    //     price = jj*12/100
+    //     console.log("TOTAL PRICE",price)
+    //     const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+
+    //      if(getdetail.refral_Code){
+    //         console.log("GETDETAIL",getdetail)
+    //         console.log("@@@",getdetail)
+    //         wolt = getdetail.amount
+    //         addamt = parseInt(price) +parseInt(wolt)
+    //         console.log("ADD HO GYA",addamt)
+    //        await User.findOneAndUpdate(
+    //         {
+    //           _id: getdetail._id,
+    //         },
+    //         { $set: {amount :addamt } },
+    //         { new: true }
+    //       )
+    //       newMembership
+    //             .save()
+    //         .then((data) => resp.successr(res, data))
+    //         .catch((error) => resp.errorr(res, error))
             
-          } 
-
-        else if (!findone.refral_Code) {
-  
-          const getwallet = await User.findOne({_id : req.body.userId})
+    //       } else{
+             
+    //           res.status(400).json({
+    //             status: false,
+    //             msg: "Incorrect otp",
+    //           });
+    //         }
+            
           
-          if(getwallet){
-            console.log("PPPP",getwallet)
-                pp = getwallet.amount
-                console.log("PAISA",pp)
-                getplan = await Plan.findOne({_id :req.body.planId})
+
+         
+    //     } else{
+    //       res.status(400).json({
+    //         status: false,
+    //         msg: "Incorrect otp",
+    //       });
+    //     } 
+    //    }else  {
   
-                if(getplan){
-                        plnprice =  getplan.des_price
-                        console.log("DSTP",plnprice)
-                      }
-                      totalamtpay = plnprice - pp
-                      console.log("Final",totalamtpay)
+    //       const getdata = await User.findOne({ userId: req.body.refer_from_id }).sort({
+    //         createdAt: -1,
+    //       })
+    //       console.log("GET DATA", getdata)
+    //       if (getdata) {
+    //         let userid = getdata.walletId
+    //         console.log("USER(Wallet)", userid)
   
-                      newMembership
-                            .save()
-                            .then((data) => {
-                              res.status(200).json({
-                                status: true,
-                                msg: "success", 
-                                data: data,
-                              });
-                            })
-              .catch((error) => {
-                res.status(200).json({
-                  status: false,
-                  msg: "error",
-                  error: error,
-                });
-              });
-          }else {
+             
+  
+  
+  
+    //         let amt = getdata.amount
+    //         console.log("old amt Mil Gya", amt)
+    //         let addamt = 2
+    //         let currntamt = amt + parseInt(addamt)
+    //         console.log("CURRENT AMT", currntamt)
+           
+  
+    //         const findandUpdateEntry = await User.findOneAndUpdate(
+  
+    //           { walletId: req.body.refer_from_id },
+  
+    //           { $set: { amount: currntamt } },
+  
+  
+    //           { new: true }
+    //         ).sort({ createdAt: -1 })
+    //         console.log("Update Ho Gya", findandUpdateEntry)
+    //         //console.log("paisa",findandUpdateEntry.amount)
+  
+    //         newMembership
+    //           .save()
+    //           .then((data) => {
+    //             res.status(200).json({
+    //               status: true,
+    //               msg: "success",
+    //               data: data,
+  
+    //             });
+    //           })
+  
+    //           .catch((error) => {
+    //             res.status(200).json({
+    //               status: false,
+    //               msg: "error",
+    //               error: error,
+    //             });
+    //           });
+    //       } else{
+    //         res.status(400).json({
+    //           status: false,
+    //           msg: "Incorrect otp",
+    //         });
+    //       } 
+    //     } 
+    //     } 
+           
+          
+    //     }
+  
+      
+    
+//     exports.addMemeberShip = async (req, res) => {
+//       const {  transaction_id, status, date, planId ,expdate,refral_Code,razorpay_payment_id} = req.body;
+
+//       const t = new Date()
+//         const oneyr =new Date()
+      
+//         let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+//         const date1 = ("0" + qq.getDate()).slice(-2);
+//         const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+//         const year = qq.getFullYear();
+//       let det= `${year}-${month}-${date1}`
+//       console.log("ffffff",det)
+//       const newMembership = new Membership({
+//         userid: req.userId,
+//       date: getCurrentDate(),
+//       transaction_id: transaction_id,
+//       planId: planId,
+//      status:status,
+//      expdate:det,
+//      status:status,
+//      refral_Code:refral_Code,
+//      razorpay_payment_id:razorpay_payment_id
+//     });
+
+
+//     const findexist = await Membership.findOne({
+//       userid: req.userId
+//     })
+//     if(findexist){
+
+//     }else{
+// const getuser = await User.findOne({refral_Code :req.body.refral_Code})
+// if(getuser)
+//     } 
+//     // const findexist = await Membership.findOne({
+//     //   userid: req.userId
+//     // });
+//     // if (findexist) {
+//     //   res.status(400).json({
+//     //     msg: "already"
+//     //   })
+//     // } else {
+//     //   const findone = await User.findOne({refral_Code:req.body.refral_Code})
+      
+//     //   if (findone?.refral_Code == req.body.refral_Code) {
+//     //     getplan = await Plan.findOne({planId :planId})
+//     //     let Code = findone?.refral_Code
+//     //     console.log("PLAN",getplan)
+//     //     jj = getplan.des_price
+//     //     console.log("JJ",jj)
+//     //     price = jj*12/100
+//     //     console.log("TOTAL PRICE",price)
+//     //     const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+
+//     //      if(getdetail.refral_Code){
+//     //         console.log("GETDETAIL",getdetail)
+//     //         console.log("@@@",getdetail)
+//     //         wolt = getdetail.amount
+//     //         addamt = parseInt(price) +parseInt(wolt)
+//     //         console.log("ADD HO GYA",addamt)
+//     //        await User.findOneAndUpdate(
+//     //         {
+//     //           _id: getdetail._id,
+//     //         },
+//     //         { $set: {amount :addamt } },
+//     //         { new: true }
+//     //       )
+//     //       newMembership
+//     //             .save()
+//     //         .then((data) => resp.successr(res, data))
+//     //         .catch((error) => resp.errorr(res, error))
+            
+//     //       } else{
+//     //         const getwallet = await User.findOne({_id : req.body.userId})
+          
+//     //         if(getwallet){
+//     //           console.log("PPPP",getwallet)
+//     //               pp = getwallet.amount
+//     //               console.log("PAISA",pp)
+//     //               getplan = await Plan.findOne({_id :req.body.planId})
+        
+//     //               if(getplan){
+//     //                       plnprice =  getplan.des_price
+//     //                       console.log("DSTP",plnprice)
+//     //                     }
+//     //                     totalamtpay = plnprice - pp
+//     //                     console.log("Final",totalamtpay)
+        
+//     //                     newMembership
+//     //                           .save()
+//     //                           .then((data) => {
+//     //                             res.status(200).json({
+//     //                               status: true,
+//     //                               msg: "success", 
+//     //                               data: data,
+//     //                             });
+//     //                           })
+//     //             .catch((error) => {
+//     //               res.status(200).json({
+//     //                 status: false,
+//     //                 msg: "error",
+//     //                 error: error,
+//     //               });
+//     //             });
+//     //         } 
+//     //       }
+//     //   }else {
+//     //     res.status(200).json({
+//     //       status: false,
+//     //       msg: "Wrong Verify Code",
+//     //     });
+//     //   }
+//     // } 
+   
+
+
+//     }
+
+
+    
+
+
+
+
+exports.addMemeberShip = async (req, res) => {
+  const {  transaction_id, status, date, planId ,expdate,refral_Code,razorpay_payment_id} = req.body;
+
+  const t = new Date()
+    const oneyr =new Date()
+  
+    let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+    const date1 = ("0" + qq.getDate()).slice(-2);
+    const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+    const year = qq.getFullYear();
+  let det= `${year}-${month}-${date1}`
+  console.log("ffffff",det)
+  const newMembership = new Membership({
+    userid: req.userId,
+  date: getCurrentDate(),
+  transaction_id: transaction_id,
+  planId: planId,
+ status:status,
+ expdate:det,
+ status:status,
+ refral_Code:refral_Code,
+ razorpay_payment_id:razorpay_payment_id
+});
+
+const findexist = await Membership.findOne({
+  userid: req.userId
+});
+if (findexist) {
+  res.status(400).json({
+    msg: "already"
+  })
+} else {
+  const findone = await User.findOne({refral_Code:req.body.refral_Code})
+  
+  if (findone.refral_Code) {
+    getplan = await Plan.findOne({planId :planId})
+    let Code = findone?.refral_Code
+    console.log("PLAN",getplan)
+    jj = getplan.des_price
+    console.log("JJ",jj)
+    price = jj*12/100
+    console.log("TOTAL PRICE",price)
+    const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+
+     if(getdetail.refral_Code){
+        console.log("GETDETAIL",getdetail)
+        console.log("@@@",getdetail)
+        wolt = getdetail.amount
+        addamt = parseInt(price) +parseInt(wolt)
+        console.log("ADD HO GYA",addamt)
+       await User.findOneAndUpdate(
+        {
+          _id: getdetail._id,
+        },
+        { $set: {amount :addamt } },
+        { new: true }
+      )
+      newMembership
+            .save()
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error))
+        
+      } 
+
+    else if (!findone.refral_Code) {
+
+      const getwallet = await User.findOne({_id : req.body.userId})
+      
+      if(getwallet){
+        console.log("PPPP",getwallet)
+            pp = getwallet.amount
+            console.log("PAISA",pp)
+            getplan = await Plan.findOne({_id :req.body.planId})
+
+            if(getplan){
+                    plnprice =  getplan.des_price
+                    console.log("DSTP",plnprice)
+                  }
+                  totalamtpay = plnprice - pp
+                  console.log("Final",totalamtpay)
+
+                  newMembership
+                        .save()
+                        .then((data) => {
+                          res.status(200).json({
+                            status: true,
+                            msg: "success", 
+                            data: data,
+                          });
+                        })
+          .catch((error) => {
             res.status(200).json({
               status: false,
-              msg: "Wrong Verify Code",
+              msg: "error",
+              error: error,
             });
-          }
-        } else {
-          res.status(200).json({
-            status: false,
-            msg: "Wrong Verify Code",
           });
-        }
-  
       }else {
         res.status(200).json({
           status: false,
           msg: "Wrong Verify Code",
         });
       }
+    } else {
+      res.status(200).json({
+        status: false,
+        msg: "Wrong Verify Code",
+      });
     }
 
+  }else {
+    res.status(200).json({
+      status: false,
+      msg: "Wrong Verify Code",
+    });
+  }
+}
 
-    }
 
-
-
-
-   
+}
