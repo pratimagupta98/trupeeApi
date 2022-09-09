@@ -25,7 +25,7 @@ let det= `${year}-${month}-${date1}`
 console.log("ffffff",det)
 
 
-  const { userid, transaction_id, status, date, planId ,expdate} = req.body;
+  const { userid, transaction_id, date, planId ,expdate} = req.body;
   let member = await Membership.findOne({
     $and: [{ userid: userid }, { planId: planId }],
   });
@@ -580,7 +580,7 @@ exports.verifyCode = async (req, res) => {
 
 
 exports.addMemeberShip = async (req, res) => {
-  const {  transaction_id, status, date, planId ,expdate,refral_Code,razorpay_payment_id} = req.body;
+  const {  transaction_id, date, planId ,expdate,refral_Code,razorpay_payment_id} = req.body;
 
   const t = new Date()
     const oneyr =new Date()
@@ -596,9 +596,7 @@ exports.addMemeberShip = async (req, res) => {
   date: getCurrentDate(),
   transaction_id: transaction_id,
   planId: planId,
- status:status,
  expdate:det,
- status:status,
  refral_Code:refral_Code,
  razorpay_payment_id:razorpay_payment_id
 });
