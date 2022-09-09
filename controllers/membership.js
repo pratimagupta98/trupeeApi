@@ -872,8 +872,13 @@ exports.freeMembership= async (req, res) => {
 //  date: getCurrentDate(),
   planId: planId
 });
+const findOne = await Membership.findOne({userId:req.userId})
+if(findOne){
+  resp.alreadyr(res);
+}else{
 newMembership.save().then((data) => resp.successr(res, data))
 .catch((error) => resp.errorr(res, error));
+}
 
 }
 
