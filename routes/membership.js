@@ -11,7 +11,7 @@ const {
     dlt_membership,
     addMemeberShip,
     verifyCode,
-    //memershipppp
+    freeMembership
 } = require("../controllers/membership");
 
  
@@ -27,7 +27,7 @@ router.get("/admin/allmembership", allmembership);
 
  router.post("/user/addMemeberShip",verifytoken, addMemeberShip);
  router.post("/user/verifyCode", verifyCode);
- //router.post("/user/memershipppp",verifytoken, memershipppp);
+ router.post("/user/freeMembership",verifytoken, freeMembership);
 
 
 module.exports = router;

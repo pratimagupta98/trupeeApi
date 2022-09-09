@@ -865,7 +865,17 @@ const findone = await User.findOne({refral_Code:req.body.refral_Code})
 
 
 
+exports.freeMembership= async (req, res) => {
+  const {planId} = req.body
+  const newMembership = new Membership({
+    userid: req.userId,
+//  date: getCurrentDate(),
+  planId: planId
+});
+newMembership.save().then((data) => resp.successr(res, data))
+.catch((error) => resp.errorr(res, error));
 
+}
 
 
 
