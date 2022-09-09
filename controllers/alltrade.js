@@ -836,4 +836,20 @@ exports.addTnotification = async (req, res) => {
 
 
 
- 
+exports.datefilter = async (req, res) => {
+  instance.Alltrade
+    .all({
+      from: "2021-09-29",
+      to: "2021-10-01",
+    })
+    .then((response) => {
+      res.json({
+        response: response,
+      });
+    })
+    .catch((error) => {
+      res.json({
+        error: error,
+      });
+    });
+};
