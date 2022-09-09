@@ -30,13 +30,13 @@ const membershipplan = new Schema(
     //   trim: true,
     //   default: null,
     // },
-    // status: {
-    //   type: String,
-    //   default: "Pending",
-    // },
-    razorpay_payment_id:{
-      type:String
-    }
+    amount: {
+      type: Number,
+      default: 0,
+    },
+    // razorpay_payment_id:{
+    //   type:String
+    // }
   },
   { timestamps: true }
 );

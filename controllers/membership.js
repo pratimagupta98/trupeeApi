@@ -752,7 +752,7 @@ exports.verifyCode = async (req, res) => {
 
 
 exports.addMemeberShip = async (req, res) => {
-  const {  transaction_id, date, planId ,refral_Code,expdate,razorpay_payment_id} = req.body;
+  const {  transaction_id, date, planId ,refral_Code,expdate} = req.body;
 
   const t = new Date()
     const oneyr =new Date()
@@ -770,7 +770,7 @@ exports.addMemeberShip = async (req, res) => {
   planId: planId,
  expdate:det,
  refral_Code:refral_Code,
- razorpay_payment_id:razorpay_payment_id
+// razorpay_payment_id:razorpay_payment_id
 });
 
 const findexist = await Membership.findOne({
