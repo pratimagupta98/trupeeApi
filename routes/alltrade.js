@@ -23,6 +23,7 @@ const {
     add_notificationss,
     notificationList,
     addTnotification,
+    totlactivetrade
      
 } = require("../controllers/alltrade");
 const storage = multer.diskStorage({
@@ -86,6 +87,8 @@ let multipleUpload = uploads.fields([
   router.get("/admin/notificationList", notificationList);
   router.post("/admin/addTnotification", addTnotification);
  
+  router.get("/admin/totlactivetrade", totlactivetrade);
+
 module.exports = router;
  
  

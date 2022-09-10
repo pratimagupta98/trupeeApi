@@ -853,3 +853,22 @@ exports.datefilter = async (req, res) => {
       });
     });
 };
+
+
+
+exports.totlactivetrade = async (req, res) => {
+  await Alltrade.countDocuments({status: "Active"})
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+};
