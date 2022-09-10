@@ -16,7 +16,8 @@ const {
     getoneuser,
     dltMyaccount,
     adminverifyOtp,
-    myWallet
+    myWallet,
+    ttlActiveuser
 } = require("../controllers/user");
 
  
@@ -78,6 +79,7 @@ router.get("/admin/dltMyaccount/:id", dltMyaccount);
 router.post("/user/adminverifyOtp", adminverifyOtp);
 router.get("/user/myWallet",verifytoken, myWallet);
 
+router.get("/admin/ttlActiveuser", ttlActiveuser);
 
 module.exports = router;
  
