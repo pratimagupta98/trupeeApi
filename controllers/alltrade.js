@@ -872,3 +872,21 @@ exports.totlactivetrade = async (req, res) => {
       });
     });
 };
+
+ 
+exports.ttlCompletetrade = async (req, res) => {
+  await Alltrade.countDocuments({tradeStatus: "Closed"})
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+};
