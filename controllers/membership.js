@@ -42,7 +42,7 @@ console.log("ffffff",det)
       planId: planId,
      
      expdate:det,
-     status:status
+   //  status:status
     });
 
     newMembership
@@ -866,13 +866,14 @@ const findone = await User.findOne({refral_Code:req.body.refral_Code})
 
 
 exports.freeMembership= async (req, res) => {
-  const {planId} = req.body
+  const {planId,type} = req.body
   const newMembership = new Membership({
     userid: req.userId,
 //  date: getCurrentDate(),
-  planId: planId
+  planId: planId,
+  type:type
 });
-const findexist = await Membership.findOne({ userid: req.userId, });
+const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: req.userId}]})
   if (findexist) {
     resp.alreadyr(res);
   } else {
@@ -884,7 +885,23 @@ const findexist = await Membership.findOne({ userid: req.userId, });
 
 }
 
-
+exports.ttlfreeusers = async (req, res) => {
+  await Membership.countDocuments({type: "Free"})
+  
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+};
 
 
 
