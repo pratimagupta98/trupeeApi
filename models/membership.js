@@ -32,7 +32,7 @@ const membershipplan = new Schema(
     // },
     amount: {
       type: Number,
-      default: 0,
+     // default: 0,
     },
     type :{
       type:String
@@ -40,10 +40,10 @@ const membershipplan = new Schema(
     status:{
       type:String,
       default:"Active"
-    }
-    // razorpay_payment_id:{
-    //   type:String
-    // }
+    },
+    razorpay_payment_id:{
+      type:String
+    },
   },
   { timestamps: true }
 );

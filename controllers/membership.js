@@ -751,115 +751,142 @@ exports.verifyCode = async (req, res) => {
 
 
 
-exports.addMemeberShip = async (req, res) => {
-  const {  transaction_id, date, planId ,refral_Code,expdate} = req.body;
+// exports.addMemeberShip = async (req, res) => {
+//   const {  transaction_id, date, planId ,refral_Code,expdate} = req.body;
 
-  const t = new Date()
-    const oneyr =new Date()
+//   const t = new Date()
+//     const oneyr =new Date()
   
-    let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-    const date1 = ("0" + qq.getDate()).slice(-2);
-    const month = ("0" + (qq.getMonth() + 1)).slice(-2);
-    const year = qq.getFullYear();
-  let det= `${year}-${month}-${date1}`
-  console.log("ffffff",det)
-  const newMembership = new Membership({
-    userid: req.userId,
-  date: getCurrentDate(),
-  transaction_id: transaction_id,
-  planId: planId,
- expdate:det,
- refral_Code:refral_Code,
-// razorpay_payment_id:razorpay_payment_id
-});
+//     let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+//     const date1 = ("0" + qq.getDate()).slice(-2);
+//     const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+//     const year = qq.getFullYear();
+//   let det= `${year}-${month}-${date1}`
+//   console.log("ffffff",det)
+//   const newMembership = new Membership({
+//     userid: req.userId,
+//   date: getCurrentDate(),
+//   transaction_id: transaction_id,
+//   planId: planId,
+//  expdate:det,
+//  refral_Code:refral_Code,
+// // razorpay_payment_id:razorpay_payment_id
+// });
 
-const findexist = await Membership.findOne({
-  userid: req.userId
-});
-const findone = await User.findOne({refral_Code:req.body.refral_Code})
- if(findone?.refral_Code == req.body.refral_Code){
+// const findexist = await Membership.findOne({
+//   userid: req.userId
+// });
+// const findone = await User.findOne({refral_Code:req.body.refral_Code})
+//  if(findone?.refral_Code == req.body.refral_Code){
   
   
   
-    getplan = await Plan.findOne({planId :planId})
-    let Code = findone?.refral_Code
-    console.log("PLAN",getplan)
-    jj = getplan.des_price
-    console.log("JJ",jj)
-    price = jj*12/100
-    console.log("TOTAL PRICE",price)
-    const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+//     getplan = await Plan.findOne({planId :planId})
+//     let Code = findone?.refral_Code
+//     console.log("PLAN",getplan)
+//     jj = getplan.des_price
+//     console.log("JJ",jj)
+//     price = jj*12/100
+//     console.log("TOTAL PRICE",price)
+//     const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
 
-     if(getdetail.refral_Code ){
-        console.log("GETDETAIL",getdetail)
-        console.log("@@@",getdetail)
-        wolt = getdetail.amount
-        addamt = parseInt(price) +parseInt(wolt)
-        console.log("ADD HO GYA",addamt)
-       await User.findOneAndUpdate(
-        {
-          _id: getdetail._id,
-        },
-        { $set: {amount :addamt } },
-        { new: true }
-      )
-      newMembership
-            .save()
-        .then((data) => resp.successr(res, data))
-        .catch((error) => resp.errorr(res, error))
+//      if(getdetail.refral_Code ){
+//         console.log("GETDETAIL",getdetail)
+//         console.log("@@@",getdetail)
+//         wolt = getdetail.amount
+//         addamt = parseInt(price) +parseInt(wolt)
+//         console.log("ADD HO GYA",addamt)
+//        await User.findOneAndUpdate(
+//         {
+//           _id: getdetail._id,
+//         },
+//         { $set: {amount :addamt } },
+//         { new: true }
+//       )
+//       newMembership
+//             .save()
+//         .then((data) => resp.successr(res, data))
+//         .catch((error) => resp.errorr(res, error))
         
-      }else{
-        console.log("success h")
-        // const getwallet = await User.findOne({_id : req.body.userid})
-        //   if(getwallet){
-        //     console.log("PPPP",getwallet)
-        //     pp = getwallet.amount
-        //     console.log("PAISA",pp)
-        //     getplan = await Plan.findOne({planId :req.body.planId})
-        //     if(getplan){
-        //       plnprice =  getplan.des_price
-        //       console.log("DSTP",plnprice)
-        //     }
-        //     totalamtpay = plnprice - pp
-        //     console.log("Final",totalamtpay)
-        // newMembership
-        //       .save()
-        //       .then((data) => {
-        //         res.status(200).json({
-        //           status: true,
-        //           msg: "success", 
-        //           data: data,
-        //         });
-        //       })
-        //       .catch((error) => {
-        //         res.status(400).json({
-        //           status: false,
-        //           msg: "error",
-        //           error: error,
-        //         });
-        //       });
-        //   }
-        newMembership
-        .save()
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
-      }
+//       }else{
+//         console.log("success h")
+//         // const getwallet = await User.findOne({_id : req.body.userid})
+//         //   if(getwallet){
+//         //     console.log("PPPP",getwallet)
+//         //     pp = getwallet.amount
+//         //     console.log("PAISA",pp)
+//         //     getplan = await Plan.findOne({planId :req.body.planId})
+//         //     if(getplan){
+//         //       plnprice =  getplan.des_price
+//         //       console.log("DSTP",plnprice)
+//         //     }
+//         //     totalamtpay = plnprice - pp
+//         //     console.log("Final",totalamtpay)
+//         // newMembership
+//         //       .save()
+//         //       .then((data) => {
+//         //         res.status(200).json({
+//         //           status: true,
+//         //           msg: "success", 
+//         //           data: data,
+//         //         });
+//         //       })
+//         //       .catch((error) => {
+//         //         res.status(400).json({
+//         //           status: false,
+//         //           msg: "error",
+//         //           error: error,
+//         //         });
+//         //       });
+//         //   }
+//         newMembership
+//         .save()
+//       .then((data) => resp.successr(res, data))
+//       .catch((error) => resp.errorr(res, error));
+//       }
 
     
-  }else if(findone?.refral_Code != req.body.refral_Code) {
-    res.status(200).json({
-      status: false,
-      msg: "Wrong Verify Code",
-    });
-  } 
+//   }else if(findone?.refral_Code != req.body.refral_Code) {
+//     res.status(200).json({
+//       status: false,
+//       msg: "Wrong Verify Code",
+//     });
+//   } 
   
   
   
+// }
+
+
+
+exports.addMemeberShip = async (req, res) => {
+  const {transaction_id, date, planId ,expdate,razorpay_payment_id} = req.body
+
+  const t = new Date()
+      const oneyr =new Date()
+    
+      let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+      const date1 = ("0" + qq.getDate()).slice(-2);
+      const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+      const year = qq.getFullYear();
+    let det= `${year}-${month}-${date1}`
+    console.log("ffffff",det)
+    const newMembership = new Membership({
+      userid: req.userId,
+    date: getCurrentDate(),
+    transaction_id: transaction_id,
+    planId: planId,
+   expdate:det,
+   
+   razorpay_payment_id:razorpay_payment_id
+  });
+
+  newMembership
+  .save()
+  .then((data) => resp.successr(res, data))
+  .catch((error) => resp.errorr(res, error));
+
 }
-
-
-
-
 
 
 

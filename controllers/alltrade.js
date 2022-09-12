@@ -1,5 +1,7 @@
 const Alltrade = require("../models/alltrade");
 const resp = require("../helpers/apiResponse");
+const TradeHistory = require("../models/tradeHistory");
+
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 const fs = require("fs");
@@ -247,8 +249,24 @@ exports.AppCashList = async (req, res) => {
 };
 
 exports.editFnoindex = async (req, res) => {  
+   
   const{qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus}  = req.body
 
+  const newTradeHistory = new TradeHistory({
+    qty : qty,
+    active_value:active_value,
+    sl_type:sl_type,
+    FT1_type:FT1_type,
+    FT2:FT2,
+    FT2_type:FT2_type,
+    FT3:FT3,
+    FT3_type:FT3_type,
+    status:status,
+    t5:t5,
+    cstmMsg:cstmMsg,
+    tradeStatus:tradeStatus
+
+  })
 
 
        if (sl_type == "true") {
@@ -274,7 +292,8 @@ exports.editFnoindex = async (req, res) => {
        //{ $set: {status:"success"} },
        { new: true }
      
-     )
+     )    
+     newTradeHistory.save()
      .then((data) => resp.successr(res, data))
      .catch((error) => resp.errorr(res, error));
     }  else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
@@ -309,9 +328,11 @@ exports.editFnoindex = async (req, res) => {
       { new: true }
     
     )
-       
+    newTradeHistory.save()
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error))
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error))
     
 
 }  else if(FT1_type == "true" && FT2_type == "true"){
@@ -473,10 +494,8 @@ exports.editFnoindex = async (req, res) => {
        
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error))
-    
-
-    
 }  
+
 }
 
 exports.editfnoOption = async (req, res) => {  
@@ -777,14 +796,14 @@ exports.viewonetrades = async (req, res) => {
 exports.add_notificationss = async (req, res) => {
   const { title,desc,img,noti_status} = req.body;
 
-  const newAlltrade = new Alltrade({
+  const newTradeHistory = new TradeHistory({
     title: title,
     desc:desc,
     noti_status:noti_status
      
    });
 
-  const findexist = await Alltrade.findOne({ title: title });
+  const findexist = await TradeHistory.findOne({ title: title });
   if (findexist) {
     resp.alreadyr(res);
   } else {
@@ -799,10 +818,10 @@ exports.add_notificationss = async (req, res) => {
           fs.unlinkSync(req.files.img[i].path);
           alluploads.push(resp.secure_url);
         }
-        newAlltrade.img = alluploads;
+        newTradeHistory.img = alluploads;
       }
     }
-    newAlltrade
+    newTradeHistory
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -837,24 +856,23 @@ exports.addTnotification = async (req, res) => {
 
 
 exports.datefilter = async (req, res) => {
-  instance.Alltrade
-    .all({
-      from: "2021-09-29",
-      to: "2021-10-01",
-    })
-    .then((response) => {
-      res.json({
-        response: response,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        error: error,
-      });
+  var dateStr = new Date(year,month,day,0,0,0);
+var nextDate = new Date(year,month,day,23,59,59);
+  await TradeHistory.find({"createdAt" : { $gte : new ISODate(dateStr), $lte:  new ISODate(nextDate) }})
+  .then((data) => {
+    res.status(200).json({
+      status: true,
+      data: data,
     });
+  })
+  .catch((error) => {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
+    });
+  });
 };
-
-
 
 exports.totlactivetrade = async (req, res) => {
   await Alltrade.countDocuments({status: "Active"})
