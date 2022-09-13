@@ -929,7 +929,7 @@ exports.ttlCompletetrade = async (req, res) => {
 };
 
 exports.completedTrade = async (req, res) => {
-  await Alltrade.find({tradeStatus: "Closed"})
+  await Alltrade.find({status: "Closed"})
   .then((data) => resp.successr(res, data))
   .catch((error) => resp.errorr(res, error));
 };
