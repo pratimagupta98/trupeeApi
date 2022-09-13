@@ -233,7 +233,7 @@ exports.fnoEquity_list = async (req, res) => {
 };
 //APP
 exports.AppOptionList = async (req, res) => {
-  await Alltrade.find({ $and: [{ type: "Equity" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ $and: [{ type: "Equity" }, { status: "Active" }]}).populate("fnoequty_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -253,7 +253,7 @@ exports.dlt_alltrade = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 exports.AppCashList = async (req, res) => {
-  await Alltrade.find({ $and: [{ type: "Cash" }, { status: "Active" }]}).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ $and: [{ type: "Cash" }, { status: "Active" }]}).populate("cash_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
