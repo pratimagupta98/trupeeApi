@@ -203,7 +203,7 @@ exports.add_equityCash = async (req, res) => {
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
   await Alltrade.find({status:"Active"}).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -211,7 +211,7 @@ exports.tradelist = async (req, res) => {
 //ADMIN
 exports.fnoIndexlist = async (req, res) => {
   await Alltrade.find({type : "Index"}).populate("fnoindex_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -227,14 +227,14 @@ exports.AppindexList = async (req, res) => {
 //ADMIN
 exports.fnoEquity_list = async (req, res) => {
   await Alltrade.find({type : "Equity"}).populate("fnoequty_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 //APP
 exports.AppOptionList = async (req, res) => {
   await Alltrade.find({ $and: [{ type: "Equity" }, { status: "Active" }]}).populate("fnoequty_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -242,7 +242,7 @@ exports.AppOptionList = async (req, res) => {
 //ADMIN
 exports.equityCash_list = async (req, res) => {
   await Alltrade.find({type : "Cash"}).populate("cash_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -254,7 +254,7 @@ exports.dlt_alltrade = async (req, res) => {
 };
 exports.AppCashList = async (req, res) => {
   await Alltrade.find({ $and: [{ type: "Cash" }, { status: "Active" }]}).populate("cash_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -306,7 +306,7 @@ console.log("DTT",dat)
         let update=  await Alltrade.findOneAndUpdate(
          { _id: req.params.id },
          
-         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg,tradeStatus:"Closed",updated_at :dat}} ,
+         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg,tradeStatus,updated_at :dat}} ,
        
        //{ $set: {status:"success"} },
        { new: true }
@@ -341,7 +341,7 @@ console.log("DTT",dat)
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -387,7 +387,7 @@ console.log("DTT",dat)
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -427,7 +427,7 @@ console.log("DTT",dat)
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {FT1_type:"true",sl_type:"false",FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,FT1,status,t5,cstmMsg}} ,
+        {$set: {FT1_type:"true",sl_type:"false",FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,FT1,status,t5,cstmMsg,tradeStatus}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -469,7 +469,7 @@ console.log("DTT",dat)
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -504,7 +504,7 @@ console.log("DTT",dat)
        let update=  await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
+        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
