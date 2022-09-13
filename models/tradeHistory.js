@@ -164,6 +164,9 @@ tradeId:{
 },
 cstmMsg:{
   type: String,
+},
+updated_at:{
+  type :String
 }
   },
 

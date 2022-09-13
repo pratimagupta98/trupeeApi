@@ -18,7 +18,7 @@ cloudinary.config({
 
 exports.add_fnoIndex= async (req, res) => {
     
-  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5,cstmMsg } = req.body;
+  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5,cstmMsg ,updated_at} = req.body;
 
 
   investment_amt =  (req.body.qty*25)*(req.body.active_value)
@@ -35,7 +35,17 @@ console.log(trl)
      let FT3 = parseInt (FT2) + parseInt(20)
      console.log("FT3",FT2)
  
+    //  let today = new Date();
+    //  console.log("DATE",today);
+    //   console.log(today.getDay());
 
+    let getCurrentDate = function () {
+      const t = new Date();
+      const date = ("0" + t.getDate()).slice(-2);
+      const month = ("0" + (t.getMonth() + 1)).slice(-2);
+      const year = t.getFullYear();
+      return `${year}-${month}-${date}`;
+    };
   
      const newAlltrade = new Alltrade({
        
@@ -60,7 +70,8 @@ console.log(trl)
         active_value2:av2,
         expiryDate:expiryDate,
         type:type,
-        cstmMsg:cstmMsg
+        cstmMsg:cstmMsg,
+        updated_at:getCurrentDate()
        
         // loss:loss,
         // losspr:losspr,
@@ -250,8 +261,16 @@ exports.AppCashList = async (req, res) => {
 
 exports.editFnoindex = async (req, res) => {  
    
-  const{qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus}  = req.body
-
+  const{qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus,updated_at}  = req.body
+  let getCurrentDate = function () {
+    const t = new Date();
+    const date = ("0" + t.getDate()).slice(-2);
+    const month = ("0" + (t.getMonth() + 1)).slice(-2);
+    const year = t.getFullYear();
+    return `${year}-${month}-${date}`;
+  };
+let dat = getCurrentDate()
+console.log("DTT",dat)
   const newTradeHistory = new TradeHistory({
     qty : qty,
     active_value:active_value,
@@ -287,7 +306,7 @@ exports.editFnoindex = async (req, res) => {
         let update=  await Alltrade.findOneAndUpdate(
          { _id: req.params.id },
          
-         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg,tradeStatus:"Closed"}} ,
+         {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,t5,cstmMsg,tradeStatus:"Closed",updated_at :dat}} ,
        
        //{ $set: {status:"success"} },
        { new: true }
@@ -908,3 +927,10 @@ exports.ttlCompletetrade = async (req, res) => {
       });
     });
 };
+
+exports.completedTrade = async (req, res) => {
+  await Alltrade.find({tradeStatus: "Closed"})
+  .then((data) => resp.successr(res, data))
+  .catch((error) => resp.errorr(res, error));
+};
+

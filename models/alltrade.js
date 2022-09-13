@@ -161,12 +161,16 @@ noti_status:{
 tradeId:{
    type: Schema.Types.ObjectId, ref: "alltrade" 
 },
+ 
+updated_at:{
+  type:String
+},
 cstmMsg:{
   type: String,
 }
   },
 
-
+  //timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 
   { timestamps: true }
 );

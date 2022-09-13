@@ -12,6 +12,13 @@ exports.addRefEarn = async (req, res) => {
     status,
 
   } = req.body;
+  let today = new Date();
+ // console.log("DATE",today);
+  //console.log(today.getDay());
+
+  let onedayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(onedayago));
+  console.log(new Date(onedayago).getDay());
 
   const newRefEarn = new RefEarn({
     refer_from_id: refer_from_id,
