@@ -57,7 +57,21 @@ const thisSchema = new Schema(
       default: "false"
     },
     t5: {
+      type: Number,
+    },
+    t6:{
+      type: Number,
+    },
+    t6_type: {
       type: String,
+      default: "false"
+    },
+    t7:{
+      type: Number,
+    },
+    t7_type: {
+      type: String,
+      default: "false"
     },
     t5_type: {
       type: String,
@@ -90,6 +104,7 @@ const thisSchema = new Schema(
     trade_type: {
       type: String
     },
+    
     loss: {
       type: Number,
        
@@ -139,9 +154,23 @@ FT3_type:{
   default: "false"
 },
 FT5:{
-  type: String,
+  type: Number,
 },
 FT5_type:{
+  type: String,
+  default: "false"
+},
+FT6:{
+  type: Number,
+},
+FT6_type:{
+  type: String,
+  default: "false"
+},
+FT7:{
+  type: Number,
+},
+FT7_type:{
   type: String,
   default: "false"
 },
