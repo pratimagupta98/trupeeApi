@@ -10,6 +10,13 @@ const thisSchema = new Schema(
       amt:{
         type: Number, 
        },
+       razorpay_payment_id:{
+        type:String
+      },
+      desc:{
+        type: String, 
+      },
+       
        
       },
      

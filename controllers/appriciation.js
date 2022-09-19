@@ -5,8 +5,10 @@ exports.add_appriciation = async (req, res) => {
   const { userid, amt } = req.body;
 
   const newAppriciation = new Appriciation({
-    userid: userid,
+    userid: req.userId,
     amt: amt,
+    razorpay_payment_id:razorpay_payment_id,
+    desc:desc
    
   });
 //   const findexist = await Membership.findOne({ plantitle: plantitle });

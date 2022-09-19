@@ -1,6 +1,7 @@
 const Alltrade = require("../models/alltrade");
 const resp = require("../helpers/apiResponse");
 const TradeHistory = require("../models/tradeHistory");
+const CstmMsg = require("../models/cstm_msg");
 
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
@@ -401,7 +402,7 @@ exports.AppCashList = async (req, res) => {
 
 exports.editFnoindex = async (req, res) => {  
    
-  const{SL,pl,pl_per,qty,active_value,sl_type,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus,updated_at,trade_type}  = req.body
+  const{SL,pl,pl_per,qty,active_value,sl_type,FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus,updated_at,trade_type}  = req.body
   let getCurrentDate = function () {
     const t = new Date();
     const date = ("0" + t.getDate()).slice(-2);
@@ -427,21 +428,29 @@ if(finodne?.trade_type == "BankNifty"){
       let  pl = (req.body.qty*25) *(SL -  req.body.active_value)
         console.log("PL",pl)
  
-     let   pl_per = pl/investment_amt*100
+     let   pl_per = (pl/investment_amt*100).toFixed(2)
         console.log("PL%%%%",pl_per)
-  
-  
+  let FT1 = finodne.FT1
+  let FT1_type = finodne.FT1_type
+  console.log("FT1",FT1)
+  let FT2 = finodne.FT2
+  let FT2_type = finodne.FT2_type
+
+  let FT3 = finodne.FT3
+  let FT3_type = finodne.FT3_type
+
    let update=  await Alltrade.findOneAndUpdate(
     { _id: req.params.id },
-    {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl,pl_per,investment_amt,SL,status,t5,cstmMsg,tradeStatus,updated_at :dat,trade_type}},
+    {$set: {sl_type:"true",FT1_type:"false",FT1,FT2_type:"false",FT2,FT3_type:"false",pl,pl_per,investment_amt,SL,status,t5,cstmMsg,tradeStatus,updated_at :dat,trade_type}},
   { new: true }
 
 )
-
+console.log("UPDATE",update)
 const newTradeHistory  = new TradeHistory({
   qty : qty,
   active_value:active_value,
   sl_type:sl_type,
+  FT1:FT1,
   FT1_type:FT1_type,
   FT2:FT2,
   FT2_type:FT2_type,
@@ -451,7 +460,7 @@ const newTradeHistory  = new TradeHistory({
   SL:SL,
   pl :pl,
   pl_per :pl_per,
-  
+  investment_amt:investment_amt,
   cstmMsg:cstmMsg,
   tradeStatus:tradeStatus
 
@@ -463,6 +472,7 @@ newTradeHistory
     status: true,
     msg: "success",
     data:data,
+   // update:update,
  //   active_value2 :av2,
     investment_amt:investment_amt,
   //  trl :trl,
@@ -474,6 +484,9 @@ newTradeHistory
     PLPER :pl_per
 
   })
+  console.log("DATA",data)
+  console.log("UPDATE",update)
+
  })
     }  else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
       console.log("ABCD")
@@ -1045,8 +1058,6 @@ exports.viewonetrades = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
-
 
 
 

@@ -27,7 +27,7 @@ const thisSchema = new Schema(
       type: Number,
     },
     sl_type: { type: String,
-      default: "false"
+     // default: "false"
     },
     
     T1: {
@@ -35,56 +35,56 @@ const thisSchema = new Schema(
     },
     t1_type: {
       type: String,
-      default: "false"
+     // default: "false"
     },
     T2: {
       type: Number,
     },
     t2_type: {
       type: String,
-      default: "false"
+     //default: "false"
     },
     T3: {
       type: Number,
     },
     t3_type: {
       type: String,
-      default: "false"
+     // default: "false"
     },
     T4: {
       type: Number,
     },
     t4_type: {
       type: String,
-      default: "false"
+     // default: "false"
     },
     t5: {
       type: Number,
     },
     t5_type: {
       type: String, 
-      default: "false"
+    // default: "false"
     },
     t6:{
       type: Number,
     },
     t6_type: {
       type: String,
-      default: "false"
+    //  default: "false"
     },
     t7:{
       type: Number,
     },
     t7_type: {
       type: String,
-      default: "false"
+     // default: "false"
     },
     trl: {
       type: Number,
     },
     trl_type:{
       type: String,
-      default: "false"
+    //  default: "false"
     },
     qty: {
       type: Number,
@@ -97,7 +97,7 @@ const thisSchema = new Schema(
     },
     status: {
       type: String,
-      default: "NA"
+  //    default: "NA"
     },
     tradeStatus :{
       type: String,
@@ -116,7 +116,7 @@ const thisSchema = new Schema(
     },
     pl_per: {
       type: Number,
-    default: 0
+  //  default: 0
       
     },
     profit: {
@@ -138,42 +138,42 @@ FT1:{
 },
 FT1_type :{
   type: String,
-  default: "false"
+  //default: "false"
 },
 FT2:{
   type: Number,
 },
 FT2_type:{
   type: String,
-  default: "false"
+  //default: "false"
 },
 FT3:{
   type: Number,
 },
 FT3_type:{
   type: String,
-  default: "false"
+ // default: "false"
 },
 FT5:{
   type: Number,
 },
 FT5_type:{
   type: String,
-  default: "false"
+  //default: "false"
 },
 FT6:{
   type: Number,
 },
 FT6_type:{
   type: String,
-  default: "false"
+ //default: "false"
 },
 FT7:{
   type: Number,
 },
 FT7_type:{
   type: String,
-  default: "false"
+ // default: "false"
 },
 title:{
   type: String,
