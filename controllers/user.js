@@ -365,6 +365,7 @@ exports.verifyotp = async (req, res) => {
             redirectto: "dashboard",
             _id: data?._id,
             userId: data._id,
+            planId :data.planId
           
            
           });
