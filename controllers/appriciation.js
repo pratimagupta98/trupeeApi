@@ -2,7 +2,7 @@ const Appriciation = require("../models/appriciation");
 const resp = require("../helpers/apiResponse");
 
 exports.add_appriciation = async (req, res) => {
-  const { userid, amt } = req.body;
+  const { userid, amt,razorpay_payment_id,desc } = req.body;
 
   const newAppriciation = new Appriciation({
     userid: req.userId,
