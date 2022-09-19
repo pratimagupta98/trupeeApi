@@ -355,7 +355,7 @@ exports.verifyotp = async (req, res) => {
           _id: findone._id,
         },
         { $set: { userverified: true } },
-        { new: true })
+        { new: true }).populate("planId")
         .then((data) => {
           res.header("auth-token",token).status(200).send({
             status: "success",
@@ -368,8 +368,8 @@ exports.verifyotp = async (req, res) => {
             planId :data?.planId
           
            
-          });
-        });
+          })
+        })
     }else  {
       const token = jwt.sign(
         {
