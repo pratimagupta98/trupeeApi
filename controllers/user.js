@@ -365,7 +365,7 @@ exports.verifyotp = async (req, res) => {
             redirectto: "dashboard",
             _id: data?._id,
             userId: data._id,
-            planId :data.planId
+            planId :data?.planId
           
            
           });
@@ -449,7 +449,7 @@ exports.getuser = async (req, res) => {
 };
 
 exports.viewoneuser = async (req, res) => {
-  await User.findOne({ _id: req.userId})
+  await User.findOne({ _id: req.userId}).populate("planId")
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
