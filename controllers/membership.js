@@ -199,16 +199,42 @@ exports.updatemembership = async (req, res) => {
 // };
 
 exports.verifyCode = async (req, res) => {
-  const { refral_Code } = req.body
+  const { refral_Code ,planId} = req.body
 
   const findone = await User.findOne({ refral_Code: req.body.refral_Code })
   //console.log("CODE", findone)
-  if (findone) {
-    res.status(200).send({
-      status: true,
-      message: "success",
-      data: findone,
-    });
+  // if (findone) {
+    if (findone?.refral_Code == req.body.refral_Code) {
+          getplan = await Plan.findOne({planId :planId})
+          console.log("GETPLAN",getplan)
+          let Code = findone?.refral_Code
+          console.log("PLAN",getplan)
+          jj = getplan.des_price
+          console.log("JJ",jj)
+          price = jj*12/100
+          console.log("TOTAL PRICE",price)
+          const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+      
+           if(getdetail.refral_Code){
+              console.log("GETDETAIL",getdetail)
+              console.log("@@@",getdetail)
+              wolt = getdetail.amount
+              addamt = parseInt(price) +parseInt(wolt)
+              console.log("ADD HO GYA",addamt)
+             await User.findOneAndUpdate(
+              {
+                _id: getdetail._id,
+              },
+              { $set: {amount :addamt } },
+              { new: true }
+            )
+            newMembership
+                  .save()
+              .then((data) => resp.successr(res, data))
+              .catch((error) => resp.errorr(res, error))
+              
+            }
+      
   } else {
     res.status(400).json({
       status: false,
@@ -881,11 +907,28 @@ exports.addMemeberShip = async (req, res) => {
    razorpay_payment_id:razorpay_payment_id
   });
 
+ 
   newMembership
   .save()
   .then((data) => resp.successr(res, data))
   .catch((error) => resp.errorr(res, error));
 
+
+  //let planid= await Membership.findOne({planId:req.body.planId}) 
+ // let wolId=wolwt.planId
+  //console.log("ttttt",planid)
+
+  let qur=  await User.findOneAndUpdate(
+    { _id: req.userId },
+    
+    {$set: {planId:planId}} ,
+  
+  //{ $set: {status:"success"} },
+  { new: true }
+
+);
+console.log("QURRRR",qur)
+  
 }
 
 

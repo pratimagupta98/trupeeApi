@@ -48,6 +48,10 @@ const UserSchema = new Schema(
       type: Number,
       default: 0,
     },
+    planId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "plan",
+    },
     status: {
       type: String,
       default: "Deactive",

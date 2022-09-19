@@ -22,7 +22,7 @@ const membershipplan = new Schema(
     planId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "plan",
-      trim: true,
+  //   trim: true,
     },
     refral_Code:{type: String},
     // amount: {
