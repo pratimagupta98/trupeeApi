@@ -508,10 +508,10 @@ newTradeHistory
 
       let FT3 = parseInt (FT2) + parseInt(20)
        console.log("FT3",FT3)
-       pl =(req.body.qty*25) *(FT3 -  req.body.active_value)
+    let   pl =(req.body.qty*25) *(FT3 -  req.body.active_value)
        console.log("PL",pl)
 
-       pl_per = (pl/investment_amt*100 ).toFixed(2);
+  let     pl_per = (pl/investment_amt*100 ).toFixed(2);
        console.log("PL%%%%",pl_per)
       
     
@@ -544,10 +544,10 @@ newTradeHistory
        console.log("FT1",FT1)
       let FT2 = parseInt (FT1) + parseInt(20)
        console.log("FT2",FT2)
-       pl = (req.body.qty*25) *(FT2 -  req.body.active_value)
+   let    pl = (req.body.qty*25) *(FT2 -  req.body.active_value)
        console.log("PL",pl)
 
-       pl_per = pl/investment_amt*100
+    let   pl_per = pl/investment_amt*100
        console.log("PL%%%%",pl_per)
       
         getpl = await Alltrade.findOne({pl:pl})
