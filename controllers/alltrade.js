@@ -584,10 +584,10 @@ newTradeHistory
         console.log("TRL",trl)
        let  FT1 =parseInt (trl) + parseInt(20)
        console.log("FT1",FT1)
-       pl =(req.body.qty*25) *(FT1 -  req.body.active_value)
+   let    pl =(req.body.qty*25) *(FT1 -  req.body.active_value)
        console.log("PL",pl)
 
-       pl_per = pl/investment_amt*100
+      let  pl_per = pl/investment_amt*100
        console.log("PL%%%%",pl_per)
       
         getpl = await Alltrade.findOne({pl:pl})
@@ -642,7 +642,7 @@ newTradeHistory
       let pl_per = pl/investment_amt*100
        console.log("PL%%%%",pl_per)
       
-        getpl = await Alltrade.findOne({pl:pl})
+         getpl = await Alltrade.findOne({pl:pl})
         if (getpl){
        //console.log("$$$$$$$$",getpl)
          tpl =getpl.pl
