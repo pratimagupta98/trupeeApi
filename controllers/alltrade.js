@@ -407,7 +407,7 @@ exports.AppCashList = async (req, res) => {
 
 exports.editFnoindex = async (req, res) => {  
    
-  const{SL,pl,pl_per,qty,active_value,sl_type,FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,status,t5,cstmMsg,tradeStatus,updated_at,trade_type}  = req.body
+  const{SL,pl,pl_per,qty,active_value,sl_type,FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,FT6,FT6_type,FT7,FT7_type,status,t5,cstmMsg,tradeStatus,updated_at,trade_type}  = req.body
   let getCurrentDate = function () {
     const t = new Date();
     const date = ("0" + t.getDate()).slice(-2);
@@ -614,7 +614,60 @@ newTradeHistory
     .then((data) => resp.successr(res, data))
      .catch((error) => resp.errorr(res, error));
        
+    }   else if (  FT6_type == "true") {
+      console.log("abcd")
+      investment_amt =  (req.body.qty*25)*(req.body.active_value)
+      console.log("InvestAMT",investment_amt)
+      let  av2 = parseInt(req.body.active_value) + parseInt(10)
+      console.log("AV2",av2)
+         let trl = parseInt(av2) + parseInt(10)
+        console.log("TRL",trl)
+       let  FT1 =parseInt (trl) + parseInt(20)
+       console.log("FT1",FT1)
+
+      
+       let  FT2 = parseInt (FT1) + parseInt(20)
+       console.log("FT2",FT2)
+
+      let FT3 = parseInt (FT2) + parseInt(20)
+       console.log("FT3",FT3)
+       let FT5 = parseInt (FT3) + parseInt(20)
+       console.log("FT3",FT5)
+       let FT6 = parseInt (FT5) + parseInt(20)
+       console.log("FT3",FT6)
+
+       let pl =(req.body.qty*25) *(FT6 -  req.body.active_value)
+       console.log("PL",pl)
+
+      let pl_per = pl/investment_amt*100
+       console.log("PL%%%%",pl_per)
+      
+        getpl = await Alltrade.findOne({pl:pl})
+        if (getpl){
+       //console.log("$$$$$$$$",getpl)
+         tpl =getpl.pl
+         console.log("###",tpl)
+         invest_amt = getpl.investment_amt
+         console.log("Investamt***",invest_amt)
+         pl_per = tpl/invest_amt*100
+         console.log("%%%%",pl_per)
+        }
+
+    
+       let update=  await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        
+        {$set: {FT1_type:"true",sl_type:"false",FT2,FT2_type,FT3,FT3_type,FT6,FT6_type,FT7,FT7_type,pl_per,pl,investment_amt,FT1,status,t5,cstmMsg,tradeStatus}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+    
+    )
+    .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error));
+       
     } 
+
   }  else if (finodne?.trade_type == "Nifty"){
 //   if(finodne.trade_type == "Nifty"){
 //     // console.log("SUCCESS")
