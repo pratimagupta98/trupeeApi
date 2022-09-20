@@ -18,7 +18,6 @@ cloudinary.config({
 });
 
 exports.add_fnoIndex= async (req, res) => {
-    
   const {script_type,fnoindex_scrpt_name,active_value,call_type,FT1_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5,cstmMsg ,updated_at} = req.body;
 
 if(trade_type == "BankNifty"){
@@ -74,21 +73,10 @@ console.log(trl)
         type:type,
         cstmMsg:cstmMsg,
         updated_at:getCurrentDate()
-       
-        // loss:loss,
-        // losspr:losspr,
-        //profit:profit,
-        //profitprr:profitprr
-
-  
     }); 
-
-
     const newTradeHistory = new TradeHistory({
-       
       script_type: script_type,
-      fnoindex_scrpt_name:fnoindex_scrpt_name,
-         
+       fnoindex_scrpt_name:fnoindex_scrpt_name,
         active_value:active_value,
         active_value2:av2,
         call_type:call_type,
@@ -109,23 +97,15 @@ console.log(trl)
         type:type,
         cstmMsg:cstmMsg,
         updated_at:getCurrentDate()
-       
-        // loss:loss,
-        // losspr:losspr,
-        //profit:profit,
-        //profitprr:profitprr
-
-  
     }); 
-
-      newTradeHistory
     newAlltrade
-  
-
     .save()
     .then((data)=>{
+  //    const makertradehistory = await TradeHistory.create(newTradeHistory);
+   //   console.log("MMMMMM",makertradehistory)
       res.status(200).json({
         status: true,
+        
         msg: "success",
         data:data,
         active_value2 :av2,
@@ -137,7 +117,7 @@ console.log(trl)
         SL:SL,
       })
      })
-    .catch((error) => resp.errorr(res, error));
+  
     }else if(trade_type == "Nifty"){
       investment_amt =  (req.body.qty*50)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
@@ -152,10 +132,6 @@ console.log(trl)
          console.log("FT2",FT2)
          let FT3 = parseInt (FT2) + parseInt(10)
          console.log("FT3",FT2)
-
-
-         
-     
         //  let today = new Date();
         //  console.log("DATE",today);
         //   console.log(today.getDay());
@@ -169,10 +145,8 @@ console.log(trl)
         };
       
          const newAlltrade = new Alltrade({
-           
           script_type: script_type,
           fnoindex_scrpt_name:fnoindex_scrpt_name,
-             
             active_value:active_value,
             active_value2:av2,
             call_type:call_type,
@@ -200,10 +174,8 @@ console.log(trl)
         }); 
 
         const newTradeHistory = new TradeHistory({
-           
           script_type: script_type,
           fnoindex_scrpt_name:fnoindex_scrpt_name,
-             
             active_value:active_value,
             active_value2:av2,
             call_type:call_type,
@@ -231,9 +203,10 @@ console.log(trl)
         });
     
         newAlltrade
-        newTradeHistory
         .save()
-        .then((data)=>{
+        .then(async(data)=>{
+       //   const makertradehistory = await TradeHistory.create(newTradeHistory);
+         // console.log("KKKKK",makertradehistory)
           res.status(200).json({
             status: true,
             msg: "success",
@@ -249,6 +222,12 @@ console.log(trl)
          })
         .catch((error) => resp.errorr(res, error));
     
+    }else{
+      res.status(400).json({
+        status:false,
+        msg :"error",
+        error :error
+      })
     }
 }
  
@@ -444,12 +423,18 @@ if(finodne?.trade_type == "BankNifty"){
   let FT3 = finodne.FT3
   let FT3_type = finodne.FT3_type
 
+ // let status = finodne.status
+  let tradeStatus = finodne.tradeStatus
+
+
    let update=  await Alltrade.findOneAndUpdate(
     { _id: req.params.id },
-    {$set: {sl_type:"true",FT1_type:"false",FT1,FT2_type:"false",FT2,FT3_type:"false",pl,pl_per,investment_amt,SL,status,t5,cstmMsg,tradeStatus,updated_at :dat,trade_type}},
+    {$set: {sl_type:"true",FT1_type:"false",FT1,FT2_type:"false",FT2,FT3_type:"false",pl,pl_per,investment_amt,SL,status:"Active",t5,cstmMsg,tradeStatus,updated_at :dat,trade_type}},
   { new: true }
 
 )
+let status = update.status
+console.log("STATUS",status)
 console.log("UPDATE",update)
 const newTradeHistory  = new TradeHistory({
   qty : qty,
@@ -467,7 +452,8 @@ const newTradeHistory  = new TradeHistory({
   pl_per :pl_per,
   investment_amt:investment_amt,
   cstmMsg:cstmMsg,
-  tradeStatus:tradeStatus
+  tradeStatus:tradeStatus,
+
 
 })
 newTradeHistory
