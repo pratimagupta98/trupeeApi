@@ -19,7 +19,7 @@ cloudinary.config({
 
 exports.add_fnoIndex= async (req, res) => {
     
-  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5,cstmMsg ,updated_at} = req.body;
+  const {script_type,fnoindex_scrpt_name,active_value,call_type,FT1_type,FT5,qty,no_of_lots,status,trade_type,expiryDate,type,t5,cstmMsg ,updated_at} = req.body;
 
 if(trade_type == "BankNifty"){
   investment_amt =  (req.body.qty*25)*(req.body.active_value)
@@ -62,6 +62,7 @@ console.log(trl)
         status:status,
         trade_type:trade_type,
         FT1:FT1,
+        FT1_type:FT1_type,
         FT2:FT2,
         FT3:FT3,
         FT5:FT5,
@@ -117,8 +118,9 @@ console.log(trl)
   
     }); 
 
+      newTradeHistory
     newAlltrade
-    newTradeHistory
+  
 
     .save()
     .then((data)=>{
@@ -150,6 +152,9 @@ console.log(trl)
          console.log("FT2",FT2)
          let FT3 = parseInt (FT2) + parseInt(10)
          console.log("FT3",FT2)
+
+
+         
      
         //  let today = new Date();
         //  console.log("DATE",today);

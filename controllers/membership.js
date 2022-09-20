@@ -201,8 +201,8 @@ exports.updatemembership = async (req, res) => {
 exports.verifyCode = async (req, res) => {
   const { refral_Code ,planId} = req.body
 
-  const findone = await User.findOne({ refral_Code: req.body.refral_Code })
-  //console.log("CODE", findone)
+  const findone = await User.findOne({refral_Code:req.body.refral_Code})
+  console.log("CODE", findone)
   // if (findone) {
     if (findone?.refral_Code == req.body.refral_Code) {
           getplan = await Plan.findOne({planId :planId})
