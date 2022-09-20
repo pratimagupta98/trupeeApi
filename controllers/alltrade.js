@@ -480,6 +480,7 @@ newTradeHistory
 
  })
     }  else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
+
       console.log("ABCD")
       investment_amt =  (req.body.qty*25)*(req.body.active_value)
       console.log("InvestAMT",investment_amt)
@@ -502,15 +503,45 @@ newTradeHistory
       
     
     
-       let update=  await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+    //    let update=  await Alltrade.findOneAndUpdate(
+    //     { _id: req.params.id },
         
-        {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status,t5,cstmMsg,tradeStatus}} ,
+    //     {$set: {sl_type:"false",FT1,FT1_type,FT2,FT2_type,FT3,FT3_type,pl_per,pl,investment_amt,status:"Active",t5,cstmMsg,tradeStatus}} ,
       
-      //{ $set: {status:"success"} },
-      { new: true }
+    //   //{ $set: {status:"success"} },
+    //   { new: true }
     
-    )
+    // )
+    let update=  await Alltrade.findOneAndUpdate(
+      { _id: req.params.id },
+      {$set: {sl_type:"true",FT1_type:"false",FT1,FT2_type:"false",FT2,FT3_type:"false",pl,pl_per,investment_amt,SL,status:"Active",t5,cstmMsg,tradeStatus,updated_at :dat,trade_type}},
+    { new: true }
+  
+  )
+   // let status = update.status
+console.log("STATUS",status)
+console.log("UPDATE",update)
+    const newTradeHistory  = new TradeHistory({
+      qty : qty,
+      active_value:active_value,
+      sl_type:sl_type,
+      FT1:FT1,
+      FT1_type:FT1_type,
+      FT2:FT2,
+      FT2_type:FT2_type,
+      FT3:FT3,
+      FT3_type:FT3_type,
+      status:status,
+      SL:SL,
+      pl :pl,
+      pl_per :pl_per,
+      investment_amt:investment_amt,
+      cstmMsg:cstmMsg,
+      tradeStatus:tradeStatus,
+    
+    
+    })
+
     newTradeHistory.save()
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error))
@@ -536,16 +567,16 @@ newTradeHistory
     let   pl_per = pl/investment_amt*100
        console.log("PL%%%%",pl_per)
       
-        getpl = await Alltrade.findOne({pl:pl})
-        if (getpl){
-       //console.log("$$$$$$$$",getpl)
-         tpl =getpl.pl
-         console.log("###",tpl)
-         invest_amt = getpl.investment_amt
-         console.log("***",invest_amt)
-         pl_per = tpl/invest_amt*100
-         console.log("%%%%",pl_per)
-        }
+      //   getpl = await Alltrade.findOne({pl:pl})
+      //   if (getpl){
+      //  //console.log("$$$$$$$$",getpl)
+      //    tpl =getpl.pl
+      //    console.log("###",tpl)
+      //    invest_amt = getpl.investment_amt
+      //    console.log("***",invest_amt)
+      //    pl_per = tpl/invest_amt*100
+      //    console.log("%%%%",pl_per)
+      //   }
 
     
        let update=  await Alltrade.findOneAndUpdate(
