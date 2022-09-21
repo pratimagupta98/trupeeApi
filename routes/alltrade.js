@@ -26,7 +26,8 @@ const {
     totlactivetrade,
     ttlCompletetrade,
     datefilter,
-    completedTrade
+    completedTrade,
+    updatefnoindex
      
 } = require("../controllers/alltrade");
 const storage = multer.diskStorage({
@@ -96,6 +97,11 @@ let multipleUpload = uploads.fields([
   router.get("/admin/completedTrade", completedTrade);
 
 
+
+
+
+
+
+ // router.post("/admin/updatefnoindex/:id", updatefnoindex);
 module.exports = router;
- 
  

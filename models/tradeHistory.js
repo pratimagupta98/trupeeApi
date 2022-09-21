@@ -154,6 +154,13 @@ FT3_type:{
   type: String,
  // default: "false"
 },
+FT4:{
+  type: Number,
+},
+FT4_type:{
+  type: String,
+  default: "false"
+},
 FT5:{
   type: Number,
 },
