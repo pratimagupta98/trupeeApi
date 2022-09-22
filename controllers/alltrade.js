@@ -330,7 +330,7 @@ exports.add_equityCash = async (req, res) => {
 
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
-  await TradeHistory.find({ tradeStatus: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -346,7 +346,7 @@ exports.fnoIndexlist = async (req, res) => {
 
 //APP
 exports.AppindexList = async (req, res) => {
-  await TradeHistory.find({ $and: [{ type: "Index" }, { tradeStatus: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -1353,18 +1353,26 @@ exports.editFnoindex = async (req, res) => {
       let FT3 = findone.FT3
       let FT3_type = findone.FT3_type
       let type = findone.type
+      let fnoindex_scrpt_name = findone.fnoindex_scrpt_name
+      let script_type = findone.script_type
+      let active_value2 = findone.active_value2
+      let call_type = findone.call_type
+      let active_value = findone.active_value
      // console.log("TRADEID",tradeId)
      let tradeStatus = findone.tradeStatus
-
+     let qty = findone.qty
+let no_of_lots = findone.no_of_lots
+let trl = findone.trl
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus, trade_type ,type} },
+        { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus, trade_type ,type,fnoindex_scrpt_name} },
         { new: true }
       )
       let status = update.status
       let tradeId= update._id
       console.log("TRADEID",tradeId)
     let trdests = update.tradeStatus
+
      // let type = update.type
    //  console.log("TRADESTS", tradeStatus)
    //   console.log("STATUS", status)
@@ -1373,6 +1381,14 @@ exports.editFnoindex = async (req, res) => {
       const newTradeHistory = new TradeHistory({
 
         SL: SL,
+        script_type:script_type,
+        findone:findone,
+        active_value2:active_value2,
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
+        qty:qty,
+        no_of_lots:no_of_lots,
+        trl :trl,
+        call_type:call_type,
         sl_type: sl_type,
         qty: qty,
         active_value: active_value,
