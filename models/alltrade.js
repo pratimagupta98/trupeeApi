@@ -99,7 +99,7 @@ const thisSchema = new Schema(
     },
     tradeStatus :{
       type: String,
-      //Closed
+      default: "NA"
     },
     trade_type: {
       type: String
