@@ -203,7 +203,11 @@ cstmMsg:{
 },
 updated_at:{
   type :String
-}
+},
+tradeId:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "alltrade",
+},
   },
 
 

@@ -203,7 +203,11 @@ updated_at:{
 },
 cstmMsg:{
   type: String,
-}
+},
+tradeId:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "alltrade",
+},
   },
 
   //timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

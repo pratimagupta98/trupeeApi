@@ -18,7 +18,7 @@ cloudinary.config({
 });
 
 exports.add_fnoIndex = async (req, res) => {
-  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, updated_at } = req.body;
+  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, updated_at,tradeId } = req.body;
 
   if (trade_type == "BankNifty") {
     investment_amt = (req.body.qty * 25) * (req.body.active_value)
@@ -72,7 +72,8 @@ exports.add_fnoIndex = async (req, res) => {
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
-      updated_at: getCurrentDate()
+      updated_at: getCurrentDate(),
+      tradeId:tradeId
     });
     const newTradeHistory = new TradeHistory({
       script_type: script_type,
@@ -108,6 +109,8 @@ exports.add_fnoIndex = async (req, res) => {
 
           msg: "success",
           data: data,
+          _id: data?._id,
+          tradeId: data._id,
           active_value2: av2,
           investment_amt: investment_amt,
           trl: trl,
@@ -327,7 +330,7 @@ exports.add_equityCash = async (req, res) => {
 
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
-  await Alltrade.find({ tradeStatus: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+  await TradeHistory.find({ tradeStatus: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -343,7 +346,7 @@ exports.fnoIndexlist = async (req, res) => {
 
 //APP
 exports.AppindexList = async (req, res) => {
-  await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await TradeHistory.find({ $and: [{ type: "Index" }, { tradeStatus: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -1261,7 +1264,7 @@ exports.completedTrade = async (req, res) => {
 
 
 exports.editFnoindex = async (req, res) => {
-  const { active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per } = req.body
+  const { active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type } = req.body
 
   let findone = await Alltrade.findOne({ trade_type: trade_type })
   console.log("FINDONE", findone)
@@ -1285,18 +1288,24 @@ exports.editFnoindex = async (req, res) => {
 
       let FT3 = findone.FT3
       let FT3_type = findone.FT3_type
-
+      let type = findone.type
+     // console.log("TRADEID",tradeId)
+     let tradeStatus = findone.tradeStatus
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus: "Closed", trade_type } },
+        { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus, trade_type ,type} },
         { new: true }
       )
       let status = update.status
-      let tradeStatus = update.tradeStatus
-      console.log("TRADESTS", tradeStatus)
-      console.log("STATUS", status)
+      let tradeId= update._id
+      console.log("TRADEID",tradeId)
+    let trdests = update.tradeStatus
+     // let type = update.type
+   //  console.log("TRADESTS", tradeStatus)
+   //   console.log("STATUS", status)
       console.log("UPDATE", update)
+
       const newTradeHistory = new TradeHistory({
 
         SL: SL,
@@ -1314,7 +1323,9 @@ exports.editFnoindex = async (req, res) => {
         pl_per: pl_per,
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
-        tradeStatus: tradeStatus,
+        tradeStatus: trdests,
+        tradeId:tradeId,
+        type:type
       })
       newTradeHistory
         .save()
@@ -1333,10 +1344,12 @@ exports.editFnoindex = async (req, res) => {
             FT2_type: FT2_type,
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: trdests,
+            tradeId:tradeId,
+            type:type
           })
-          console.log("DATA", data)
-          console.log("UPDATE", update)
+          // console.log("DATA", data)
+          // console.log("UPDATE", update)
 
         })
 
@@ -1365,15 +1378,18 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
         { new: true }
 
       )
       let status = update.status
       let tradeStatuss = update.tradeStatus
-      console.log("TRADESTS", tradeStatuss)
-      console.log("STATUS", status)
-      console.log("UPDATE", update)
+      let tradeId= update._id
+      let type = update.type
+      console.log("TRADEID",tradeId)
+      // console.log("TRADESTS", tradeStatuss)
+      // console.log("STATUS", status)
+      // console.log("UPDATE", update)
       const newTradeHistory = new TradeHistory({
 
 
@@ -1391,7 +1407,9 @@ exports.editFnoindex = async (req, res) => {
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatuss,
-        trl:trl
+        trl:trl,
+        tradeId:tradeId,
+        type:type
       })
       newTradeHistory
         .save()
@@ -1410,10 +1428,12 @@ exports.editFnoindex = async (req, res) => {
             FT2_type: FT2_type,
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: tradeStatus,
+            tradeId:tradeId,
+            type:type
           })
-          console.log("DATA", data)
-          console.log("UPDATE", update)
+          // console.log("DATA", data)
+          // console.log("UPDATE", update)
 
         })
 
@@ -1443,9 +1463,11 @@ exports.editFnoindex = async (req, res) => {
       )
       let status = update.status
       let tradeStatuss = update.tradeStatus
-      console.log("TRADESTS", tradeStatuss)
-      console.log("STATUS", status)
-      console.log("UPDATE", update)
+      let tradeId= update._id
+      console.log("TRADEID",tradeId)
+      // console.log("TRADESTS", tradeStatuss)
+      // console.log("STATUS", status)
+      // console.log("UPDATE", update)
       const newTradeHistory = new TradeHistory({
 
 
@@ -1463,6 +1485,7 @@ exports.editFnoindex = async (req, res) => {
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatuss,
+        tradeId:tradeId
       })
       newTradeHistory
         .save()
@@ -1483,10 +1506,11 @@ exports.editFnoindex = async (req, res) => {
             FT3: FT3,
             FT3_type: FT3_type,
             tradeStatus: tradeStatus,
-            trl:trl
+            trl:trl,
+            tradeId:tradeId
           })
-          console.log("DATA", data)
-          console.log("UPDATE", update)
+          // console.log("DATA", data)
+          // console.log("UPDATE", update)
 
         })
 
@@ -1523,9 +1547,11 @@ exports.editFnoindex = async (req, res) => {
       )
       let status = update.status
       let tradeStatuss = update.tradeStatus
-      console.log("TRADESTS", tradeStatuss)
-      console.log("STATUS", status)
-      console.log("UPDATE", update)
+      let tradeId= update._id
+      console.log("TRADEID",tradeId)
+     // console.log("TRADESTS", tradeStatuss)
+     // console.log("STATUS", status)
+     // console.log("UPDATE", update)
       const newTradeHistory = new TradeHistory({
 
 
@@ -1545,7 +1571,8 @@ exports.editFnoindex = async (req, res) => {
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatuss,
-        trl:trl
+        trl:trl,
+        tradeId:tradeId
       })
       newTradeHistory
         .save()
@@ -1565,7 +1592,8 @@ exports.editFnoindex = async (req, res) => {
 
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: tradeStatus,
+            tradeId:tradeId
           })
           console.log("DATA", data)
           console.log("UPDATE", update)
@@ -1611,6 +1639,8 @@ exports.editFnoindex = async (req, res) => {
       )
      let status = update.status
      let tradeStatusS = update.tradeStatus
+     let tradeId= update._id
+     console.log("TRADEID",tradeId)
       // console.log("TRADESTS", tradeStatusS)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
@@ -1628,15 +1658,14 @@ exports.editFnoindex = async (req, res) => {
         FT3: FT3,
         FT3_type: FT3_type,
         FT4: FT4,
-         
-        
         status: status,
         pl: pl,
         pl_per: pl_per,
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatusS,
-        trl:trl
+        trl:trl,
+        tradeId:tradeId
       })
       newTradeHistory
         .save()
@@ -1653,10 +1682,10 @@ exports.editFnoindex = async (req, res) => {
             FT1_type: FT1_type,
             FT2: FT2,
             FT2_type: FT2_type,
-    
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: tradeStatus,
+            tradeId:tradeId
           })
           // console.log("DATA", data)
           // console.log("UPDATE", update)
@@ -1705,6 +1734,8 @@ exports.editFnoindex = async (req, res) => {
     )
    let status = update.status
    let tradeStatusS = update.tradeStatus
+   let tradeId= update._id
+     console.log("TRADEID",tradeId)
     // console.log("TRADESTS", tradeStatusS)
     // console.log("STATUS", status)
     // console.log("UPDATE", update)
@@ -1722,15 +1753,14 @@ exports.editFnoindex = async (req, res) => {
       FT3: FT3,
       FT3_type: FT3_type,
       FT5: FT5,
-       
-      
       status: status,
       pl: pl,
       pl_per: pl_per,
       investment_amt: investment_amt,
       cstmMsg: cstmMsg,
       tradeStatus: tradeStatusS,
-      trl:trl
+      trl:trl,
+      tradeId:tradeId
     })
     newTradeHistory
       .save()
@@ -1751,7 +1781,8 @@ exports.editFnoindex = async (req, res) => {
           FT3: FT3,
           FT3_type: FT3_type,
           FT5:FT5,
-          tradeStatus: tradeStatus
+          tradeStatus: tradeStatus,
+          tradeId:tradeId
         })
         // console.log("DATA", data)
         // console.log("UPDATE", update)
@@ -1799,6 +1830,8 @@ exports.editFnoindex = async (req, res) => {
       )
      let status = update.status
      let tradeStatusS = update.tradeStatus
+     let tradeId= update._id
+     console.log("TRADEID",tradeId)
       // console.log("TRADESTS", tradeStatusS)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
@@ -1824,6 +1857,7 @@ exports.editFnoindex = async (req, res) => {
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatusS,
+        tradeId:tradeId
       })
       newTradeHistory
         .save()
@@ -1840,13 +1874,11 @@ exports.editFnoindex = async (req, res) => {
             FT1_type: FT1_type,
             FT2: FT2,
             FT2_type: FT2_type,
-
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: tradeStatus,
+            tradeId:tradeId
           })
-          
-
         })
 
     } else if ( FT7_type == "false" &&FT7 == FT7){
@@ -1982,9 +2014,11 @@ let tradeStatus = findone.tradeStatus
        )    
      //  let status = update.status
       // let tradeStatus = update.tradeStatus
-       console.log("TRADESTS", tradeStatus)
-       console.log("STATUS", status)
-       console.log("UPDATE", update)
+      //  console.log("TRADESTS", tradeStatus)
+      //  console.log("STATUS", status)
+      //  console.log("UPDATE", update)
+      let tradeId= update._id
+     console.log("TRADEID",tradeId)
        const newTradeHistory = new TradeHistory({
         SL: SL,
         sl_type: sl_type,
@@ -2002,6 +2036,8 @@ let tradeStatus = findone.tradeStatus
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatus,
+        tradeId:tradeId,
+        type:type
       })
       newTradeHistory
       .save()
@@ -2020,10 +2056,12 @@ let tradeStatus = findone.tradeStatus
           FT2_type: FT2_type,
           FT3: FT3,
           FT3_type: FT3_type,
-          tradeStatus: tradeStatus
+          tradeStatus: tradeStatus,
+          tradeId:tradeId,
+          type:type
         })
-        console.log("DATA", data)
-        console.log("UPDATE", update)
+        // console.log("DATA", data)
+        // console.log("UPDATE", update)
 
       })
 } else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
@@ -2057,9 +2095,11 @@ let tradeStatus = findone.tradeStatus
       )
       let status = update.status
       let tradeStatuss = update.tradeStatus
-      console.log("TRADESTS", tradeStatuss)
-      console.log("STATUS", status)
-      console.log("UPDATE", update)
+      let tradeId= update._id
+     console.log("TRADEID",tradeId)
+      // console.log("TRADESTS", tradeStatuss)
+      // console.log("STATUS", status)
+      // console.log("UPDATE", update)
       const newTradeHistory = new TradeHistory({
 
 
@@ -2077,7 +2117,8 @@ let tradeStatus = findone.tradeStatus
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatuss,
-        trl:trl
+        trl:trl,
+        tradeId:tradeId
       })
       newTradeHistory
         .save()
@@ -2096,7 +2137,8 @@ let tradeStatus = findone.tradeStatus
             FT2_type: FT2_type,
             FT3: FT3,
             FT3_type: FT3_type,
-            tradeStatus: tradeStatus
+            tradeStatus: tradeStatus,
+            tradeId:tradeId
           })
           console.log("DATA", data)
           console.log("UPDATE", update)
@@ -2128,9 +2170,11 @@ let tradeStatus = findone.tradeStatus
   )
   let status = update.status
   let tradeStatuss = update.tradeStatus
-  console.log("TRADESTS", tradeStatuss)
-  console.log("STATUS", status)
-  console.log("UPDATE", update)
+  let tradeId= update._id
+  console.log("TRADEID",tradeId)
+  // console.log("TRADESTS", tradeStatuss)
+  // console.log("STATUS", status)
+  // console.log("UPDATE", update)
   const newTradeHistory = new TradeHistory({
 
 
@@ -2148,7 +2192,8 @@ let tradeStatus = findone.tradeStatus
     investment_amt: investment_amt,
     cstmMsg: cstmMsg,
     tradeStatus: tradeStatuss,
-    trl:trl
+    trl:trl,
+    tradeId:tradeId
   })
   newTradeHistory
     .save()
@@ -2168,7 +2213,8 @@ let tradeStatus = findone.tradeStatus
 
         FT3: FT3,
         FT3_type: FT3_type,
-        tradeStatus: tradeStatus
+        tradeStatus: tradeStatus,
+        tradeId:tradeId
       })
       // console.log("DATA", data)
       // console.log("UPDATE", update)
@@ -2208,6 +2254,8 @@ let tradeStatus = findone.tradeStatus
   )
   let status = update.status
   let tradeStatuss = update.tradeStatus
+  let tradeId= update._id
+  console.log("TRADEID",tradeId)
   // console.log("TRADESTS", tradeStatuss)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
@@ -2230,7 +2278,8 @@ let tradeStatus = findone.tradeStatus
     investment_amt: investment_amt,
     cstmMsg: cstmMsg,
     tradeStatus: tradeStatuss,
-    trl:trl
+    trl:trl,
+    tradeId:tradeId
   })
   newTradeHistory
     .save()
@@ -2250,7 +2299,8 @@ let tradeStatus = findone.tradeStatus
 
         FT3: FT3,
         FT3_type: FT3_type,
-        tradeStatus: tradeStatus
+        tradeStatus: tradeStatus,
+        tradeId:tradeId
       })
       // console.log("DATA", data)
       // console.log("UPDATE", update)
@@ -2296,12 +2346,12 @@ let tradeStatus = findone.tradeStatus
     )
    let status = update.status
    let tradeStatusS = update.tradeStatus
+   let tradeId= update._id
+  console.log("TRADEID",tradeId)
     // console.log("TRADESTS", tradeStatusS)
     // console.log("STATUS", status)
     // console.log("UPDATE", update)
     const newTradeHistory = new TradeHistory({
-  
-  
       qty: qty,
       active_value: active_value,
       SL:SL,
@@ -2313,15 +2363,14 @@ let tradeStatus = findone.tradeStatus
       FT3: FT3,
       FT3_type: FT3_type,
       FT4: FT4,
-       
-      
       status: status,
       pl: pl,
       pl_per: pl_per,
       investment_amt: investment_amt,
       cstmMsg: cstmMsg,
       tradeStatus: tradeStatusS,
-      trl:trl
+      trl:trl,
+      tradeId:tradeId
     })
     newTradeHistory
       .save()
@@ -2338,10 +2387,10 @@ let tradeStatus = findone.tradeStatus
           FT1_type: FT1_type,
           FT2: FT2,
           FT2_type: FT2_type,
-  
           FT3: FT3,
           FT3_type: FT3_type,
-          tradeStatus: tradeStatus
+          tradeStatus: tradeStatus,
+          tradeId:tradeId
         })
         // console.log("DATA", data)
         // console.log("UPDATE", update)
@@ -2388,12 +2437,12 @@ let sl_type = findone.sl_type;
   )
  let status = update.status
  let tradeStatusS = update.tradeStatus
+ let tradeId= update._id
+  console.log("TRADEID",tradeId)
   // console.log("TRADESTS", tradeStatusS)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
   const newTradeHistory = new TradeHistory({
-
-
     qty: qty,
     active_value: active_value,
     SL:SL,
@@ -2405,15 +2454,14 @@ let sl_type = findone.sl_type;
     FT3: FT3,
     FT3_type: FT3_type,
     FT5: FT5,
-     
-    
     status: status,
     pl: pl,
     pl_per: pl_per,
     investment_amt: investment_amt,
     cstmMsg: cstmMsg,
     tradeStatus: tradeStatusS,
-    trl:trl
+    trl:trl,
+    tradeId:tradeId
   })
   newTradeHistory
     .save()
@@ -2430,11 +2478,11 @@ let sl_type = findone.sl_type;
         FT1_type: FT1_type,
         FT2: FT2,
         FT2_type: FT2_type,
-
         FT3: FT3,
         FT3_type: FT3_type,
         FT5:FT5,
-        tradeStatus: tradeStatus
+        tradeStatus: tradeStatus,
+        tradeId:tradeId
       })
       // console.log("DATA", data)
       // console.log("UPDATE", update)
@@ -2482,6 +2530,8 @@ let sl_type = findone.sl_type;
   )
  let status = update.status
  let tradeStatusS = update.tradeStatus
+ let tradeId= update._id
+  console.log("TRADEID",tradeId)
   // console.log("TRADESTS", tradeStatusS)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
@@ -2507,7 +2557,8 @@ let sl_type = findone.sl_type;
     investment_amt: investment_amt,
     cstmMsg: cstmMsg,
     tradeStatus: tradeStatusS,
-    trl:trl
+    trl:trl,
+    tradeId:tradeId
   })
   newTradeHistory
     .save()
@@ -2524,10 +2575,10 @@ let sl_type = findone.sl_type;
         FT1_type: FT1_type,
         FT2: FT2,
         FT2_type: FT2_type,
-
         FT3: FT3,
         FT3_type: FT3_type,
-        tradeStatus: tradeStatus
+        tradeStatus: tradeStatus,
+        tradeId:tradeId
       })
       // console.log("DATA", data)
       // console.log("UPDATE", update)
@@ -2578,6 +2629,8 @@ let sl_type = findone.sl_type;
   )
  let status = update.status
  let tradeStatusS = update.tradeStatus
+ let tradeId= update._id
+ console.log("TRADEID",tradeId)
   // console.log("TRADESTS", tradeStatusS)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
@@ -2603,7 +2656,8 @@ let sl_type = findone.sl_type;
     investment_amt: investment_amt,
     cstmMsg: cstmMsg,
     tradeStatus: tradeStatusS,
-    trl:trl
+    trl:trl,
+    tradeId:tradeId
   })
   newTradeHistory
     .save()
@@ -2620,10 +2674,10 @@ let sl_type = findone.sl_type;
         FT1_type: FT1_type,
         FT2: FT2,
         FT2_type: FT2_type,
-
         FT3: FT3,
         FT3_type: FT3_type,
-        tradeStatus: tradeStatus
+        tradeStatus: tradeStatus,
+        tradeId:tradeId
       })
       // console.log("DATA", data)
       // console.log("UPDATE", update)
@@ -2631,11 +2685,30 @@ let sl_type = findone.sl_type;
     })
 
 } 
-
-
-
-
   } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
 
   }
 }
+
+
+exports.tradeHistory = async (req, res) => {
+  const findall = await TradeHistory.find({tradeId:req.params.id}).sort({ sortorder: 1 })
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
