@@ -1113,9 +1113,7 @@ exports.editCash = async (req, res) => {
 }
 
 exports.editalltrade = async (req, res) => {
-  await Alltrade
-
-    .findOneAndUpdate(
+   update = await Alltrade.findOneAndUpdate(
       {
         _id: req.params.id,
         //  console.log(req.params._id);
@@ -1125,7 +1123,73 @@ exports.editalltrade = async (req, res) => {
       },
       { new: true }
     )
-    .then((data) => resp.successr(res, data))
+   let SL=  update.SL
+   let sl_type =update.sl_type
+   let qty = update.qty
+   let active_value = update.active_value
+   let FT1 = update.FT1
+   let FT1_type= update.FT1_type
+  let  FT2 = update.FT2
+   let FT2_type=  update.FT2_type
+  let FT3 = update.FT3
+  let FT3_type = update.FT3_type
+let pl= update.pl
+let pl_per = update.pl_per
+let investment_amt = update.investment_amt
+let cstmMsg = update.cstmMsg
+let trdests =update.tradeStatus
+let type = update.type
+let trl = update.trl
+    const newTradeHistory = new TradeHistory({
+
+      SL: SL,
+      sl_type: sl_type,
+      qty: qty,
+      active_value: active_value,
+      FT1: FT1,
+      FT1_type: FT1_type,
+      FT2: FT2,
+      FT2_type: FT2_type,
+      FT3: FT3,
+      FT3_type: FT3_type,
+      pl: pl,
+      pl_per: pl_per,
+      investment_amt: investment_amt,
+      cstmMsg: cstmMsg,
+      tradeStatus: trdests,
+      trl :trl,
+    //  tradeId:tradeId,
+      type:type
+    })
+    newTradeHistory
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+          investment_amt: investment_amt,
+          SL: SL,
+          PL: pl,
+          PLPER: pl_per,
+          FT1: FT1,
+          FT1_type: FT1_type,
+          FT2: FT2,
+          FT2_type: FT2_type,
+          FT3: FT3,
+          FT3_type: FT3_type,
+          tradeStatus: trdests,
+        //  tradeId:tradeId,
+        trl :trl,
+          type:type
+        })
+        console.log("DATA", data)
+        console.log("UPDATE", update)
+
+      })
+
+
+    //.then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 
