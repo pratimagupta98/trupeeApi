@@ -29,7 +29,9 @@ const thisSchema = new Schema(
     sl_type: { type: String,
      // default: "false"
     },
-    
+    slTime:{
+      type: String,
+    },
     T1: {
       type: Number,
     },
@@ -140,12 +142,20 @@ FT1_type :{
   type: String,
   //default: "false"
 },
+FT1time:{
+  type: String,
+    
+      },
 FT2:{
   type: Number,
 },
 FT2_type:{
   type: String,
   //default: "false"
+},
+FT2time:{
+  type: String,
+  
 },
 FT3:{
   type: Number,
@@ -154,12 +164,20 @@ FT3_type:{
   type: String,
  // default: "false"
 },
+FT3time:{
+  type: String,
+  
+},
 FT4:{
   type: Number,
 },
 FT4_type:{
   type: String,
   default: "false"
+},
+FT4time:{
+  type: String,
+  
 },
 FT5:{
   type: Number,
@@ -168,6 +186,10 @@ FT5_type:{
   type: String,
   //default: "false"
 },
+FT5time:{
+  type: String,
+  
+},
 FT6:{
   type: Number,
 },
@@ -175,12 +197,21 @@ FT6_type:{
   type: String,
  //default: "false"
 },
+FT6time:{
+  type: String,
+  
+},
+
 FT7:{
   type: Number,
 },
 FT7_type:{
   type: String,
  // default: "false"
+},
+FT7time:{
+  type: String,
+  
 },
 title:{
   type: String,
