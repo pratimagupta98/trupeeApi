@@ -52,6 +52,10 @@ const UserSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "plan",
     },
+    des_price:{
+      type:String,
+       
+    },
     status: {
       type: String,
       default: "Deactive",

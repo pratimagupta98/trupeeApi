@@ -10,7 +10,7 @@ const {
     updatemembership,
     dlt_membership,
     addMemeberShip,
-    verifyCode,
+    refer_earn,
     freeMembership,
     ttlfreeusers
 } = require("../controllers/membership");
@@ -27,7 +27,7 @@ router.get("/admin/allmembership", allmembership);
  router.get("/admin/dlt_membership/:id", dlt_membership);
 
  router.post("/user/addMemeberShip",verifytoken, addMemeberShip);
- router.post("/user/verifyCode", verifyCode);
+ router.post("/user/refer_earn/:id", refer_earn);
  router.post("/user/freeMembership",verifytoken, freeMembership);
  router.get("/admin/ttlfreeusers", ttlfreeusers);
 

@@ -198,51 +198,83 @@ exports.updatemembership = async (req, res) => {
 //   });
 // };
 
-exports.verifyCode = async (req, res) => {
+exports.refer_earn = async (req, res) => {
   const { refral_Code ,planId} = req.body
 
   const findone = await User.findOne({refral_Code:req.body.refral_Code})
   console.log("CODE", findone)
-  // if (findone) {
-    if (findone?.refral_Code == req.body.refral_Code) {
-          getplan = await Plan.findOne({planId :planId})
-          console.log("GETPLAN",getplan)
-          let Code = findone?.refral_Code
-          console.log("PLAN",getplan)
-          jj = getplan.des_price
-          console.log("JJ",jj)
-          price = jj*12/100 
-          console.log("TOTAL PRICE",price)
-          const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
-      
-           if(getdetail.refral_Code){
-              console.log("GETDETAIL",getdetail)
-              console.log("@@@",getdetail)
-              wolt = getdetail.amount
-              addamt = parseInt(price) +parseInt(wolt)
-              console.log("ADD HO GYA",addamt)
-             await User.findOneAndUpdate(
-              {
-                _id: getdetail._id,
-              },
-              { $set: {amount :addamt } },
-              { new: true }
-            )
-            newMembership
-                  .save()
-              .then((data) => resp.successr(res, data))
-              .catch((error) => resp.errorr(res, error))
-              
-            }
-      
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "Code Doesn't exist",
-      error: "error",
-    });
+  if(findone){
+  const getuser = await User.findOne({userid:req.params.userid})
+ console.log("getuser",getuser)
+ if(getuser){
+ let getdesprce = getuser.des_price
+ console.log("DESPRICE",getdesprce)
 
+ price = getdesprce*12/100
+       console.log("TOTAL PRICE",price)
+       const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+ if(getdetail.refral_Code){
+   console.log("GETDETAIL",getdetail)
+   console.log("@@@",getdetail)
+   wolt = getdetail.amount
+   addamt = parseInt(price) +parseInt(wolt)
+   console.log("ADD HO GYA",addamt)
+  await User.findOneAndUpdate(
+   {
+     _id: getdetail._id,
+   },
+   { $set: {amount :addamt } },
+   { new: true }
+ )
+ 
+   .then((data) => resp.successr(res, data))
+   .catch((error) => resp.errorr(res, error))
+   
+  
   }
+ }
+  }
+
+  // if (findone) {
+  //   if (findone?.refral_Code == req.body.refral_Code) {
+  //         getplan = await Plan.findOne({planId :planId})
+  //         console.log("GETPLAN",getplan)
+  //         let Code = findone?.refral_Code
+  //         console.log("PLAN",getplan)
+  //         jj = getplan.des_price 
+  //         console.log("JJ",jj)
+  //         price = jj*12/100 
+  //     //    console.log("TOTAL PRICE",price)
+  //         const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+      
+  //          if(getdetail.refral_Code){
+  //            // console.log("GETDETAIL",getdetail)
+  //             //console.log("@@@",getdetail)
+  //             wolt = getdetail.amount
+  //             addamt = parseInt(price) +parseInt(wolt)
+  //             console.log("ADD HO GYA",addamt)
+  //            await User.findOneAndUpdate(
+  //             {
+  //               _id: getdetail._id,
+  //             },
+  //             { $set: {amount :addamt } },
+  //             { new: true }
+  //           )
+  //           newMembership
+  //                 .save()
+  //             .then((data) => resp.successr(res, data))
+  //             .catch((error) => resp.errorr(res, error))
+              
+  //           }
+      
+  // } else {
+  //   res.status(400).json({
+  //     status: false,
+  //     msg: "Code Doesn't exist",
+  //     error: "error",
+  //   });
+
+  // }
 }
 
 
@@ -911,22 +943,22 @@ exports.addMemeberShip = async (req, res) => {
   newMembership
   .save()
   .then((data) => resp.successr(res, data))
-  .catch((error) => resp.errorr(res, error));
+  .catch((error) => resp.errorr(res, error))
 
 
-  //let planid= await Membership.findOne({planId:req.body.planId}) 
- // let wolId=wolwt.planId
-  //console.log("ttttt",planid)
+  let planid= await Plan.findOne({_id:req.body.planId})
+ let desprice=planid.des_price
+  console.log("Discount Plan price",desprice)
 
   let qur=  await User.findOneAndUpdate(
     { _id: req.userId },
     
-    {$set: {planId:planId}} ,
+    {$set: {planId:planId,des_price:desprice}} ,
   
   //{ $set: {status:"success"} },
   { new: true }
 
-);
+).populate("planId")
 console.log("QURRRR",qur)
   
 }
