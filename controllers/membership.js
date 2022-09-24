@@ -211,7 +211,7 @@ exports.verifyCode = async (req, res) => {
           console.log("PLAN",getplan)
           jj = getplan.des_price
           console.log("JJ",jj)
-          price = jj*12/100
+          price = jj*12/100 
           console.log("TOTAL PRICE",price)
           const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
       

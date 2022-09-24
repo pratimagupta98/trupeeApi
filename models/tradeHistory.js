@@ -114,7 +114,7 @@ const thisSchema = new Schema(
     },
     pl:{
       type: Number,
-      default: 0
+    //  default: 0
     },
     pl_per: {
       type: Number,
@@ -173,7 +173,7 @@ FT4:{
 },
 FT4_type:{
   type: String,
-  default: "false"
+//  default: "false"
 },
 FT4time:{
   type: String,

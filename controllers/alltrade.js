@@ -1235,14 +1235,19 @@ exports.add_notificationss = async (req, res) => {
 }
 
 
+// exports.notificationList = async (req, res) => {
+//   await TradeHistory.find({ $or: [{ status: "Active" }, { noti_status: "Notification" }] }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
+//     .sort({ sortorder: 1 })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+
 exports.notificationList = async (req, res) => {
-  await Alltrade.find({ $or: [{ status: "Active" }, { noti_status: "Notification" }] }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
+  await TradeHistory.find({}).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
-
 
 exports.addTnotification = async (req, res) => {
   const { tradeId, desc, noti_status } = req.body;
