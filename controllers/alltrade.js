@@ -1591,9 +1591,10 @@ let trl = findone.trl
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
       const FT1tym = new Date().toString()
-      console.log("isodate",FT1tym)
+      console.log("FT1tym ",FT1tym)
+
       const FT2tym = new Date().toString()
-      console.log("isodate",FT2tym)
+      console.log("FT2tym",FT2tym)
 
       const newTradeHistory = new TradeHistory({        
         qty: qty,
@@ -2536,12 +2537,16 @@ let tradeStatus = findone.tradeStatus
   // console.log("TRADESTS", tradeStatuss)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
+  const FT1tym = new Date().toString()
+  console.log("FT1tym ",FT1tym)
+
   const FT2tym = new Date().toString()
   console.log("isodate",FT2tym)
   const newTradeHistory = new TradeHistory({
     qty: qty,
     active_value: active_value,
     FT1: FT1,
+    FT1time:FT1tym,
     FT1_type: FT1_type,
     FT2: FT2,
     FT2time:FT2tym,
