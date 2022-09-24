@@ -861,7 +861,7 @@ exports.editfnoOption = async (req, res) => {
     pl = (req.body.qty * 150) * (req.body.SL - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -884,7 +884,7 @@ exports.editfnoOption = async (req, res) => {
     pl = (req.body.qty * 150) * (req.body.T1 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -909,7 +909,7 @@ exports.editfnoOption = async (req, res) => {
     pl = (req.body.qty * 150) * (req.body.T2 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -933,7 +933,7 @@ exports.editfnoOption = async (req, res) => {
     pl = (req.body.qty * 150) * (req.body.T3 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -957,7 +957,7 @@ exports.editfnoOption = async (req, res) => {
     pl = (req.body.qty * 150) * (req.body.T4 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100)
     console.log("PL%%%%", pl_per)
 
 
@@ -982,8 +982,6 @@ exports.editfnoOption = async (req, res) => {
 exports.editCash = async (req, res) => {
   const { qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg } = req.body
 
-
-
   if (sl_type == "true") {
     investment_amt = (req.body.qty * 400) * (req.body.active_value)
     console.log("InvestAMT", investment_amt)
@@ -994,7 +992,7 @@ exports.editCash = async (req, res) => {
     pl = (req.body.qty * 400) * (req.body.SL - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -1017,7 +1015,7 @@ exports.editCash = async (req, res) => {
     pl = (req.body.qty * 400) * (req.body.T1 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -1042,7 +1040,7 @@ exports.editCash = async (req, res) => {
     pl = (req.body.qty * 400) * (req.body.T2 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -1066,7 +1064,7 @@ exports.editCash = async (req, res) => {
     pl = (req.body.qty * 400) * (req.body.T3 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -1090,7 +1088,7 @@ exports.editCash = async (req, res) => {
     pl = (req.body.qty * 400) * (req.body.T4 - req.body.active_value)
     console.log("PL", pl)
 
-    pl_per = pl / investment_amt * 100
+    pl_per = (pl / investment_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
@@ -1107,8 +1105,6 @@ exports.editCash = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
-
-
 
 }
 
@@ -1501,6 +1497,12 @@ let trl = findone.trl
       // console.log("TRADESTS", tradeStatuss)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
+      const FT1tym = new Date().toString()
+      console.log("FT1tym ",FT1tym)
+    
+      const FT2tym = new Date().toString()
+      console.log("isodate",FT2tym)
+
       const FT3tym = new Date().toString()
       console.log("isodate",FT3tym)
       const newTradeHistory = new TradeHistory({
@@ -1509,8 +1511,10 @@ let trl = findone.trl
         qty: qty,
         active_value: active_value,
         FT1: FT1,
+        FT1time:FT1tym,
         FT1_type: FT1_type,
         FT2: FT2,
+        FT2time:FT2tym,
         FT2_type: FT2_type,
         FT3: FT3,
         FT3time:FT3tym,
@@ -2461,14 +2465,22 @@ let tradeStatus = findone.tradeStatus
       // console.log("TRADESTS", tradeStatuss)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
+      const FT1tym = new Date().toString()
+      console.log("FT1tym ",FT1tym)
+    
+      const FT2tym = new Date().toString()
+      console.log("isodate",FT2tym)
+
       const FT3tym = new Date().toString()
       console.log("isodate",FT3tym)
       const newTradeHistory = new TradeHistory({
         qty: qty,
         active_value: active_value,
         FT1: FT1,
+        FT1time:FT1tym,
         FT1_type: FT1_type,
         FT2: FT2,
+        FT2time:FT2tym,
         FT2_type: FT2_type,
         FT3: FT3,
         FT3time:FT3tym,
@@ -2537,21 +2549,23 @@ let tradeStatus = findone.tradeStatus
   // console.log("TRADESTS", tradeStatuss)
   // console.log("STATUS", status)
   // console.log("UPDATE", update)
-  const FT1tym = new Date().toString()
-  console.log("FT1tym ",FT1tym)
+  
 
   const FT2tym = new Date().toString()
   console.log("isodate",FT2tym)
+
+  const FT3tym = new Date().toString()
+  console.log("FT3tym ",FT3tym)
   const newTradeHistory = new TradeHistory({
     qty: qty,
     active_value: active_value,
     FT1: FT1,
-    FT1time:FT1tym,
     FT1_type: FT1_type,
     FT2: FT2,
     FT2time:FT2tym,
     FT2_type: FT2_type,
     FT3: FT3,
+    FT3time:FT3tym,
     FT3_type: FT3_type,
     status: status,
     pl: pl,
