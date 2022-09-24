@@ -204,7 +204,7 @@ exports.refer_earn = async (req, res) => {
   const findone = await User.findOne({refral_Code:req.body.refral_Code})
   console.log("CODE", findone)
   if(findone){
-  const getuser = await User.findOne({userid:req.params.userid})
+  const getuser = await User.findOne({userid:req.userId})
  console.log("getuser",getuser)
  if(getuser){
  let getdesprce = getuser.des_price
