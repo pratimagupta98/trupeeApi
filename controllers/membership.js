@@ -233,6 +233,12 @@ exports.refer_earn = async (req, res) => {
   
   }
  }
+  }else{
+    res.status(400).json({
+          status: false,
+          msg: "Incorrect Verify Code",
+          error: "error",
+        });
   }
 
   // if (findone) {
