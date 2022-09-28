@@ -29,7 +29,7 @@ router.get("/admin/allmembership", allmembership);
  router.get("/admin/dlt_membership/:id", dlt_membership);
 
  router.post("/user/addMemeberShip",verifytoken, addMemeberShip);
- router.post("/admin/refer_earn",verifytoken, refer_earn);
+ router.post("/user/refer_earn",verifytoken, refer_earn);
  router.get("/admin/referearn_list", referearn_list);
 
  router.get("/admin/dltReferEarn/:id", dltReferEarn);
