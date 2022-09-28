@@ -239,6 +239,9 @@ tradeId:{
   type: mongoose.Schema.Types.ObjectId,
   ref: "alltrade",
 },
+date:{
+  type:String
+},
   },
 
 

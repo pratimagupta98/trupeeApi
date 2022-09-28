@@ -18,7 +18,7 @@ cloudinary.config({
 });
 
 exports.add_fnoIndex = async (req, res) => {
-  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, updated_at,tradeId } = req.body;
+  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, date,tradeId } = req.body;
 
   if (trade_type == "BankNifty") {
     investment_amt = (req.body.qty * 25) * (req.body.active_value)
@@ -44,8 +44,9 @@ exports.add_fnoIndex = async (req, res) => {
       const date = ("0" + t.getDate()).slice(-2);
       const month = ("0" + (t.getMonth() + 1)).slice(-2);
       const year = t.getFullYear();
-      return `${year}-${month}-${date}`;
+      return `${date}-${month}-${year}`;
     };
+    console.log("DATE",getCurrentDate())
 
     const newAlltrade = new Alltrade({
 
@@ -72,9 +73,10 @@ exports.add_fnoIndex = async (req, res) => {
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
-      updated_at: getCurrentDate(),
+      date: getCurrentDate(),
       tradeId:tradeId
     });
+    console.log("BODY",req.body)
     const newTradeHistory = new TradeHistory({
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
@@ -3321,3 +3323,10 @@ exports.searchTradeBydate = async(req,res)=>{
 // let lastDayMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
 // lastDayMonth.setHours(23, 59, 59, 0);
 // today = new Date().setHours(0, 0, 0, 0);
+
+
+exports.dateSrchFltr = async (req, res) => {
+  await Alltrade.find({ date:req.params.date })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
