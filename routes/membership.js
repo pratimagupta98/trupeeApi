@@ -13,7 +13,8 @@ const {
     refer_earn,
     freeMembership,
     ttlfreeusers,
-    referearn_list
+    referearn_list,
+    dltReferEarn
 } = require("../controllers/membership");
 
  
@@ -28,10 +29,10 @@ router.get("/admin/allmembership", allmembership);
  router.get("/admin/dlt_membership/:id", dlt_membership);
 
  router.post("/user/addMemeberShip",verifytoken, addMemeberShip);
- router.post("/user/refer_earn",verifytoken, refer_earn);
- router.get("/user/referearn_list", referearn_list);
+ router.post("/admin/refer_earn",verifytoken, refer_earn);
+ router.get("/admin/referearn_list", referearn_list);
 
- 
+ router.get("/admin/dltReferEarn/:id", dltReferEarn);
  router.post("/user/freeMembership",verifytoken, freeMembership);
  router.get("/admin/ttlfreeusers", ttlfreeusers);
 

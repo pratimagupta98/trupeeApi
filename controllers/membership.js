@@ -343,7 +343,11 @@ exports.referearn_list = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-
+exports.dltReferEarn = async (req, res) => {
+  await ReferEarn.deleteOne({ _id: req.params.id })
+    .then((data) => resp.deleter(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 
 //}
 
