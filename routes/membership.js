@@ -12,7 +12,8 @@ const {
     addMemeberShip,
     refer_earn,
     freeMembership,
-    ttlfreeusers
+    ttlfreeusers,
+    referearn_list
 } = require("../controllers/membership");
 
  
@@ -28,6 +29,9 @@ router.get("/admin/allmembership", allmembership);
 
  router.post("/user/addMemeberShip",verifytoken, addMemeberShip);
  router.post("/user/refer_earn",verifytoken, refer_earn);
+ router.get("/user/referearn_list", referearn_list);
+
+ 
  router.post("/user/freeMembership",verifytoken, freeMembership);
  router.get("/admin/ttlfreeusers", ttlfreeusers);
 

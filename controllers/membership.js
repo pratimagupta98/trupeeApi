@@ -1,6 +1,7 @@
 const Membership = require("../models/membership");
 const User = require("../models/user");
 const Plan = require("../models/plan");
+const ReferEarn = require("../models/refer_earn");
 
 const resp = require("../helpers/apiResponse");
 const _ = require("lodash");
@@ -201,45 +202,98 @@ exports.updatemembership = async (req, res) => {
 exports.refer_earn = async (req, res) => {
   const { refral_Code ,planId} = req.body
 
-  const findone = await User.findOne({refral_Code:req.body.refral_Code})
-  console.log("CODE", findone)
-  if(findone){
-  const getuser = await User.findOne({userid:req.userId})
- console.log("getuser",getuser)
- if(getuser){
- let getdesprce = getuser.des_price
- console.log("DESPRICE",getdesprce)
 
- price = getdesprce*12/100
-       console.log("TOTAL PRICE",price)
-       const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
- if(getdetail.refral_Code){
-   console.log("GETDETAIL",getdetail)
-   console.log("@@@",getdetail)
-   wolt = getdetail.amount
-   addamt = parseInt(price) +parseInt(wolt)
-   console.log("ADD HO GYA",addamt)
-  await User.findOneAndUpdate(
-   {
-     _id: getdetail._id,
-   },
-   { $set: {amount :addamt } },
-   { new: true }
- )
+        const findexist = await ReferEarn.findOne({userid:req.userId})
+        if(findexist){
+          resp.alreadyr(res);
+        }else{
+
+const getuser = await  User.findOne({userid:req.userId})
+if(getuser){
+  console.log("STRNG",getuser)
+const getdesprce =  getuser.des_price
+let planId = getuser.planId
+console.log("PLANID",planId)
+
+console.log("DESPRICE",getdesprce)
+price = getdesprce*12/100
+        console.log("TOTAL PRICE",price)
+const getrefercode = await User.findOne({refral_Code:req.body.refral_Code})
+if(getrefercode.refral_Code){
+  console.log("GETDETAIL",getrefercode)
+  wolt = getrefercode.amount
+  addamt = parseInt(price) +parseInt(wolt)
+     console.log("ADD HO GYA",addamt)
+
+     const newReferEarn = new ReferEarn({
+      userid: req.userId,
+      refral_Code:refral_Code,
+      refer_from:getrefercode,
+      planId:planId
+  });
+    await User.findOneAndUpdate(
+     {
+       _id: getrefercode._id,
+     },
+     { $set: {amount :addamt } },
+     { new: true }
+   )
+   newReferEarn
+         .save()
+   
+     .then((data) => resp.successr(res, data))
+     .catch((error) => resp.errorr(res, error))
+
+}
+}
+        }
+        
+        
+//         else{
+//   const findone = await User.findOne({refral_Code:req.body.refral_Code})
+//   console.log("CODE", findone)
+//   if(findone){
+//   const getuser = await User.findOne({userid:req.userId})
+//   if(getuser){
+
+//   }
+//  //console.log("getuser",getuser)
+//   else{
+//  let getdesprce = getuser.des_price
+//  console.log("DESPRICE",getdesprce)
+
+//  price = getdesprce*12/100
+//        console.log("TOTAL PRICE",price)
+//        const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
+//  if(getdetail.refral_Code){
+//    console.log("GETDETAIL",getdetail)
+//    console.log("@@@",getdetail)
+//    wolt = getdetail.amount
+//    addamt = parseInt(price) +parseInt(wolt)
+//    console.log("ADD HO GYA",addamt)
+//   await User.findOneAndUpdate(
+//    {
+//      _id: getdetail._id,
+//    },
+//    { $set: {amount :addamt } },
+//    { new: true }
+//  )
+//  newReferEarn
+//        .save()
  
-   .then((data) => resp.successr(res, data))
-   .catch((error) => resp.errorr(res, error))
+//    .then((data) => resp.successr(res, data))
+//    .catch((error) => resp.errorr(res, error))
    
   
-  }
- }
-  }else{
-    res.status(400).json({
-          status: false,
-          msg: "Incorrect Verify Code",
-          error: "error",
-        });
-  }
+//   }
+//  }
+//   }else{
+//     res.status(400).json({
+//           status: false,
+//           msg: "Incorrect Verify Code",
+//           error: "error",
+//         });
+//   }
 
   // if (findone) {
   //   if (findone?.refral_Code == req.body.refral_Code) {
@@ -282,6 +336,16 @@ exports.refer_earn = async (req, res) => {
 
   // }
 }
+exports.referearn_list = async (req, res) => {
+  await ReferEarn.find().populate("userid").populate("refer_from").populate("planId")
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+
+//}
 
 
 // exports.addMemeberShip = async (req, res) => {
@@ -926,7 +990,7 @@ exports.refer_earn = async (req, res) => {
 exports.addMemeberShip = async (req, res) => {
   const {transaction_id, date, planId ,expdate,razorpay_payment_id} = req.body
 
-  const t = new Date()
+  const t = new Date() 
       const oneyr =new Date()
     
       let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))

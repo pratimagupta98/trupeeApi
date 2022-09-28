@@ -868,7 +868,7 @@ exports.editfnoOption = async (req, res) => {
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { SL, sl_type: "true", T1, t1_type: "false", T2, t2_type: "false", T3, t3_type: "false", T4, t4_type: "false", pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { SL,tradeStatus: "Closed", sl_type: "true", T1, t1_type: "false", T2, t2_type: "false", T3, t3_type: "false", T4, t4_type: "false", pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -891,7 +891,7 @@ exports.editfnoOption = async (req, res) => {
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,} },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -916,7 +916,7 @@ exports.editfnoOption = async (req, res) => {
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg ,tradeStatus:req.body.tradeStatus,} },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -940,7 +940,7 @@ exports.editfnoOption = async (req, res) => {
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus, } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -964,7 +964,7 @@ exports.editfnoOption = async (req, res) => {
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus, } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -977,7 +977,7 @@ exports.editfnoOption = async (req, res) => {
 
 
 
-}
+ }
 
 exports.editCash = async (req, res) => {
   const { qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg } = req.body
@@ -3288,3 +3288,36 @@ exports.tradeHistory = async (req, res) => {
     });
   }
 };
+
+exports.searchTradeBydate = async(req,res)=>{
+
+}
+
+
+
+// var start = new Date();
+// start.setHours(0,0,0,0);
+// var end = new Date();
+// end.setHours(23,59,59,999);
+
+// Data.find({userId: decode.id,created: {$gte: start, $lt: end}},function(err,data){
+//     if(err){
+//         reject(err);
+//     }
+
+// created:{
+//   type:Date,
+//   default:Date.now
+// }
+
+
+// let today = new Date();
+// today.setHours(0, 0, 0, 0)
+// let first = today.getDate() - today.getDay();
+// let last = first + 6;
+// let firstday = new Date(today.setDate(first)).toUTCString();
+// let lastday = new Date(today.setDate(last)).toUTCString();
+// let firstDayMonth = new Date(today.setDate(1));
+// let lastDayMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+// lastDayMonth.setHours(23, 59, 59, 0);
+// today = new Date().setHours(0, 0, 0, 0);
