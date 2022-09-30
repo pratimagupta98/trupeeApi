@@ -17,6 +17,15 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+let getCurrentDate = function () {
+  const t = new Date();
+  const date = ("0" + t.getDate()).slice(-2);
+  const month = ("0" + (t.getMonth() + 1)).slice(-2);
+  const year = t.getFullYear();
+  return `${date}-${month}-${year}`;
+};
+console.log("DATE",getCurrentDate())
+
 exports.add_fnoIndex = async (req, res) => {
   const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, date,tradeId } = req.body;
 
@@ -1245,7 +1254,7 @@ exports.add_notificationss = async (req, res) => {
 // };
 
 exports.notificationList = async (req, res) => {
-  await TradeHistory.find({}).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
+  await TradeHistory.find().populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -1331,7 +1340,7 @@ exports.completedTrade = async (req, res) => {
 
 
 exports.editFnoindex = async (req, res) => {
-  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time } = req.body
+  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time,call_type,date,script_type } = req.body
 
   let findone = await Alltrade.findOne({ trade_type: trade_type })
  // console.log("FINDONE", findone)
@@ -1699,9 +1708,9 @@ let trl = findone.trl
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl ,call_type,date} },
         { new: true }
-      )
+      ).populate("fnoindex_scrpt_name")
        if(update){
        
       let status = update.status
@@ -1709,6 +1718,8 @@ let trl = findone.trl
       let tradeId= update._id
       console.log("TRADEID",tradeId)
       let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+let call_type = update.call_type
+let script_type = update.script_type
      // console.log("TRADESTS", tradeStatuss)
      // console.log("STATUS", status)
      // console.log("UPDATE", update)
@@ -1716,6 +1727,9 @@ let trl = findone.trl
      console.log("isodate",FT1tym)
 
       const newTradeHistory = new TradeHistory({
+        script_type:script_type,
+        call_type:call_type,
+        date:getCurrentDate(),
         fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
@@ -3540,10 +3554,10 @@ exports.getprofit = async (req, res) => {
   };
   let de = getCurrentDate()
   console.log("DE",de)
- let today = await Alltrade.find({ date:de })
+ let today = await TradeHistory.find({ date:de })
   console.log("TODAY",today)
   if(today){
-     let loss =await Alltrade.find({sl_type:"true"})
+     let loss =await TradeHistory.find({sl_type:"true"})
      console.log("LOSS",loss)
   }else if(t1_type == "true" || t2_type == "true" || t3_type == "true" || t3_type == "true" || t4_type == "true" || t5_type == "true" || t6_type == "true"  || t7_type || "true"){
 
