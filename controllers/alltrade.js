@@ -104,8 +104,8 @@ exports.add_fnoIndex = async (req, res) => {
     newAlltrade
       .save()
       .then((data) => {
-        //    const makertradehistory = await TradeHistory.create(newTradeHistory);
-        //   console.log("MMMMMM",makertradehistory)
+          //  const makertradehistory = await TradeHistory.create(newTradeHistory);
+          // console.log("MMMMMM",makertradehistory)
         res.status(200).json({
           status: true,
 
@@ -332,7 +332,7 @@ exports.add_equityCash = async (req, res) => {
 
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
-  await TradeHistory.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -348,7 +348,7 @@ exports.fnoIndexlist = async (req, res) => {
 
 //APP
 exports.AppindexList = async (req, res) => {
-  await TradeHistory.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
