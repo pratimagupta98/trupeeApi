@@ -29,7 +29,9 @@ const {
     completedTrade,
     updatefnoindex,
     tradeHistory,
-    dateSrchFltr
+    dateSrchFltr,
+    getweekdaywisedata,
+    getprofit
      
 } = require("../controllers/alltrade");
 const storage = multer.diskStorage({
@@ -100,11 +102,12 @@ let multipleUpload = uploads.fields([
   router.get("/admin/tradeHistory/:id", tradeHistory);
   router.get("/admin/dateSrchFltr/:date", dateSrchFltr);
 
+  router.get("/admin/getweekdaywisedata", getweekdaywisedata);
+
+  router.get("/admin/getprofit", getprofit);
 
 
-  
-
-
+   
 
  // router.post("/admin/updatefnoindex/:id", updatefnoindex);
 module.exports = router;

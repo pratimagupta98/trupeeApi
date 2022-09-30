@@ -332,7 +332,7 @@ exports.add_equityCash = async (req, res) => {
 
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
-  await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+  await TradeHistory.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -348,7 +348,7 @@ exports.fnoIndexlist = async (req, res) => {
 
 //APP
 exports.AppindexList = async (req, res) => {
-  await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
+  await TradeHistory.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -1331,7 +1331,7 @@ exports.completedTrade = async (req, res) => {
 
 
 exports.editFnoindex = async (req, res) => {
-  const { active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type } = req.body
+  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time } = req.body
 
   let findone = await Alltrade.findOne({ trade_type: trade_type })
  // console.log("FINDONE", findone)
@@ -1376,8 +1376,8 @@ let trl = findone.trl
       let tradeId= update._id
       console.log("TRADEID",tradeId)
     let trdests = update.tradeStatus
- 
- 
+    let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+   let  trade_type = update.trade_type
 //let getCurrentDate = function () {
   const sltym = new Date().toString()
   
@@ -1403,7 +1403,8 @@ let trl = findone.trl
      // console.log("UPDATE", update)
 
       const newTradeHistory = new TradeHistory({
-
+        trade_type:trade_type,
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         SL: SL,
         slTime:sltym,
         script_type:script_type,
@@ -1501,6 +1502,10 @@ let trl = findone.trl
       let tradeId= update._id
       let type = update.type
       console.log("TRADEID",tradeId)
+      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+      let trade_type =update.trade_type
+
+      
       // console.log("TRADESTS", tradeStatuss)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
@@ -1513,8 +1518,8 @@ let trl = findone.trl
       const FT3tym = new Date().toString()
       console.log("isodate",FT3tym)
       const newTradeHistory = new TradeHistory({
-
-
+        trade_type:trade_type,
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         FT1: FT1,
@@ -1601,13 +1606,18 @@ let trl = findone.trl
       // console.log("TRADESTS", tradeStatuss)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
+      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+      let trade_type = update.trade_type
+      console.log("TRADTYPEEE",trade_type)
       const FT1tym = new Date().toString()
       console.log("FT1tym ",FT1tym)
 
       const FT2tym = new Date().toString()
       console.log("FT2tym",FT2tym)
 
-      const newTradeHistory = new TradeHistory({        
+      const newTradeHistory = new TradeHistory({ 
+        trade_type:trade_type,
+        fnoindex_scrpt_name:fnoindex_scrpt_name,       
         qty: qty,
         active_value: active_value,
         FT1: FT1,
@@ -1656,7 +1666,7 @@ let trl = findone.trl
         res.status(400).json({
           status : false,
           error : "error",
-          error : error
+          error : "error"
       })
       }
 
@@ -1698,6 +1708,7 @@ let trl = findone.trl
       let tradeStatuss = update.tradeStatus
       let tradeId= update._id
       console.log("TRADEID",tradeId)
+      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
      // console.log("TRADESTS", tradeStatuss)
      // console.log("STATUS", status)
      // console.log("UPDATE", update)
@@ -1705,6 +1716,7 @@ let trl = findone.trl
      console.log("isodate",FT1tym)
 
       const newTradeHistory = new TradeHistory({
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         SL:SL,
@@ -1788,16 +1800,18 @@ let trl = findone.trl
      // console.log("TRADESTS", tradeStatuss)
      // console.log("STATUS", status)
      // console.log("UPDATE", update)
+     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+
      const FT2tym = new Date().toString()
      console.log("isodate",FT2tym)
 
       const newTradeHistory = new TradeHistory({
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         SL:SL,
         sl_type:sl_type,
         FT1: FT1,
-       
         FT1_type: FT1_type,
         FT2: FT2,
         FT2time:FT2tym,
@@ -1857,7 +1871,7 @@ let trl = findone.trl
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
+        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type,FT1time,FT2time } },
         { new: true }
 
       )
@@ -1870,14 +1884,26 @@ let trl = findone.trl
       // console.log("TRADESTS", tradeStatuss)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
+      let ft1_time = update.FT1time
+      console.log("FT1111111",ft1_time)
+
+      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+      let trade_type =update.trade_type
+      console.log("TRADETYPE",trade_type)
+      const FT2tym = new Date().toString()
+      console.log("isodate",FT2tym)
+
       const FT3tym = new Date().toString()
       console.log("isodate",FT3tym)
       const newTradeHistory = new TradeHistory({
+        trade_type:trade_type,
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         FT1: FT1,
         FT1_type: FT1_type,
         FT2: FT2,
+        FT2time:FT2tym,
         FT2_type: FT2_type,
         FT3: FT3,
         FT3time:FT3tym,
@@ -1921,11 +1947,11 @@ let trl = findone.trl
         res.status(400).json({
           status : false,
           error : "error",
-          error : error
+          error : "error"
       })
       }
     }
-    else if (FT4_type == "false" && FT4 == req.body.FT4){
+    else if (FT4_type == "true" && FT4 == req.body.FT4){
       console.log("BANKFT44444")
       investment_amt = (req.body.qty * 25) * (req.body.active_value)
       console.log("InvestAMT", investment_amt)
@@ -1969,11 +1995,15 @@ let trl = findone.trl
      console.log("TRADEID",tradeId)
       // console.log("TRADESTS", tradeStatusS)
       // console.log("STATUS", status)
-      // console.log("UPDATE", update)
+    console.log("UPDATE", update)
+      
+let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+
       const FT4tym = new Date().toString()
       console.log("isodate",FT4tym)
 
       const newTradeHistory = new TradeHistory({
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         SL:SL,
@@ -2028,7 +2058,7 @@ let trl = findone.trl
       })
       }
       }
-  else if ( FT5_type == "false" && FT5 == req.body.FT5){
+  else if ( FT5_type == "true" && FT5 == req.body.FT5){
   
     console.log("BANKFT5555")
     investment_amt = (req.body.qty * 25) * (req.body.active_value)
@@ -2075,12 +2105,14 @@ let trl = findone.trl
    let tradeStatusS = update.tradeStatus
    let tradeId= update._id
      console.log("TRADEID",tradeId)
+     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
     // console.log("TRADESTS", tradeStatusS)
     // console.log("STATUS", status)
     // console.log("UPDATE", update)
     const FT5tym = new Date().toString()
     console.log("isodate",FT5tym)
     const newTradeHistory = new TradeHistory({
+      fnoindex_scrpt_name:fnoindex_scrpt_name,
       qty: qty,
       active_value: active_value,
       SL:SL,
@@ -2138,7 +2170,7 @@ let trl = findone.trl
     }
   
   } 
-    else if (FT6_type =="false" && FT6 == req.body.FT6){
+    else if (FT6_type =="true" && FT6 == req.body.FT6){
       console.log("BANKFT666")
       investment_amt = (req.body.qty * 25) * (req.body.active_value)
       console.log("InvestAMT", investment_amt)
@@ -2181,6 +2213,7 @@ let trl = findone.trl
      let tradeStatusS = update.tradeStatus
      let tradeId= update._id
      console.log("TRADEID",tradeId)
+     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
       // console.log("TRADESTS", tradeStatusS)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
@@ -2188,6 +2221,7 @@ let trl = findone.trl
       console.log("isodate",FT6tym)
 
       const newTradeHistory = new TradeHistory({
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         SL:SL,
@@ -2240,7 +2274,7 @@ let trl = findone.trl
       })
       }
 
-    } else if ( FT7_type == "false" &&FT7 == FT7){
+    } else if ( FT7_type == "true" &&FT7 == FT7){
       console.log("FT7777")
       investment_amt = (req.body.qty * 25) * (req.body.active_value)
       console.log("InvestAMT", investment_amt)
@@ -2283,12 +2317,14 @@ let trl = findone.trl
       if(update){
      let status = update.status
      let tradeStatusS = update.tradeStatus
+     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
       // console.log("TRADESTS", tradeStatusS)
       // console.log("STATUS", status)
       // console.log("UPDATE", update)
       const FT7tym = new Date().toString()
       console.log("isodate",FT7tym)
       const newTradeHistory = new TradeHistory({
+        fnoindex_scrpt_name:fnoindex_scrpt_name,
         qty: qty,
         active_value: active_value,
         SL:SL,
@@ -2340,7 +2376,7 @@ let trl = findone.trl
         res.status(400).json({
           status : false,
           error : "error",
-          error : error
+          error : "error"
       })
       }
     
@@ -3330,3 +3366,188 @@ exports.dateSrchFltr = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
+
+
+exports.getweekdaywisedata = async (req, res) => {
+  let today = new Date();
+  console.log(today);
+  console.log(today.getDay());
+
+  let onedayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(onedayago));
+  console.log(new Date(onedayago).getDay());
+
+  let twodayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(twodayago));
+  console.log(new Date(twodayago).getDay());
+
+  let threedayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(threedayago));
+  console.log(new Date(threedayago).getDay());
+
+  let fourdayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(fourdayago));
+  console.log(new Date(fourdayago).getDay());
+
+  let fivedayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(fivedayago));
+  console.log(new Date(fivedayago).getDay());
+
+  let sixdayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(sixdayago));
+  console.log(new Date(sixdayago).getDay());
+
+  let sevendayago = today.setDate(today.getDate() - 1);
+  console.log(new Date(sevendayago));
+  console.log(new Date(sevendayago).getDay());
+
+  // let onedayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id},
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(onedayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let twodayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(twodayago),
+  //         $lt: new Date(onedayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let threedayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(threedayago),
+  //         $lt: new Date(twodayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let fourdayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(fourdayago),
+  //         $lt: new Date(threedayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let fivedayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(fivedayago),
+  //         $lt: new Date(fourdayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let sixdayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(sixdayago),
+  //         $lt: new Date(fivedayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  // let sevendayagocount = await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: req.params.id },
+  //     {
+  //       createdAt: {
+  //         $gte: new Date(sevendayago),
+  //         $lt: new Date(sixdayago)
+  //       }
+  //     }
+  //   ]
+  // });
+
+  res.json({
+    onedayagoweekday: new Date(onedayago).getDay(),
+    onedayagocalls: onedayagocount,
+    twodayagoweekday: new Date(twodayago).getDay(),
+    twodayagocalls: twodayagocount,
+    threedayagoweekday: new Date(threedayago).getDay(),
+    threedayagocalls: threedayagocount,
+    fourdayagoweekday: new Date(fourdayago).getDay(),
+    fourdayagocalls: fourdayagocount,
+    fivedayagoweekday: new Date(fivedayago).getDay(),
+    fivedayagocalls: fivedayagocount,
+    sixdayagoweekday: new Date(sixdayago).getDay(),
+    sixdayagocalls: sixdayagocount,
+    sevendayagoweekday: new Date(sevendayago).getDay(),
+    sevendayagocalls: sevendayagocount
+  });
+
+  // let year = "2021";
+  // let month = "12";
+  // let day = "08";
+  // let inputdate = `${year}-${month}-${day} 22:50:20`
+  // var k = new Date("2021-12-07 22:50:20");
+  // day = k.getDay();
+
+  // //dateto
+
+  // await Cdrreport.count({
+  //   $and: [
+  //     { caller_id_name: "2581" },
+  //     {
+  //       created_time: {
+  //         $gte: "2021-12-07 22:50:20",
+  //         $lt: "2021-12-08 22:50:20"
+  //       },
+  //     },
+  //   ],
+  // })
+  //   .then((data) => res.json({
+  //     "Total":data,
+  //     "Tuesday":day
+  //   }))
+  //   .catch((error) => resp.errorr(res, error));
+};
+
+
+exports.getprofit = async (req, res) => {
+    let getCurrentDate = function () {
+    const t = new Date();
+    const date = ("0" + t.getDate()).slice(-2);
+    const month = ("0" + (t.getMonth() + 1)).slice(-2);
+    const year = t.getFullYear();
+    return `${date}-${month}-${year}`;
+  };
+  let de = getCurrentDate()
+  console.log("DE",de)
+ let today = await Alltrade.find({ date:de })
+  console.log("TODAY",today)
+  if(today){
+     let loss =await Alltrade.find({sl_type:"true"})
+     console.log("LOSS",loss)
+  }else if(t1_type == "true" || t2_type == "true" || t3_type == "true" || t3_type == "true" || t4_type == "true" || t5_type == "true" || t6_type == "true"  || t7_type || "true"){
+
+  }
+  // .then((data) => resp.successr(res, data))
+  // .catch((error) => resp.errorr(res, error));
+}
