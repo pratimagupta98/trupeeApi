@@ -238,6 +238,12 @@ updated_at:{
 cstmMsg:{
   type: String,
 },
+loss:{
+  type: Number,
+},
+loss_per:{
+  type: Number,
+},
 tradeId:{
   type: mongoose.Schema.Types.ObjectId,
   ref: "alltrade",

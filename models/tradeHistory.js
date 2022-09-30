@@ -242,6 +242,12 @@ tradeId:{
 date:{
   type:String
 },
+loss:{
+  type: Number,
+},
+loss_per:{
+  type: Number,
+},
   },
 
 
