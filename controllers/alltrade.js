@@ -3562,7 +3562,7 @@ exports.getweekdaywisedata = async (req, res) => {
 };
 
 
-exports.getprofit = async (req, res) => {
+exports.today_profit_loss = async (req, res) => {
     let getCurrentDate = function () {
     const t = new Date();
     const date = ("0" + t.getDate()).slice(-2);
