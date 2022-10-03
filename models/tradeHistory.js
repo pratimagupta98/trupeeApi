@@ -244,6 +244,7 @@ date:{
 },
 loss:{
   type: Number,
+  default:0
 },
 loss_per:{
   type: Number,

@@ -22,7 +22,7 @@ let getCurrentDate = function () {
   const date = ("0" + t.getDate()).slice(-2);
   const month = ("0" + (t.getMonth() + 1)).slice(-2);
   const year = t.getFullYear();
-  return `${date}-${month}-${year}`;
+  return `${date}/${month}/${year}`;
 };
 console.log("DATE",getCurrentDate())
 
@@ -53,7 +53,7 @@ exports.add_fnoIndex = async (req, res) => {
       const date = ("0" + t.getDate()).slice(-2);
       const month = ("0" + (t.getMonth() + 1)).slice(-2);
       const year = t.getFullYear();
-      return `${date}-${month}-${year}`;
+      return `${date}/${month}/${year}`;
     };
     console.log("DATE",getCurrentDate())
 
@@ -1715,7 +1715,7 @@ let trl = findone.trl
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type:"false", FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl ,call_type,date} },
+        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type:"false", FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl ,call_type,date,loss} },
         { new: true }
       ).populate("fnoindex_scrpt_name")
        if(update){
@@ -1754,6 +1754,7 @@ console.log("FT2TYPE",FT2_type)
         status: status,
         pl: pl,
         pl_per: pl_per,
+        loss:loss,
         investment_amt: investment_amt,
         cstmMsg: cstmMsg,
         tradeStatus: tradeStatuss,
@@ -3402,13 +3403,93 @@ exports.dateSrchFltr = async (req, res) => {
 
 
 exports.getweekdaywisedata = async (req, res) => {
+
+
+  let qq=new Date(new Date().setFullYear(new Date().getFullYear() ))
+//  let qq1=new Date(new Date().setFullYear(new Date().getFullYear() ))
+ // let qq=new Date(new Date().setFullYear(new Date().setFullYear() + 1))
+  console.log("QQQQ",qq)
+  const date1 = ("0" + qq.getDate()).slice(-2);
+  console.log("date1",date1)
+  const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  const year = qq.getFullYear();
+let det= `${date1}-${month}-${year}`
+console.log("ffffff",det)
+
+ let date2 = ("0" + qq.getDate()-1) ;
+ console.log("DATE2",date2)
+//const date2 = ("0" + qq.getDate()).slice(-2);
+const month2 = ("0" + (qq.getMonth() + 1)).slice(-2);
+const year2 = qq.getFullYear();
+let det2= `${date2}-${month2}-${year2}`
+
+console.log("ffffff",det2) 
+
+let date3 = ("0" + qq.getDate()-2) ;
+console.log("DATE2",date2)
+//const date2 = ("0" + qq.getDate()).slice(-2);
+const month3 = ("0" + (qq.getMonth() + 1)).slice(-2);
+const year3 = qq.getFullYear();
+let det3= `${date3}-${month3}-${year3}`
+console.log("ffffff3",det3)
+
+let date4 = ("0" + qq.getDate()-3) ;
+console.log("DATE2",date2)
+//const date2 = ("0" + qq.getDate()).slice(-2);
+const month4 = ("0" + (qq.getMonth() + 1)).slice(-2);
+const year4 = qq.getFullYear();
+let det4= `${date4}-${month4}-${year4}`
+console.log("ffffff4",det4)
+
+let d = new Date();
+console.log('Today is: ' + d.toLocaleDateString());
+d.setDate(d.getDate() - 3);
+console.log('3 days ago was: ' + d.toLocaleDateString());
+
+ 
+
+// let sevendayago = today.setDate(today.getDate() - 1);
+// console.log("7",new Date(sevendayago));
+// console.log("7",new Date(sevendayago).getDay());
+
+
+//   let getCurrentDate = function () {
+//     const t = new Date();
+//     const date = ("0" + t.getDate()).slice(-2);
+//     const month = ("0" + (t.getMonth() + 1)).slice(-2);
+//     const year = t.getFullYear();
+//     return `${date}-${month}-${year}`;
+//   };
+//   let de = getCurrentDate()
+//   console.log("DE",de)
+// // Declare and store the data into a variable
+// // Declare and store the data into a variable
+// const currDate =  getCurrentDate()
+// console.log("&&",currDate)
+// // Prints the UNIX epoch
+// console.log("Unix time stamp of current date", currDate);
+// var time = currDate.setDate(de)
+// console.log("^^^^^",time)
+// // Converts timestamp into Date Object
+// const dt = new Date(currDate)
+// console.log("****",dt)
+// // Print the day of the month
+// console.log("###",dt.getDate())
+
+ 
+ 
+
   let today = new Date();
   console.log(today);
   console.log(today.getDay());
 
   let onedayago = today.setDate(today.getDate() - 1);
-  console.log(new Date(onedayago));
-  console.log(new Date(onedayago).getDay());
+  console.log("ONE",new Date(onedayago));
+  console.log("1",new Date(onedayago).getDay());
+
+  let todaydata = await TradeHistory.find({ date:new Date(onedayago) })
+  console.log("TODAY",today)
+   
 
   let twodayago = today.setDate(today.getDate() - 1);
   console.log(new Date(twodayago));
@@ -3431,8 +3512,8 @@ exports.getweekdaywisedata = async (req, res) => {
   console.log(new Date(sixdayago).getDay());
 
   let sevendayago = today.setDate(today.getDate() - 1);
-  console.log(new Date(sevendayago));
-  console.log(new Date(sevendayago).getDay());
+  console.log("7",new Date(sevendayago));
+  console.log("7",new Date(sevendayago).getDay());
 
   // let onedayagocount = await Cdrreport.count({
   //   $and: [
@@ -3568,15 +3649,14 @@ exports.today_profit_loss = async (req, res) => {
     const date = ("0" + t.getDate()).slice(-2);
     const month = ("0" + (t.getMonth() + 1)).slice(-2);
     const year = t.getFullYear();
-    return `${date}-${month}-${year}`;
+    return `${date}/${month}/${year}`;
   };
   let de = getCurrentDate()
   console.log("DE",de)
  let today = await TradeHistory.find({ date:de })
   console.log("TODAY",today)
    
- let  profitarr = []
-  let  lossaar =[]
+ 
  if(today){
   var newarr = today.map(function (value) {
       return value.pl;
@@ -3590,10 +3670,13 @@ exports.today_profit_loss = async (req, res) => {
       return value.loss;
     });
     console.log(newarr2);
-    let sumloss = _.sumBy([...newarr2]);
+     
+     sumloss = _.sumBy([...newarr2]);
+      
     console.log(sumloss);
-
-    total_prft_loss =parseInt(sumprofit) +parseInt(sumloss)
+    
+ let total_prft_loss = 0;
+    total_prft_loss =sumprofit + sumloss
     console.log("TOTAL PROFIT LOSS",total_prft_loss)
 
     res.status(200).json({
@@ -3616,27 +3699,6 @@ exports.today_profit_loss = async (req, res) => {
 
   
   
-//    if(today.FT1_type == "true" || today.FT2_type == "true" || today.FT3_type == "true" || today.FT4_type == "true" || today.FT5_type == "true" || today.FT6_type == "true"  || today.FT7_type || "true"){
-// console.log("else")
-
-// var newarr = today.map(function (value) {
-//   return value.pl;
-// });
-// console.log(newarr);
-// let sumcredit = _.sumBy([...newarr]);
-// console.log(sumcredit);
-
-//   }else{
-//     console.log("error")
-//   }
-
-//    if(today.sl_type == "true"){
-//     var newarr2 = today.map(function (value) {
-//       return value.pl;
-//     });
-//     console.log(newarr);
-//     let sumloss = _.sumBy([...newarr2]);
-//     console.log(sumcredit);
-//    }
+ 
   
  

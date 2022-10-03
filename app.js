@@ -45,7 +45,7 @@ const exp_date = require("./routes/exp_date")
 const pnlsheet = require("./routes/pnlsheet")
 const refEarn = require("./routes/refEarn")
 const razorpayment = require("./routes/razorpayment")
-
+ 
  
 //use
 app.use("/", user);
@@ -82,8 +82,8 @@ app.use("/", exp_date);
 app.use("/", pnlsheet);
 app.use("/", refEarn);
 app.use("/", razorpayment);
-
-
+ 
+ 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
