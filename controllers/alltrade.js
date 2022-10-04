@@ -3740,6 +3740,15 @@ const FT1tym = new Date().toString()
            console.log("FT2tym",FT2tym)
            const FT3tym = new Date().toString()
            console.log("FT3tym",FT2tym)
+           const FT4tym = new Date().toString()
+           console.log("FT4tym",FT4tym)
+           const FT5tym = new Date().toString()
+           console.log("FT5tym",FT5tym)
+           const FT6tym = new Date().toString()
+           console.log("FT6tym",FT6tym)
+           const FT7tym = new Date().toString()
+           console.log("FT7tym",FT7tym)
+
 
   if (findone?.trade_type == "BankNifty") {
     console.log("chala gya")
@@ -3836,6 +3845,24 @@ let sl = findone.SL
             )
             .then((data) => resp.successr(res, data))
             .catch((error) => resp.errorr(res, error));
+    }else if(FT4_type == "false" && FT4 == req.body.FT4){
+      console.log("FT4_TYPE")
+      let ft4 = parseInt(ft3) + parseInt(20)
+           console.log("FT4", FT4)
+
+           let pl = (Qty * 25) * (ft4 -Av1  )
+           console.log("Profit", pl)
+     
+           let pl_per = (pl /invest_amt * 100).toFixed(2);
+           console.log("PL %%", pl_per)
+           let update = await Alltrade.findOneAndUpdate(
+             { _id: req.params.id },
+             { $set: {sl_type: "false",FT4_type:req.body.FT3_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT4time:FT4tym, } },
+             { new: true }
+           )
+           .then((data) => resp.successr(res, data))
+           .catch((error) => resp.errorr(res, error));
+
     }
 
   }
