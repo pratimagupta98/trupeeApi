@@ -1340,2008 +1340,2008 @@ exports.completedTrade = async (req, res) => {
 
 
 
-exports.editFnoindex = async (req, res) => {
-  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time,call_type,date,script_type,loss, loss_per } = req.body
+// exports.editFnoindex = async (req, res) => {
+//   const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time,call_type,date,script_type,loss, loss_per } = req.body
 
-  let findone = await Alltrade.findOne({ trade_type: trade_type })
- // console.log("FINDONE", findone)
+//   let findone = await Alltrade.findOne({ trade_type: trade_type })
+//  // console.log("FINDONE", findone)
 
 
-  if (findone?.trade_type == "BankNifty") {
-    if (sl_type == "true") {
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let SL = parseInt(req.body.active_value) - 20
-      console.log("SL", SL)
-     // let pl = (req.body.qty * 25) * (SL - req.body.active_value)
-      let loss = (req.body.qty * 25) * (SL - req.body.active_value)
-      console.log("PL", loss)
-      let loss_per = (loss / investment_amt * 100).toFixed(2)
-      console.log("PL%%%%", loss_per)
-      let FT1 = findone.FT1
-      console.log("ft11111", FT1)
-      let FT1_type = findone.FT1_type
-      let FT2 = findone.FT2
-      let FT2_type = findone.FT2_type
+//   if (findone?.trade_type == "BankNifty") {
+//     if (sl_type == "true") {
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let SL = parseInt(req.body.active_value) - 20
+//       console.log("SL", SL)
+//      // let pl = (req.body.qty * 25) * (SL - req.body.active_value)
+//       let loss = (req.body.qty * 25) * (SL - req.body.active_value)
+//       console.log("PL", loss)
+//       let loss_per = (loss / investment_amt * 100).toFixed(2)
+//       console.log("PL%%%%", loss_per)
+//       let FT1 = findone.FT1
+//       console.log("ft11111", FT1)
+//       let FT1_type = findone.FT1_type
+//       let FT2 = findone.FT2
+//       let FT2_type = findone.FT2_type
 
-      let FT3 = findone.FT3
-      let FT3_type = findone.FT3_type
-      let type = findone.type
-      let fnoindex_scrpt_name = findone.fnoindex_scrpt_name
-      let script_type = findone.script_type
-      let active_value2 = findone.active_value2
-      let call_type = findone.call_type
-      let active_value = findone.active_value
-     // console.log("TRADEID",tradeId)
-     let tradeStatus = findone.tradeStatus
-     let qty = findone.qty
-let no_of_lots = findone.no_of_lots
-let trl = findone.trl
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus, trade_type ,type,fnoindex_scrpt_name,call_type,date,FT1_type:"false",FT2_type:"false",FT3_type:"false"} },
-        { new: true }
-      )
-      if(update){
-      let status = update.status
-      let tradeId= update._id
-      console.log("TRADEID",tradeId)
-    let trdests = update.tradeStatus
-    let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-   let  trade_type = update.trade_type
-  let FT1_type = update.FT1_type
-  let FT2_type = update.FT2_type
-  let FT3_type = update.FT3_type
-//let getCurrentDate = function () {
-  const sltym = new Date().toString()
+//       let FT3 = findone.FT3
+//       let FT3_type = findone.FT3_type
+//       let type = findone.type
+//       let fnoindex_scrpt_name = findone.fnoindex_scrpt_name
+//       let script_type = findone.script_type
+//       let active_value2 = findone.active_value2
+//       let call_type = findone.call_type
+//       let active_value = findone.active_value
+//      // console.log("TRADEID",tradeId)
+//      let tradeStatus = findone.tradeStatus
+//      let qty = findone.qty
+// let no_of_lots = findone.no_of_lots
+// let trl = findone.trl
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $set: { SL, sl_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus, trade_type ,type,fnoindex_scrpt_name,call_type,date,FT1_type:"false",FT2_type:"false",FT3_type:"false"} },
+//         { new: true }
+//       )
+//       if(update){
+//       let status = update.status
+//       let tradeId= update._id
+//       console.log("TRADEID",tradeId)
+//     let trdests = update.tradeStatus
+//     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//    let  trade_type = update.trade_type
+//   let FT1_type = update.FT1_type
+//   let FT2_type = update.FT2_type
+//   let FT3_type = update.FT3_type
+// //let getCurrentDate = function () {
+//   const sltym = new Date().toString()
   
-  console.log("isodate",sltym)
+//   console.log("isodate",sltym)
 
-//   const date = ("0" + t.getDate()).slice(-2);
-//   const month = ("0" + (t.getMonth() + 1)).slice(-2);
-//   const year = t.getFullYear();
-//   const hour = t.getHours();
-//   var ampm = hour >= 12 ? 'PM' : 'AM';
-//   const minute = t.getMinutes();
-//   const second = t.getSeconds();
-//  // var minutes = minute < 10 ? '0'+ minutes : minutes
-//   return `${date}/${month}/${year} ${hour}:${minute}:${second} ${ampm}`;
-// };
+// //   const date = ("0" + t.getDate()).slice(-2);
+// //   const month = ("0" + (t.getMonth() + 1)).slice(-2);
+// //   const year = t.getFullYear();
+// //   const hour = t.getHours();
+// //   var ampm = hour >= 12 ? 'PM' : 'AM';
+// //   const minute = t.getMinutes();
+// //   const second = t.getSeconds();
+// //  // var minutes = minute < 10 ? '0'+ minutes : minutes
+// //   return `${date}/${month}/${year} ${hour}:${minute}:${second} ${ampm}`;
+// // };
  
-// var today = new Date();
-// var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// // var today = new Date();
+// // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-     // let type = update.type
-   //  console.log("TRADESTS", tradeStatus)
-   //   console.log("STATUS", status)
-     console.log("UPDATE", update)
+//      // let type = update.type
+//    //  console.log("TRADESTS", tradeStatus)
+//    //   console.log("STATUS", status)
+//      console.log("UPDATE", update)
 
-      const newTradeHistory = new TradeHistory({
-        trade_type:trade_type,
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        call_type:call_type,
-        date:getCurrentDate(),
-        SL: SL,
-        slTime:sltym,
-        script_type:script_type,
-        findone:findone,
-        active_value2:active_value2,
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty:qty,
-        no_of_lots:no_of_lots,
-        trl :trl,
-        call_type:call_type,
-        sl_type: sl_type,
-        qty: qty,
-        active_value: active_value,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        status: status,
-      //  pl: pl,
-        loss:loss,
-        loss_per: loss_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: trdests,
-        tradeId:tradeId,
-        type:type
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: trdests,
-            tradeId:tradeId,
-            type:type
-          })
+//       const newTradeHistory = new TradeHistory({
+//         trade_type:trade_type,
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         call_type:call_type,
+//         date:getCurrentDate(),
+//         SL: SL,
+//         slTime:sltym,
+//         script_type:script_type,
+//         findone:findone,
+//         active_value2:active_value2,
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty:qty,
+//         no_of_lots:no_of_lots,
+//         trl :trl,
+//         call_type:call_type,
+//         sl_type: sl_type,
+//         qty: qty,
+//         active_value: active_value,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         status: status,
+//       //  pl: pl,
+//         loss:loss,
+//         loss_per: loss_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: trdests,
+//         tradeId:tradeId,
+//         type:type
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: trdests,
+//             tradeId:tradeId,
+//             type:type
+//           })
         
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
 
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : error
-      })
-      }
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : error
+//       })
+//       }
 
-    } else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
-      console.log("ABCD")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
+//     } else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
+//       console.log("ABCD")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
 
-      let FT3 = parseInt(FT2) + parseInt(20)
-      console.log("FT3", FT3)
+//       let FT3 = parseInt(FT2) + parseInt(20)
+//       console.log("FT3", FT3)
 
-      let pl = (req.body.qty * 25) * (FT3 - req.body.active_value)
-      console.log("PL", pl)
+//       let pl = (req.body.qty * 25) * (FT3 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-      //let tradeStatus = findone.tradeStatus
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
+//       //let tradeStatus = findone.tradeStatus
 
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
-        { new: true }
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
+//         { new: true }
 
-      )
-      if(update){
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-      let type = update.type
-      console.log("TRADEID",tradeId)
-      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-      let trade_type =update.trade_type
+//       )
+//       if(update){
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//       let type = update.type
+//       console.log("TRADEID",tradeId)
+//       let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//       let trade_type =update.trade_type
 
       
-      // console.log("TRADESTS", tradeStatuss)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      const FT1tym = new Date().toString()
-      console.log("FT1tym ",FT1tym)
+//       // console.log("TRADESTS", tradeStatuss)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       const FT1tym = new Date().toString()
+//       console.log("FT1tym ",FT1tym)
     
-      const FT2tym = new Date().toString()
-      console.log("isodate",FT2tym)
+//       const FT2tym = new Date().toString()
+//       console.log("isodate",FT2tym)
 
-      const FT3tym = new Date().toString()
-      console.log("isodate",FT3tym)
-      const newTradeHistory = new TradeHistory({
-        trade_type:trade_type,
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        FT1: FT1,
-        FT1time:FT1tym,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2time:FT2tym,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3time:FT3tym,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        trl:trl,
-        tradeId:tradeId,
-        type:type
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            tradeId:tradeId,
-            type:type
-          })
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//       const FT3tym = new Date().toString()
+//       console.log("isodate",FT3tym)
+//       const newTradeHistory = new TradeHistory({
+//         trade_type:trade_type,
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         FT1: FT1,
+//         FT1time:FT1tym,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2time:FT2tym,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3time:FT3tym,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         trl:trl,
+//         tradeId:tradeId,
+//         type:type
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             tradeId:tradeId,
+//             type:type
+//           })
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
 
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : error
-      })
-      }
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : error
+//       })
+//       }
 
-    } else if (FT1_type == "true" && FT2_type == "true") {
-      console.log("EFGH")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
-      let pl = (req.body.qty * 25) * (FT2 - req.body.active_value)
-      console.log("PL", pl)
+//     } else if (FT1_type == "true" && FT2_type == "true") {
+//       console.log("EFGH")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
+//       let pl = (req.body.qty * 25) * (FT2 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
 
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-        { new: true }
-      )
-      if(update){
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-      console.log("TRADEID",tradeId)
-      // console.log("TRADESTS", tradeStatuss)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-      let trade_type = update.trade_type
-      console.log("TRADTYPEEE",trade_type)
-      const FT1tym = new Date().toString()
-      console.log("FT1tym ",FT1tym)
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//         { new: true }
+//       )
+//       if(update){
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//       console.log("TRADEID",tradeId)
+//       // console.log("TRADESTS", tradeStatuss)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//       let trade_type = update.trade_type
+//       console.log("TRADTYPEEE",trade_type)
+//       const FT1tym = new Date().toString()
+//       console.log("FT1tym ",FT1tym)
 
-      const FT2tym = new Date().toString()
-      console.log("FT2tym",FT2tym)
+//       const FT2tym = new Date().toString()
+//       console.log("FT2tym",FT2tym)
 
-      const newTradeHistory = new TradeHistory({ 
-        trade_type:trade_type,
-        fnoindex_scrpt_name:fnoindex_scrpt_name,       
-        qty: qty,
-        active_value: active_value,
-        FT1: FT1,
-        FT1time:FT1tym,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2time:FT2tym,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        tradeId:tradeId
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
+//       const newTradeHistory = new TradeHistory({ 
+//         trade_type:trade_type,
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,       
+//         qty: qty,
+//         active_value: active_value,
+//         FT1: FT1,
+//         FT1time:FT1tym,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2time:FT2tym,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         tradeId:tradeId
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
 
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            trl:trl,
-            tradeId:tradeId
-          })
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             trl:trl,
+//             tradeId:tradeId
+//           })
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
 
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : "error"
-      })
-      }
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : "error"
+//       })
+//       }
 
 
-    } else if (FT1_type == "true") {
-      console.log("abcd")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
-      let pl = (req.body.qty * 25) * (FT1 - req.body.active_value)
-      console.log("PL", pl)
+//     } else if (FT1_type == "true") {
+//       console.log("abcd")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
+//       let pl = (req.body.qty * 25) * (FT1 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
 
-      let SL= findone.SL
-      let sl_type = findone.sl_type
-      let FT2 = findone.FT2
-      let FT2_type = findone.FT2_type
+//       let SL= findone.SL
+//       let sl_type = findone.sl_type
+//       let FT2 = findone.FT2
+//       let FT2_type = findone.FT2_type
 
-      let FT3 = findone.FT3
-      let FT3_type = findone.FT3_type
+//       let FT3 = findone.FT3
+//       let FT3_type = findone.FT3_type
         
       
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type:"false", FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl ,call_type,date,loss} },
-        { new: true }
-      ).populate("fnoindex_scrpt_name")
-       if(update){
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type:"false", FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl ,call_type,date,loss} },
+//         { new: true }
+//       ).populate("fnoindex_scrpt_name")
+//        if(update){
        
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-      console.log("TRADEID",tradeId)
-      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-let call_type = update.call_type
-let script_type = update.script_type
-let FT2_type =update.FT2_type
-console.log("FT2TYPE",FT2_type)
-     // console.log("TRADESTS", tradeStatuss)
-     // console.log("STATUS", status)
-     // console.log("UPDATE", update)
-     const FT1tym = new Date().toString()
-     console.log("isodate",FT1tym)
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//       console.log("TRADEID",tradeId)
+//       let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+// let call_type = update.call_type
+// let script_type = update.script_type
+// let FT2_type =update.FT2_type
+// console.log("FT2TYPE",FT2_type)
+//      // console.log("TRADESTS", tradeStatuss)
+//      // console.log("STATUS", status)
+//      // console.log("UPDATE", update)
+//      const FT1tym = new Date().toString()
+//      console.log("isodate",FT1tym)
 
-      const newTradeHistory = new TradeHistory({
-        script_type:script_type,
-        call_type:call_type,
-        date:getCurrentDate(),
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        SL:SL,
-        sl_type:sl_type,
-        FT1: FT1,
-        FT1time:FT1tym,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        loss:loss,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        trl:trl,
-        tradeId:tradeId
-      })
+//       const newTradeHistory = new TradeHistory({
+//         script_type:script_type,
+//         call_type:call_type,
+//         date:getCurrentDate(),
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         SL:SL,
+//         sl_type:sl_type,
+//         FT1: FT1,
+//         FT1time:FT1tym,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         loss:loss,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         trl:trl,
+//         tradeId:tradeId
+//       })
     
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
           
-          })
+//           })
 
-        })}else{
-          res.status(400).json({
-            status: false,
-            msg: "error",
-            error: "error",
-          });
-        }
+//         })}else{
+//           res.status(400).json({
+//             status: false,
+//             msg: "error",
+//             error: "error",
+//           });
+//         }
  
 
 
-    }else if (FT2_type == "true") {
-      console.log("abcd")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
-      let pl = (req.body.qty * 25) * (FT2 - req.body.active_value)
-      console.log("PL", pl)
+//     }else if (FT2_type == "true") {
+//       console.log("abcd")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
+//       let pl = (req.body.qty * 25) * (FT2 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
 
-      let SL= findone.SL
-      let sl_type = findone.sl_type
-      // let FT2 = findone.FT2
-      // let FT2_type = findone.FT2_type
+//       let SL= findone.SL
+//       let sl_type = findone.sl_type
+//       // let FT2 = findone.FT2
+//       // let FT2_type = findone.FT2_type
 
-      let FT3 = findone.FT3
-      let FT3_type = findone.FT3_type
+//       let FT3 = findone.FT3
+//       let FT3_type = findone.FT3_type
         
       
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type:"false",FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,call_type,date } },
-        { new: true }
-      )
-       if(update){
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type:"false",FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,call_type,date } },
+//         { new: true }
+//       )
+//        if(update){
        
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-      console.log("TRADEID",tradeId)
-     // console.log("TRADESTS", tradeStatuss)
-     // console.log("STATUS", status)
-     // console.log("UPDATE", update)
-     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-     let call_type = update.call_type
-     const FT2tym = new Date().toString()
-     console.log("isodate",FT2tym)
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//       console.log("TRADEID",tradeId)
+//      // console.log("TRADESTS", tradeStatuss)
+//      // console.log("STATUS", status)
+//      // console.log("UPDATE", update)
+//      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//      let call_type = update.call_type
+//      const FT2tym = new Date().toString()
+//      console.log("isodate",FT2tym)
 
-      const newTradeHistory = new TradeHistory({
-        call_type:call_type,
-        date:getCurrentDate(),
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        SL:SL,
-        sl_type:sl_type,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2time:FT2tym,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        trl:trl,
-        tradeId:tradeId
-      })
+//       const newTradeHistory = new TradeHistory({
+//         call_type:call_type,
+//         date:getCurrentDate(),
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         SL:SL,
+//         sl_type:sl_type,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2time:FT2tym,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         trl:trl,
+//         tradeId:tradeId
+//       })
     
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
           
-          })
+//           })
 
-        })}else{
-          res.status(400).json({
-            status: false,
-            msg: "error",
-            error: "error",
-          });
-        }
-      }
-      else if (FT3_type == "true") {
-        console.log("abcd")
-        investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
+//         })}else{
+//           res.status(400).json({
+//             status: false,
+//             msg: "error",
+//             error: "error",
+//           });
+//         }
+//       }
+//       else if (FT3_type == "true") {
+//         console.log("abcd")
+//         investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
 
-      let FT3 = parseInt(FT2) + parseInt(20)
-      console.log("FT3", FT3)
+//       let FT3 = parseInt(FT2) + parseInt(20)
+//       console.log("FT3", FT3)
 
-      let SL= findone.SL
-      let sl_type = findone.sl_type
-      let pl = (req.body.qty * 25) * (FT3 - req.body.active_value)
-      console.log("PL", pl)
+//       let SL= findone.SL
+//       let sl_type = findone.sl_type
+//       let pl = (req.body.qty * 25) * (FT3 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-      //let tradeStatus = findone.tradeStatus
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
+//       //let tradeStatus = findone.tradeStatus
 
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type,FT1time,FT2time,call_type,date } },
-        { new: true }
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $set: { sl_type: "false", FT1_type: "true", FT2_type: "true", FT3_type: "true", pl, pl_per, investment_amt, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type,FT1time,FT2time,call_type,date } },
+//         { new: true }
 
-      )
-      if(update){
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-      let type = update.type
-      console.log("TRADEID",tradeId)
-      // console.log("TRADESTS", tradeStatuss)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      let ft1_time = update.FT1time
-      console.log("FT1111111",ft1_time)
+//       )
+//       if(update){
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//       let type = update.type
+//       console.log("TRADEID",tradeId)
+//       // console.log("TRADESTS", tradeStatuss)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       let ft1_time = update.FT1time
+//       console.log("FT1111111",ft1_time)
 
-      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-      let trade_type =update.trade_type
-      let call_type = update.call_type
-      console.log("TRADETYPE",trade_type)
-      const FT2tym = new Date().toString()
-      console.log("isodate",FT2tym)
+//       let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//       let trade_type =update.trade_type
+//       let call_type = update.call_type
+//       console.log("TRADETYPE",trade_type)
+//       const FT2tym = new Date().toString()
+//       console.log("isodate",FT2tym)
 
-      const FT3tym = new Date().toString()
-      console.log("isodate",FT3tym)
-      const newTradeHistory = new TradeHistory({
-        call_type:call_type,
-        date:getCurrentDate(),
-        trade_type:trade_type,
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        sl_type:sl_type,
-        SL:SL,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2time:FT2tym,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3time:FT3tym,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        trl:trl,
-        tradeId:tradeId,
-        type:type
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            tradeId:tradeId,
-            type:type
-          })
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//       const FT3tym = new Date().toString()
+//       console.log("isodate",FT3tym)
+//       const newTradeHistory = new TradeHistory({
+//         call_type:call_type,
+//         date:getCurrentDate(),
+//         trade_type:trade_type,
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         sl_type:sl_type,
+//         SL:SL,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2time:FT2tym,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3time:FT3tym,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         trl:trl,
+//         tradeId:tradeId,
+//         type:type
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             tradeId:tradeId,
+//             type:type
+//           })
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
 
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : "error"
-      })
-      }
-    }
-    else if (FT4_type == "true" && FT4 == req.body.FT4){
-      console.log("BANKFT44444")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(5)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : "error"
+//       })
+//       }
+//     }
+//     else if (FT4_type == "true" && FT4 == req.body.FT4){
+//       console.log("BANKFT44444")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(5)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
     
     
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
     
-      let FT3 = parseInt(FT2) + parseInt(20)
-      console.log("FT3", FT3)
-      let FT4 = parseInt(FT3) + parseInt(20)
-      console.log("FT4", FT4)
+//       let FT3 = parseInt(FT2) + parseInt(20)
+//       console.log("FT3", FT3)
+//       let FT4 = parseInt(FT3) + parseInt(20)
+//       console.log("FT4", FT4)
       
     
-      let pl = (req.body.qty * 25) * (FT4 - req.body.active_value)
-      console.log("PL", pl)
+//       let pl = (req.body.qty * 25) * (FT4 - req.body.active_value)
+//       console.log("PL", pl)
     
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
     
-    let SL = findone.SL;
-    let sl_type = findone.sl_type;
-    //   let status = findone.status
+//     let SL = findone.SL;
+//     let sl_type = findone.sl_type;
+//     //   let status = findone.status
      
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
     
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT4, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-        { new: true }
-      )
-      if(update){
-     let status = update.status
-     let tradeStatusS = update.tradeStatus
-     let tradeId= update._id
-     console.log("TRADEID",tradeId)
-      // console.log("TRADESTS", tradeStatusS)
-      // console.log("STATUS", status)
-    console.log("UPDATE", update)
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT4, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//         { new: true }
+//       )
+//       if(update){
+//      let status = update.status
+//      let tradeStatusS = update.tradeStatus
+//      let tradeId= update._id
+//      console.log("TRADEID",tradeId)
+//       // console.log("TRADESTS", tradeStatusS)
+//       // console.log("STATUS", status)
+//     console.log("UPDATE", update)
       
-let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+// let fnoindex_scrpt_name =update.fnoindex_scrpt_name
 
-      const FT4tym = new Date().toString()
-      console.log("isodate",FT4tym)
+//       const FT4tym = new Date().toString()
+//       console.log("isodate",FT4tym)
 
-      const newTradeHistory = new TradeHistory({
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        SL:SL,
-        sl_type:sl_type,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        FT4: FT4,
-        FT4time:FT4tym,
-        FT4_type: FT4_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatusS,
-        trl:trl,
-        tradeId:tradeId
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            tradeId:tradeId
-          })
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//       const newTradeHistory = new TradeHistory({
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         SL:SL,
+//         sl_type:sl_type,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         FT4: FT4,
+//         FT4time:FT4tym,
+//         FT4_type: FT4_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatusS,
+//         trl:trl,
+//         tradeId:tradeId
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             tradeId:tradeId
+//           })
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
     
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : error
-      })
-      }
-      }
-  else if ( FT5_type == "true" && FT5 == req.body.FT5){
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : error
+//       })
+//       }
+//       }
+//   else if ( FT5_type == "true" && FT5 == req.body.FT5){
   
-    console.log("BANKFT5555")
-    investment_amt = (req.body.qty * 25) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
-    let av2 = parseInt(req.body.active_value) + parseInt(10)
-    console.log("AV2", av2)
-    let trl = parseInt(av2) + parseInt(10)
-    console.log("TRL", trl)
-    let FT1 = parseInt(trl) + parseInt(20)
-    console.log("FT1", FT1)
+//     console.log("BANKFT5555")
+//     investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//     console.log("InvestAMT", investment_amt)
+//     let av2 = parseInt(req.body.active_value) + parseInt(10)
+//     console.log("AV2", av2)
+//     let trl = parseInt(av2) + parseInt(10)
+//     console.log("TRL", trl)
+//     let FT1 = parseInt(trl) + parseInt(20)
+//     console.log("FT1", FT1)
   
   
-    let FT2 = parseInt(FT1) + parseInt(20)
-    console.log("FT2", FT2)
+//     let FT2 = parseInt(FT1) + parseInt(20)
+//     console.log("FT2", FT2)
   
-    let FT3 = parseInt(FT2) + parseInt(20)
-    console.log("FT3", FT3)
-    let FT4 = parseInt(FT3) + parseInt(20)
-    console.log("FT3", FT4)
-    let FT5 = parseInt(FT3) + parseInt(20)
-    console.log("FT5", FT5)
+//     let FT3 = parseInt(FT2) + parseInt(20)
+//     console.log("FT3", FT3)
+//     let FT4 = parseInt(FT3) + parseInt(20)
+//     console.log("FT3", FT4)
+//     let FT5 = parseInt(FT3) + parseInt(20)
+//     console.log("FT5", FT5)
     
   
-    let pl = (req.body.qty * 25) * (FT5 - req.body.active_value)
-    console.log("PL", pl)
+//     let pl = (req.body.qty * 25) * (FT5 - req.body.active_value)
+//     console.log("PL", pl)
   
-    let pl_per = (pl / investment_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
+//     let pl_per = (pl / investment_amt * 100).toFixed(2);
+//     console.log("PL%%%%", pl_per)
   
-  let SL = findone.SL;
-  let sl_type = findone.sl_type;
-  //   let status = findone.status
+//   let SL = findone.SL;
+//   let sl_type = findone.sl_type;
+//   //   let status = findone.status
    
-    let update = await Alltrade.findOneAndUpdate(
-      { _id: req.params.id },
+//     let update = await Alltrade.findOneAndUpdate(
+//       { _id: req.params.id },
   
-      { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-      { new: true }
-    )
-    if(update){
+//       { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//       { new: true }
+//     )
+//     if(update){
 
     
-   let status = update.status
-   let tradeStatusS = update.tradeStatus
-   let tradeId= update._id
-     console.log("TRADEID",tradeId)
-     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-    // console.log("TRADESTS", tradeStatusS)
-    // console.log("STATUS", status)
-    // console.log("UPDATE", update)
-    const FT5tym = new Date().toString()
-    console.log("isodate",FT5tym)
-    const newTradeHistory = new TradeHistory({
-      fnoindex_scrpt_name:fnoindex_scrpt_name,
-      qty: qty,
-      active_value: active_value,
-      SL:SL,
-      sl_type:sl_type,
-      FT1: FT1,
-      FT1_type: FT1_type,
-      FT2: FT2,
-      FT2_type: FT2_type,
-      FT3: FT3,
-      FT3_type: FT3_type,
-      FT5: FT5,
-      FT5time:FT5tym,
-      FT5_type: FT5_type,
-      status: status,
-      pl: pl,
-      pl_per: pl_per,
-      investment_amt: investment_amt,
-      cstmMsg: cstmMsg,
-      tradeStatus: tradeStatusS,
-      trl:trl,
-      tradeId:tradeId
-    })
-    newTradeHistory
-      .save()
-      .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: data,
-          investment_amt: investment_amt,
-          SL: SL,
-          PL: pl,
-          PLPER: pl_per,
-          FT1: FT1,
-          FT1_type: FT1_type,
-          FT2: FT2,
-          FT2_type: FT2_type,
+//    let status = update.status
+//    let tradeStatusS = update.tradeStatus
+//    let tradeId= update._id
+//      console.log("TRADEID",tradeId)
+//      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//     // console.log("TRADESTS", tradeStatusS)
+//     // console.log("STATUS", status)
+//     // console.log("UPDATE", update)
+//     const FT5tym = new Date().toString()
+//     console.log("isodate",FT5tym)
+//     const newTradeHistory = new TradeHistory({
+//       fnoindex_scrpt_name:fnoindex_scrpt_name,
+//       qty: qty,
+//       active_value: active_value,
+//       SL:SL,
+//       sl_type:sl_type,
+//       FT1: FT1,
+//       FT1_type: FT1_type,
+//       FT2: FT2,
+//       FT2_type: FT2_type,
+//       FT3: FT3,
+//       FT3_type: FT3_type,
+//       FT5: FT5,
+//       FT5time:FT5tym,
+//       FT5_type: FT5_type,
+//       status: status,
+//       pl: pl,
+//       pl_per: pl_per,
+//       investment_amt: investment_amt,
+//       cstmMsg: cstmMsg,
+//       tradeStatus: tradeStatusS,
+//       trl:trl,
+//       tradeId:tradeId
+//     })
+//     newTradeHistory
+//       .save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: data,
+//           investment_amt: investment_amt,
+//           SL: SL,
+//           PL: pl,
+//           PLPER: pl_per,
+//           FT1: FT1,
+//           FT1_type: FT1_type,
+//           FT2: FT2,
+//           FT2_type: FT2_type,
   
-          FT3: FT3,
-          FT3_type: FT3_type,
-          FT5:FT5,
-          tradeStatus: tradeStatus,
-          tradeId:tradeId
-        })
-        // console.log("DATA", data)
-        // console.log("UPDATE", update)
+//           FT3: FT3,
+//           FT3_type: FT3_type,
+//           FT5:FT5,
+//           tradeStatus: tradeStatus,
+//           tradeId:tradeId
+//         })
+//         // console.log("DATA", data)
+//         // console.log("UPDATE", update)
   
-      })
-    }else{
-      res.status(400).json({
-        status : false,
-        error : "error",
-        error : error
-    })
-    }
+//       })
+//     }else{
+//       res.status(400).json({
+//         status : false,
+//         error : "error",
+//         error : error
+//     })
+//     }
   
-  } 
-    else if (FT6_type =="true" && FT6 == req.body.FT6){
-      console.log("BANKFT666")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
+//   } 
+//     else if (FT6_type =="true" && FT6 == req.body.FT6){
+//       console.log("BANKFT666")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
 
 
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
 
-      let FT3 = parseInt(FT2) + parseInt(20)
-      console.log("FT3", FT3)
-      let FT5 = parseInt(FT3) + parseInt(20)
-      console.log("FT5", FT5)
-      let FT6 = parseInt(FT5) + parseInt(20)
-      console.log("FT6", FT6)
+//       let FT3 = parseInt(FT2) + parseInt(20)
+//       console.log("FT3", FT3)
+//       let FT5 = parseInt(FT3) + parseInt(20)
+//       console.log("FT5", FT5)
+//       let FT6 = parseInt(FT5) + parseInt(20)
+//       console.log("FT6", FT6)
 
-      let pl = (req.body.qty * 25) * (FT6 - req.body.active_value)
-      console.log("PL", pl)
+//       let pl = (req.body.qty * 25) * (FT6 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
 
-   let SL = findone.SL;
-   let sl_type = findone.sl_type;
-   //   let status = findone.status
+//    let SL = findone.SL;
+//    let sl_type = findone.sl_type;
+//    //   let status = findone.status
      
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
 
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type } },
-        { new: true }
-      )
-      if(update){
-     let status = update.status
-     let tradeStatusS = update.tradeStatus
-     let tradeId= update._id
-     console.log("TRADEID",tradeId)
-     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-      // console.log("TRADESTS", tradeStatusS)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      const FT6tym = new Date().toString()
-      console.log("isodate",FT6tym)
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type } },
+//         { new: true }
+//       )
+//       if(update){
+//      let status = update.status
+//      let tradeStatusS = update.tradeStatus
+//      let tradeId= update._id
+//      console.log("TRADEID",tradeId)
+//      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//       // console.log("TRADESTS", tradeStatusS)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       const FT6tym = new Date().toString()
+//       console.log("isodate",FT6tym)
 
-      const newTradeHistory = new TradeHistory({
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        SL:SL,
-        sl_type:sl_type,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        FT5: FT5,
-        FT6:FT6,
-        FT6time:FT6tym,
-        FT6_type:FT6_type,
-        FT7:FT7,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatusS,
-        tradeId:tradeId
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            tradeId:tradeId
-          })
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : error
-      })
-      }
+//       const newTradeHistory = new TradeHistory({
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         SL:SL,
+//         sl_type:sl_type,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         FT5: FT5,
+//         FT6:FT6,
+//         FT6time:FT6tym,
+//         FT6_type:FT6_type,
+//         FT7:FT7,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatusS,
+//         tradeId:tradeId
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             tradeId:tradeId
+//           })
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : error
+//       })
+//       }
 
-    } else if ( FT7_type == "true" &&FT7 == FT7){
-      console.log("FT7777")
-      investment_amt = (req.body.qty * 25) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(10)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(20)
-      console.log("FT1", FT1)
+//     } else if ( FT7_type == "true" &&FT7 == FT7){
+//       console.log("FT7777")
+//       investment_amt = (req.body.qty * 25) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(10)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(10)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(20)
+//       console.log("FT1", FT1)
     
     
-      let FT2 = parseInt(FT1) + parseInt(20)
-      console.log("FT2", FT2)
+//       let FT2 = parseInt(FT1) + parseInt(20)
+//       console.log("FT2", FT2)
     
-      let FT3 = parseInt(FT2) + parseInt(20)
-      console.log("FT3", FT3)
-      let FT5 = parseInt(FT3) + parseInt(20)
-      console.log("FT5", FT5)
-      let FT6 = parseInt(FT5) + parseInt(20)
-      console.log("FT6", FT6)
-      let FT7 = parseInt(FT6) + parseInt(20)
-      console.log("FT6", FT7)
+//       let FT3 = parseInt(FT2) + parseInt(20)
+//       console.log("FT3", FT3)
+//       let FT5 = parseInt(FT3) + parseInt(20)
+//       console.log("FT5", FT5)
+//       let FT6 = parseInt(FT5) + parseInt(20)
+//       console.log("FT6", FT6)
+//       let FT7 = parseInt(FT6) + parseInt(20)
+//       console.log("FT6", FT7)
     
-      let pl = (req.body.qty * 25) * (FT6 - req.body.active_value)
-      console.log("PL", pl)
+//       let pl = (req.body.qty * 25) * (FT6 - req.body.active_value)
+//       console.log("PL", pl)
     
-      let pl_per = pl / investment_amt * 100
-      console.log("PL%%%%", pl_per)
+//       let pl_per = pl / investment_amt * 100
+//       console.log("PL%%%%", pl_per)
     
-    let SL = findone.SL;
-    let sl_type = findone.sl_type;
-    //   let status = findone.status
+//     let SL = findone.SL;
+//     let sl_type = findone.sl_type;
+//     //   let status = findone.status
      
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
     
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6,FT7, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-        { new: true }
-      )
-      if(update){
-     let status = update.status
-     let tradeStatusS = update.tradeStatus
-     let fnoindex_scrpt_name =update.fnoindex_scrpt_name
-      // console.log("TRADESTS", tradeStatusS)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      const FT7tym = new Date().toString()
-      console.log("isodate",FT7tym)
-      const newTradeHistory = new TradeHistory({
-        fnoindex_scrpt_name:fnoindex_scrpt_name,
-        qty: qty,
-        active_value: active_value,
-        SL:SL,
-        sl_type:sl_type,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        FT5: FT5,
-        FT6:FT6,
-        FT7:FT7,
-        FT7time:FT7tym,
-        FT7_type: FT7_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatusS,
-        trl:trl
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6,FT7, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//         { new: true }
+//       )
+//       if(update){
+//      let status = update.status
+//      let tradeStatusS = update.tradeStatus
+//      let fnoindex_scrpt_name =update.fnoindex_scrpt_name
+//       // console.log("TRADESTS", tradeStatusS)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       const FT7tym = new Date().toString()
+//       console.log("isodate",FT7tym)
+//       const newTradeHistory = new TradeHistory({
+//         fnoindex_scrpt_name:fnoindex_scrpt_name,
+//         qty: qty,
+//         active_value: active_value,
+//         SL:SL,
+//         sl_type:sl_type,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         FT5: FT5,
+//         FT6:FT6,
+//         FT7:FT7,
+//         FT7time:FT7tym,
+//         FT7_type: FT7_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatusS,
+//         trl:trl
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
     
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus
-          })
-          // console.log("DATA", data)
-          // console.log("UPDATE", update)
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus
+//           })
+//           // console.log("DATA", data)
+//           // console.log("UPDATE", update)
     
-        })
-      }else{
-        res.status(400).json({
-          status : false,
-          error : "error",
-          error : "error"
-      })
-      }
+//         })
+//       }else{
+//         res.status(400).json({
+//           status : false,
+//           error : "error",
+//           error : "error"
+//       })
+//       }
     
-    } 
+//     } 
 
-  } else if (findone?.trade_type == "Nifty") {
-console.log("bbbbbbb")
-if (sl_type ==  "true"){
-  console.log("00000")
-  investment_amt =  (req.body.qty*50)*(req.body.active_value)
-          console.log("InvestAMT",investment_amt)
+//   } else if (findone?.trade_type == "Nifty") {
+// console.log("bbbbbbb")
+// if (sl_type ==  "true"){
+//   console.log("00000")
+//   investment_amt =  (req.body.qty*50)*(req.body.active_value)
+//           console.log("InvestAMT",investment_amt)
 
 
-          let SL = parseInt(req.body.active_value) -10
-          console.log("SL",SL)
+//           let SL = parseInt(req.body.active_value) -10
+//           console.log("SL",SL)
 
-        let  pl = (req.body.qty*50) *(SL -  req.body.active_value)
-          console.log("PL",pl)
+//         let  pl = (req.body.qty*50) *(SL -  req.body.active_value)
+//           console.log("PL",pl)
 
-         let pl_per = (pl/investment_amt*100).toFixed(2);
-          console.log("PL%%%%",pl_per)
-          let FT1 = findone.FT1
-          console.log("ft11111", FT1)
-          let FT1_type = findone.FT1_type
-          let FT2 = findone.FT2
-          let FT2_type = findone.FT2_type
+//          let pl_per = (pl/investment_amt*100).toFixed(2);
+//           console.log("PL%%%%",pl_per)
+//           let FT1 = findone.FT1
+//           console.log("ft11111", FT1)
+//           let FT1_type = findone.FT1_type
+//           let FT2 = findone.FT2
+//           let FT2_type = findone.FT2_type
     
-          let FT3 = findone.FT3
-          let FT3_type = findone.FT3_type
-let status = findone.status
-let tradeStatus = findone.tradeStatus
-          let update=  await Alltrade.findOneAndUpdate(
-           { _id: req.params.id },
+//           let FT3 = findone.FT3
+//           let FT3_type = findone.FT3_type
+// let status = findone.status
+// let tradeStatus = findone.tradeStatus
+//           let update=  await Alltrade.findOneAndUpdate(
+//            { _id: req.params.id },
 
-           {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,cstmMsg,tradeStatus}} ,
+//            {$set: {sl_type:"true",FT1_type:"false",FT2_type:"false",FT3_type:"false",pl_per,pl,investment_amt,SL,status,cstmMsg,tradeStatus}} ,
 
-         //{ $set: {status:"success"} },
-         { new: true }
+//          //{ $set: {status:"success"} },
+//          { new: true }
 
-       )    
-     //  let status = update.status
-      // let tradeStatus = update.tradeStatus
-      //  console.log("TRADESTS", tradeStatus)
-      //  console.log("STATUS", status)
-      //  console.log("UPDATE", update)
-      let tradeId= update._id
-     console.log("TRADEID",tradeId)
-     const SlTime = new Date().toString()
-     console.log("isodate",SlTime)
-       const newTradeHistory = new TradeHistory({
-        SL: SL,
-        slTime:SlTime,
-        sl_type: sl_type,
-        qty: qty,
-        active_value: active_value,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId,
-        type:type
-      })
-      newTradeHistory
-      .save()
-      .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: data,
-          investment_amt: investment_amt,
-          SL: SL,
-          PL: pl,
-          PLPER: pl_per,
-          FT1: FT1,
-          FT1_type: FT1_type,
-          FT2: FT2,
-          FT2_type: FT2_type,
-          FT3: FT3,
-          FT3_type: FT3_type,
-          tradeStatus: tradeStatus,
-          tradeId:tradeId,
-          type:type
-        })
-        // console.log("DATA", data)
-        // console.log("UPDATE", update)
+//        )    
+//      //  let status = update.status
+//       // let tradeStatus = update.tradeStatus
+//       //  console.log("TRADESTS", tradeStatus)
+//       //  console.log("STATUS", status)
+//       //  console.log("UPDATE", update)
+//       let tradeId= update._id
+//      console.log("TRADEID",tradeId)
+//      const SlTime = new Date().toString()
+//      console.log("isodate",SlTime)
+//        const newTradeHistory = new TradeHistory({
+//         SL: SL,
+//         slTime:SlTime,
+//         sl_type: sl_type,
+//         qty: qty,
+//         active_value: active_value,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId,
+//         type:type
+//       })
+//       newTradeHistory
+//       .save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: data,
+//           investment_amt: investment_amt,
+//           SL: SL,
+//           PL: pl,
+//           PLPER: pl_per,
+//           FT1: FT1,
+//           FT1_type: FT1_type,
+//           FT2: FT2,
+//           FT2_type: FT2_type,
+//           FT3: FT3,
+//           FT3_type: FT3_type,
+//           tradeStatus: tradeStatus,
+//           tradeId:tradeId,
+//           type:type
+//         })
+//         // console.log("DATA", data)
+//         // console.log("UPDATE", update)
 
-      })
-} else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
-  console.log("11111")
-      investment_amt = (req.body.qty * 50) * (req.body.active_value)
-      console.log("InvestAMT", investment_amt)
-      let av2 = parseInt(req.body.active_value) + parseInt(5)
-      console.log("AV2", av2)
-      let trl = parseInt(av2) + parseInt(5)
-      console.log("TRL", trl)
-      let FT1 = parseInt(trl) + parseInt(10)
-      console.log("FT1", FT1)
-      let FT2 = parseInt(FT1) + parseInt(10)
-      console.log("FT2", FT2)
+//       })
+// } else if(FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
+//   console.log("11111")
+//       investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//       console.log("InvestAMT", investment_amt)
+//       let av2 = parseInt(req.body.active_value) + parseInt(5)
+//       console.log("AV2", av2)
+//       let trl = parseInt(av2) + parseInt(5)
+//       console.log("TRL", trl)
+//       let FT1 = parseInt(trl) + parseInt(10)
+//       console.log("FT1", FT1)
+//       let FT2 = parseInt(FT1) + parseInt(10)
+//       console.log("FT2", FT2)
 
-      let FT3 = parseInt(FT2) + parseInt(10)
-      console.log("FT3", FT3)
+//       let FT3 = parseInt(FT2) + parseInt(10)
+//       console.log("FT3", FT3)
 
-      let pl = (req.body.qty * 50) * (FT3 - req.body.active_value)
-      console.log("PL", pl)
+//       let pl = (req.body.qty * 50) * (FT3 - req.body.active_value)
+//       console.log("PL", pl)
 
-      let pl_per = (pl / investment_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-      //let tradeStatus = findone.tradeStatus
+//       let pl_per = (pl / investment_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
+//       //let tradeStatus = findone.tradeStatus
 
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-        { new: true }
+//       let update = await Alltrade.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//         { new: true }
 
-      )
-      let status = update.status
-      let tradeStatuss = update.tradeStatus
-      let tradeId= update._id
-     console.log("TRADEID",tradeId)
-      // console.log("TRADESTS", tradeStatuss)
-      // console.log("STATUS", status)
-      // console.log("UPDATE", update)
-      const FT1tym = new Date().toString()
-      console.log("FT1tym ",FT1tym)
+//       )
+//       let status = update.status
+//       let tradeStatuss = update.tradeStatus
+//       let tradeId= update._id
+//      console.log("TRADEID",tradeId)
+//       // console.log("TRADESTS", tradeStatuss)
+//       // console.log("STATUS", status)
+//       // console.log("UPDATE", update)
+//       const FT1tym = new Date().toString()
+//       console.log("FT1tym ",FT1tym)
     
-      const FT2tym = new Date().toString()
-      console.log("isodate",FT2tym)
+//       const FT2tym = new Date().toString()
+//       console.log("isodate",FT2tym)
 
-      const FT3tym = new Date().toString()
-      console.log("isodate",FT3tym)
-      const newTradeHistory = new TradeHistory({
-        qty: qty,
-        active_value: active_value,
-        FT1: FT1,
-        FT1time:FT1tym,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2time:FT2tym,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3time:FT3tym,
-        FT3_type: FT3_type,
-        status: status,
-        pl: pl,
-        pl_per: pl_per,
-        investment_amt: investment_amt,
-        cstmMsg: cstmMsg,
-        tradeStatus: tradeStatuss,
-        trl:trl,
-        tradeId:tradeId
-      })
-      newTradeHistory
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: data,
-            investment_amt: investment_amt,
-            SL: SL,
-            PL: pl,
-            PLPER: pl_per,
-            FT1: FT1,
-            FT1_type: FT1_type,
-            FT2: FT2,
-            FT2_type: FT2_type,
-            FT3: FT3,
-            FT3_type: FT3_type,
-            tradeStatus: tradeStatus,
-            tradeId:tradeId
-          })
-          console.log("DATA", data)
-          console.log("UPDATE", update)
+//       const FT3tym = new Date().toString()
+//       console.log("isodate",FT3tym)
+//       const newTradeHistory = new TradeHistory({
+//         qty: qty,
+//         active_value: active_value,
+//         FT1: FT1,
+//         FT1time:FT1tym,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2time:FT2tym,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3time:FT3tym,
+//         FT3_type: FT3_type,
+//         status: status,
+//         pl: pl,
+//         pl_per: pl_per,
+//         investment_amt: investment_amt,
+//         cstmMsg: cstmMsg,
+//         tradeStatus: tradeStatuss,
+//         trl:trl,
+//         tradeId:tradeId
+//       })
+//       newTradeHistory
+//         .save()
+//         .then((data) => {
+//           res.status(200).json({
+//             status: true,
+//             msg: "success",
+//             data: data,
+//             investment_amt: investment_amt,
+//             SL: SL,
+//             PL: pl,
+//             PLPER: pl_per,
+//             FT1: FT1,
+//             FT1_type: FT1_type,
+//             FT2: FT2,
+//             FT2_type: FT2_type,
+//             FT3: FT3,
+//             FT3_type: FT3_type,
+//             tradeStatus: tradeStatus,
+//             tradeId:tradeId
+//           })
+//           console.log("DATA", data)
+//           console.log("UPDATE", update)
 
-        })
-}else if (FT1_type == "true" && FT2_type == "true") {
-  console.log("22222")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
-  let pl = (req.body.qty * 50) * (FT2 - req.body.active_value)
-  console.log("PL", pl)
+//         })
+// }else if (FT1_type == "true" && FT2_type == "true") {
+//   console.log("22222")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
+//   let pl = (req.body.qty * 50) * (FT2 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
-  let status = update.status
-  let tradeStatuss = update.tradeStatus
-  let tradeId= update._id
-  console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatuss)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//   let status = update.status
+//   let tradeStatuss = update.tradeStatus
+//   let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatuss)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
   
 
-  const FT2tym = new Date().toString()
-  console.log("isodate",FT2tym)
+//   const FT2tym = new Date().toString()
+//   console.log("isodate",FT2tym)
 
-  const FT3tym = new Date().toString()
-  console.log("FT3tym ",FT3tym)
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2time:FT2tym,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3time:FT3tym,
-    FT3_type: FT3_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatuss,
-    trl:trl,
-    tradeId:tradeId
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
+//   const FT3tym = new Date().toString()
+//   console.log("FT3tym ",FT3tym)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2time:FT2tym,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3time:FT3tym,
+//     FT3_type: FT3_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatuss,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
 
-        FT3: FT3,
-        FT3_type: FT3_type,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
+//     })
 
 
-} else if (FT1_type == "true") {
-  console.log("3333")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
-  let pl = (req.body.qty * 50) * (FT1 - req.body.active_value)
-  console.log("PL", pl)
+// } else if (FT1_type == "true") {
+//   console.log("3333")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
+//   let pl = (req.body.qty * 50) * (FT1 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-  let SL= findone.SL
-  let sl_type = findone.sl_type
-  let FT2 = findone.FT2
-  let FT2_type = findone.FT2_type
+//   let SL= findone.SL
+//   let sl_type = findone.sl_type
+//   let FT2 = findone.FT2
+//   let FT2_type = findone.FT2_type
 
-  let FT3 = findone.FT3
-  let FT3_type = findone.FT3_type
+//   let FT3 = findone.FT3
+//   let FT3_type = findone.FT3_type
   
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
-  let status = update.status
-  let tradeStatuss = update.tradeStatus
-  let tradeId= update._id
-  console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatuss)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
-  const FT1tym = new Date().toString()
-  console.log("isodate",FT1tym)
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    SL:SL,
-    sl_type:sl_type,
-    FT1: FT1,
-    FT1time:FT1tym,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3_type: FT3_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatuss,
-    trl:trl,
-    tradeId:tradeId
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//   let status = update.status
+//   let tradeStatuss = update.tradeStatus
+//   let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatuss)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
+//   const FT1tym = new Date().toString()
+//   console.log("isodate",FT1tym)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     SL:SL,
+//     sl_type:sl_type,
+//     FT1: FT1,
+//     FT1time:FT1tym,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3_type: FT3_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatuss,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
 
-        FT3: FT3,
-        FT3_type: FT3_type,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
+//     })
 
-}else if (FT2_type == "true") {
-  console.log("abcd")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
-  let pl = (req.body.qty * 50) * (FT2 - req.body.active_value)
-  console.log("PL", pl)
+// }else if (FT2_type == "true") {
+//   console.log("abcd")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
+//   let pl = (req.body.qty * 50) * (FT2 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-  let SL= findone.SL
-  let sl_type = findone.sl_type
-  // let FT2 = findone.FT2
-  // let FT2_type = findone.FT2_type
+//   let SL= findone.SL
+//   let sl_type = findone.sl_type
+//   // let FT2 = findone.FT2
+//   // let FT2_type = findone.FT2_type
 
-  let FT3 = findone.FT3
-  let FT3_type = findone.FT3_type
+//   let FT3 = findone.FT3
+//   let FT3_type = findone.FT3_type
     
   
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
-   if(update){
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//    if(update){
    
-  let status = update.status
-  let tradeStatuss = update.tradeStatus
-  let tradeId= update._id
-  console.log("TRADEID",tradeId)
- // console.log("TRADESTS", tradeStatuss)
- // console.log("STATUS", status)
- // console.log("UPDATE", update)
- const FT2tym = new Date().toString()
- console.log("isodate",FT2tym)
+//   let status = update.status
+//   let tradeStatuss = update.tradeStatus
+//   let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//  // console.log("TRADESTS", tradeStatuss)
+//  // console.log("STATUS", status)
+//  // console.log("UPDATE", update)
+//  const FT2tym = new Date().toString()
+//  console.log("isodate",FT2tym)
 
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    SL:SL,
-    sl_type:sl_type,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2time:FT2tym,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3_type: FT3_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatuss,
-    trl:trl,
-    tradeId:tradeId
-  })
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     SL:SL,
+//     sl_type:sl_type,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2time:FT2tym,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3_type: FT3_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatuss,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
 
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
       
-      })
+//       })
 
-    })}else{
-      res.status(400).json({
-        status: false,
-        msg: "error",
-        error: "error",
-      });
-    }
-  }
-  else if (FT3_type == "true") {
-    console.log("abcd")
-    investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
+//     })}else{
+//       res.status(400).json({
+//         status: false,
+//         msg: "error",
+//         error: "error",
+//       });
+//     }
+//   }
+//   else if (FT3_type == "true") {
+//     console.log("abcd")
+//     investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
 
-  let FT3 = parseInt(FT2) + parseInt(10)
-  console.log("FT3", FT3)
+//   let FT3 = parseInt(FT2) + parseInt(10)
+//   console.log("FT3", FT3)
 
-  let pl = (req.body.qty * 50) * (FT3 - req.body.active_value)
-  console.log("PL", pl)
+//   let pl = (req.body.qty * 50) * (FT3 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-  //let tradeStatus = findone.tradeStatus
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
+//   //let tradeStatus = findone.tradeStatus
 
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
-    { new: true }
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type: "true", FT2, FT3_type: "true", pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl,type } },
+//     { new: true }
 
-  )
-  if(update){
-  let status = update.status
-  let tradeStatuss = update.tradeStatus
-  let tradeId= update._id
-  let type = update.type
-  console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatuss)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
-  const FT3tym = new Date().toString()
-  console.log("isodate",FT3tym)
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3time:FT3tym,
-    FT3_type: FT3_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatuss,
-    trl:trl,
-    tradeId:tradeId,
-    type:type
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId,
-        type:type
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//   )
+//   if(update){
+//   let status = update.status
+//   let tradeStatuss = update.tradeStatus
+//   let tradeId= update._id
+//   let type = update.type
+//   console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatuss)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
+//   const FT3tym = new Date().toString()
+//   console.log("isodate",FT3tym)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3time:FT3tym,
+//     FT3_type: FT3_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatuss,
+//     trl:trl,
+//     tradeId:tradeId,
+//     type:type
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId,
+//         type:type
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
-  }else{
-    res.status(400).json({
-      status : false,
-      error : "error",
-      error : error
-  })
-  }
-}
-else if (FT4_type == "false" && FT4 == req.body.FT4 ){
-    console.log("FT44444")
-    investment_amt = (req.body.qty * 50) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
-    let av2 = parseInt(req.body.active_value) + parseInt(5)
-    console.log("AV2", av2)
-    let trl = parseInt(av2) + parseInt(5)
-    console.log("TRL", trl)
-    let FT1 = parseInt(trl) + parseInt(10)
-    console.log("FT1", FT1)
+//     })
+//   }else{
+//     res.status(400).json({
+//       status : false,
+//       error : "error",
+//       error : error
+//   })
+//   }
+// }
+// else if (FT4_type == "false" && FT4 == req.body.FT4 ){
+//     console.log("FT44444")
+//     investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//     console.log("InvestAMT", investment_amt)
+//     let av2 = parseInt(req.body.active_value) + parseInt(5)
+//     console.log("AV2", av2)
+//     let trl = parseInt(av2) + parseInt(5)
+//     console.log("TRL", trl)
+//     let FT1 = parseInt(trl) + parseInt(10)
+//     console.log("FT1", FT1)
   
   
-    let FT2 = parseInt(FT1) + parseInt(10)
-    console.log("FT2", FT2)
+//     let FT2 = parseInt(FT1) + parseInt(10)
+//     console.log("FT2", FT2)
   
-    let FT3 = parseInt(FT2) + parseInt(10)
-    console.log("FT3", FT3)
-    let FT4 = parseInt(FT3) + parseInt(10)
-    console.log("FT4", FT4)
+//     let FT3 = parseInt(FT2) + parseInt(10)
+//     console.log("FT3", FT3)
+//     let FT4 = parseInt(FT3) + parseInt(10)
+//     console.log("FT4", FT4)
     
   
-    let pl = (req.body.qty * 50) * (FT4 - req.body.active_value)
-    console.log("PL", pl)
+//     let pl = (req.body.qty * 50) * (FT4 - req.body.active_value)
+//     console.log("PL", pl)
   
-    let pl_per = (pl / investment_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
+//     let pl_per = (pl / investment_amt * 100).toFixed(2);
+//     console.log("PL%%%%", pl_per)
   
-  let SL = findone.SL;
-  let sl_type = findone.sl_type;
-  //   let status = findone.status
+//   let SL = findone.SL;
+//   let sl_type = findone.sl_type;
+//   //   let status = findone.status
    
-    let update = await Alltrade.findOneAndUpdate(
-      { _id: req.params.id },
+//     let update = await Alltrade.findOneAndUpdate(
+//       { _id: req.params.id },
   
-      { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT4, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-      { new: true }
-    )
-   let status = update.status
-   let tradeStatusS = update.tradeStatus
-   let tradeId= update._id
-  console.log("TRADEID",tradeId)
-    // console.log("TRADESTS", tradeStatusS)
-    // console.log("STATUS", status)
-    // console.log("UPDATE", update)
-    const FT4tym = new Date().toString()
-    console.log("isodate",FT4tym)
-    const newTradeHistory = new TradeHistory({
-      qty: qty,
-      active_value: active_value,
-      SL:SL,
-      sl_type:sl_type,
-      FT1: FT1,
-      FT1_type: FT1_type,
-      FT2: FT2,
-      FT2_type: FT2_type,
-      FT3: FT3,
-      FT3_type: FT3_type,
-      FT4: FT4,
-      FT4time:FT4tym,
-      FT4_type: FT4_type,
-      status: status,
-      pl: pl,
-      pl_per: pl_per,
-      investment_amt: investment_amt,
-      cstmMsg: cstmMsg,
-      tradeStatus: tradeStatusS,
-      trl:trl,
-      tradeId:tradeId
-    })
-    newTradeHistory
-      .save()
-      .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: data,
-          investment_amt: investment_amt,
-          SL: SL,
-          PL: pl,
-          PLPER: pl_per,
-          FT1: FT1,
-          FT1_type: FT1_type,
-          FT2: FT2,
-          FT2_type: FT2_type,
-          FT3: FT3,
-          FT3_type: FT3_type,
-          tradeStatus: tradeStatus,
-          tradeId:tradeId
-        })
-        // console.log("DATA", data)
-        // console.log("UPDATE", update)
+//       { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT4, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//       { new: true }
+//     )
+//    let status = update.status
+//    let tradeStatusS = update.tradeStatus
+//    let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//     // console.log("TRADESTS", tradeStatusS)
+//     // console.log("STATUS", status)
+//     // console.log("UPDATE", update)
+//     const FT4tym = new Date().toString()
+//     console.log("isodate",FT4tym)
+//     const newTradeHistory = new TradeHistory({
+//       qty: qty,
+//       active_value: active_value,
+//       SL:SL,
+//       sl_type:sl_type,
+//       FT1: FT1,
+//       FT1_type: FT1_type,
+//       FT2: FT2,
+//       FT2_type: FT2_type,
+//       FT3: FT3,
+//       FT3_type: FT3_type,
+//       FT4: FT4,
+//       FT4time:FT4tym,
+//       FT4_type: FT4_type,
+//       status: status,
+//       pl: pl,
+//       pl_per: pl_per,
+//       investment_amt: investment_amt,
+//       cstmMsg: cstmMsg,
+//       tradeStatus: tradeStatusS,
+//       trl:trl,
+//       tradeId:tradeId
+//     })
+//     newTradeHistory
+//       .save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: data,
+//           investment_amt: investment_amt,
+//           SL: SL,
+//           PL: pl,
+//           PLPER: pl_per,
+//           FT1: FT1,
+//           FT1_type: FT1_type,
+//           FT2: FT2,
+//           FT2_type: FT2_type,
+//           FT3: FT3,
+//           FT3_type: FT3_type,
+//           tradeStatus: tradeStatus,
+//           tradeId:tradeId
+//         })
+//         // console.log("DATA", data)
+//         // console.log("UPDATE", update)
   
-      })
-    }
-else if ( FT5_type=="false"&&FT5 == req.body.FT5){
+//       })
+//     }
+// else if ( FT5_type=="false"&&FT5 == req.body.FT5){
 
-  console.log("FT5555")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
+//   console.log("FT5555")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
 
 
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
 
-  let FT3 = parseInt(FT2) + parseInt(10)
-  console.log("FT3", FT3)
-  let FT5 = parseInt(FT3) + parseInt(10)
-  console.log("FT5", FT5)
+//   let FT3 = parseInt(FT2) + parseInt(10)
+//   console.log("FT3", FT3)
+//   let FT5 = parseInt(FT3) + parseInt(10)
+//   console.log("FT5", FT5)
   
 
-  let pl = (req.body.qty * 50) * (FT5 - req.body.active_value)
-  console.log("PL", pl)
+//   let pl = (req.body.qty * 50) * (FT5 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-let SL = findone.SL;
-let sl_type = findone.sl_type;
-//   let status = findone.status
+// let SL = findone.SL;
+// let sl_type = findone.sl_type;
+// //   let status = findone.status
  
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
- let status = update.status
- let tradeStatusS = update.tradeStatus
- let tradeId= update._id
-  console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatusS)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
-  const FT5tym = new Date().toString()
-  console.log("isodate",FT5tym)
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    SL:SL,
-    sl_type:sl_type,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3_type: FT3_type,
-    FT5: FT5,
-    FT5time:FT5tym,
-    FT5_type:FT5_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatusS,
-    trl:trl,
-    tradeId:tradeId
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        FT5:FT5,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//  let status = update.status
+//  let tradeStatusS = update.tradeStatus
+//  let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatusS)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
+//   const FT5tym = new Date().toString()
+//   console.log("isodate",FT5tym)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     SL:SL,
+//     sl_type:sl_type,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3_type: FT3_type,
+//     FT5: FT5,
+//     FT5time:FT5tym,
+//     FT5_type:FT5_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatusS,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         FT5:FT5,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
+//     })
 
-} 
-else if (FT6_type =="false" &&FT6 == req.body.FT6){
-  console.log("FT6666")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
+// } 
+// else if (FT6_type =="false" &&FT6 == req.body.FT6){
+//   console.log("FT6666")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
 
 
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
 
-  let FT3 = parseInt(FT2) + parseInt(10)
-  console.log("FT3", FT3)
-  let FT5 = parseInt(FT3) + parseInt(10)
-  console.log("FT5", FT5)
-  let FT6 = parseInt(FT5) + parseInt(10)
-  console.log("FT6", FT6)
+//   let FT3 = parseInt(FT2) + parseInt(10)
+//   console.log("FT3", FT3)
+//   let FT5 = parseInt(FT3) + parseInt(10)
+//   console.log("FT5", FT5)
+//   let FT6 = parseInt(FT5) + parseInt(10)
+//   console.log("FT6", FT6)
 
-  let pl = (req.body.qty * 50) * (FT6 - req.body.active_value)
-  console.log("PL", pl)
+//   let pl = (req.body.qty * 50) * (FT6 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-let SL = findone.SL;
-let sl_type = findone.sl_type;
-//   let status = findone.status
+// let SL = findone.SL;
+// let sl_type = findone.sl_type;
+// //   let status = findone.status
  
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
- let status = update.status
- let tradeStatusS = update.tradeStatus
- let tradeId= update._id
-  console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatusS)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
-  const FT6tym = new Date().toString()
-  console.log("isodate",FT6tym)
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//  let status = update.status
+//  let tradeStatusS = update.tradeStatus
+//  let tradeId= update._id
+//   console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatusS)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
+//   const FT6tym = new Date().toString()
+//   console.log("isodate",FT6tym)
 
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    SL:SL,
-    sl_type:sl_type,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3_type: FT3_type,
-    FT5: FT5,
-    FT6:FT6,
-    FT6time:FT6tym,
-    FT6_type:FT6_type,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatusS,
-    trl:trl,
-    tradeId:tradeId
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     SL:SL,
+//     sl_type:sl_type,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3_type: FT3_type,
+//     FT5: FT5,
+//     FT6:FT6,
+//     FT6time:FT6tym,
+//     FT6_type:FT6_type,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatusS,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
+//     })
 
-} 
+// } 
 
-else if ( FT7_type == "false" &&FT7 == FT7){
-  console.log("FT7777")
-  investment_amt = (req.body.qty * 50) * (req.body.active_value)
-  console.log("InvestAMT", investment_amt)
-  let av2 = parseInt(req.body.active_value) + parseInt(5)
-  console.log("AV2", av2)
-  let trl = parseInt(av2) + parseInt(5)
-  console.log("TRL", trl)
-  let FT1 = parseInt(trl) + parseInt(10)
-  console.log("FT1", FT1)
+// else if ( FT7_type == "false" &&FT7 == FT7){
+//   console.log("FT7777")
+//   investment_amt = (req.body.qty * 50) * (req.body.active_value)
+//   console.log("InvestAMT", investment_amt)
+//   let av2 = parseInt(req.body.active_value) + parseInt(5)
+//   console.log("AV2", av2)
+//   let trl = parseInt(av2) + parseInt(5)
+//   console.log("TRL", trl)
+//   let FT1 = parseInt(trl) + parseInt(10)
+//   console.log("FT1", FT1)
 
 
-  let FT2 = parseInt(FT1) + parseInt(10)
-  console.log("FT2", FT2)
+//   let FT2 = parseInt(FT1) + parseInt(10)
+//   console.log("FT2", FT2)
 
-  let FT3 = parseInt(FT2) + parseInt(10)
-  console.log("FT3", FT3)
-  let FT5 = parseInt(FT3) + parseInt(10)
-  console.log("FT5", FT5)
-  let FT6 = parseInt(FT5) + parseInt(10)
-  console.log("FT6", FT6)
-  let FT7 = parseInt(FT6) + parseInt(10)
-  console.log("FT6", FT7)
+//   let FT3 = parseInt(FT2) + parseInt(10)
+//   console.log("FT3", FT3)
+//   let FT5 = parseInt(FT3) + parseInt(10)
+//   console.log("FT5", FT5)
+//   let FT6 = parseInt(FT5) + parseInt(10)
+//   console.log("FT6", FT6)
+//   let FT7 = parseInt(FT6) + parseInt(10)
+//   console.log("FT6", FT7)
 
-  let pl = (req.body.qty * 50) * (FT6 - req.body.active_value)
-  console.log("PL", pl)
+//   let pl = (req.body.qty * 50) * (FT6 - req.body.active_value)
+//   console.log("PL", pl)
 
-  let pl_per = (pl / investment_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
+//   let pl_per = (pl / investment_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-let SL = findone.SL;
-let sl_type = findone.sl_type;
-//   let status = findone.status
+// let SL = findone.SL;
+// let sl_type = findone.sl_type;
+// //   let status = findone.status
  
-  let update = await Alltrade.findOneAndUpdate(
-    { _id: req.params.id },
+//   let update = await Alltrade.findOneAndUpdate(
+//     { _id: req.params.id },
 
-    { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6,FT7, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
-    { new: true }
-  )
- let status = update.status
- let tradeStatusS = update.tradeStatus
- let tradeId= update._id
- console.log("TRADEID",tradeId)
-  // console.log("TRADESTS", tradeStatusS)
-  // console.log("STATUS", status)
-  // console.log("UPDATE", update)
-  const FT7tym = new Date().toString()
-  console.log("isodate",FT7tym)
-  const newTradeHistory = new TradeHistory({
-    qty: qty,
-    active_value: active_value,
-    SL:SL,
-    sl_type:sl_type,
-    FT1: FT1,
-    FT1_type: FT1_type,
-    FT2: FT2,
-    FT2_type: FT2_type,
-    FT3: FT3,
-    FT3_type: FT3_type,
-    FT5: FT5,
-    FT6:FT6,
-    FT7:FT7,
-    FT7time:FT7tym,
-    status: status,
-    pl: pl,
-    pl_per: pl_per,
-    investment_amt: investment_amt,
-    cstmMsg: cstmMsg,
-    tradeStatus: tradeStatusS,
-    trl:trl,
-    tradeId:tradeId
-  })
-  newTradeHistory
-    .save()
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-        investment_amt: investment_amt,
-        SL: SL,
-        PL: pl,
-        PLPER: pl_per,
-        FT1: FT1,
-        FT1_type: FT1_type,
-        FT2: FT2,
-        FT2_type: FT2_type,
-        FT3: FT3,
-        FT3_type: FT3_type,
-        tradeStatus: tradeStatus,
-        tradeId:tradeId
-      })
-      // console.log("DATA", data)
-      // console.log("UPDATE", update)
+//     { $set: { sl_type: "false", FT1_type: "true", FT1, FT2_type, FT2, FT3_type,FT3,FT5,FT6,FT7, pl, pl_per, investment_amt, SL, status: "Active", cstmMsg, tradeStatus, trade_type,trl } },
+//     { new: true }
+//   )
+//  let status = update.status
+//  let tradeStatusS = update.tradeStatus
+//  let tradeId= update._id
+//  console.log("TRADEID",tradeId)
+//   // console.log("TRADESTS", tradeStatusS)
+//   // console.log("STATUS", status)
+//   // console.log("UPDATE", update)
+//   const FT7tym = new Date().toString()
+//   console.log("isodate",FT7tym)
+//   const newTradeHistory = new TradeHistory({
+//     qty: qty,
+//     active_value: active_value,
+//     SL:SL,
+//     sl_type:sl_type,
+//     FT1: FT1,
+//     FT1_type: FT1_type,
+//     FT2: FT2,
+//     FT2_type: FT2_type,
+//     FT3: FT3,
+//     FT3_type: FT3_type,
+//     FT5: FT5,
+//     FT6:FT6,
+//     FT7:FT7,
+//     FT7time:FT7tym,
+//     status: status,
+//     pl: pl,
+//     pl_per: pl_per,
+//     investment_amt: investment_amt,
+//     cstmMsg: cstmMsg,
+//     tradeStatus: tradeStatusS,
+//     trl:trl,
+//     tradeId:tradeId
+//   })
+//   newTradeHistory
+//     .save()
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: data,
+//         investment_amt: investment_amt,
+//         SL: SL,
+//         PL: pl,
+//         PLPER: pl_per,
+//         FT1: FT1,
+//         FT1_type: FT1_type,
+//         FT2: FT2,
+//         FT2_type: FT2_type,
+//         FT3: FT3,
+//         FT3_type: FT3_type,
+//         tradeStatus: tradeStatus,
+//         tradeId:tradeId
+//       })
+//       // console.log("DATA", data)
+//       // console.log("UPDATE", update)
 
-    })
+//     })
 
-} 
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+// } 
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
 
-  }
-}
+//   }
+// }
 
 
 exports.tradeHistory = async (req, res) => {
@@ -3709,5 +3709,135 @@ exports.today_profit_loss = async (req, res) => {
   
   
  
+exports.editFnoindex = async (req, res) => {
+  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4_type, FT5, FT5_type, FT4,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time,call_type,date,script_type,loss, loss_per } = req.body
+
+  let findone = await Alltrade.findOne({ _id: req.params.id })
+//console.log("FINFONE",findone)
+let invest_amt = findone.investment_amt
+console.log("INVESTAMT",invest_amt)
+let Qty =findone.qty
+console.log("QTY",Qty)
+let Av1 = findone.active_value
+console.log("Av1",Av1)
+
+let active_value2 = findone.active_value2
+console.log("Av2",active_value2)
+
+let ft1 = findone.FT1
+console.log("FT1",ft1)
+
+let ft2 = findone.FT2
+console.log("FT2",ft2)
+
+let ft3 = findone.FT3
+console.log("FT3",ft3)
+
+const FT1tym = new Date().toString()
+      console.log("FT1tym",FT1tym)
+
+      const FT2tym = new Date().toString()
+           console.log("FT2tym",FT2tym)
+           const FT3tym = new Date().toString()
+           console.log("FT3tym",FT2tym)
+
+  if (findone?.trade_type == "BankNifty") {
+    console.log("chala gya")
+    if (req.body.sl_type == "true") {
+console.log("sahi h")
+
+let sl = findone.SL
+  let loss = (Qty*25) *(sl - Av1)
+  console.log("Loss",loss)
+        let loss_per = (loss / invest_amt * 100).toFixed(2)
+       console.log("LOSS %", loss_per)
+
+  const sltym = new Date().toString()
+  console.log("isodate",sltym)
+         let update = await Alltrade.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: {sl_type: "true",status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym} },
+            { new: true }
+          )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+        //  console.log("Update",update)
+
+    }else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
+      console.log("FT1_TYPE,FT2_TYPE","FT3_TYPE")
+      let pl = (Qty * 25) * (ft3 -Av1  )
+      console.log("Profit", pl)
+
+      let pl_per = (pl /invest_amt * 100).toFixed(2);
+      console.log("PL %%", pl_per)
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {sl_type: "false",FT3_type:req.body.FT3_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT1time:FT1tym,FT2time:FT2tym, FT3time:FT3tym, } },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+    }else if (FT1_type == "true" && FT2_type == "true") {
+      console.log("FT1_TYPE,FT2_TYPE")
+      let pl = (Qty * 25) * (ft2 -Av1  )
+      console.log("Profit", pl)
+
+      let pl_per = (pl /invest_amt * 100).toFixed(2);
+      console.log("PL %%", pl_per)
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {sl_type: "false",FT2_type:req.body.FT2_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym,FT2time:FT2tym } },
+        { new: true }
+      )
+      
+      
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+
+    } else if(FT1_type == "true"){
+      console.log("FT1_TYPE")
+      let pl = (Qty * 25) * (ft1 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",FT1_type:req.body.FT1_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym, } },
+              { new: true }
+            )
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }else if(FT2_type == "true"){
+      console.log("FT2_TYPE")
+      let pl = (Qty * 25) * (ft2 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",FT2_type:req.body.FT2_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT2time:FT2tym, } },
+              { new: true }
+            )
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }else if(FT3_type == "true"){
+      console.log("FT3_TYPE")
+      let pl = (Qty * 25) * (ft3 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",FT3_type:req.body.FT3_type,status: "Active", cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT3time:FT3tym, } },
+              { new: true }
+            )
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }
+
+  }
   
- 
+}
