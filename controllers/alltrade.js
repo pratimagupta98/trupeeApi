@@ -1,4 +1,5 @@
 const Alltrade = require("../models/alltrade");
+const moment = require('moment');
 const resp = require("../helpers/apiResponse");
 const TradeHistory = require("../models/tradeHistory");
 const CstmMsg = require("../models/cstm_msg");
@@ -22,7 +23,7 @@ let getCurrentDate = function () {
   const date = ("0" + t.getDate()).slice(-2);
   const month = ("0" + (t.getMonth() + 1)).slice(-2);
   const year = t.getFullYear();
-  return `${date}/${month}/${year}`;
+  return `${date}-${month}-${year}`;
 };
 console.log("DATE",getCurrentDate())
 
@@ -53,7 +54,7 @@ exports.add_fnoIndex = async (req, res) => {
       const date = ("0" + t.getDate()).slice(-2);
       const month = ("0" + (t.getMonth() + 1)).slice(-2);
       const year = t.getFullYear();
-      return `${date}/${month}/${year}`;
+      return `${date}-${month}-${year}`;
     };
     console.log("DATE",getCurrentDate())
 
@@ -3396,11 +3397,12 @@ exports.searchTradeBydate = async(req,res)=>{
 
 exports.dateSrchFltr = async (req, res) => {
   await Alltrade.find({ date:req.params.date })
+ 
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 
-
+ 
 
 exports.getweekdaywisedata = async (req, res) => {
 
@@ -3413,8 +3415,10 @@ exports.getweekdaywisedata = async (req, res) => {
   console.log("date1",date1)
   const month = ("0" + (qq.getMonth() + 1)).slice(-2);
   const year = qq.getFullYear();
-let det= `${date1}-${month}-${year}`
-console.log("ffffff",det)
+//let det= `${date1}-${month}-${year}`
+ 
+
+//console.log("ffffff",det)
 
  let date2 = ("0" + qq.getDate()-1) ;
  console.log("DATE2",date2)
@@ -3442,11 +3446,15 @@ let det4= `${date4}-${month4}-${year4}`
 console.log("ffffff4",det4)
 
 let d = new Date();
+let ddd =d.toLocaleDateString()
 console.log('Today is: ' + d.toLocaleDateString());
 d.setDate(d.getDate() - 3);
 console.log('3 days ago was: ' + d.toLocaleDateString());
 
- 
+var tomorrow = moment(ddd).format('MM-DD-YYYY');
+console.log("DDD",tomorrow)
+var fDate = moment(ddd).format('DD-MM-YYYY');
+console.log("FDATE",fDate)
 
 // let sevendayago = today.setDate(today.getDate() - 1);
 // console.log("7",new Date(sevendayago));
@@ -3489,6 +3497,7 @@ console.log('3 days ago was: ' + d.toLocaleDateString());
 
   let todaydata = await TradeHistory.find({ date:new Date(onedayago) })
   console.log("TODAY",today)
+
    
 
   let twodayago = today.setDate(today.getDate() - 1);
@@ -3649,7 +3658,7 @@ exports.today_profit_loss = async (req, res) => {
     const date = ("0" + t.getDate()).slice(-2);
     const month = ("0" + (t.getMonth() + 1)).slice(-2);
     const year = t.getFullYear();
-    return `${date}/${month}/${year}`;
+    return `${date}-${month}-${year}`;
   };
   let de = getCurrentDate()
   console.log("DE",de)
