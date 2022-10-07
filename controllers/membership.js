@@ -1059,7 +1059,7 @@ exports.addMemeberShip = async (req, res) => {
 {
 //console.log(data)
 //let x = data.get
-let x = await Membership.findOne({userid: req.body.userid })
+let x = await Membership.findOne({userid: req.userId })
 console.log(x)
 // var newarr = x.map(function (value) {
 //   return value.hasSubscribed
