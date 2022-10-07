@@ -1087,40 +1087,45 @@ exports.ttlfreeusers = async (req, res) => {
 exports.membershipPayment = async (req, res) => {
   // await membershipplan.remove();
  const getdata= await Membership
-    .find()
-   // console.log("data",getdata)
-     
+    .find({ $and:[{"razorpay_payment_id": {$ne: ''  }},{"razorpay_payment_id":{ $ne: undefined }}] }).populate("userid").populate("planId")
+   // console.log("STRING",getdata)
+    .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error))
+    
+   // { $ne: null }
+  // "razorpay_payment_id" : { $ne: undefined  },
+  // $and:[{seller: req.sellerId},{name: name}]}
 
-    var newarr = getdata.map(function (value) {
-      return value.razorpay_payment_id;
+  //   var newarr = getdata.map(function (value) {
+  //     return value.razorpay_payment_id,value
 
 
-    });
-    console.log("data",newarr);
+  //   });
+  //   console.log("data",newarr);
 
-    let store = newarr
+  //   let store = newarr
 
-    datas = store.filter(function( element ) {
-      return element !== undefined;
-   });
-   console.log("data",datas)
+  //   datas = store.filter(function( element ) {
+  //     return element !== undefined;
+  //  });
+  //  console.log("data",datas)
 
-   // console.log("STORE",store)
+  //  // console.log("STORE",store)
    
-   if(datas){
-    res.status(200).json({
-      status: true,
-          msg: "success",
-          data : datas
+  //  if(datas){
+  //   res.status(200).json({
+  //     status: true,
+  //         msg: "success",
+  //         data : datas
          
-    })
-   }else {
-    res.status(400).json({
-      status: true,
-          msg: "success",
-          data : datas
-    })
-   }
+  //   })
+  //  }else {
+  //   res.status(400).json({
+  //     status: true,
+  //         msg: "success",
+  //         data : datas
+  //   })
+  //  }
 
     
 
