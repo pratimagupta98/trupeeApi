@@ -3868,3 +3868,120 @@ let sl = findone.SL
   }
   
 }
+
+
+//maunally t4,t6,t7
+
+
+exports.weekely_profit_loss = async (req, res) => {
+  let d = new Date();
+  console.log('Today is: ' + d.toLocaleDateString());
+  var today = moment(d).format('DD-MM-YYYY');
+  console.log("Today",today)
+var onedayago = d.setDate(d.getDate() -1)
+//console.log("ONE DAY AGO",onedayago)
+var onedayagodate =moment(onedayago).format('DD-MM-YYYY')
+console.log("onedayagodate",onedayagodate)
+
+let dd =new Date();
+var twodayago = dd.setDate(dd.getDate()-2)
+var twodayagodate = moment(twodayago).format('DD-MM-YYYY')
+console.log("twodayagodate",twodayagodate)
+
+let ddd = new Date()
+var threedayago = ddd.setDate(ddd.getDate()-3)
+var threedayagodate = moment(threedayago).format('DD-MM-YYYY')
+console.log("threedayagodate",threedayagodate)
+
+
+let dddd = new Date()
+var fourdayago = dddd.setDate(dddd.getDate()-4)
+var fourdayagodate = moment(fourdayago).format('DD-MM-YYYY')
+console.log("fourdayagodate",fourdayagodate)
+
+let ddddd = new Date()
+var fivedayago = ddddd.setDate(ddddd.getDate()-5)
+var fivedayagodate = moment(fivedayago).format('DD-MM-YYYY')
+console.log("fivedayagodate",fivedayagodate)
+
+let dddddd = new Date()
+var sixdayago = dddddd.setDate(dddddd.getDate()-6)
+var sixdayagodate = moment(sixdayago).format('DD-MM-YYYY')
+console.log("sixdayagodate",sixdayagodate)
+
+// let ddddddd = new Date()
+// var svendayago = ddddddd.setDate(ddddddd.getDate()-7)
+// var sevendayagodate = moment(svendayago).format('DD-MM-YYYY')
+// console.log("sevendayagodate",sevendayagodate)
+
+  // console.log('Today is: ' + d.toLocaleDateString());
+  // d.setDate(d.getDate() - 3);
+  // console.log('3 days ago was: ' + d.toLocaleDateString());
+  
+  // var tomorrow = moment(d).format('DD-MM-YYYY');
+  // console.log("DDD",tomorrow)
+  // var fDate = moment(d).format('DD-MM-YYYY');
+  // console.log("FDATE",fDate)
+
+
+  // || onedayagodate || twodayagodate || threedayago || fourdayagodate || fivedayagodate || sixdayagodate
+  let getdate= await Alltrade.find({ date:today })
+  console.log("TODAY",today)
+  let getdate1= await Alltrade.find({ date:onedayagodate })
+  console.log("onedayagodate",getdate1)
+
+  let getdate2= await Alltrade.find({ date:twodayagodate })
+  console.log("twodayagodate",getdate2)
+
+  let getdate3= await Alltrade.find({ date:threedayagodate })
+  console.log("threedayagodate",getdate3)
+
+  let getdate4= await Alltrade.find({ date:fourdayagodate })
+  console.log("fourdayagodate",getdate4)
+
+  let getdate5= await Alltrade.find({ date:fivedayagodate })
+  console.log("fivedayagodate",getdate5)
+
+  let getdate6= await Alltrade.find({ date:sixdayagodate })
+  console.log("sixdayagodate",getdate6)
+
+  console.log("TODAY",today)
+if(getdate){
+var newarr = getdate.map(function (value) {
+    return value.pl;
+  });
+  console.log(newarr);
+  let sumprofit = _.sumBy([...newarr]);
+  console.log(sumprofit); 
+
+
+  var newarr2 = getdate.map(function (value) {
+    return value.loss;
+  });
+  console.log(newarr2);
+   
+   sumloss = _.sumBy([...newarr2]);
+    
+  console.log(sumloss);
+  
+let total_prft_loss = 0;
+  total_prft_loss =sumprofit + sumloss
+  console.log("TOTAL PROFIT LOSS",total_prft_loss)
+
+  res.status(200).json({
+    status:true,
+    msg:"success",
+    date :today,
+    Profit:sumprofit,
+    Loss:sumloss,
+    total_prft_loss:total_prft_loss
+
+})
+}else{
+  res.status(400).json({
+    status:false,
+    msg:"error",
+    error:"error"
+})
+}
+}

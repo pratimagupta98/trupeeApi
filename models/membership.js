@@ -41,6 +41,10 @@ const membershipplan = new Schema(
       type:String,
       default:"Active"
     },
+    mem_status:{
+      type:String,
+      default:"false"
+    },
     razorpay_payment_id:{
       type:String
     },

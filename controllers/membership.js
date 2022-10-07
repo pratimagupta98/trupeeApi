@@ -26,7 +26,7 @@ let det= `${year}-${month}-${date1}`
 console.log("ffffff",det)
 
 
-  const { userid, transaction_id, date, planId ,expdate} = req.body;
+  const { userid, transaction_id, date, planId ,mem_status,expdate} = req.body;
   let member = await Membership.findOne({
     $and: [{ userid: userid }, { planId: planId }],
   });
@@ -41,28 +41,65 @@ console.log("ffffff",det)
       date: getCurrentDate(),
       transaction_id: transaction_id,
       planId: planId,
-     
+      mem_status:mem_status,
      expdate:det,
    //  status:status
     });
 
     newMembership
       .save()
+      .then(async(data)=>{
+        if(data.get("razorpay_payment_id") != undefined || data.get("razorpay_payment_id") !=null || data.get("razorpay_payment_id") || data.get //("razorpay_payment_id").length <=0 )
+        )
+   {
+  //console.log(data)
+  //let x = data.get
+  let x = await Membership.findOne({userid: req.body.userid })
+  console.log(x)
+  // var newarr = x.map(function (value) {
+  //   return value.hasSubscribed
+  // })
+  //let bb = x.map(hasSubscribed)
+  // let z = x.hasSubscribed
+   //console.log("ABC",z)
+  
+  
+  console.log("string",x)
+    if(x){
+      const y = await Membership.findOneAndUpdate(
+              { razorpay_payment_id:req.body.razorpay_payment_id },
+              { $set: { mem_status: "true" } },
+              { new: true }
+      )
+      // console.log("bunny",x)
+       //console.log(y)
+      // console.log("true", y);
       .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: data,
-        });
+      res.status(200).json({
+        status: true,
+            msg: "success",
+            date : x
+           // date : 
+          //  data: data,
+          // seller:y
       })
-      .catch((error) => {
+       }) .catch((error) => {
         res.status(400).json({
           status: false,
           msg: "error",
           error: error,
         });
       });
-  }
+       console.log("x",x)
+     
+       //     console.log(y)
+      //     console.log("true", y);
+    } 
+        }
+        
+      })
+         }
+ 
 //}
 exports.allmembership = async (req, res) => {
   // await membershipplan.remove();
@@ -1016,8 +1053,57 @@ exports.addMemeberShip = async (req, res) => {
  
   newMembership
   .save()
-  .then((data) => resp.successr(res, data))
-  .catch((error) => resp.errorr(res, error))
+  .then(async(data)=>{
+    if(data.get("razorpay_payment_id") != undefined || data.get("razorpay_payment_id") !=null || data.get("razorpay_payment_id") || data.get //("razorpay_payment_id").length <=0 )
+    )
+{
+//console.log(data)
+//let x = data.get
+let x = await Membership.findOne({userid: req.body.userid })
+console.log(x)
+// var newarr = x.map(function (value) {
+//   return value.hasSubscribed
+// })
+//let bb = x.map(hasSubscribed)
+// let z = x.hasSubscribed
+//console.log("ABC",z)
+
+
+console.log("string",x)
+if(x){
+  const y = await Membership.findOneAndUpdate(
+          { razorpay_payment_id:req.body.razorpay_payment_id },
+          { $set: { mem_status: "true" } },
+          { new: true }
+  )
+  // console.log("bunny",x)
+   //console.log(y)
+  // console.log("true", y);
+  .then((data) => {
+  res.status(200).json({
+    status: true,
+        msg: "success",
+        date : x
+       // date : 
+      //  data: data,
+      // seller:y
+  })
+   }) .catch((error) => {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
+    });
+  });
+   console.log("x",x)
+ 
+   //     console.log(y)
+  //     console.log("true", y);
+} 
+    }
+    
+  })
+  //.catch((error) => resp.errorr(res, error))
 
 
   let planid= await Plan.findOne({_id:req.body.planId})
@@ -1033,7 +1119,7 @@ exports.addMemeberShip = async (req, res) => {
   { new: true }
 
 ).populate("planId")
-console.log("QURRRR",qur)
+//console.log("QURRRR",qur)
   
 }
 
@@ -1084,11 +1170,51 @@ exports.ttlfreeusers = async (req, res) => {
 
 
 
+exports.membershipPayment = async (req, res) => {
+  // await membershipplan.remove();
+ const getdata= await Membership
+    .find()
+   // console.log("data",getdata)
+     
+
+    var newarr = getdata.map(function (value) {
+      return value.razorpay_payment_id;
 
 
+    });
+    console.log("data",newarr);
+
+    let store = newarr
+
+    datas = store.filter(function( element ) {
+      return element !== undefined;
+   });
+   console.log("datas",datas)
+
+   // console.log("STORE",store)
+   
+   if(datas){
+    res.status(200).json({
+      status: true,
+          msg: "success",
+          data :datas
+         
+    })
+   }else {
+    res.status(400).json({
+      status: false,
+          msg: "error",
+          error : "error"
+    })
+   }
+
+    
 
 
+}
 
+
+ 
 
 
 
