@@ -1083,7 +1083,7 @@ if(x){
   res.status(200).json({
     status: true,
         msg: "success",
-        date : x
+        data : x
        // date : 
       //  data: data,
       // seller:y
