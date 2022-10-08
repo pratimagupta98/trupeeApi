@@ -1012,7 +1012,7 @@ const FT1tym = new Date().toString()
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus, } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,FT4time:FT4tym } },
 
       //{ $set: {status:"success"} },
       { new: true }
