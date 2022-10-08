@@ -249,8 +249,16 @@ exports.add_fnoIndex = async (req, res) => {
 
 exports.add_fnoEquity = async (req, res) => {
 
-  const { script_type, fnoequty_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_typet, t5, t5_type, qty, no_of_lots, pl_type, profit_loss_amt, expiryDate, type, status, cstmMsg } = req.body;
+  const { script_type, fnoequty_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_typet, t5, t5_type, qty, no_of_lots, pl_type, profit_loss_amt, expiryDate, type, status, cstmMsg,date } = req.body;
 
+  let getCurrentDate = function () {
+    const t = new Date();
+    const date = ("0" + t.getDate()).slice(-2);
+    const month = ("0" + (t.getMonth() + 1)).slice(-2);
+    const year = t.getFullYear();
+    return `${date}-${month}-${year}`;
+  };
+  console.log("DATE",getCurrentDate())
 
   investment_amt = (req.body.qty * 150) * (req.body.active_value)
   console.log("InvestAMT", investment_amt)
@@ -285,7 +293,8 @@ exports.add_fnoEquity = async (req, res) => {
     expiryDate: expiryDate,
     type: type,
     status: status,
-    cstmMsg: cstmMsg
+    cstmMsg: cstmMsg,
+    date:getCurrentDate()
 
   });
 
@@ -859,51 +868,84 @@ exports.AppCashList = async (req, res) => {
 
 
 exports.editfnoOption = async (req, res) => {
-  const { qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg } = req.body
+  const { fnoindex_scrpt_name,trade_type,qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,slTime, } = req.body
 
+  let findone = await Alltrade.findOne({ _id: req.params.id })
+  let invest_amt = findone.investment_amt
+  console.log("INVESTAMT",invest_amt)
+  let Qty =findone.qty
+  console.log("QTY",Qty)
+  let Av1 = findone.active_value
+console.log("Av1",Av1)
+let active_value2 = findone.active_value2
+console.log("Av2",active_value2)
+
+let t1 = findone.T1
+console.log("T1",t1)
+let t2 = findone.T2
+console.log("T2",t2)
+
+let t3 = findone.T3
+console.log("T3",t3)
+let t4 = findone.T4
+console.log("T4",t4)
+
+let T5 = findone.t5
+console.log("T4",T5)
+ 
+const FT1tym = new Date().toString()
+      console.log("FT1tym",FT1tym)
+
+      const FT2tym = new Date().toString()
+           console.log("FT2tym",FT2tym)
+           const FT3tym = new Date().toString()
+           console.log("FT3tym",FT2tym)
+           const FT4tym = new Date().toString()
+           console.log("FT4tym",FT4tym)
+           const FT5tym = new Date().toString()
+           console.log("FT5tym",FT5tym)
+           const FT6tym = new Date().toString()
+           console.log("FT6tym",FT6tym)
+           const FT7tym = new Date().toString()
+           console.log("FT7tym",FT7tym)
 
 
   if (sl_type == "true") {
-    investment_amt = (req.body.qty * 150) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
+    let sl = findone.SL
+    
 
-
-
-
-    pl = (req.body.qty * 150) * (req.body.SL - req.body.active_value)
+    pl = Qty * (sl- Av1)
     console.log("PL", pl)
 
-    pl_per = (pl / investment_amt * 100).toFixed(2);
+    pl_per = (pl / invest_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
-
+    const sltym = new Date().toString()
+    console.log("isodate",sltym)
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { SL,tradeStatus: "Closed", sl_type: "true", T1, t1_type: "false", T2, t2_type: "false", T3, t3_type: "false", T4, t4_type: "false", pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg } },
+      { $set: { SL,tradeStatus: "Closed", sl_type: "true", pl_per, pl, status,cstmMsg,slTime:sltym } },
 
       //{ $set: {status:"success"} },
       { new: true }
-
     )
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   } else if (t1_type == "true") {
-    investment_amt = (req.body.qty * 150) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
-
-
-    pl = (req.body.qty * 150) * (req.body.T1 - req.body.active_value)
+    
+    
+    pl = (Qty * 150) * (t1 -Av1 )
     console.log("PL", pl)
 
-    pl_per = (pl / investment_amt * 100).toFixed(2);
+    pl_per = (pl / invest_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,} },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,FT1time:FT1tym} },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -914,21 +956,18 @@ exports.editfnoOption = async (req, res) => {
 
   } else if (t2_type == "true") {
 
-    investment_amt = (req.body.qty * 150) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
-
-
-    pl = (req.body.qty * 150) * (req.body.T2 - req.body.active_value)
+    pl = (Qty * 150) * (t2 -Av1 )
     console.log("PL", pl)
 
-    pl_per = (pl / investment_amt * 100).toFixed(2);
+    pl_per = (pl / invest_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
+
 
 
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg ,tradeStatus:req.body.tradeStatus,} },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg ,tradeStatus:req.body.tradeStatus,FT2time:FT2tym} },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -938,21 +977,18 @@ exports.editfnoOption = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
 
   } else if (t3_type == "true") {
-    investment_amt = (req.body.qty * 150) * (req.body.active_value)
-    console.log("InvestAMT", investment_amt)
-
-
-    pl = (req.body.qty * 150) * (req.body.T3 - req.body.active_value)
+    
+    pl = (Qty * 150) * (t3 -Av1 )
     console.log("PL", pl)
 
-    pl_per = (pl / investment_amt * 100).toFixed(2);
+    pl_per = (pl / invest_amt * 100).toFixed(2);
     console.log("PL%%%%", pl_per)
 
 
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus, } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, investment_amt, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,FT3time:FT3tym } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -1333,7 +1369,7 @@ exports.ttlCompletetrade = async (req, res) => {
 };
 
 exports.completedTrade = async (req, res) => {
-  await Alltrade.find({ status: "Closed" })
+  await Alltrade.find({ tradeStatus: "Closed" })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -3609,22 +3645,7 @@ console.log("FDATE",fDate)
   //   ]
   // });
 
-  res.json({
-    onedayagoweekday: new Date(onedayago).getDay(),
-    onedayagocalls: onedayagocount,
-    twodayagoweekday: new Date(twodayago).getDay(),
-    twodayagocalls: twodayagocount,
-    threedayagoweekday: new Date(threedayago).getDay(),
-    threedayagocalls: threedayagocount,
-    fourdayagoweekday: new Date(fourdayago).getDay(),
-    fourdayagocalls: fourdayagocount,
-    fivedayagoweekday: new Date(fivedayago).getDay(),
-    fivedayagocalls: fivedayagocount,
-    sixdayagoweekday: new Date(sixdayago).getDay(),
-    sixdayagocalls: sixdayagocount,
-    sevendayagoweekday: new Date(sevendayago).getDay(),
-    sevendayagocalls: sevendayagocount
-  });
+  
 
    
   
