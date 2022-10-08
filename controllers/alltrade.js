@@ -3633,57 +3633,90 @@ console.log("FDATE",fDate)
 
 
 exports.today_profit_loss = async (req, res) => {
-    let getCurrentDate = function () {
-    const t = new Date();
-    const date = ("0" + t.getDate()).slice(-2);
-    const month = ("0" + (t.getMonth() + 1)).slice(-2);
-    const year = t.getFullYear();
-    return `${date}-${month}-${year}`;
-  };
-  let de = getCurrentDate()
-  console.log("DE",de)
- let today = await TradeHistory.find({ date:de })
-  console.log("TODAY",today)
+//     let getCurrentDate = function () {
+//     const t = new Date();
+//     const date = ("0" + t.getDate()).slice(-2);
+//     const month = ("0" + (t.getMonth() + 1)).slice(-2);
+//     const year = t.getFullYear();
+//     return `${date}-${month}-${year}`;
+//   };
+//   let de = getCurrentDate()
+//   console.log("DE",de)
+//  let today = await TradeHistory.find({ date:de })
+//   console.log("TODAY",today)
    
+
+let d = new Date();
+console.log('Today is: ' + d.toLocaleDateString());
+var today = moment(d).format('DD-MM-YYYY');
+console.log("Today",today)
  
- if(today){
-  var newarr = today.map(function (value) {
-      return value.pl;
-    });
-    console.log(newarr);
-    let sumprofit = _.sumBy([...newarr]);
-    console.log(sumprofit); 
-
-
-    var newarr2 = today.map(function (value) {
-      return value.loss;
-    });
-    console.log(newarr2);
-     
-     sumloss = _.sumBy([...newarr2]);
-      
-    console.log(sumloss);
+  let getdate= await Alltrade.find({ date:today })
+  console.log("TODAY",today)
+  
+    var newarrToday = getdate.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarrToday);
+       sumprofit = _.sumBy([...newarrToday]);
+      console.log("Today PROFIT",sumprofit); 
     
- let total_prft_loss = 0;
-    total_prft_loss =sumprofit + sumloss
-    console.log("TOTAL PROFIT LOSS",total_prft_loss)
+    
+      var newarrToday = getdate.map(function (value) {
+        return value.loss;
+      });
+      console.log("New Array",newarrToday);
+       
+       sumloss = _.sumBy([...newarrToday]);
+        
+      console.log("LOSS",sumloss);
+      
+    let total_prft_loss = 0;
+      total_prft_loss =sumprofit + sumloss
+      console.log("ajj ka TOTAL PROFIT LOSS",total_prft_loss)
+   
+      res.status(200).json({
+        status:true,
+       msg:"success",
+        sumprofit:sumprofit,
+        sumloss:sumloss,
+        total_prft_loss:total_prft_loss
+      
+      })
+ 
+//   var newarr = today.map(function (value) {
+//       return value.pl;
+//     });
+//     console.log(newarr);
+//     let sumprofit = _.sumBy([...newarr]);
+//     console.log(sumprofit); 
 
-    res.status(200).json({
-      status:true,
-      msg:"success",
-      date :de,
-      Profit:sumprofit,
-      Loss:sumloss,
-      total_prft_loss:total_prft_loss
 
-  })
-  }else{
-    res.status(400).json({
-      status:false,
-      msg:"error",
-      error:"error"
-  })
-  }
+//     var newarr2 = today.map(function (value) {
+//       return value.loss;
+//     });
+//     console.log(newarr2);
+     
+//      sumloss = _.sumBy([...newarr2]);
+      
+//     console.log(sumloss);
+    
+//  let total_prft_loss = 0;
+//     total_prft_loss =sumprofit + sumloss
+//     console.log("TOTAL PROFIT LOSS",total_prft_loss)
+
+//     res.status(200).json({
+//       status:true,
+//       msg:"success",
+//       date :de,
+//       Profit:sumprofit,
+//       Loss:sumloss,
+//       total_prft_loss:total_prft_loss
+
+//   })
+  
+  
+  
 }
 
   
@@ -3890,37 +3923,118 @@ var sixdayago = dddddd.setDate(dddddd.getDate()-6)
 var sixdayagodate = moment(sixdayago).format('DD-MM-YYYY')
 console.log("sixdayagodate",sixdayagodate)
 
-// let ddddddd = new Date()
-// var svendayago = ddddddd.setDate(ddddddd.getDate()-7)
-// var sevendayagodate = moment(svendayago).format('DD-MM-YYYY')
-// console.log("sevendayagodate",sevendayagodate)
-
-  // console.log('Today is: ' + d.toLocaleDateString());
-  // d.setDate(d.getDate() - 3);
-  // console.log('3 days ago was: ' + d.toLocaleDateString());
-  
-  // var tomorrow = moment(d).format('DD-MM-YYYY');
-  // console.log("DDD",tomorrow)
-  // var fDate = moment(d).format('DD-MM-YYYY');
-  // console.log("FDATE",fDate)
-
-
-  // || onedayagodate || twodayagodate || threedayago || fourdayagodate || fivedayagodate || sixdayagodate
-  let getdate= await Alltrade.find({ date:today })
+   let getdate= await Alltrade.find({ date:today })
   console.log("TODAY",today)
+  
+    var newarrToday = getdate.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarrToday);
+       sumprofit = _.sumBy([...newarrToday]);
+      console.log("Today PROFIT",sumprofit); 
+    
+    
+      var newarrToday = getdate.map(function (value) {
+        return value.loss;
+      });
+      console.log("New Array",newarrToday);
+       
+       sumloss = _.sumBy([...newarrToday]);
+        
+      console.log("LOSS",sumloss);
+      
+    let total_prft_loss = 0;
+      total_prft_loss =sumprofit + sumloss
+      console.log("ajj ka TOTAL PROFIT LOSS",total_prft_loss)
+    
+     
+    
+
+
   let getdate1= await Alltrade.find({ date:onedayagodate })
   console.log("onedayagodate",getdate1)
+  
+    var newarr1 = getdate1.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarr1);
+      let sumprofit1 = _.sumBy([...newarr1]);
+      console.log("PROFIT11",sumprofit1); 
+    
+    
+      var newarr1 = getdate1.map(function (value) {
+        return value.loss;
+      });
+      console.log("New Array",newarr1);
+       
+       sumloss1 = _.sumBy([...newarr1]);
+        
+      console.log("LOSS11",sumloss1);
+      
+    let total_prft_loss1 = 0;
+      total_prft_loss1 =sumprofit1 + sumloss1
+      console.log("TOTAL PROFIT LOSS",total_prft_loss1)
+     
+    
 
   let getdate2= await Alltrade.find({ date:twodayagodate })
   console.log("twodayagodate",getdate2)
+  
+    var newarr2 = getdate2.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarr2);
+      let sumprofit2 = _.sumBy([...newarr2]);
+      console.log("PROFIT",sumprofit2); 
+    
+    
+      var newarr2 = getdate2.map(function (value) {
+        return value.loss;
+      });
+      console.log(newarr2);
+       
+       sumloss2 = _.sumBy([...newarr2]);
+        
+      console.log("LOSS5",sumloss2);
+      
+    let total_prft_loss2 = 0;
+      total_prft_loss2 =sumprofit2 + sumloss2
+      console.log("TOTAL PROFIT LOSS",total_prft_loss2)
+    
+       
+    
 
   let getdate3= await Alltrade.find({ date:threedayagodate })
   console.log("threedayagodate",getdate3)
+  
+    var newarr3 = getdate3.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarr3);
+      let sumprofit3 = _.sumBy([...newarr3]);
+      console.log("PROFIT",sumprofit3); 
+    
+    
+      var newarr3 = getdate3.map(function (value) {
+        return value.loss;
+      });
+      console.log(newarr3);
+       
+       sumloss3 = _.sumBy([...newarr3]);
+        
+      console.log("LOSS5",sumloss3);
+      
+    let total_prft_loss3 = 0;
+      total_prft_loss3 =sumprofit3 + sumloss3
+      console.log("TOTAL PROFIT LOSS",total_prft_loss3)
+    
+     
+    
 
   let getdate4= await Alltrade.find({ date:fourdayagodate })
   console.log("fourdayagodate",getdate4)
-
-  if(getdate4){
+  
+  
     var newarr4 = getdate4.map(function (value) {
         return value.pl;
       });
@@ -3942,21 +4056,13 @@ console.log("sixdayagodate",sixdayagodate)
       total_prft_loss4 =sumprofit4 + sumloss4
       console.log("TOTAL PROFIT LOSS",total_prft_loss4)
     
-      res.status(200).json({
-        status:true,
-        msg:"success",
-        date :today,
-        Profit:sumprofit4,
-        Loss:sumloss4,
-        total_prft_loss4:total_prft_loss4
+   
     
-    })
-    }
 
 
   let getdate5= await Alltrade.find({ date:fivedayagodate })
   console.log("fivedayagodate",getdate5)
-  if(getdate5){
+  
     var newarr5 = getdate5.map(function (value) {
         return value.pl;
       });
@@ -3978,57 +4084,55 @@ console.log("sixdayagodate",sixdayagodate)
       total_prft_loss5 =sumprofit5 + sumloss5
       console.log("TOTAL PROFIT LOSS",total_prft_loss5)
     
-      res.status(200).json({
-        status:true,
-        msg:"success",
-        date :today,
-        Profit:sumprofit5,
-        Loss:sumloss5,
-        total_prft_loss:total_prft_loss5
     
-    })
-    }
+    
 
   let getdate6= await Alltrade.find({ date:sixdayagodate })
   console.log("sixdayagodate",getdate6)
 
  // console.log("TODAY",today)
-if(getdate6){
 var newarr = getdate6.map(function (value) {
     return value.pl;
   });
   console.log("New Array",newarr);
-  let sumprofit = _.sumBy([...newarr]);
-  console.log("PROFIT",sumprofit); 
+  let sumprofit6 = _.sumBy([...newarr]);
+  console.log("PROFIT",sumprofit6); 
 
 
-  var newarr2 = getdate.map(function (value) {
+  var newarr6 = getdate.map(function (value) {
     return value.loss;
   });
   console.log(newarr2);
    
-   sumloss = _.sumBy([...newarr2]);
+   sumloss6 = _.sumBy([...newarr6]);
     
-  console.log("LOSS",sumloss);
+  console.log("LOSS",sumloss6);
   
-let total_prft_loss = 0;
-  total_prft_loss =sumprofit + sumloss
-  console.log("TOTAL PROFIT LOSS",total_prft_loss)
+let total_prft_loss6 = 0;
+  total_prft_loss =sumprofit6 + sumloss6
+  console.log("TOTAL PROFIT LOSS",total_prft_loss6)
 
-  res.status(200).json({
-    status:true,
-    msg:"success",
-    date :today,
-    Profit:sumprofit,
-    Loss:sumloss,
-    total_prft_loss:total_prft_loss
+
+  //let sumprofit = _.sumBy([...newarrToday]);
+ let total7daysprofit =  sumprofit + sumprofit1 + sumprofit2 +
+  sumprofit3 + sumprofit4 + sumprofit5 + sumprofit6
+ console.log("7 days ka Profit",total7daysprofit)
+
+let total7daysloss = sumloss + sumloss1 + sumloss2  + sumloss3 + sumloss4 + sumloss5 + sumloss6
+ 
+console.log("7 days ka loss ",total7daysloss)
+
+let weekly_profit_loss = total7daysprofit - total7daysloss
+console.log("WEEKLY LOSS PROFIT  ",weekly_profit_loss)
+
+res.status(200).json({
+  status:true,
+  msg:"success",
+  total7daysprofit:total7daysprofit,
+  total7daysloss:total7daysloss,
+  weekly_profit_loss:weekly_profit_loss
 
 })
-}else{
-  res.status(400).json({
-    status:false,
-    msg:"error",
-    error:"error"
-})
-}
+ 
+
 }
