@@ -1369,7 +1369,7 @@ exports.ttlCompletetrade = async (req, res) => {
 };
 
 exports.completedTrade = async (req, res) => {
-  await Alltrade.find({ tradeStatus: "Closed" })
+  await Alltrade.find({ tradeStatus: "Closed" }).populate("fnoequty_scrpt_name")
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
