@@ -3491,12 +3491,14 @@ console.log("FDATE",fDate)
   console.log(today);
   console.log(today.getDay());
 
+
   let onedayago = today.setDate(today.getDate() - 1);
   console.log("ONE",new Date(onedayago));
   console.log("1",new Date(onedayago).getDay());
 
   let todaydata = await TradeHistory.find({ date:new Date(onedayago) })
-  console.log("TODAY",today)
+  console.log("TODAY",todaydata)
+  
 
    
 
@@ -3624,31 +3626,9 @@ console.log("FDATE",fDate)
     sevendayagocalls: sevendayagocount
   });
 
-  // let year = "2021";
-  // let month = "12";
-  // let day = "08";
-  // let inputdate = `${year}-${month}-${day} 22:50:20`
-  // var k = new Date("2021-12-07 22:50:20");
-  // day = k.getDay();
-
-  // //dateto
-
-  // await Cdrreport.count({
-  //   $and: [
-  //     { caller_id_name: "2581" },
-  //     {
-  //       created_time: {
-  //         $gte: "2021-12-07 22:50:20",
-  //         $lt: "2021-12-08 22:50:20"
-  //       },
-  //     },
-  //   ],
-  // })
-  //   .then((data) => res.json({
-  //     "Total":data,
-  //     "Tuesday":day
-  //   }))
-  //   .catch((error) => resp.errorr(res, error));
+   
+  
+ 
 };
 
 
@@ -3878,6 +3858,7 @@ exports.weekely_profit_loss = async (req, res) => {
   console.log('Today is: ' + d.toLocaleDateString());
   var today = moment(d).format('DD-MM-YYYY');
   console.log("Today",today)
+
 var onedayago = d.setDate(d.getDate() -1)
 //console.log("ONE DAY AGO",onedayago)
 var onedayagodate =moment(onedayago).format('DD-MM-YYYY')
@@ -3939,20 +3920,86 @@ console.log("sixdayagodate",sixdayagodate)
   let getdate4= await Alltrade.find({ date:fourdayagodate })
   console.log("fourdayagodate",getdate4)
 
+  if(getdate4){
+    var newarr4 = getdate4.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarr4);
+      let sumprofit4 = _.sumBy([...newarr4]);
+      console.log("PROFIT",sumprofit4); 
+    
+    
+      var newarr4 = getdate4.map(function (value) {
+        return value.loss;
+      });
+      console.log(newarr4);
+       
+       sumloss4 = _.sumBy([...newarr4]);
+        
+      console.log("LOSS5",sumloss4);
+      
+    let total_prft_loss4 = 0;
+      total_prft_loss4 =sumprofit4 + sumloss4
+      console.log("TOTAL PROFIT LOSS",total_prft_loss4)
+    
+      res.status(200).json({
+        status:true,
+        msg:"success",
+        date :today,
+        Profit:sumprofit4,
+        Loss:sumloss4,
+        total_prft_loss4:total_prft_loss4
+    
+    })
+    }
+
+
   let getdate5= await Alltrade.find({ date:fivedayagodate })
   console.log("fivedayagodate",getdate5)
+  if(getdate5){
+    var newarr5 = getdate5.map(function (value) {
+        return value.pl;
+      });
+      console.log("New Array",newarr5);
+      let sumprofit5 = _.sumBy([...newarr5]);
+      console.log("PROFIT",sumprofit5); 
+    
+    
+      var newarr5 = getdate5.map(function (value) {
+        return value.loss;
+      });
+      console.log(newarr5);
+       
+       sumloss5 = _.sumBy([...newarr5]);
+        
+      console.log("LOSS5",sumloss5);
+      
+    let total_prft_loss5 = 0;
+      total_prft_loss5 =sumprofit5 + sumloss5
+      console.log("TOTAL PROFIT LOSS",total_prft_loss5)
+    
+      res.status(200).json({
+        status:true,
+        msg:"success",
+        date :today,
+        Profit:sumprofit5,
+        Loss:sumloss5,
+        total_prft_loss:total_prft_loss5
+    
+    })
+    }
 
   let getdate6= await Alltrade.find({ date:sixdayagodate })
   console.log("sixdayagodate",getdate6)
 
-  console.log("TODAY",today)
-if(getdate){
-var newarr = getdate.map(function (value) {
+ // console.log("TODAY",today)
+if(getdate6){
+var newarr = getdate6.map(function (value) {
     return value.pl;
   });
-  console.log(newarr);
+  console.log("New Array",newarr);
   let sumprofit = _.sumBy([...newarr]);
-  console.log(sumprofit); 
+  console.log("PROFIT",sumprofit); 
 
 
   var newarr2 = getdate.map(function (value) {
@@ -3962,7 +4009,7 @@ var newarr = getdate.map(function (value) {
    
    sumloss = _.sumBy([...newarr2]);
     
-  console.log(sumloss);
+  console.log("LOSS",sumloss);
   
 let total_prft_loss = 0;
   total_prft_loss =sumprofit + sumloss

@@ -1194,3 +1194,15 @@ exports.membershipPayment = async (req, res) => {
 // .catch((error) => resp.errorr(res, error))
 // }
 // }
+
+exports.UsermembershipPayment = async (req, res) => {
+  // await membershipplan.remove();
+ const getdata= await Membership
+    .find({ $and:[{userid:req.userId},{"razorpay_payment_id": {$ne: ''  }},{"razorpay_payment_id":{ $ne: undefined }}] }).populate("userid").populate("planId")
+   // console.log("STRING",getdata)
+    .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error))
+  
+
+
+}
