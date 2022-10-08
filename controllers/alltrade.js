@@ -4136,3 +4136,51 @@ res.status(200).json({
  
 
 }
+
+
+exports.monthly_profit_loss = async (req, res) => {
+ 
+     
+  
+  let d = new Date();
+  console.log('Today is: ' + d.toLocaleDateString());
+  var today = moment(d).format('DD-MM-YYYY');
+  console.log("Today",today)
+
+
+  let dddddd = new Date()
+  var T30dayago = dddddd.setDate(dddddd.getDate()-30)
+  var T30dayagodate = moment(T30dayago).format('DD-MM-YYYY')
+  console.log("30 Days ago Date",T30dayagodate)
+
+  let gdate= await Alltrade.find({ "$or": [
+    { "$gte": [ T30dayagodate] },
+    { "$lte": [ today] }
+  ] })
+  console.log("GGGGTODAY",gdate)
+
+  var newarr30day = gdate.map(function (value) {
+          return value.pl;
+        });
+        console.log("New Array",newarr30day);
+         sumprofit30days = _.sumBy([...newarr30day]);
+        console.log("30 Days PROFIT",sumprofit30days); 
+
+        var new30dayloss = gdate.map(function (value) {
+          return value.loss;
+        });
+        console.log("New Array",new30dayloss);
+         thirtydaysloss = _.sumBy([...new30dayloss]);
+        console.log("30 Days loss",thirtydaysloss); 
+
+        let thirtydays_prft_loss = sumprofit30days + thirtydaysloss
+        console.log("thirtydays_prft_loss",thirtydays_prft_loss)
+  
+        res.status(200).json({
+          status:true,
+          msg:"success",
+          sumprofit30days:sumprofit30days,
+          thirtydaysloss:thirtydaysloss,
+          thirtydays_prft_loss:thirtydays_prft_loss
+        })
+  }
