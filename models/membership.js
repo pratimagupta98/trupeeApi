@@ -9,8 +9,6 @@ const membershipplan = new Schema(
       trim: true,
     },
     date: { type: String },
-
-
     transaction_id: {
       type: String,
       trim: true,
@@ -48,6 +46,13 @@ const membershipplan = new Schema(
     razorpay_payment_id:{
       type:String
     },
+    exp_free_mem:{
+      type:String,
+    default:"true"
+    },
+    mem_date:{
+      type:String,
+    }
   },
   { timestamps: true }
 );

@@ -868,7 +868,7 @@ exports.AppCashList = async (req, res) => {
 
 
 exports.editfnoOption = async (req, res) => {
-  const { fnoindex_scrpt_name,trade_type,qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,slTime, } = req.body
+  const { fnoindex_scrpt_name,trade_type,qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type,t6,t7, cstmMsg,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,slTime, } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   let invest_amt = findone.investment_amt
@@ -1110,7 +1110,7 @@ let update = await Alltrade.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5,t5_type:"true",t6_type:"true",t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym,FT6time:FT6tym,FT7time:FT7tym } },
+        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5:req.body.t5,t5_type:"true",t6:req.body.t6,t6_type:"true",t7:req.body.t7,t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym,FT6time:FT6tym,FT7time:FT7tym } },
       { new: true }
     )
     .then((data) => resp.successr(res, data))
@@ -1123,7 +1123,7 @@ let update = await Alltrade.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt6, status, t5,t5_type:"true",t6_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym,FT6time:FT6tym } },
+        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt6, status, t5:req.body.t5,t5_type:"true",t6:req.body.t6,t6_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym,FT6time:FT6tym } },
       { new: true }
     )
     .then((data) => resp.successr(res, data))
@@ -1138,7 +1138,7 @@ let update = await Alltrade.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5,t6_type:"true",t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT6time:FT6tym,FT7time:FT7tym } },
+        { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5,t6_type:"true",t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT6time:FT6tym,FT7time:FT7tym ,t6:req.body.t6,t7:req.body.t7} },
       { new: true }
     )
     .then((data) => resp.successr(res, data))
@@ -1166,7 +1166,7 @@ console.log("PLT5555",plt5)
     {
       _id: req.params.id,
     },
-      { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt6, status, t5,t6_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym } },
+      { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt6, status, t5,t6_type:"true",t6:req.body.t6,  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym } },
     { new: true }
   )
   .then((data) => resp.successr(res, data))
@@ -1181,7 +1181,7 @@ console.log("PLT5555",plt5)
     {
       _id: req.params.id,
     },
-      { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5,t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym } },
+      { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5,t7:req.body.t7,t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym } },
     { new: true }
   )
   .then((data) => resp.successr(res, data))
