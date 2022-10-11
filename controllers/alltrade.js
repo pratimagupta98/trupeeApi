@@ -1112,8 +1112,7 @@ let update = await Alltrade.findOneAndUpdate(
       },
         { $set: { t5_type:"true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl:plt7, status, t5:req.body.t5,t5_type:"true",t6:req.body.t6,t6_type:"true",t7:req.body.t7,t7_type:"true",  cstmMsg,tradeStatus:req.body.tradeStatus,FT5time:FT5tym,FT6time:FT6tym,FT7time:FT7tym } },
       { new: true }
-    )
-    .then((data) => resp.successr(res, data))
+    ) .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }else if(req.body.t5 && req.body.t6){
     plt6 = (Qty * 150) * (req.body.t6 - Av1 )
@@ -1172,8 +1171,8 @@ console.log("PLT5555",plt5)
   .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
  
-  console.log("ttttt",updateee)
-}else if(req.body.t7){
+  // console.log("ttttt",updateee)
+}else if (req.body.t7){
   plt7 = (Qty * 150) * (req.body.t7 - Av1 )
   console.log("PLT66",plt7)
 
@@ -1186,11 +1185,12 @@ console.log("PLT5555",plt5)
   )
   .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
-  console.log("TTTTT",updatee)
+  // console.log("TTTTT",updatee)
 
+  }  
   }
   
- }
+ 
 
 exports.editCash = async (req, res) => {
   const { qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, t5, t5_type, cstmMsg } = req.body
