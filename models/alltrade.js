@@ -29,7 +29,9 @@ const thisSchema = new Schema(
     sl_type: { type: String,
       default: "false"},
 
-
+sl_time:{
+  type: String,
+},
       slTime:{
         type: String,
         
@@ -41,12 +43,18 @@ const thisSchema = new Schema(
       type: String,
       default: "false"
     },
+    T1time:{
+      type: String,
+    },
     T2: {
       type: Number,
     },
     t2_type: {
       type: String,
       default: "false"
+    },
+    T2time:{
+      type: String,
     },
     T3: {
       type: Number,
@@ -55,6 +63,9 @@ const thisSchema = new Schema(
       type: String,
       default: "false"
     },
+    T3time:{
+      type: String,
+    },
     T4: {
       type: Number,
     },
@@ -62,27 +73,41 @@ const thisSchema = new Schema(
       type: String,
       default: "false"
     },
-    t5: {
+    T4time:{
+      type: String,
+    },
+    T5: {
       type: Number,
     },
-    t6:{
+    t5_type: {
+      type: String,
+      default: "false"
+    },
+    T5time:{
+      type: String,
+    },
+    T6:{
       type: Number,
     },
     t6_type: {
       type: String,
       default: "false"
     },
-    t7:{
+    T6time:{
+      type: String,
+    },
+    T7:{
       type: Number,
     },
+
     t7_type: {
       type: String,
       default: "false"
     },
-    t5_type: {
+    T7time:{
       type: String,
-      default: "false"
     },
+   
     trl: {
       type: Number,
     },
