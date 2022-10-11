@@ -2,7 +2,8 @@ const Membership = require("../models/membership");
 const User = require("../models/user");
 const Plan = require("../models/plan");
 const ReferEarn = require("../models/refer_earn");
- 
+const moment = require('moment');
+
 const resp = require("../helpers/apiResponse");
 const _ = require("lodash");
 const user = require("../models/user");
@@ -12,7 +13,7 @@ let getCurrentDate = function () {
   const date = ("0" + t.getDate()).slice(-2);
   const month = ("0" + (t.getMonth() + 1)).slice(-2);
   const year = t.getFullYear();
-  return `${year}-${month}-${date}`;
+  return `${date}-${month}-${year}`;
 };
  exports.addmembership = async (req, res) => {
   const t = new Date()
@@ -88,24 +89,48 @@ exports.allmembership = async (req, res) => {
 exports.viewonemembership = async (req, res) => {
 
 
-let getdetail= await Membership
-    .findOne({ _id: req.params.id })
-    .populate("planId")
-    .populate("userid")
-    console.log("ddd",getdetail.date)
-    dd = getdetail.date
 
-    //let dd =new Date();
-var aftersevenday = dd.setDate(dd.getDate()+7)
-console.log("dd",aftersevenday)
-// var twodayagodate = moment(twodayago).format('DD-MM-YYYY')
-console.log("twodayagodate",twodayagodate)
-    if(getdetail){
+  let getdetail= await Membership
+  .findOne({ _id: req.params.id })
+  //.populate("planId").populate("userid")
+ 
+  d = Date.now()
+  var today = moment(d).format('DD-MM-YYYY')
+  console.log("today",today)
+
+     // dtt =getdetail.date,
+      expdtt=  getdetail.expdate  //7
+     
+      console.log("expdtt", expdtt)
+
+      if(d = expdtt){
+
+        console.log("success")
+let x = await Membership.findOneAndUpdate(
+  { _id:req.params.id },
+  { $set: { exp_free_mem: "false" } },
+  { new: true }
+)
+.then((data) => resp.successr(res, data))
+.catch((error) => resp.errorr(res, error))
+
+      }else{
+        console.log("else")
+
+        res.status(200).json({
+          status:true,
+          message:"success",
+          data:getdetail
+        })
+      }
+
 
     }
-    // .then((data) => resp.successr(res, data))
-    // .catch((error) => resp.errorr(res, error));
- };
+
+  
+ 
+     
+ 
   
 
 
@@ -375,7 +400,10 @@ exports.addMemeberShip = async (req, res) => {
       const date1 = ("0" + qq.getDate()).slice(-2);
       const month = ("0" + (qq.getMonth() + 1)).slice(-2);
       const year = qq.getFullYear();
-    let det= `${year}-${month}-${date1}`
+    let det= `${date1}-${month}-${year}`
+
+
+
     console.log("ffffff",det)
     const newMembership = new Membership({
       userid: req.userId,
@@ -414,14 +442,23 @@ console.log("QURRRR",qur)
 
 exports.freeMembership= async (req, res) => {
   const {planId,type,} = req.body
+  let dd =new Date();
+  var days7= dd.setDate(dd.getDate()+8)
+  console.log("seven days after",days7)
+  var after7days = moment(days7).format('DD-MM-YYYY')
+  console.log("7 Days",after7days)
 
   const newMembership = new Membership({
     userid: req.userId,
   date: getCurrentDate(),
   
   planId: planId,
-  type:type
+  type:type,
+  expdate:after7days
 });
+
+
+
 const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: req.userId}]})
   if (findexist) {
     resp.alreadyr(res);

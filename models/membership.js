@@ -50,7 +50,7 @@ const membershipplan = new Schema(
       type:String,
     default:"true"
     },
-    mem_date:{
+    expdate:{
       type:String,
     }
   },

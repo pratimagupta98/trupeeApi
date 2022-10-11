@@ -35,14 +35,14 @@ exports.add_fnoIndex = async (req, res) => {
     console.log("InvestAMT", investment_amt)
     let av2 = parseInt(req.body.active_value) + parseInt(10)
     console.log(av2)
-    let SL = parseInt(req.body.active_value) - 20
-    let trl = parseInt(av2) + parseInt(10)
+    let SL = parseInt(req.body.active_value) - 30
+    let trl = parseInt(av2) + parseInt(20)
     console.log(trl)
-    let FT1 = parseInt(trl) + parseInt(20)
+    let FT1 = parseInt(trl) + parseInt(30)
     console.log("FT1", FT1)
-    let FT2 = parseInt(FT1) + parseInt(20)
+    let FT2 = parseInt(FT1) + parseInt(30)
     console.log("FT2", FT2)
-    let FT3 = parseInt(FT2) + parseInt(20)
+    let FT3 = parseInt(FT2) + parseInt(30)
     console.log("FT3", FT2)
 
     //  let today = new Date();
@@ -3829,37 +3829,7 @@ console.log("DDD",tomorrow)
 var fDate = moment(ddd).format('DD-MM-YYYY');
 console.log("FDATE",fDate)
 
-// let sevendayago = today.setDate(today.getDate() - 1);
-// console.log("7",new Date(sevendayago));
-// console.log("7",new Date(sevendayago).getDay());
-
-
-//   let getCurrentDate = function () {
-//     const t = new Date();
-//     const date = ("0" + t.getDate()).slice(-2);
-//     const month = ("0" + (t.getMonth() + 1)).slice(-2);
-//     const year = t.getFullYear();
-//     return `${date}-${month}-${year}`;
-//   };
-//   let de = getCurrentDate()
-//   console.log("DE",de)
-// // Declare and store the data into a variable
-// // Declare and store the data into a variable
-// const currDate =  getCurrentDate()
-// console.log("&&",currDate)
-// // Prints the UNIX epoch
-// console.log("Unix time stamp of current date", currDate);
-// var time = currDate.setDate(de)
-// console.log("^^^^^",time)
-// // Converts timestamp into Date Object
-// const dt = new Date(currDate)
-// console.log("****",dt)
-// // Print the day of the month
-// console.log("###",dt.getDate())
-
  
- 
-
   let today = new Date();
   console.log(today);
   console.log(today.getDay());
@@ -3991,17 +3961,8 @@ console.log("FDATE",fDate)
 
 
 exports.today_profit_loss = async (req, res) => {
-//     let getCurrentDate = function () {
-//     const t = new Date();
-//     const date = ("0" + t.getDate()).slice(-2);
-//     const month = ("0" + (t.getMonth() + 1)).slice(-2);
-//     const year = t.getFullYear();
-//     return `${date}-${month}-${year}`;
-//   };
-//   let de = getCurrentDate()
-//   console.log("DE",de)
-//  let today = await TradeHistory.find({ date:de })
-//   console.log("TODAY",today)
+ 
+ 
    
 
 let d = new Date();
