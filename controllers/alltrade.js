@@ -871,6 +871,7 @@ exports.editfnoOption = async (req, res) => {
   const { fnoindex_scrpt_name,trade_type,qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type,T6,T7, cstmMsg,T1time,F2time,T3time,T4time,T5time,T6time,T7time,slTime, } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
+  if(findone){
   let invest_amt = findone.investment_amt
   console.log("INVESTAMT",invest_amt)
   let Qty =findone.qty
@@ -893,8 +894,8 @@ console.log("T4",t4)
 // let T5 = findone.T5
 // console.log("T4", t5)
  
-const FT1tym = new Date().toString()
-      console.log("FT1tym",FT1tym)
+const T1tym = new Date().toString()
+      console.log("T1tym",T1tym)
 
       const T2tym = new Date().toString()
            console.log("T2tym",T2tym)
@@ -994,7 +995,25 @@ let update = await Alltrade.findOneAndUpdate(
     )
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
-  }else if(t3_type == "true" && t4_type == "true"){
+  }else if(t2_type == "true" && t3_type == "true"){
+    console.log("FOURTH CONDITION TRUE")
+    pl = (Qty * 150) * (t3 -Av1 )
+    console.log("PL", pl)
+
+    pl_per = (pl / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+
+
+    let update = await Alltrade.findOneAndUpdate(
+      { _id: req.params.id },
+
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, status,  cstmMsg,tradeStatus:req.body.tradeStatus,T2time:T2tym,T3time:T3tym } },
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  }
+  
+  else if(t3_type == "true" && t4_type == "true"){
     console.log("5th condition true")
     pl = (Qty * 150) * (t4 -Av1 )
     console.log("PL", pl)
@@ -1072,7 +1091,7 @@ let update = await Alltrade.findOneAndUpdate(
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, status, t5, t5_type, cstmMsg,tradeStatus:req.body.tradeStatus,T3time:T3tym } },
+      { $set: { T1, t1_type, SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl_per, pl, status,  cstmMsg,tradeStatus:req.body.tradeStatus,T3time:T3tym } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -1189,6 +1208,14 @@ console.log("PLT5555",plt5)
   // console.log("TTTTT",updatee)
 
   }  
+
+}else{
+  res.status(400).json({
+    status: false,
+      message: "error",
+      error: "error",
+  })
+}
   }
   
  
@@ -1197,6 +1224,7 @@ exports.editCash = async (req, res) => {
   const {cash_scrpt_name,trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type,T6,t6_type,T7,t7_type, cstmMsg,sl_time } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
+  if(findone){
   let invest_amt = findone.investment_amt
   console.log("INVESTAMT",invest_amt)
   let Qty =findone.qty
@@ -1518,6 +1546,13 @@ console.log("PLT5555",plt5)
   // console.log("TTTTT",updatee)
 
   }
+}else{
+  res.status(400).json({
+    status: false,
+      message: "error",
+      error: "error",
+  })
+}
 
 
 }

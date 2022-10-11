@@ -412,9 +412,6 @@ console.log("QURRRR",qur)
 }
 
 
-
-
-
 exports.freeMembership= async (req, res) => {
   const {planId,type,} = req.body
 
