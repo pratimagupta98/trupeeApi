@@ -2,6 +2,7 @@ const Alltrade = require("../models/alltrade");
 const moment = require('moment');
 const resp = require("../helpers/apiResponse");
 const TradeHistory = require("../models/tradeHistory");
+var cron = require('node-cron');
 const CstmMsg = require("../models/cstm_msg");
 const _ = require("lodash");
 const cloudinary = require("cloudinary").v2;
@@ -58,6 +59,19 @@ exports.add_fnoIndex = async (req, res) => {
     };
     console.log("DATE",getCurrentDate())
 
+
+//     var d = new Date();
+// var v = new Date().toLocaleTimeString()
+// //tt = v.setMinutes(v.getMinutes()+30)
+// //v.setMinutes(d.getMinutes()+30)
+
+// console.log("VV",v)
+// //console.log("VV",tt)
+// var minutesToAdd=30;
+// var currentDate = new Date();
+// var futureDate = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
+// console.log("fghg",futureDate)
+
     const newAlltrade = new Alltrade({
 
       script_type: script_type,
@@ -84,7 +98,8 @@ exports.add_fnoIndex = async (req, res) => {
       type: type,
       cstmMsg: cstmMsg,
       date: getCurrentDate(),
-      tradeId:tradeId
+      tradeId:tradeId,
+    
     });
     console.log("BODY",req.body)
     const newTradeHistory = new TradeHistory({
@@ -353,6 +368,34 @@ exports.add_equityCash = async (req, res) => {
 exports.tradelist = async (req, res) => {
   await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
+
+    // var task = cron.schedule('00 00 1 * * *', () =>  {
+    //   console.log('Job excuted at 1:00am sharp in the morning');
+    //  this.checkifapiexecute();
+    // });
+    
+    // console.log("de",task)
+// cron.schedule('0 16 * * *', async () => {
+//   /**
+//    *  -> cron is use for update only today purchase/buy stock
+//    *  -> update  only stock is pending and stock type is intra day by status 5 (square off )
+//    *
+//    */
+//   var start_date = new Date(new Date().setMinutes(30, 0, 0, 0))
+//   console.log("start_date",start_date)
+//   var end_date = new Date(new Date().setMinutes(30, 0, 0, 0))
+//   console.log("end_date",end_date)
+
+//   const result = await Alltrade.updateMany(
+//     {
+//       createdAt: { $gte: start_date, $lt: end_date },
+      
+//     },
+//     { $set: { delay_tym: "false" } }
+//   )
+//   console.log("fff",)
+// })
+
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };

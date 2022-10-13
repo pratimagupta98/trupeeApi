@@ -86,54 +86,86 @@ exports.allmembership = async (req, res) => {
 //     .then((data) => resp.successr(res, data))
 //     .catch((error) => resp.errorr(res, error));
 // };
-exports.viewonemembership = async (req, res) => {
+// exports.viewonemembership = async (req, res) => {
 
-
-
-  let getdetail= await Membership
-  .findOne({ _id: req.params.id })
-  //.populate("planId").populate("userid")
+//   let getdetail= await Membership
+//   .findOne({ _id: req.params.id })
+//   //.populate("planId").populate("userid")
  
-  d = Date.now()
-  var today = moment(d).format('DD-MM-YYYY')
-  console.log("today",today)
+//   d = Date.now()
+//   var today = moment(d).format('DD-MM-YYYY')
+//   console.log("today",today)
 
-     // dtt =getdetail.date,
-      expdtt=  getdetail.expdate  //7
+//      // dtt =getdetail.date,
+//       expdtt=  getdetail.expdate  //7
      
-      console.log("expdtt", expdtt)
+//       console.log("expdtt", expdtt)
 
-      if(d = expdtt){
+//       if(d = expdtt){
 
-        console.log("success")
-let x = await Membership.findOneAndUpdate(
-  { _id:req.params.id },
-  { $set: { exp_free_mem: "false" } },
+//         console.log("success")
+// let x = await Membership.findOneAndUpdate(
+//   { _id:req.params.id },
+//   { $set: { exp_free_mem: "false" } },
+//   { new: true }
+// )
+// .then((data) => resp.successr(res, data))
+// .catch((error) => resp.errorr(res, error))
+
+//       }else{
+//         console.log("else")
+
+//         res.status(200).json({
+//           status:true,
+//           message:"success",
+//           data:getdetail
+//         })
+//       }
+//     }
+
+
+exports.viewonemembership = async(req,res) =>{
+const getdetail = await Membership.findOne({_id:req.params.id})
+let dtt = getCurrentDate()
+let expp = getdetail.expdate
+console.log("dtt",dtt)
+console.log("expp",expp)
+if(dtt == expp ){
+  console.log("success")
+  let qur=  await Membership.findOneAndUpdate(
+    { _id: req.params.id },
+    
+    {$set: {exp_free_mem:"false"}} ,
+  
+  //{ $set: {status:"success"} },
   { new: true }
+
 )
 .then((data) => resp.successr(res, data))
-.catch((error) => resp.errorr(res, error))
+       .catch((error) => resp.errorr(res, error));
+//console.log("QR",qur)
 
-      }else{
-        console.log("else")
+}else{
+   res.status(200).json({
+    status:true,
+    msg :"success",
+    getdetail:getdetail
+   })
+}
+// var d1 = new Date (),
+//     d2 = new Date ( d1 );
+// d2.setMinutes ( d1.getMinutes() + 30 ).toLocaleTimeString()
+// console.log( "STRING",d2 );
 
-        res.status(200).json({
-          status:true,
-          message:"success",
-          data:getdetail
-        })
-      }
+
+// var now = new Date();
+// now.setMinutes(now.getMinutes() + 30).toLocaleTimeString() // timestamp
+// now = new Date(now); // Date object
+// console.log("now",now);
 
 
-    }
-
+}
   
- 
-     
- 
-  
-
-
 exports.updatemembership = async (req, res) => {    
     await Membership
   
@@ -286,93 +318,7 @@ if(getrefercode.refral_Code){
         }
         
         
-//         else{
-//   const findone = await User.findOne({refral_Code:req.body.refral_Code})
-//   console.log("CODE", findone)
-//   if(findone){
-//   const getuser = await User.findOne({userid:req.userId})
-//   if(getuser){
-
-//   }
-//  //console.log("getuser",getuser)
-//   else{
-//  let getdesprce = getuser.des_price
-//  console.log("DESPRICE",getdesprce)
-
-//  price = getdesprce*12/100
-//        console.log("TOTAL PRICE",price)
-//        const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
-//  if(getdetail.refral_Code){
-//    console.log("GETDETAIL",getdetail)
-//    console.log("@@@",getdetail)
-//    wolt = getdetail.amount
-//    addamt = parseInt(price) +parseInt(wolt)
-//    console.log("ADD HO GYA",addamt)
-//   await User.findOneAndUpdate(
-//    {
-//      _id: getdetail._id,
-//    },
-//    { $set: {amount :addamt } },
-//    { new: true }
-//  )
-//  newReferEarn
-//        .save()
- 
-//    .then((data) => resp.successr(res, data))
-//    .catch((error) => resp.errorr(res, error))
-   
-  
-//   }
-//  }
-//   }else{
-//     res.status(400).json({
-//           status: false,
-//           msg: "Incorrect Verify Code",
-//           error: "error",
-//         });
-//   }
-
-  // if (findone) {
-  //   if (findone?.refral_Code == req.body.refral_Code) {
-  //         getplan = await Plan.findOne({planId :planId})
-  //         console.log("GETPLAN",getplan)
-  //         let Code = findone?.refral_Code
-  //         console.log("PLAN",getplan)
-  //         jj = getplan.des_price 
-  //         console.log("JJ",jj)
-  //         price = jj*12/100 
-  //     //    console.log("TOTAL PRICE",price)
-  //         const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
-      
-  //          if(getdetail.refral_Code){
-  //            // console.log("GETDETAIL",getdetail)
-  //             //console.log("@@@",getdetail)
-  //             wolt = getdetail.amount
-  //             addamt = parseInt(price) +parseInt(wolt)
-  //             console.log("ADD HO GYA",addamt)
-  //            await User.findOneAndUpdate(
-  //             {
-  //               _id: getdetail._id,
-  //             },
-  //             { $set: {amount :addamt } },
-  //             { new: true }
-  //           )
-  //           newMembership
-  //                 .save()
-  //             .then((data) => resp.successr(res, data))
-  //             .catch((error) => resp.errorr(res, error))
-              
-  //           }
-      
-  // } else {
-  //   res.status(400).json({
-  //     status: false,
-  //     msg: "Code Doesn't exist",
-  //     error: "error",
-  //   });
-
-  // }
-}
+      }
 exports.referearn_list = async (req, res) => {
   await ReferEarn.find().populate("userid").populate("refer_from").populate("planId")
     .sort({ sortorder: 1 })
@@ -387,9 +333,6 @@ exports.dltReferEarn = async (req, res) => {
 };
 
  
-
-
-
 exports.addMemeberShip = async (req, res) => {
   const {transaction_id, date, planId ,expdate,razorpay_payment_id} = req.body
 
@@ -443,7 +386,7 @@ console.log("QURRRR",qur)
 exports.freeMembership= async (req, res) => {
   const {planId,type,} = req.body
   let dd =new Date();
-  var days7= dd.setDate(dd.getDate()+8)
+  var days7= dd.setDate(dd.getDate()+7)
   console.log("seven days after",days7)
   var after7days = moment(days7).format('DD-MM-YYYY')
   console.log("7 Days",after7days)
@@ -490,10 +433,7 @@ exports.ttlfreeusers = async (req, res) => {
     });
 };
 
-
-
-
-
+ 
 
 exports.membershipPayment = async (req, res) => {
   // await membershipplan.remove();
@@ -543,69 +483,7 @@ exports.membershipPayment = async (req, res) => {
 
 }
 
-
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if(findone?.refral_Code == req.body.refral_Code){
-//   getplan = await Plan.findOne({planId :planId})
-//   let Code = findone?.refral_Code
-//   console.log("PLAN",getplan)
-//   jj = getplan.des_price
-//   console.log("JJ",jj)
-//   price = jj*12/100
-//   console.log("TOTAL PRICE",price)
-//   const getdetail = await User.findOne({refral_Code:req.body.refral_Code})
-
-//    if(getdetail.refral_Code){
-//       console.log("GETDETAIL",getdetail)
-//       console.log("@@@",getdetail)
-//       wolt = getdetail.amount
-//       addamt = parseInt(price) +parseInt(wolt)
-//       console.log("ADD HO GYA",addamt)
-//      await User.findOneAndUpdate(
-//       {
-//         _id: getdetail._id,
-//       },
-//       { $set: {amount :addamt } },
-//       { new: true }
-//     )
-//     newMembership
-//           .save()
-//       .then((data) => resp.successr(res, data))
-//       .catch((error) => resp.errorr(res, error))
-// }else if(findone.refral_Code !== req.body.refral_Code) {
-//   res.status(200).json({
-//     status: false,
-//     msg: "Wrong Verify Code",
-//   });
-// }
-
-// }
-// else if(findone?.refral_Code != req.body.refral_Code){
-//  res.status(200).json({
-//   status: false,
-//   msg: "Wrong Verify Code",
-// })
-// }else{
-//   newMembership
-//   .save()
-// .then((data) => resp.successr(res, data))
-// .catch((error) => resp.errorr(res, error))
-// }
-// }
-
 exports.UsermembershipPayment = async (req, res) => {
   // await membershipplan.remove();
  const getdata= await Membership
@@ -613,7 +491,5 @@ exports.UsermembershipPayment = async (req, res) => {
    // console.log("STRING",getdata)
     .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error))
-  
-
 
 }

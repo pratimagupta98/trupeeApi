@@ -277,6 +277,10 @@ tradeId:{
 date:{
   type:String
 },
+delay_tym:{
+  type:String,
+  default:"true"
+},
   },
 
   //timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
