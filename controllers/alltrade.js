@@ -399,7 +399,7 @@ exports.fnoIndexlist = async (req, res) => {
 //APP
 exports.AppindexList = async (req, res) => {
   await Alltrade.find({ $and: [{ type: "Index" }, { status: "Active" }] }).populate("fnoindex_scrpt_name").populate("expiryDate")
-    .sort({ sortorder: 1 })
+  .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
