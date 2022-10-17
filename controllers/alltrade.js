@@ -1258,12 +1258,14 @@ exports.editCash = async (req, res) => {
   const {cash_scrpt_name,trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type,T6,t6_type,T7,t7_type, cstmMsg,slTime,no_of_lots } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
+  console.log("findone",findone)
   if(findone){
   let invest_amt = findone.investment_amt
   console.log("INVESTAMT",invest_amt)
   let Qty =findone.qty
   console.log("QTY",Qty)
   let lotsqty = findone.no_of_lots
+  console.log("lotsqty",lotsqty)
   let Av1 = findone.active_value
 console.log("Av1",Av1)
 let active_value2 = findone.active_value2
@@ -1415,7 +1417,7 @@ const T1tym = new Date().toString()
           pl = (lotsqty * 400) * (t1 -Av1 )
           console.log("PL", pl)
       
-          pl_per = (pl / invest_amt * 100).toFixed(2);
+      let    pl_per = (pl / invest_amt * 100).toFixed(2);
           console.log("PL%%%%", pl_per)
       
       
