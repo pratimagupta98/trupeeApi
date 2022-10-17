@@ -115,6 +115,9 @@ sl_time:{
       type: String,
       default: "false"
     },
+    trlTime:{
+      type: String,
+    },
     qty: {
       type: Number,
     },

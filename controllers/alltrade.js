@@ -1270,7 +1270,8 @@ exports.editCash = async (req, res) => {
 console.log("Av1",Av1)
 let active_value2 = findone.active_value2
 console.log("Av2",active_value2)
-
+// let trl = findone.trl
+// console.log("TRL",trl)
 let t1 = findone.T1
 console.log("T1",t1)
 let t2 = findone.T2
@@ -1296,6 +1297,9 @@ const T1tym = new Date().toString()
            console.log("T6tym",T6tym)
            const T7tym = new Date().toString()
            console.log("T7tym",T7tym)
+
+           const trlTym =new Date().toString()
+           console.log("trlTym",trlTym)
 
 
 
@@ -1324,7 +1328,8 @@ const T1tym = new Date().toString()
     )
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
-  } else if(t1_type == "true" && t2_type == "true" && t3_type == "true" && t4_type == "true"){
+  } 
+   else if(t1_type == "true" && t2_type == "true" && t3_type == "true" && t4_type == "true"){
     console.log("API REPONED")
     pl = (lotsqty * 400) * (t4 -Av1 )
     console.log("PL", pl)
@@ -4079,7 +4084,7 @@ console.log("Today",today)
   
  
 exports.editFnoindex = async (req, res) => {
-  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type,FT1, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4,FT4_type, FT5, FT5_type,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl, pl, pl_per,type,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,call_type,date,script_type,loss, loss_per,no_of_lots } = req.body
+  const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type,FT1, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4,FT4_type, FT5, FT5_type,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl,trl_type, pl, pl_per,type,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,call_type,date,script_type,loss, loss_per,no_of_lots } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
 console.log("FINFONE",findone)
@@ -4096,6 +4101,9 @@ console.log("Av1",Av1)
 
 let active_value2 = findone.active_value2
 console.log("Av2",active_value2)
+
+let trL = findone.trl
+console.log("TRL",trL)
 
 let ft1 = findone.FT1
 console.log("FT1",ft1)
@@ -4121,6 +4129,8 @@ const FT1tym = new Date().toString()
            console.log("FT6tym",FT6tym)
            const FT7tym = new Date().toString()
            console.log("FT7tym",FT7tym)
+           const trlTym =new Date().toString()
+           console.log("trlTym",trlTym)
 
 
   if (findone?.trade_type == "BankNifty") {
@@ -4145,7 +4155,26 @@ let sl = findone.SL
           .catch((error) => resp.errorr(res, error));
         //  console.log("Update",update)
 
-    }else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
+    }else if(trl_type == "true"){
+      // let trltyp= findone.trl_type
+   let pl = (lotsqty*25) *(trL - Av1)
+   console.log("pl",pl)
+         let pl_per = (pl / invest_amt * 100).toFixed(2)
+        console.log("pl_per %", pl_per)
+   
+   const sltym = new Date().toString()
+   console.log("isodate",sltym)
+          let update = await Alltrade.findOneAndUpdate(
+             { _id: req.params.id },
+             { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym} },
+             { new: true }
+           )
+           .then((data) => resp.successr(res, data))
+           .catch((error) => resp.errorr(res, error));
+         //  console.log("Update",update)
+   
+     }
+    else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
       console.log("FT1_TYPE,FT2_TYPE","FT3_TYPE")
       let pl = (lotsqty * 25) * (ft3 -Av1  )
       console.log("Profit", pl)
@@ -4396,9 +4425,9 @@ let sl = findone.SL
              .catch((error) => resp.errorr(res, error));
   }
 } else if (findone?.trade_type == "Nifty") {
-  console.log("else if condition")
+ // console.log("else if condition")
   if (sl_type == "true") {
-console.log("sahi h")
+//console.log("sahi h")
 
 let sl = findone.SL
 let loss = (lotsqty*50) *(sl - Av1)
@@ -4417,7 +4446,27 @@ console.log("isodate",sltym)
         .catch((error) => resp.errorr(res, error));
       //  console.log("Update",update)
 
-  }else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
+  }else if(trl_type == "true"){
+   // let trltyp= findone.trl_type
+let pl = (lotsqty*50) *(trL - Av1)
+console.log("pl",pl)
+      let pl_per = (pl / invest_amt * 100).toFixed(2)
+     console.log("pl_per %", pl_per)
+
+const sltym = new Date().toString()
+console.log("isodate",sltym)
+       let update = await Alltrade.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym} },
+          { new: true }
+        )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+      //  console.log("Update",update)
+
+  }
+  
+  else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
     console.log("FT1_TYPE,FT2_TYPE","FT3_TYPE")
     let pl = (lotsqty * 50) * (ft3 -Av1  )
     console.log("Profit", pl)
