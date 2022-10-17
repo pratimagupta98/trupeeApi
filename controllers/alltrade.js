@@ -4123,7 +4123,7 @@ const FT1tym = new Date().toString()
 
   if (findone?.trade_type == "BankNifty") {
     console.log("chala gya")
-    if (req.body.sl_type == "true") {
+    if (sl_type == "true") {
 console.log("sahi h")
 
 let sl = findone.SL
@@ -4395,7 +4395,7 @@ let sl = findone.SL
   }
 } else if (finodne?.trade_type == "Nifty") {
   console.log("else if condition")
-  if (req.body.sl_type == "true") {
+  if (sl_type == "true") {
 console.log("sahi h")
 
 let sl = findone.SL
