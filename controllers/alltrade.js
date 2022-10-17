@@ -958,7 +958,7 @@ const T1tym = new Date().toString()
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { SL,tradeStatus: "Closed", sl_type: "true", pl_per, pl, status,cstmMsg:req.body.cstmMsg,slTime:sltym } },
+      { $set: { SL,tradeStatus: "Closed", sl_type: "true", pl_per, pl, status,cstmMsg:req.body.cstmMsg,slTime:sltym,t1_type:"false",t2_type:"false",t3_type:"false",t4_type:"false" } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -1314,7 +1314,7 @@ const T1tym = new Date().toString()
     let update = await Alltrade.findOneAndUpdate(
       { _id: req.params.id },
 
-      { $set: { SL,tradeStatus: "Closed", sl_type: "true", loss_per:loss_per, loss:loss, status,cstmMsg:req.body.cstmMsg,slTime:sltym } },
+      { $set: { SL,tradeStatus: "Closed", sl_type: "true", loss_per:loss_per, loss:loss, status,cstmMsg:req.body.cstmMsg,slTime:sltym,t1_type:"false",t2_type:"false",t3_type:"false",t4_type:"false" } },
 
       //{ $set: {status:"success"} },
       { new: true }
@@ -4136,7 +4136,7 @@ let sl = findone.SL
   console.log("isodate",sltym)
          let update = await Alltrade.findOneAndUpdate(
             { _id: req.params.id },
-            { $set: {sl_type: "true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym} },
+            { $set: {sl_type: "true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false"} },
             { new: true }
           )
           .then((data) => resp.successr(res, data))
@@ -4408,7 +4408,7 @@ const sltym = new Date().toString()
 console.log("isodate",sltym)
        let update = await Alltrade.findOneAndUpdate(
           { _id: req.params.id },
-          { $set: {sl_type: "true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym} },
+          { $set: {sl_type: "true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false"} },
           { new: true }
         )
         .then((data) => resp.successr(res, data))
