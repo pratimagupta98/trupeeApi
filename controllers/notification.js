@@ -27,8 +27,14 @@ exports.add_notification = async (req, res) => {
   if (findexist) {
     resp.alreadyr(res);
   } else {
-    if (req.files) {
-      if (req.files.img[0].path) {
+
+
+  
+   
+
+
+    if (req.files.img) {
+        
         alluploads = [];
         for (let i = 0; i < req.files.img.length; i++) {
           const resp = await cloudinary.uploader.upload(
@@ -40,7 +46,7 @@ exports.add_notification = async (req, res) => {
         }
         newNotification.img = alluploads;
       }
-    }
+   
     newNotification
       .save()
       .then((data) => resp.successr(res, data))
