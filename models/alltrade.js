@@ -249,9 +249,9 @@ title:{
 desc:{
   type: String,
 },
-img:{
-type :Array
-},
+// img:{
+// type :Array
+// },
 noti_status:{
   type: String,
  //Active

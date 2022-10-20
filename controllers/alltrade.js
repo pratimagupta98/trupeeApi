@@ -4114,22 +4114,23 @@ console.log("FT2",ft2)
 let ft3 = findone.FT3
 console.log("FT3",ft3)
 
-const FT1tym = new Date().toString()
+
+let FT1tym = new Date().toString()
       console.log("FT1tym",FT1tym)
 
-      const FT2tym = new Date().toString()
+      let FT2tym = new Date().toString()
            console.log("FT2tym",FT2tym)
-           const FT3tym = new Date().toString()
+           let FT3tym = new Date().toString()
            console.log("FT3tym",FT2tym)
-           const FT4tym = new Date().toString()
+           let FT4tym = new Date().toString()
            console.log("FT4tym",FT4tym)
-           const FT5tym = new Date().toString()
+           let FT5tym = new Date().toString()
            console.log("FT5tym",FT5tym)
-           const FT6tym = new Date().toString()
+           let FT6tym = new Date().toString()
            console.log("FT6tym",FT6tym)
            const FT7tym = new Date().toString()
            console.log("FT7tym",FT7tym)
-           const trlTym =new Date().toString()
+           let trlTym =new Date().toString()
            console.log("trlTym",trlTym)
 
 
@@ -4155,7 +4156,178 @@ let sl = findone.SL
           .catch((error) => resp.errorr(res, error));
         //  console.log("Update",update)
 
-    }else if(trl_type == "true"){
+    }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7){  console.log("FT4","FT5","FT6","FT7")
+    console.log("FT4","FT5","FT6","FT7")
+
+   
+    // let FT77tym = new Date().toString()
+    // console.log("FT77tym",FT77tym)
+   let  plft7 = (lotsqty*25)*(req.body.FT7 - Av1);
+  
+  // const date = new Date();
+   let date = new Date();
+ //  System.out.println(dateFormat.format(date));
+   console.log("6666",date)
+
+   let pl_per = (plft7 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+  
+    const FT7tym = new Date().toString()
+    console.log("FT77tym",FT7tym)
+           let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,FT7time:FT7tym,FT1_type:"true",FT2_type:"true",FT3_type:"true",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT7_type:"true",trl_type:"true"} },
+              { new: true }
+            )
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+           }
+            
+            else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6){
+        
+              console.log("FT4","FT5","FT6")
+           let   plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
+            let  pl_per = (plft6 / invest_amt * 100).toFixed(2);
+              console.log("PL%%%%", pl_per)
+        
+              const FT6tym = new Date().toString()
+              console.log("FT66tym",FT6tym)
+                     let update = await Alltrade.findOneAndUpdate(
+                        { _id: req.params.id },
+                        { $set: {sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,FT6time:FT6tym,FT1_type:"true",FT2_type:"true",FT3_type:"true",FT4_type:"true",FT5_type:"true",FT6_type:"true",trl_type:"true"} },
+                        { new: true }
+                      )
+                       .then((data) => resp.successr(res, data))
+                       .catch((error) => resp.errorr(res, error));
+                    //   console.log("getupdate",getupdate)
+            }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT5 && req.body.FT6 && req.body.FT7){
+              console.log("FT5","FT6","FT7")
+              plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
+            let  pl_per = (plft7 / invest_amt * 100).toFixed(2);
+              console.log("PL%%%%", pl_per)
+  
+              const FT7tym = new Date().toString()
+              console.log("FT77tym",FT7tym)
+                     let update = await Alltrade.findOneAndUpdate(
+                        { _id: req.params.id },
+                        { $set: {SL, sl_type: "false",FT5_type:"true",FT6_type:"true",FT6_type:"true",FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7} },
+                        { new: true }
+                      )
+            
+                       .then((data) => resp.successr(res, data))
+                       .catch((error) => resp.errorr(res, error));
+            }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT5 && req.body.FT6 ){
+              console.log("FT5","FT6")
+              plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
+            let  pl_per = (plft6 / invest_amt * 100).toFixed(2);
+              console.log("PL%%%%", pl_per)
+        
+            
+
+              let update = await Alltrade.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6} },
+                { new: true }
+              )
+
+                       .then((data) => resp.successr(res, data))
+                       .catch((error) => resp.errorr(res, error));
+
+            }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5){
+
+              // const FT5tym = new Date().toString()
+               console.log("FT4","FT5")
+              // console.log("FT5555")
+              // console.log("FT5")
+       let  plft5 = (lotsqty*25)*(req.body.FT5 - Av1)
+              let pl_per = (plft5 / invest_amt * 100).toFixed(2);
+              console.log("PL%%%%", pl_per)
+      
+                let update = await Alltrade.findOneAndUpdate(
+                  { _id: req.params.id },
+                  { $set: {FT4:req.body.FT4,FT5:req.body.FT5,FT5_type:"true", FT4time:FT4tym, FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,SL, sl_type: "false",} },
+                  { new: true }
+                )
+            
+                       .then((data) => resp.successr(res, data))
+                       .catch((error) => resp.errorr(res, error));
+            }
+            
+    else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4){
+
+      const FT4tym = new Date().toString()
+      console.log("FT4tym",FT4tym)
+      console.log("FT4444")
+      
+    let plft4 = (lotsqty*25)*(req.body.FT4 - Av1)
+    let  pl_per = (plft4 / invest_amt * 100).toFixed(2);
+      console.log("PL%%%%", pl_per)
+  
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {FT4:req.body.FT4, FT4time:FT4tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft4,pl_per:pl_per,status,SL, sl_type: "false",FT4_type:"true"} },
+        { new: true }
+      )
+    
+               .then((data) => resp.successr(res, data))
+               .catch((error) => resp.errorr(res, error));
+    } 
+    else if(trl_type == "true"  && FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
+      console.log("FT3_TYPE")
+      let pl = (lotsqty * 25) * (ft3 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+            
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",trl_type:"true",FT1_type:"true",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT3time:FT3tym,} },
+              { new: true }
+            )
+
+
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }
+    else if(trl_type == "true"  && FT1_type == "true" && FT2_type == "true" ){
+      console.log("FT2_TYPE")
+      let pl = (lotsqty * 25) * (ft2 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+        
+
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",FT1_type :"true",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT2time:FT2tym,trl_type:"true" } },
+              
+              { new: true }
+            )
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }
+    else if(trl_type == "true"  && FT1_type == "true"){
+      console.log("TRL TYPE ","FT1_TYPE")
+      let pl = (lotsqty * 25) * (ft1 -Av1  )
+            console.log("Profit", pl)
+      
+            let pl_per = (pl /invest_amt * 100).toFixed(2);
+            console.log("PL %%", pl_per)
+       
+   
+            let update = await Alltrade.findOneAndUpdate(
+              { _id: req.params.id },
+              { $set: {sl_type: "false",trl_type:"true",FT1_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT1time:FT1tym, } },
+              
+              { new: true }
+            )
+
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+    }
+    else if(trl_type == "true"){
       // let trltyp= findone.trl_type
    let pl = (lotsqty*25) *(trL - Av1)
    console.log("pl",pl)
@@ -4164,266 +4336,68 @@ let sl = findone.SL
    
    const sltym = new Date().toString()
    console.log("isodate",sltym)
-          let update = await Alltrade.findOneAndUpdate(
-             { _id: req.params.id },
-             { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym} },
-             { new: true }
-           )
+        
+           let update = await Alltrade.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym } },
+            
+            { new: true }
+          )
            .then((data) => resp.successr(res, data))
            .catch((error) => resp.errorr(res, error));
          //  console.log("Update",update)
    
      }
-    else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
-      console.log("FT1_TYPE,FT2_TYPE","FT3_TYPE")
-      let pl = (lotsqty * 25) * (ft3 -Av1  )
-      console.log("Profit", pl)
+   
+   
 
-      let pl_per = (pl /invest_amt * 100).toFixed(2);
-      console.log("PL %%", pl_per)
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: {sl_type: "false",FT1_type:"true",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT1time:FT1tym,FT2time:FT2tym, FT3time:FT3tym, } },
-        { new: true }
-      )
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
-    }else if (FT1_type == "true" && FT2_type == "true") {
-      console.log("FT1_TYPE,FT2_TYPE")
-      let pl = (lotsqty * 25) * (ft2 -Av1  )
-      console.log("Profit", pl)
-
-      let pl_per = (pl /invest_amt * 100).toFixed(2);
-      console.log("PL %%", pl_per)
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: {sl_type: "false",FT1_type:"true",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym,FT2time:FT2tym } },
-        { new: true }
-      )
-      
-      
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
-
-    }else if(FT2_type == "true" && FT3_type == "true"){
-
-      console.log("FT2_type","FT3_TYPE")
-      let pl = (lotsqty * 25) * (ft3 -Av1  )
-            console.log("Profit", pl)
-      
-            let pl_per = (pl /invest_amt * 100).toFixed(2);
-            console.log("PL %%", pl_per)
-
-            let update = await Alltrade.findOneAndUpdate(
-              { _id: req.params.id },
-              { $set: {sl_type: "false",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT2time:FT2tym, FT3time:FT3tym, }},
-              { new: true }
-            )
-            .then((data) => resp.successr(res, data))
-            .catch((error) => resp.errorr(res, error));
-
-    }
-    
-    else if(FT1_type == "true"){
-      console.log("FT1_TYPE")
-      let pl = (lotsqty * 25) * (ft1 -Av1  )
-            console.log("Profit", pl)
-      
-            let pl_per = (pl /invest_amt * 100).toFixed(2);
-            console.log("PL %%", pl_per)
-            let update = await Alltrade.findOneAndUpdate(
-              { _id: req.params.id },
-              { $set: {sl_type: "false",FT1_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym, } },
-              { new: true }
-            )
-            .then((data) => resp.successr(res, data))
-            .catch((error) => resp.errorr(res, error));
-    }else if(FT2_type == "true"){
-      console.log("FT2_TYPE")
-      let pl = (lotsqty * 25) * (ft2 -Av1  )
-            console.log("Profit", pl)
-      
-            let pl_per = (pl /invest_amt * 100).toFixed(2);
-            console.log("PL %%", pl_per)
-            let update = await Alltrade.findOneAndUpdate(
-              { _id: req.params.id },
-              { $set: {sl_type: "false",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT2time:FT2tym, } },
-              { new: true }
-            )
-            .then((data) => resp.successr(res, data))
-            .catch((error) => resp.errorr(res, error));
-    }else if(FT3_type == "true"){
-      console.log("FT3_TYPE")
-      let pl = (lotsqty * 25) * (ft3 -Av1  )
-            console.log("Profit", pl)
-      
-            let pl_per = (pl /invest_amt * 100).toFixed(2);
-            console.log("PL %%", pl_per)
-            let update = await Alltrade.findOneAndUpdate(
-              { _id: req.params.id },
-              { $set: {sl_type: "false",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT3time:FT3tym, } },
-              { new: true }
-            )
-            .then((data) => resp.successr(res, data))
-            .catch((error) => resp.errorr(res, error));
-    }else if(req.body.FT5)
-    {
-      console.log("FT5")
-      plft5 = (lotsqty*25)*(req.body.FT5 - Av1)
-      let pl_per = (plft5 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-  
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT5:req.body.FT5,FT5_type:"true", FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-    }else if(req.body.FT6){
-      console.log("FT6")
-      plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
-     let pl_per = (plft6 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-  
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT6:req.body.FT6,FT6_type:"true", FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-    }else if(req.body.FT7){
-      console.log("FT7")
-      plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
-    let  pl_per = (plft7 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-  
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT7:req.body.FT7,FT7_type:"true", FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-    }
-    else if(req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7){
-      console.log("FT4","FT5","FT6","FT7")
-  plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
-
- let pl_per = (plft7 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT7_type:"true",FT4time:FT4tym, FT5time:FT5tym,FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT4:req.body.FT4,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-
-    }else if(req.body.FT4 && req.body.FT5 && req.body.FT6 ){
-      console.log("FT4","FT5","FT6")
-      plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
-    let  pl_per = (plft6 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT4time:FT4tym, FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT4:req.body.FT4,FT4:req.body.FT5,FT4:req.body.FT6}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-
-    }else if(req.body.FT5 && req.body.FT6 && req.body.FT7){
-      console.log("FT5","FT6","FT7")
-      plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
-    let  pl_per = (plft7 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym, FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-    }else if(req.body.FT5 && req.body.FT6){
-      console.log("FT5","FT6")
-      plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
-    let  pl_per = (plft6 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-
-    }else if(req.body.FT6 && req.body.FT7){
-      console.log("FT5","FT6","FT7")
-      plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
-     let pl_per = (plft7 / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
-
-      let getupdate = await Alltrade.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {$set:  {SL, sl_type: "false",FT7_type:"true",FT6_type:"true", FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT6:req.body.FT6,FT7:req.body.FT7}}
-        )
-    
-               .then((data) => resp.successr(res, data))
-               .catch((error) => resp.errorr(res, error));
-  }else if(req.body.FT4 && req.body.FT5){
-    console.log("FT4","FT5")
-    plft5 = (lotsqty*25)*(req.body.FT5 - Av1)
-  let  pl_per = (plft5 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
-
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true", FT4time:FT4tym,FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,FT4:req.body.FT4,FT5:req.body.FT5}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
-
-  }else if(req.body.FT4){
-    console.log("FT4")
-    plft4 = (lotsqty*25)*(req.body.FT4 - Av1)
-  let  pl_per = (plft4 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
-
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT4:req.body.FT4,FT4_type:"true" ,FT4time:FT4tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft4,pl_per:pl_per,status,}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
-  }
+  // else if(req.body.FT5)
+  //  {
+  //    console.log("FT5")
+  //    plft5 = (lotsqty*25)*(req.body.FT5 - Av1)
+  //    let pl_per = (plft5 / invest_amt * 100).toFixed(2);
+  //    console.log("PL%%%%", pl_per)
+ 
+  //    let getupdate = await Alltrade.findOneAndUpdate(
+  //      {
+  //        _id: req.params.id,
+  //      },
+  //      {$set:  {SL, sl_type: "false",FT5:req.body.FT5,FT5_type:"true", FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,}}
+  //      )
+   
+  //             .then((data) => resp.successr(res, data))
+  //             .catch((error) => resp.errorr(res, error));
+  //  }else if(req.body.FT6){
+  //    console.log("FT6")
+  //    plft6 = (lotsqty*25)*(req.body.FT6 - Av1)
+  //   let pl_per = (plft6 / invest_amt * 100).toFixed(2);
+  //    console.log("PL%%%%", pl_per)
+ 
+  //    let getupdate = await Alltrade.findOneAndUpdate(
+  //      {
+  //        _id: req.params.id,
+  //      },
+  //      {$set:  {SL, sl_type: "false",FT6:req.body.FT6,FT6_type:"true", FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,}}
+  //      )
+   
+  //             .then((data) => resp.successr(res, data))
+  //             .catch((error) => resp.errorr(res, error));
+  //  }else if(req.body.FT7){
+  //    console.log("FT7")
+  //    plft7 = (lotsqty*25)*(req.body.FT7 - Av1)
+  //  let  pl_per = (plft7 / invest_amt * 100).toFixed(2);
+  //    console.log("PL%%%%", pl_per)
+ 
+  //    let getupdate = await Alltrade.findOneAndUpdate(
+  //      {
+  //        _id: req.params.id,
+  //      },
+  //      {$set:  {SL, sl_type: "false",FT7:req.body.FT7,FT7_type:"true", FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,}}
+  //      )
+   
+  //             .then((data) => resp.successr(res, data))
+  //             .catch((error) => resp.errorr(res, error));
+  //  }
 } else if (findone?.trade_type == "Nifty") {
  // console.log("else if condition")
   if (sl_type == "true") {
@@ -4446,7 +4420,163 @@ console.log("isodate",sltym)
         .catch((error) => resp.errorr(res, error));
       //  console.log("Update",update)
 
-  }else if(trl_type == "true"){
+  } else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7){
+    console.log("FT4","FT5","FT6","FT7")
+let plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
+
+let pl_per = (plft7 / invest_amt * 100).toFixed(2);
+console.log("PL%%%%", pl_per)
+
+ 
+  let update = await Alltrade.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: {sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,FT7time:FT7tym,FT1_type:"true",FT2_type:"true",FT3_type:"true",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT7_type:"true",trl_type:"true",FT4:req.body.FT4,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7} },
+    { new: true }
+  )
+
+
+
+         .then((data) => resp.successr(res, data))
+         .catch((error) => resp.errorr(res, error));
+
+  }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6 ){
+    console.log("FT4","FT5","FT6")
+   let plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
+   let pl_per = (plft6 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+
+   
+
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,FT6time:FT6tym,FT1_type:"true",FT2_type:"true",FT3_type:"true",FT4_type:"true",FT5_type:"true",FT6_type:"true",trl_type:"true",FT4:req.body.FT4,FT5:req.body.FT5,FT6:req.body.FT6} },
+        { new: true }
+      )
+  
+             .then((data) => resp.successr(res, data))
+             .catch((error) => resp.errorr(res, error));
+
+  }else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT5 && req.body.FT6 && req.body.FT7){
+    console.log("FT5","FT6","FT7")
+  let  plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
+   let pl_per = (plft7 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+
+   
+
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {SL, sl_type: "false",FT5_type:"true",FT6_type:"true",FT6_type:"true",FT7_type:"true",FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7} },
+        { new: true }
+      )
+  
+             .then((data) => resp.successr(res, data))
+             .catch((error) => resp.errorr(res, error));
+  } else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT5 && req.body.FT6){
+    console.log("FT5","FT6")
+   let plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
+  let pl_per = (plft6 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+
+ 
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6} },
+        { new: true }
+      )
+  
+             .then((data) => resp.successr(res, data))
+             .catch((error) => resp.errorr(res, error));
+
+  } else if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5){
+    console.log("FT4","FT5")
+   let plft5 = (lotsqty*50)*(req.body.FT5 - Av1)
+    let pl_per = (plft5 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+  
+
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {FT4:req.body.FT4,FT5:req.body.FT5,FT5_type:"true", FT4time:FT4tym, FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,SL, sl_type: "false",} },
+        { new: true }
+      )
+  
+             .then((data) => resp.successr(res, data))
+             .catch((error) => resp.errorr(res, error));
+  
+  }else if(trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT4){
+    console.log("FT4")
+    let plft4 = (lotsqty*50)*(req.body.FT4 - Av1)
+    let pl_per = (plft4 / invest_amt * 100).toFixed(2);
+    console.log("PL%%%%", pl_per)
+  
+    
+
+      let update = await Alltrade.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: {FT4:req.body.FT4, FT4time:FT4tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft4,pl_per:pl_per,status,SL, sl_type: "false",FT4_type:"true"} },
+        { new: true }
+      )
+
+             .then((data) => resp.successr(res, data))
+             .catch((error) => resp.errorr(res, error));
+  }
+  else if(trl_type == "true"  && FT1_type == "true" && FT2_type == "true" && FT3_type == "true"){
+    console.log("FT3_TYPE")
+    let pl = (lotsqty * 50) * (ft3 -Av1  )
+          console.log("Profit", pl)
+    
+          let pl_per = (pl /invest_amt * 100).toFixed(2);
+          console.log("PL %%", pl_per)
+        
+
+
+          let update = await Alltrade.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: {sl_type: "false",trl_type:"true",FT1_type:"true",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT3time:FT3tym,} },
+            { new: true }
+          )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+  }else if(trl_type == "true"  && FT1_type == "true" && FT2_type == "true" ){
+    console.log("FT2_TYPE")
+    let pl = (lotsqty * 50) * (ft2 -Av1  )
+          console.log("Profit", pl)
+    
+          let pl_per = (pl /invest_amt * 100).toFixed(2);
+          console.log("PL %%", pl_per)
+          // let update = await Alltrade.findOneAndUpdate(
+          //   { _id: req.params.id },
+          //   { $set: {sl_type: "false",FT1_type :"true",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,trlTime:trlTym,FT1time:FT1tym, FT2time:FT2tym,trl_type:"true" } },
+          //   { new: true }
+          // )
+
+          let update = await Alltrade.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: {sl_type: "false",FT1_type :"true",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT2time:FT2tym,trl_type:"true" } },
+            
+            { new: true }
+          )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+  } else if(trl_type == "true"  && FT1_type == "true"){
+    console.log("TRL TYPE ","FT1_TYPE")
+    let pl = (lotsqty * 50) * (ft1 -Av1  )
+          console.log("Profit", pl)
+    
+          let pl_per = (pl /invest_amt * 100).toFixed(2);
+          console.log("PL %%", pl_per)
+          let update = await Alltrade.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: {sl_type: "false",trl_type:"true",FT1_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT1time:FT1tym, } },
+            
+            { new: true }
+          )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+  }
+  
+  else if(trl_type == "true"){
    // let trltyp= findone.trl_type
 let pl = (lotsqty*50) *(trL - Av1)
 console.log("pl",pl)
@@ -4455,266 +4585,67 @@ console.log("pl",pl)
 
 const sltym = new Date().toString()
 console.log("isodate",sltym)
-       let update = await Alltrade.findOneAndUpdate(
-          { _id: req.params.id },
-          { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym} },
-          { new: true }
-        )
+let update = await Alltrade.findOneAndUpdate(
+  { _id: req.params.id },
+  { $set: {trl_type:"true",sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl:pl,pl_per:pl_per,FT1_type:"false",FT2_type:"false",FT3_type:"false",trlTime:trlTym } },
+  
+  { new: true }
+)
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
       //  console.log("Update",update)
 
   }
   
-  else if (FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
-    console.log("FT1_TYPE,FT2_TYPE","FT3_TYPE")
-    let pl = (lotsqty * 50) * (ft3 -Av1  )
-    console.log("Profit", pl)
-
-    let pl_per = (pl /invest_amt * 100).toFixed(2);
-    console.log("PL %%", pl_per)
-    let update = await Alltrade.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: {sl_type: "false",FT1_type:"true",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT1time:FT1tym,FT2time:FT2tym, FT3time:FT3tym, } },
-      { new: true }
-    )
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-  }else if (FT1_type == "true" && FT2_type == "true") {
-    console.log("FT1_TYPE,FT2_TYPE")
-    let pl = (lotsqty * 50) * (ft2 -Av1  )
-    console.log("Profit", pl)
-
-    let pl_per = (pl /invest_amt * 100).toFixed(2);
-    console.log("PL %%", pl_per)
-    let update = await Alltrade.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: {sl_type: "false",FT1_type:"true",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym,FT2time:FT2tym } },
-      { new: true }
-    )
-    
-    
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-
-  }else if(FT2_type == "true" && FT3_type == "true"){
-
-    console.log("FT2_type","FT3_TYPE")
-    let pl = (lotsqty * 50) * (ft3 -Av1  )
-          console.log("Profit", pl)
-    
-          let pl_per = (pl /invest_amt * 100).toFixed(2);
-          console.log("PL %%", pl_per)
-
-          let update = await Alltrade.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: {sl_type: "false",FT2_type:"true",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per ,FT2time:FT2tym, FT3time:FT3tym, }},
-            { new: true }
-          )
-          .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-
-  }
+   
   
-  else if(FT1_type == "true"){
-    console.log("FT1_TYPE")
-    let pl = (lotsqty * 50) * (ft1 -Av1  )
-          console.log("Profit", pl)
-    
-          let pl_per = (pl /invest_amt * 100).toFixed(2);
-          console.log("PL %%", pl_per)
-          let update = await Alltrade.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: {sl_type: "false",FT1_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT1time:FT1tym, } },
-            { new: true }
-          )
-          .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-  }else if(FT2_type == "true"){
-    console.log("FT2_TYPE")
-    let pl = (lotsqty * 50) * (ft2 -Av1  )
-          console.log("Profit", pl)
-    
-          let pl_per = (pl /invest_amt * 100).toFixed(2);
-          console.log("PL %%", pl_per)
-          let update = await Alltrade.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: {sl_type: "false",FT2_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT2time:FT2tym, } },
-            { new: true }
-          )
-          .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-  }else if(FT3_type == "true"){
-    console.log("FT3_TYPE")
-    let pl = (lotsqty * 50) * (ft3 -Av1  )
-          console.log("Profit", pl)
-    
-          let pl_per = (pl /invest_amt * 100).toFixed(2);
-          console.log("PL %%", pl_per)
-          let update = await Alltrade.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: {sl_type: "false",FT3_type:"true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,pl,pl_per , FT3time:FT3tym, } },
-            { new: true }
-          )
-          .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-  }else if(req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7){
-    console.log("FT4","FT5","FT6","FT7")
-plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
+// else if(req.body.FT5)
+// {
+//   console.log("FT5")
+//   plft5 = (lotsqty*50)*(req.body.FT5 - Av1)
+//  let pl_per = (plft5 / invest_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-let pl_per = (plft7 / invest_amt * 100).toFixed(2);
-console.log("PL%%%%", pl_per)
+//   let getupdate = await Alltrade.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     {$set:  {SL, sl_type: "false",FT5_type:"true", FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,FT5:req.body.FT5}}
+//     )
 
-let getupdate = await Alltrade.findOneAndUpdate(
-  {
-    _id: req.params.id,
-  },
-  {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT7_type:"true",FT4time:FT4tym, FT5time:FT5tym,FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT4:req.body.FT4,FT4:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7}}
-  )
+//            .then((data) => resp.successr(res, data))
+//            .catch((error) => resp.errorr(res, error));
+// }else if(req.body.FT6){
+//   console.log("FT6")
+//   plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
+//   let pl_per = (plft6 / invest_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-         .then((data) => resp.successr(res, data))
-         .catch((error) => resp.errorr(res, error));
+//   let getupdate = await Alltrade.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     {$set:  {SL, sl_type: "false",FT6_type:"true", FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT6:req.body.FT6}}
+//     )
 
-  }else if(req.body.FT4 && req.body.FT5 && req.body.FT6 ){
-    console.log("FT4","FT5","FT6")
-    plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
-   let pl_per = (plft6 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
+//            .then((data) => resp.successr(res, data))
+//            .catch((error) => resp.errorr(res, error));
+// }else if(req.body.FT7){
+//   console.log("FT7")
+//   plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
+//  let pl_per = (plft7 / invest_amt * 100).toFixed(2);
+//   console.log("PL%%%%", pl_per)
 
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT4time:FT4tym, FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT4:req.body.FT4,FT5:req.body.FT5,FT6:req.body.FT6}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
+//   let getupdate = await Alltrade.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     {$set:  {SL, sl_type: "false",FT7_type:"true", FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT7:req.body.FT7}}
+//     )
 
-  }else if(req.body.FT5 && req.body.FT6 && req.body.FT7){
-    console.log("FT5","FT6","FT7")
-    plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
-   let pl_per = (plft7 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
-
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym, FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
-  }else if(req.body.FT5 && req.body.FT6){
-    console.log("FT5","FT6")
-    plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
-    pl_per = (plft6 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
-
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT5time:FT5tym,FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT5:req.body.FT5,FT6:req.body.FT6}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
-
-  }else if(req.body.FT6 && req.body.FT7){
-    console.log("FT5","FT6","FT7")
-    plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
-    pl_per = (plft7 / invest_amt * 100).toFixed(2);
-    console.log("PL%%%%", pl_per)
-
-    let getupdate = await Alltrade.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {$set:  {SL, sl_type: "false",FT7_type:"true",FT6_type:"true", FT6time:FT6tym,FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT6:req.body.FT6,FT7:req.body.FT7}}
-      )
-  
-             .then((data) => resp.successr(res, data))
-             .catch((error) => resp.errorr(res, error));
-}else if(req.body.FT4 && req.body.FT5){
-  console.log("FT4","FT5")
-  plft5 = (lotsqty*50)*(req.body.FT5 - Av1)
-  let pl_per = (plft5 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT4_type:"true",FT5_type:"true", FT4time:FT4tym,FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,FT4:req.body.FT4,FT5:req.body.FT5}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-
-}else if(req.body.FT4){
-  console.log("FT4")
-  plft4 = (lotsqty*50)*(req.body.FT4 - Av1)
-  let pl_per = (plft4 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT4_type:"true" ,FT4time:FT4tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft4,pl_per:pl_per,status,FT4:req.body.FT4}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-}else if(req.body.FT5)
-{
-  console.log("FT5")
-  plft5 = (lotsqty*50)*(req.body.FT5 - Av1)
- let pl_per = (plft5 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT5_type:"true", FT5time:FT5tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft5,pl_per:pl_per,status,FT5:req.body.FT5}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-}else if(req.body.FT6){
-  console.log("FT6")
-  plft6 = (lotsqty*50)*(req.body.FT6 - Av1)
-  let pl_per = (plft6 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT6_type:"true", FT6time:FT6tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft6,pl_per:pl_per,status,FT6:req.body.FT6}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-}else if(req.body.FT7){
-  console.log("FT7")
-  plft7 = (lotsqty*50)*(req.body.FT7 - Av1)
- let pl_per = (plft7 / invest_amt * 100).toFixed(2);
-  console.log("PL%%%%", pl_per)
-
-  let getupdate = await Alltrade.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {$set:  {SL, sl_type: "false",FT7_type:"true", FT7time:FT7tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT7:req.body.FT7}}
-    )
-
-           .then((data) => resp.successr(res, data))
-           .catch((error) => resp.errorr(res, error));
-}
+//            .then((data) => resp.successr(res, data))
+//            .catch((error) => resp.errorr(res, error));
+// }
 }else{
   res.status(400).json({
     status:false,
@@ -4730,6 +4661,150 @@ let getupdate = await Alltrade.findOneAndUpdate(
 //maunally t4,t6,t7
 
 
+
+// exports.editFnoindex = async(req,res) =>{
+//   const { fnoindex_scrpt_name,active_value, trade_type, SL, sl_type,FT1, FT1_type, FT2, FT2_type, FT3, FT3_type,FT4,FT4_type, FT5, FT5_type,FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus,trl,trl_type, pl, pl_per,type,FT1time,FT2time,FT3time,FT4time,FT5time,FT6time,FT7time,call_type,date,script_type,loss, loss_per,no_of_lots } = req.body
+
+
+//   let findone = await Alltrade.findOne({ _id: req.params.id })
+//   console.log("FINFONE",findone)
+//   let invest_amt = findone.investment_amt
+//   console.log("INVESTAMT",invest_amt)
+//   let Qty =findone.qty
+//   console.log("QTY",Qty)
+  
+//   let lotsqty = findone.no_of_lots
+//   console.log("lotsqty",lotsqty)
+  
+//   let Av1 = findone.active_value
+//   console.log("Av1",Av1)
+  
+//   let active_value2 = findone.active_value2
+//   console.log("Av2",active_value2)
+  
+//   let trL = findone.trl
+//   console.log("TRL",trL)
+  
+//   let ft1 = findone.FT1
+//   console.log("FT1",ft1)
+  
+//   let ft2 = findone.FT2
+//   console.log("FT2",ft2)
+  
+//   let ft3 = findone.FT3
+//   console.log("FT3",ft3)
+  
+   
+  
+  
+//   let FT1tym = new Date().toString()
+//         console.log("FT1tym",FT1tym)
+  
+//         let FT2tym = new Date().toString()
+//              console.log("FT2tym",FT2tym)
+//              let FT3tym = new Date().toString()
+//              console.log("FT3tym",FT2tym)
+//              let FT4tym = new Date().toString()
+//              console.log("FT4tym",FT4tym)
+//              let FT5tym = new Date().toString()
+//              console.log("FT5tym",FT5tym)
+//              let FT6tym = new Date().toString()
+//              console.log("FT6tym",FT6tym)
+//             //  const FT7tym = new Date().toString()
+//             //  console.log("FT7tym",FT7tym)
+//              let trlTym =new Date().toString()
+//              console.log("trlTym",trlTym)
+  
+  
+
+
+
+//  // let findone = await Alltrade.findOne({ _id: req.params.id })
+
+//   if (findone?.trade_type == "BankNifty") {
+//     if (sl_type == "true") {
+//       console.log("sahi h")
+      
+//       let sl = findone.SL
+//         let loss = (lotsqty*25) *(sl - Av1)
+//         console.log("Loss",loss)
+//               let loss_per = (loss / invest_amt * 100).toFixed(2)
+//              console.log("LOSS %", loss_per)
+      
+//         const sltym = new Date().toString()
+//         console.log("isodate",sltym)
+//                let update = await Alltrade.findOneAndUpdate(
+//                   { _id: req.params.id },
+//                   { $set: {sl_type: "true",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,slTime:sltym,FT1_type:"false",FT2_type:"false",FT3_type:"false"} },
+//                   { new: true }
+//                 )
+//                 .then((data) => resp.successr(res, data))
+//                 .catch((error) => resp.errorr(res, error));
+//               //  console.log("Update",update)
+      
+          
+//   }else{
+
+//   }if(trl_type == "true" && FT1_type == "true" && FT2_type =="true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7){  console.log("FT4","FT5","FT6","FT7")
+//       console.log("FT4","FT5","FT6","FT7")
+  
+     
+//       let FT77tym = new Date().toString()
+//       console.log("FT77tym",FT77tym)
+//      let  plft7 = (lotsqty*25)*(req.body.FT7 - Av1);
+    
+//     // const date = new Date();
+//      let date = new Date();
+//    //  System.out.println(dateFormat.format(date));
+//      console.log("6666",date)
+  
+//      let pl_per = (plft7 / invest_amt * 100).toFixed(2);
+//       console.log("PL%%%%", pl_per)
+    
+//     //  let update =  await Alltrade.findOneAndUpdate(
+//     //     {
+//     //       _id: req.params.id,
+//     //     },
+        
+//     //     {$set:  {SL, sl_type: "false",FT4_type:"false",FT5_type:"true",FT6_type:"true",FT7_type:"true",FT7time:FT77tym,cstmMsg:req.body.cstmMsg,tradeStatus:req.body.tradeStatus,pl:plft7,pl_per:pl_per,status,FT4:req.body.FT4,FT5:req.body.FT5,FT6:req.body.FT6,FT7:req.body.FT7}}
+//     //     )
+//     //     if(update){
+//     //       res.status(200).json({
+//     //         status:true,
+//     //         msg:"true",
+//     //         data :update
+//     //       })
+//     //       console.log("truee",update)
+//     //     }
+     
+
+//     const FT7tym = new Date().toString()
+//     console.log("FT77tym",FT7tym)
+//            let update = await Alltrade.findOneAndUpdate(
+//               { _id: req.params.id },
+//               { $set: {sl_type: "false",status: "Active", cstmMsg:req.body.cstmMsg, tradeStatus:req.body.tradeStatus,loss:loss,loss_per:loss_per,FT7time:FT7tym,FT1_type:"true",FT2_type:"true",FT3_type:"true",FT4_type:"true",FT5_type:"true",FT6_type:"true",FT7_type:"true"} },
+//               { new: true }
+//             )
+//             .then((data) => resp.successr(res, data))
+//             .catch((error) => resp.errorr(res, error));
+
+
+//               //  .then((data) => resp.successr(res, data))
+//               //  .catch((error) => resp.errorr(res, error));
+              
+//               }
+
+//   else{
+    
+//   }
+  
+  
+   
+
+// }else{
+
+// }
+// }
 exports.weekely_profit_loss = async (req, res) => {
   let d = new Date();
   console.log('Today is: ' + d.toLocaleDateString());

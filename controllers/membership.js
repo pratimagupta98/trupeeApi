@@ -354,7 +354,7 @@ exports.addMemeberShip = async (req, res) => {
     transaction_id: transaction_id,
     planId: planId,
    expdate:det,
-   
+   type:"Paid",
    razorpay_payment_id:razorpay_payment_id
   });
 
@@ -396,7 +396,7 @@ exports.freeMembership= async (req, res) => {
   date: getCurrentDate(),
   
   planId: planId,
-  type:type,
+  type:"Free",
   expdate:after7days
 });
 
