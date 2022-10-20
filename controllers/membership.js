@@ -419,7 +419,7 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
    let qur=  await User.findOneAndUpdate(
      { _id: req.userId },
      
-     {$set: {planId:planId,pack_name:pack_name,start_date:dd,expdate:after7days,type:"Free"}} ,
+     {$set: {planId:planid,pack_name:pack_name,start_date:dd,expdate:after7days,type:"Free",pack_name:pack_name}} ,
    
    //{ $set: {status:"success"} },
    { new: true }

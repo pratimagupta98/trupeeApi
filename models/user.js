@@ -66,6 +66,9 @@ const UserSchema = new Schema(
     },
     expdate:{
       type:String,
+    },
+    pack_name:{
+      type:String,
     }
     //  status:{
     //   type: String,
