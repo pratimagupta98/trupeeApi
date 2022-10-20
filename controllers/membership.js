@@ -336,49 +336,198 @@ exports.dltReferEarn = async (req, res) => {
 exports.addMemeberShip = async (req, res) => {
   const {transaction_id, date, planId ,expdate,razorpay_payment_id} = req.body
 
-  const t = new Date() 
-      const oneyr =new Date()
+  // const t = new Date() 
+  //     const oneyr =new Date()
     
-      let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-      const date1 = ("0" + qq.getDate()).slice(-2);
-      const month = ("0" + (qq.getMonth() + 1)).slice(-2);
-      const year = qq.getFullYear();
-    let det= `${date1}-${month}-${year}`
+  //     let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  //     const date1 = ("0" + qq.getDate()).slice(-2);
+  //     const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  //     const year = qq.getFullYear();
+  //   let det= `${date1}-${month}-${year}`
 
 
+    let dd =new Date();
+    var ddd = moment(dd).format('DD-MM-YYYY')
+    console.log("ddd",ddd)
 
-    console.log("ffffff",det)
+
+   // console.log("ffffff",det)
     const newMembership = new Membership({
       userid: req.userId,
     date: getCurrentDate(),
     transaction_id: transaction_id,
     planId: planId,
-   expdate:det,
+  // expdate:det,
    type:"Paid",
    razorpay_payment_id:razorpay_payment_id
   });
 
  
-  newMembership
+  // newMembership
+  // .save()
+  // .then((data) => resp.successr(res, data))
+  // .catch((error) => resp.errorr(res, error))
+
+
+  let planid= await Plan.findOne({_id:req.body.planId})
+      console.log("PLAN",planid)
+     
+  let pack_name=planid.pack_name
+  if(pack_name == "1Month"){
+    let dd =new Date();
+    var crntdate = moment(dd).format('DD-MM-YYYY')
+    console.log("ddd",crntdate)
+
+    let date = new Date()
+    let day = date.getDate();
+    let month = date.getMonth()+2;
+    console.log("month",month)
+    let year = date.getFullYear();
+    
+    let fullDate = `${day}-${month}-${year}.`;
+    console.log("1MONTH",fullDate);
+
+    let qur=  await User.findOneAndUpdate(
+      { _id: req.userId },
+      
+      {$set: {planId:planid,pack_name:pack_name,start_date:crntdate,expdate:fullDate}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+      
+      ).populate("planId")
+      console.log("QURRRR",qur)
+      
+       newMembership
+        .save()
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error))
+
+  }else if(pack_name == "3Month"){
+
+    let ddd =new Date();
+    var dddd = moment(ddd).format('DD-MM-YYYY')
+    console.log("ddd",dddd)
+
+
+    function dateWithMonthsDelay (months) {  
+      const date = new Date()
+      date.setMonth(date.getMonth() + 3)
+    
+      return date
+      
+    }
+    console.log("AAAA",dateWithMonthsDelay())
+   let dd = dateWithMonthsDelay()
+
+    var month3 = moment(dd).format('DD-MM-YYYY')
+    console.log("3MONTH",month3)
+
+    let qur=  await User.findOneAndUpdate(
+      { _id: req.userId },
+      
+      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month3}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+      
+      ).populate("planId")
+      console.log("QURRRR",qur)
+      
+       newMembership
+        .save()
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error))
+
+// let date = new Date()
+//     let day = date.getDate();
+//     let month = date.getMonth()+10;
+//     console.log("month",month)
+//     let year = date.getFullYear();
+    
+//     let fullDate = `${day}-${month}-${year}.`;
+//     console.log("3MONTH",fullDate);
+
+  }else if(pack_name == "6Month"){
+    let ddd =new Date();
+    var dddd = moment(ddd).format('DD-MM-YYYY')
+    console.log("ddd",dddd)
+
+    function dateWithMonthsDelay (months) {  
+      const date = new Date()
+      date.setMonth(date.getMonth() + 6)
+    
+      return date
+      
+    }
+    console.log("AAAA",dateWithMonthsDelay())
+   let dd = dateWithMonthsDelay()
+
+    var month6 = moment(dd).format('DD-MM-YYYY')
+    console.log("6MONTH",month6)
+
+    let qur=  await User.findOneAndUpdate(
+      { _id: req.userId },
+      
+      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month6}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+      
+      ).populate("planId")
+      console.log("QURRRR",qur)
+      
+       newMembership
+        .save()
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error))
+
+  }else if(pack_name == "1Year"){
+
+
+    
+   
+    let dd =new Date();
+    var ddd = moment(dd).format('DD-MM-YYYY')
+    console.log("ddd",ddd)
+
+  let qq=new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  const date1 = ("0" + qq.getDate()).slice(-2);
+  const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  const year = qq.getFullYear();
+let det= `${date1}-${month}-${year}`
+console.log("ffffff",det)
+
+
+let qur=  await User.findOneAndUpdate(
+{ _id: req.userId },
+
+{$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:det}} ,
+
+//{ $set: {status:"success"} },
+{ new: true }
+
+).populate("planId")
+console.log("QURRRR",qur)
+
+ newMembership
   .save()
   .then((data) => resp.successr(res, data))
   .catch((error) => resp.errorr(res, error))
 
-
-  let planid= await Plan.findOne({_id:req.body.planId})
- let desprice=planid.des_price
-  console.log("Discount Plan price",desprice)
-
-  let qur=  await User.findOneAndUpdate(
-    { _id: req.userId },
-    
-    {$set: {planId:planId,des_price:desprice}} ,
-  
-  //{ $set: {status:"success"} },
-  { new: true }
-
-).populate("planId")
-console.log("QURRRR",qur)
+  }
+//    console.log("Plan price",pack_name)
+ 
+//    let qur=  await User.findOneAndUpdate(
+//      { _id: req.userId },
+     
+//      {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,pack_name:pack_name}} ,
+   
+//    //{ $set: {status:"success"} },
+//    { new: true }
+ 
+//  ).populate("planId")
+//  console.log("QURRRR",qur)
   
 }
 
