@@ -56,10 +56,17 @@ const UserSchema = new Schema(
       type:String,
        
     },
+
     status: {
       type: String,
       default: "Deactive",
     },
+    start_date:{
+      type:String,
+    },
+    expdate:{
+      type:String,
+    }
     //  status:{
     //   type: String,
     //   default:"Deactive"

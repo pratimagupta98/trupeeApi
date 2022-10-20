@@ -400,8 +400,6 @@ exports.freeMembership= async (req, res) => {
   expdate:after7days
 });
 
-
-
 const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: req.userId}]})
   if (findexist) {
     resp.alreadyr(res);
@@ -410,7 +408,31 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
+
+
+
+      let planid= await Plan.findOne({planId:req.body.planId})
+      console.log("PLAN",planid)
+  let pack_name=planid.pack_name
+   console.log("Plan price",pack_name)
+ 
+   let qur=  await User.findOneAndUpdate(
+     { _id: req.userId },
+     
+     {$set: {planId:planId,pack_name:pack_name,start_date:dd,expdate:after7days,type:"Free"}} ,
+   
+   //{ $set: {status:"success"} },
+   { new: true }
+ 
+ ).populate("planId")
+ console.log("QURRRR",qur)
   }
+
+  
+
+  
+   
+
 
 }
 
