@@ -386,6 +386,8 @@ console.log("QURRRR",qur)
 exports.freeMembership= async (req, res) => {
   const {planId,type,} = req.body
   let dd =new Date();
+  var ddd = moment(dd).format('DD-MM-YYYY')
+  console.log("ddd",ddd)
   var days7= dd.setDate(dd.getDate()+7)
   console.log("seven days after",days7)
   var after7days = moment(days7).format('DD-MM-YYYY')
@@ -409,8 +411,6 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
 
-
-
       let planid= await Plan.findOne({planId:req.body.planId})
       console.log("PLAN",planid)
   let pack_name=planid.pack_name
@@ -419,7 +419,7 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
    let qur=  await User.findOneAndUpdate(
      { _id: req.userId },
      
-     {$set: {planId:planid,pack_name:pack_name,start_date:dd,expdate:after7days,type:"Free",pack_name:pack_name}} ,
+     {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name}} ,
    
    //{ $set: {status:"success"} },
    { new: true }
@@ -427,12 +427,6 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
  ).populate("planId")
  console.log("QURRRR",qur)
   }
-
-  
-
-  
-   
-
 
 }
 
