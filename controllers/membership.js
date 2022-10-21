@@ -390,7 +390,7 @@ exports.addMemeberShip = async (req, res) => {
     let qur=  await User.findOneAndUpdate(
       { _id: req.userId },
       
-      {$set: {planId:planid,pack_name:pack_name,start_date:crntdate,expdate:fullDate}} ,
+      {$set: {planId:planid,pack_name:pack_name,start_date:crntdate,expdate:fullDate,exp_free_mem:"true"}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -426,7 +426,7 @@ exports.addMemeberShip = async (req, res) => {
     let qur=  await User.findOneAndUpdate(
       { _id: req.userId },
       
-      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month3}} ,
+      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month3,exp_free_mem:"true"}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -469,7 +469,7 @@ exports.addMemeberShip = async (req, res) => {
     let qur=  await User.findOneAndUpdate(
       { _id: req.userId },
       
-      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month6}} ,
+      {$set: {planId:planid,pack_name:pack_name,start_date:dddd,expdate:month6,exp_free_mem:"true"}} ,
       
       //{ $set: {status:"success"} },
       { new: true }
@@ -502,7 +502,7 @@ console.log("ffffff",det)
 let qur=  await User.findOneAndUpdate(
 { _id: req.userId },
 
-{$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:det}} ,
+{$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:det,exp_free_mem:"true"}} ,
 
 //{ $set: {status:"success"} },
 { new: true }
@@ -568,7 +568,7 @@ const findexist = await Membership.findOne ({$and: [{ type: "Free" }, { userid: 
    let qur=  await User.findOneAndUpdate(
      { _id: req.userId },
      
-     {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name}} ,
+     {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name,exp_free_mem:"true"}} ,
    
    //{ $set: {status:"success"} },
    { new: true }

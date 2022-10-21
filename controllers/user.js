@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const { uploadBase64ImageFile } = require("../helpers/apiResponse");
  const crypto = require("crypto");
+ const moment = require('moment');
+
 
  const bcrypt = require("bcrypt");
 dotenv.config();
@@ -449,9 +451,38 @@ exports.getuser = async (req, res) => {
 };
 
 exports.viewoneuser = async (req, res) => {
-  await User.findOne({ _id: req.userId}).populate("planId")
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
+ const findone = await User.findOne({ _id: req.userId}).populate("planId")
+ let dd =new Date();
+ var ddd = moment(dd).format('DD-MM-YYYY')
+ console.log("ddd",ddd)
+
+    let plan = findone.expdate
+    console.log("plan",plan)
+
+  if(ddd == plan ){
+    console.log("true")
+    let qur=  await User.findOneAndUpdate(
+      { _id: req.userId },
+      
+      {$set: {exp_free_mem:"false"}} ,
+      
+      //{ $set: {status:"success"} },
+      { new: true }
+      
+      ) .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  }else{
+    console.log("false")
+    res.status(200).json({
+      status: true,
+      message: "success",
+      //count: data.length,
+      data: findone,
+    })
+  }
+
+
+   
 };
 exports.getoneuser = async (req, res) => {
   await User.findOne({ _id: req.params.id})

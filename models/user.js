@@ -69,6 +69,9 @@ const UserSchema = new Schema(
     },
     pack_name:{
       type:String,
+    },
+    exp_free_mem:{
+      type :String
     }
     //  status:{
     //   type: String,
