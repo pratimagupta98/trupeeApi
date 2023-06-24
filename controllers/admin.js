@@ -52,6 +52,7 @@ exports.addAdmin = async (req, res) => {
         newAdmin.adminimg = alluploads;
       }
     }
+    
     newAdmin.save()
 
 

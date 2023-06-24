@@ -67,6 +67,7 @@ let uploads = multer({ storage: storage });
 
 let multipleUpload = uploads.fields([
   { name: "img", maxCount: 3 },
+  
  
      
 ]);

@@ -58,20 +58,24 @@ exports.add_fnoIndex = async (req, res) => {
     console.log("DATE",getCurrentDate())
 
 
-//     var d = new Date();
-// var v = new Date().toLocaleTimeString()
-// //tt = v.setMinutes(v.getMinutes()+30)
-// //v.setMinutes(d.getMinutes()+30)
+  //  var d = new Date();
+//var v = new Date().toLocaleTimeString()
+// tt = v.setMinutes(v.getMinutes()+30)
+// v.setMinutes(d.getMinutes()+30)
+// console.log("v",tt)
 
-// console.log("VV",v)
-// //console.log("VV",tt)
-// var minutesToAdd=30;
-// var currentDate = new Date();
-// var futureDate = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
-// console.log("fghg",futureDate)
+//console.log("VV",v)
+//console.log("VV",tt)
+ 
+ var f = new Date()
+var ff = new Date(f.getTime()).toLocaleTimeString()
+console.log("ff",ff)
+var minutesToAdd=30;
+var currentDate = new Date();
+var delay30min = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
+console.log("fghg",delay30min)
 
     const newAlltrade = new Alltrade({
-
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
       active_value: active_value,
@@ -95,6 +99,8 @@ exports.add_fnoIndex = async (req, res) => {
       cstmMsg: cstmMsg,
       date: getCurrentDate(),
       tradeId:tradeId,
+      delay30min:delay30min,
+      addtrade_tym:ff
     
     });
     console.log("BODY",req.body)
@@ -354,8 +360,47 @@ exports.add_equityCash = async (req, res) => {
 
 //APP,ADMIN TRDAE LIST
 exports.tradelist = async (req, res) => {
-  await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+ const getdata = await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
     .sort({ createdAt: -1 })
+
+//     var newarrdate = getdata.map(function (value) {
+//       return value.addtrade_tym;
+//     });
+//     console.log("New Array",newarrdate)
+// // var late30 = newarrdate
+// console.log("currenttym",newarrdate)
+
+
+//     var newarr30day = getdata.map(function (value) {
+//       return value.delay30min;
+//     });
+//     console.log("New Array",newarr30day)
+// var late30 = newarr30day
+// console.log("late30",late30)
+
+
+//     var f = new Date()
+//     var ff = new Date(f.getTime()).toLocaleTimeString()
+//     console.log("ff",ff)
+//     var minutesToAdd=30;
+//     var currentDate = new Date();
+//     var delay30min = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
+//     console.log("fghg",delay30min)
+  
+//     if(late30 == ff){
+//       console.log("true")
+//       let qur=  await User.updateMany(
+//         { getdata:getdata },
+        
+//         {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name,exp_free_mem:"true"}} ,
+      
+//       //{ $set: {status:"success"} },
+//       { new: true }
+    
+//     )
+//     }else{
+//       console.log("false")
+//     }
 
     // var task = cron.schedule('00 00 1 * * *', () =>  {
     //   console.log('Job excuted at 1:00am sharp in the morning');

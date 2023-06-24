@@ -284,6 +284,13 @@ delay_tym:{
   type:String,
   default:"true"
 },
+delay30min:{
+  type:String,
+   
+},
+addtrade_tym:{
+  type:String,
+}
   },
 
   //timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
