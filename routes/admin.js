@@ -63,4 +63,3 @@ router.post("/admin/chngpass/:id", chngpass);
 
 router.post("/admin/adminlogin", adminlogin);
 module.exports = router;
- 
