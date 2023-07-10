@@ -13,8 +13,8 @@ const thisSchema = new Schema(
       type: Number,
     },
     script_name:
-     
-    { type: mongoose.Schema.Types.ObjectId, ref: "fno_script" },
+
+      { type: mongoose.Schema.Types.ObjectId, ref: "fno_script" },
 
 
     call_type: {
@@ -82,11 +82,11 @@ const thisSchema = new Schema(
     },
     loss: {
       type: Number,
-       
+
     },
     losspr: {
       type: Number,
-      
+
     },
     profit: {
       type: Number

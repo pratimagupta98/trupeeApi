@@ -109,14 +109,30 @@ exports.fnoIndexlistt = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.edit_fnoIndex = async (req, res) => {
-    await FnoIndex.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $set: req.body },
-      { new: true }
-    )
+  // exports.edit_fnoIndex = async (req, res) => {
+  //   await FnoIndex.findOneAndUpdate(
+  //     {
+  //       _id: req.params.id,
+  //     },
+  //     { $set: req.body },
+  //     { new: true }
+  //   )
+  //     .then((data) => resp.successr(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+  exports.edit_fnoIndex = async (req, res) => {    
+    await FnoIndex
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      )
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
