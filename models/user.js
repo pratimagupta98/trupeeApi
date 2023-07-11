@@ -48,30 +48,30 @@ const UserSchema = new Schema(
       type: Number,
       default: 0,
     },
-    planId:{
+    planId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "plan",
     },
-    des_price:{
-      type:String,
-       
+    des_price: {
+      type: String,
+
     },
 
     status: {
       type: String,
       default: "Deactive",
     },
-    start_date:{
-      type:String,
+    start_date: {
+      type: String,
     },
-    expdate:{
-      type:String,
+    expdate: {
+      type: String,
     },
-    pack_name:{
-      type:String,
+    pack_name: {
+      type: String,
     },
-    exp_free_mem:{
-      type :String
+    exp_free_mem: {
+      type: String
     }
     //  status:{
     //   type: String,

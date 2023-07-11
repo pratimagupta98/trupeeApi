@@ -13,7 +13,7 @@ const thisSchema = new Schema(
       },
       status:{
         type: String,
-        default:"Deactive" //Deactive
+        default:"Active" //Deactive
       },
       desc:{
         type: String,
