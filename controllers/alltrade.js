@@ -320,7 +320,7 @@ exports.add_equityCash = async (req, res) => {
   const { script_type, cash_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, qty, no_of_lots, pl_type, expiryDate, type, status, cstmMsg } = req.body;
 
 
-  investment_amt = (req.body.no_of_lots) * (req.body.active_value)
+  investment_amt = (req.body.no_of_lots) * (req.body.active_value)*(req.body.qty)
   console.log("InvestAMT", investment_amt)
 
   const newnewAlltrade = new Alltrade({
