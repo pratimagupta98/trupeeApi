@@ -60,8 +60,6 @@ exports.addAdmin = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 }
-
-
 exports.adminlogin = async (req, res) => {
   const { mobile, email, password } = req.body;
   const admin = await Admin.findOne({
@@ -211,3 +209,4 @@ exports.editAdmin = async (req, res) => {
           
         }
       }
+

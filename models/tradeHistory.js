@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const thisSchema = new Schema(
-    {
-     
-      
+  {
+
+
     //['CE', 'PF', 'BUY','SELL',],
     script_type: { type: String, },
     active_value: {
@@ -13,11 +13,11 @@ const thisSchema = new Schema(
       type: Number,
     },
     fnoindex_scrpt_name:
-     { type: mongoose.Schema.Types.ObjectId, ref: "fno_script" },
+      { type: mongoose.Schema.Types.ObjectId, ref: "fno_script" },
     fnoequty_scrpt_name:
-    { type: mongoose.Schema.Types.ObjectId, ref: "equity_script" },
+      { type: mongoose.Schema.Types.ObjectId, ref: "equity_script" },
     cash_scrpt_name:
-    { type: mongoose.Schema.Types.ObjectId, ref: "cashScript" },
+      { type: mongoose.Schema.Types.ObjectId, ref: "cashScript" },
     call_type: {
       type: String,
     },
@@ -26,10 +26,11 @@ const thisSchema = new Schema(
     SL: {
       type: Number,
     },
-    sl_type: { type: String,
-     // default: "false"
+    sl_type: {
+      type: String,
+      // default: "false"
     },
-    slTime:{
+    slTime: {
       type: String,
     },
     T1: {
@@ -37,56 +38,56 @@ const thisSchema = new Schema(
     },
     t1_type: {
       type: String,
-     // default: "false"
+      // default: "false"
     },
     T2: {
       type: Number,
     },
     t2_type: {
       type: String,
-     //default: "false"
+      //default: "false"
     },
     T3: {
       type: Number,
     },
     t3_type: {
       type: String,
-     // default: "false"
+      // default: "false"
     },
     T4: {
       type: Number,
     },
     t4_type: {
       type: String,
-     // default: "false"
+      // default: "false"
     },
     t5: {
       type: Number,
     },
     t5_type: {
-      type: String, 
-    // default: "false"
+      type: String,
+      // default: "false"
     },
-    t6:{
+    t6: {
       type: Number,
     },
     t6_type: {
       type: String,
-    //  default: "false"
+      //  default: "false"
     },
-    t7:{
+    t7: {
       type: Number,
     },
     t7_type: {
       type: String,
-     // default: "false"
+      // default: "false"
     },
     trl: {
       type: Number,
     },
-    trl_type:{
+    trl_type: {
       type: String,
-    //  default: "false"
+      //  default: "false"
     },
     qty: {
       type: Number,
@@ -99,9 +100,9 @@ const thisSchema = new Schema(
     },
     status: {
       type: String,
-  //    default: "NA"
+      //    default: "NA"
     },
-    tradeStatus :{
+    tradeStatus: {
       type: String,
       //Closed
     },
@@ -110,16 +111,16 @@ const thisSchema = new Schema(
     },
     loss: {
       type: Number,
-       
+
     },
-    pl:{
+    pl: {
       type: Number,
-    //  default: 0
+      //  default: 0
     },
     pl_per: {
       type: Number,
-  //  default: 0
-      
+      //  default: 0
+
     },
     profit: {
       type: Number
@@ -127,128 +128,128 @@ const thisSchema = new Schema(
     profitprr: {
       type: Number
     },
-    expiryDate: 
+    expiryDate:
       { type: mongoose.Schema.Types.ObjectId, ref: "exp_date" },
-    
-type :{
-  type: String,
- // required:true
-  //Fno,Equity,Cash
-},
-FT1:{
-  type: Number,
-},
-FT1_type :{
-  type: String,
-  //default: "false"
-},
-FT1time:{
-  type: String,
-    
-      },
-FT2:{
-  type: Number,
-},
-FT2_type:{
-  type: String,
-  //default: "false"
-},
-FT2time:{
-  type: String,
-  
-},
-FT3:{
-  type: Number,
-},
-FT3_type:{
-  type: String,
- // default: "false"
-},
-FT3time:{
-  type: String,
-  
-},
-FT4:{
-  type: Number,
-},
-FT4_type:{
-  type: String,
-//  default: "false"
-},
-FT4time:{
-  type: String,
-  
-},
-FT5:{
-  type: Number,
-},
-FT5_type:{
-  type: String,
-  //default: "false"
-},
-FT5time:{
-  type: String,
-  
-},
-FT6:{
-  type: Number,
-},
-FT6_type:{
-  type: String,
- //default: "false"
-},
-FT6time:{
-  type: String,
-  
-},
 
-FT7:{
-  type: Number,
-},
-FT7_type:{
-  type: String,
- // default: "false"
-},
-FT7time:{
-  type: String,
-  
-},
-title:{
-  type: String,
-},
-desc:{
-  type: String,
-},
-img:{
-type :Array
-},
-noti_status:{
-  type: String,
- //Active
-},
-tradeId:{
-   type: Schema.Types.ObjectId, ref: "alltrade" 
-},
-cstmMsg:{
-  type: String,
-},
-updated_at:{
-  type :String
-},
-tradeId:{
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "alltrade",
-},
-date:{
-  type:String
-},
-loss:{
-  type: Number,
-  default:0
-},
-loss_per:{
-  type: Number,
-},
+    type: {
+      type: String,
+      // required:true
+      //Fno,Equity,Cash
+    },
+    FT1: {
+      type: Number,
+    },
+    FT1_type: {
+      type: String,
+      //default: "false"
+    },
+    FT1time: {
+      type: String,
+
+    },
+    FT2: {
+      type: Number,
+    },
+    FT2_type: {
+      type: String,
+      //default: "false"
+    },
+    FT2time: {
+      type: String,
+
+    },
+    FT3: {
+      type: Number,
+    },
+    FT3_type: {
+      type: String,
+      // default: "false"
+    },
+    FT3time: {
+      type: String,
+
+    },
+    FT4: {
+      type: Number,
+    },
+    FT4_type: {
+      type: String,
+      //  default: "false"
+    },
+    FT4time: {
+      type: String,
+
+    },
+    FT5: {
+      type: Number,
+    },
+    FT5_type: {
+      type: String,
+      //default: "false"
+    },
+    FT5time: {
+      type: String,
+
+    },
+    FT6: {
+      type: Number,
+    },
+    FT6_type: {
+      type: String,
+      //default: "false"
+    },
+    FT6time: {
+      type: String,
+
+    },
+
+    FT7: {
+      type: Number,
+    },
+    FT7_type: {
+      type: String,
+      // default: "false"
+    },
+    FT7time: {
+      type: String,
+
+    },
+    title: {
+      type: String,
+    },
+    desc: {
+      type: String,
+    },
+    img: {
+      type: Array
+    },
+    noti_status: {
+      type: String,
+      //Active
+    },
+    tradeId: {
+      type: Schema.Types.ObjectId, ref: "alltrade"
+    },
+    cstmMsg: {
+      type: String,
+    },
+    updated_at: {
+      type: String
+    },
+    tradeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "alltrade",
+    },
+    date: {
+      type: String
+    },
+    loss: {
+      type: Number,
+      default: 0
+    },
+    loss_per: {
+      type: Number,
+    },
   },
 
 
@@ -259,4 +260,4 @@ loss_per:{
 
 
 
-  module.exports = mongoose.model("tradehistory", thisSchema);
+module.exports = mongoose.model("tradehistory", thisSchema);
