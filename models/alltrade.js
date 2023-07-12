@@ -131,7 +131,7 @@ const thisSchema = new Schema(
     },
     status: {
       type: String,
-      default: "NA"
+      default: "Deactive"
     },
     tradeStatus: {
       type: String,
