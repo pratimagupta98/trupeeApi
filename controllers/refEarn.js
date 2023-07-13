@@ -35,7 +35,7 @@ exports.addRefEarn = async (req, res) => {
   if (findexist) {
     res.status(400).json({
       msg: "already"
-    })
+    })  
   } else {
     const findone = await User.findOne({ _id: req.body.refer_from_id });
     if (findone) {

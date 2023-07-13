@@ -278,6 +278,7 @@ exports.refer_earn = async (req, res) => {
   } else {
 
     const getuser = await User.findOne({ userid: req.userId })
+    console.log("getuser", getuser)
     if (getuser) {
       console.log("STRNG", getuser)
       const getdesprce = getuser.des_price
@@ -291,6 +292,7 @@ exports.refer_earn = async (req, res) => {
       if (getrefercode.refral_Code) {
         console.log("GETDETAIL", getrefercode)
         wolt = getrefercode.amount
+        console.log("wolt", wolt)
         addamt = parseInt(price) + parseInt(wolt)
         console.log("ADD HO GYA", addamt)
 
