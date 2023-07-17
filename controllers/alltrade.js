@@ -1004,7 +1004,7 @@ exports.editfnoOption = async (req, res) => {
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { SL, tradeStatus: "Closed", sl_type: "true", pl_per, pl, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false" } },
+        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss: loss, loss_per: loss_per, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false" } },
 
         //{ $set: {status:"success"} },
         { new: true }
