@@ -992,11 +992,12 @@ exports.editfnoOption = async (req, res) => {
       let sl = findone.SL
 
 
-      pl = (lotsqty * Qty) * (sl - Av1)
+      loss = (lotsqty * Qty) * (sl - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      loss_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
+    
 
       const sltym = new Date().toString()
       console.log("isodate", sltym)
