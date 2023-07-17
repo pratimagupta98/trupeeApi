@@ -992,10 +992,10 @@ exports.editfnoOption = async (req, res) => {
       let sl = findone.SL
 
 
-      pl = (lotsqty * 150) * (sl - Av1)
+      pl = (lotsqty * Qty) * (sl - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
       const sltym = new Date().toString()
@@ -1035,10 +1035,10 @@ exports.editfnoOption = async (req, res) => {
 
     } else if (t1_type == "true" && t2_type == "true" && t3_type == "true") {
       console.log("second condition true")
-      pl = (lotsqty * 150) * (t3 - Av1)
+      pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1055,10 +1055,10 @@ exports.editfnoOption = async (req, res) => {
         .catch((error) => resp.errorr(res, error))
     } else if (t1_type == "true" && t2_type == "true") {
       console.log("FOURTH CONDITION TRUE")
-      pl = (lotsqty * 150) * (t2 - Av1)
+      pl = (lotsqty * Qty) * (t2 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1076,10 +1076,10 @@ exports.editfnoOption = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
     } else if (t2_type == "true" && t3_type == "true") {
       console.log("FOURTH CONDITION TRUE")
-      pl = (lotsqty * 150) * (t3 - Av1)
+      pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1094,10 +1094,10 @@ exports.editfnoOption = async (req, res) => {
 
     else if (t3_type == "true" && t4_type == "true") {
       console.log("5th condition true")
-      pl = (lotsqty * 150) * (t4 - Av1)
+      pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1117,10 +1117,10 @@ exports.editfnoOption = async (req, res) => {
     else if (t1_type == "true") {
 
 
-      pl = (lotsqty * 150) * (t1 - Av1)
+      pl = (lotsqty * Qty) * (t1 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1138,10 +1138,10 @@ exports.editfnoOption = async (req, res) => {
 
     } else if (t2_type == "true") {
 
-      pl = (lotsqty * 150) * (t2 - Av1)
+      pl = (lotsqty * Qty) * (t2 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1160,10 +1160,10 @@ exports.editfnoOption = async (req, res) => {
 
     } else if (t3_type == "true") {
 
-      pl = (lotsqty * 150) * (t3 - Av1)
+      pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1179,10 +1179,10 @@ exports.editfnoOption = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (t4_type == "true") {
-      pl = (lotsqty * 150) * (t4 - Av1)
+      pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1202,9 +1202,9 @@ exports.editfnoOption = async (req, res) => {
 
     if (req.body.T5 && req.body.T6 && req.body.T7) {
       console.log("sab thik chal rha h")
-      plt7 = (lotsqty * 150) * (req.body.T7 - Av1)
+      plt7 = (lotsqty * Qty) * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
-      pl_per = (plt7 / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
       let updatee = await Alltrade.findOneAndUpdate(
@@ -1216,7 +1216,7 @@ exports.editfnoOption = async (req, res) => {
       ).then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (req.body.T5 && req.body.T6) {
-      plt6 = (lotsqty * 150) * (req.body.T6 - Av1)
+      plt6 = (lotsqty * Qty) * (req.body.T6 - Av1)
       console.log("PLT66", plt6)
 
       let updateee = await Alltrade.findOneAndUpdate(
@@ -1231,7 +1231,7 @@ exports.editfnoOption = async (req, res) => {
 
     } else if (req.body.T6 && req.body.T7) {
       console.log("sab thik ")
-      plt7 = (lotsqty * 150) * (req.body.T7 - Av1)
+      plt7 = (lotsqty * Qty) * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
 
       let updatee = await Alltrade.findOneAndUpdate(
@@ -1245,7 +1245,7 @@ exports.editfnoOption = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
     }
     else if (req.body.T5) {
-      plt5 = (lotsqty * 150) * (req.body.T5 - Av1)
+      plt5 = (lotsqty * Qty) * (req.body.T5 - Av1)
 
       console.log("PLT5555", plt5)
 
@@ -1259,7 +1259,7 @@ exports.editfnoOption = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (req.body.T6) {
-      plt6 = (lotsqty * 150) * (req.body.T6 - Av1)
+      plt6 = (lotsqty * Qty) * (req.body.T6 - Av1)
       console.log("PLT66", plt6)
 
       let updateee = await Alltrade.findOneAndUpdate(
@@ -1274,7 +1274,7 @@ exports.editfnoOption = async (req, res) => {
 
       // console.log("ttttt",updateee)
     } else if (req.body.T7) {
-      plt7 = (lotsqty * 150) * (req.body.T7 - Av1)
+      plt7 = (lotsqty * Qty) * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
 
       let updatee = await Alltrade.findOneAndUpdate(
