@@ -317,7 +317,7 @@ exports.add_fnoEquity = async (req, res) => {
 
 exports.add_equityCash = async (req, res) => {
 
-  const { script_type, cash_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, qty, no_of_lots, pl_type, expiryDate, type, status, cstmMsg } = req.body;
+  const { script_type, cash_scrpt_name, active_value, active_value2, call_type, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, qty, pl_type, expiryDate, type, status, cstmMsg } = req.body;
 
 
   investment_amt = (req.body.active_value) * (req.body.qty)
@@ -1011,11 +1011,13 @@ exports.editfnoOption = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (t1_type == "true" && t2_type == "true" && t3_type == "true" && t4_type == "true") {
-      console.log("API REPONED")
-      pl = (lotsqty * 150) * (t4 - Av1)
+      console.log("API RESPONED")
+      // pl = (lotsqty * 150) * (t4 - Av1)
+      // console.log("PL", pl)
+      pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl / invest_amt * 100).toFixed(2);
+      pl_per = (pl * invest_amt / 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1350,8 +1352,9 @@ exports.editCash = async (req, res) => {
 
     if (sl_type == "true") {
       let sl = findone.SL
+      console.log("sl", sl)
 
-      let loss = (lotsqty * 400) * (sl - Av1)
+      let loss = (Qty * 400) * (sl - Av1)
       console.log("Loss", loss)
 
       loss_per = (loss / invest_amt * 100).toFixed(2);
