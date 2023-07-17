@@ -1018,7 +1018,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1039,7 +1039,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1059,7 +1059,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t2 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1080,7 +1080,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1098,7 +1098,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1121,7 +1121,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t1 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1142,7 +1142,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t2 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1164,7 +1164,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t3 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1183,7 +1183,7 @@ exports.editfnoOption = async (req, res) => {
       pl = (lotsqty * Qty) * (t4 - Av1)
       console.log("PL", pl)
 
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
 
@@ -1205,7 +1205,7 @@ exports.editfnoOption = async (req, res) => {
       console.log("sab thik chal rha h")
       plt7 = (lotsqty * Qty) * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
-      pl_per = (pl * invest_amt / 100).toFixed(2);
+      pl_per = (pl / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
       let updatee = await Alltrade.findOneAndUpdate(
