@@ -1312,8 +1312,8 @@ exports.editCash = async (req, res) => {
     console.log("INVESTAMT", invest_amt)
     let Qty = findone.qty
     console.log("QTY", Qty)
-    let lotsqty = findone.no_of_lots
-    console.log("lotsqty", lotsqty)
+    //  let lotsqty = findone.no_of_lots
+    //  console.log("lotsqty", lotsqty)
     let Av1 = findone.active_value
     console.log("Av1", Av1)
     let active_value2 = findone.active_value2
@@ -1355,7 +1355,7 @@ exports.editCash = async (req, res) => {
       let sl = findone.SL
       console.log("sl", sl)
 
-      let loss = (Qty * 400) * (sl - Av1)
+      let loss = Qty * (sl - Av1)
       console.log("Loss", loss)
 
       loss_per = (loss / invest_amt * 100).toFixed(2);
@@ -1380,7 +1380,7 @@ exports.editCash = async (req, res) => {
     }
     else if (t1_type == "true" && t2_type == "true" && t3_type == "true" && t4_type == "true") {
       console.log("API REPONED")
-      pl = (lotsqty * 400) * (t4 - Av1)
+      pl = Qty * (t4 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1402,7 +1402,7 @@ exports.editCash = async (req, res) => {
     }
     else if (t1_type == "true" && t2_type == "true" && t3_type == "true") {
       console.log("second condition true")
-      pl = (lotsqty * 400) * (t3 - Av1)
+      pl = Qty * (t3 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1423,7 +1423,7 @@ exports.editCash = async (req, res) => {
     }
     else if (t1_type == "true" && t2_type == "true") {
       console.log("FOURTH CONDITION TRUE")
-      pl = (lotsqty * 400) * (t2 - Av1)
+      pl = Qty * (t2 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1445,7 +1445,7 @@ exports.editCash = async (req, res) => {
     }
     else if (t3_type == "true" && t4_type == "true") {
       console.log("5th condition true")
-      pl = (lotsqty * 400) * (t4 - Av1)
+      pl = Qty * (t4 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1468,7 +1468,7 @@ exports.editCash = async (req, res) => {
     else if (t1_type == "true") {
 
 
-      pl = (lotsqty * 400) * (t1 - Av1)
+      pl = Qty * (t1 - Av1)
       console.log("PL", pl)
 
       let pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1489,7 +1489,7 @@ exports.editCash = async (req, res) => {
 
     } else if (t2_type == "true") {
 
-      pl = (lotsqty * 400) * (t2 - Av1)
+      pl = Qty * (t2 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1510,7 +1510,7 @@ exports.editCash = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
 
     } else if (t3_type == "true") {
-      pl = (lotsqty * 400) * (t3 - Av1)
+      pl = Qty * (t3 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1530,7 +1530,7 @@ exports.editCash = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (t4_type == "true") {
-      pl = (lotsqty * 400) * (t4 - Av1)
+      pl = Qty * (t4 - Av1)
       console.log("PL", pl)
 
       pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -1552,7 +1552,7 @@ exports.editCash = async (req, res) => {
 
     if (req.body.T5 && req.body.T6 && req.body.T7) {
       console.log("THIS PHASE SUCCESS")
-      plt7 = (lotsqty * 400) * (req.body.T7 - Av1)
+      plt7 = Qty * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
 
       let updatee = await Alltrade.findOneAndUpdate(
@@ -1564,7 +1564,7 @@ exports.editCash = async (req, res) => {
       ).then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (req.body.T5 && req.body.T6) {
-      plt6 = (lotsqty * 400) * (req.body.T6 - Av1)
+      plt6 = Qty * (req.body.T6 - Av1)
       console.log("PLT66", plt6)
 
       let updateee = await Alltrade.findOneAndUpdate(
@@ -1579,7 +1579,7 @@ exports.editCash = async (req, res) => {
 
     } else if (req.body.T6 && req.body.T7) {
       console.log("sab thik ")
-      plt7 = (lotsqty * 400) * (req.body.T7 - Av1)
+      plt7 = Qty * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
 
       let updatee = await Alltrade.findOneAndUpdate(
@@ -1593,7 +1593,7 @@ exports.editCash = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
     }
     else if (req.body.T5) {
-      plt5 = (lotsqty * 400) * (req.body.T5 - Av1)
+      plt5 = Qty * (req.body.T5 - Av1)
 
       console.log("PLT5555", plt5)
 
@@ -1607,7 +1607,7 @@ exports.editCash = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else if (req.body.T6) {
-      plt6 = (lotsqty * 400) * (req.body.T6 - Av1)
+      plt6 = Qty * (req.body.T6 - Av1)
       console.log("PLT66", plt6)
 
       let updateee = await Alltrade.findOneAndUpdate(
@@ -1622,7 +1622,7 @@ exports.editCash = async (req, res) => {
 
       // console.log("ttttt",updateee)
     } else if (req.body.T7) {
-      plt7 = (lotsqty * 400) * (req.body.T7 - Av1)
+      plt7 = Qty * (req.body.T7 - Av1)
       console.log("PLT66", plt7)
 
       let updatee = await Alltrade.findOneAndUpdate(
