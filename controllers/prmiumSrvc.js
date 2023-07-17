@@ -20,23 +20,23 @@ exports.addPrmiumSrvc = async (req, res) => {
   }
 
 
-// exports.editplan = async (req, res) => {
-//   await Plan.findOneAndUpdate(
-//     {
-//       _id: req.params.id,
-//     },
-//     { $set: req.body },
-//     { new: true }
-//   )
-//     .then((data) => resp.successr(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+exports.editService= async (req, res) => {
+  await PreminumSrvc.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: req.body },
+    { new: true }
+  )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 
-// exports.viewoneplan = async (req, res) => {
-//   await Plan.findOne({ _id: req.params.id })
-//     .then((data) => resp.successr(res, data))
-//     .catch((error) => resp.errorr(res, error));
-// };
+exports.viewoneService = async (req, res) => {
+  await PreminumSrvc.findOne({ _id: req.params.id })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 
 exports.serviceslist = async (req, res) => {
   await PreminumSrvc.find().populate("planId")
