@@ -995,8 +995,8 @@ exports.editfnoOption = async (req, res) => {
       loss = (lotsqty * Qty) * (sl - Av1)
       console.log("PL", pl)
 
-      loss_per = (pl / invest_amt * 100).toFixed(2);
-      console.log("PL%%%%", pl_per)
+      loss_per = (loss / invest_amt * 100).toFixed(2);
+      console.log("PL%%%%", loss_per)
 
 
       const sltym = new Date().toString()
