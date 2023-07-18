@@ -342,7 +342,7 @@ exports.add_equityCash = async (req, res) => {
     t4_type: t4_type,
     qty: qty,
     investment_amt: investment_amt,
-    pl_type: pl_type,
+     pl_type: pl_type,
     expiryDate: expiryDate,
     type: type,
     status: status,
