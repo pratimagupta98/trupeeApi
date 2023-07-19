@@ -129,26 +129,25 @@ exports.add_fnoIndex = async (req, res) => {
     });
     newAlltrade
       .save()
-      .then((data) => {
-        //  const makertradehistory = await TradeHistory.create(newTradeHistory);
-        // console.log("MMMMMM",makertradehistory)
+      .then(async (data) => {
+        // Save the TradeHistory instance here
+        const makertradehistory = await TradeHistory.create(newTradeHistory);
+        console.log("TradeHistory saved:", makertradehistory);
+
         res.status(200).json({
           status: true,
-
           msg: "success",
           data: data,
-          _id: data?._id,
-          tradeId: data._id,
-          //  active_value2: av2,
+          // active_value2: av2,
           investment_amt: investment_amt,
           trl: trl,
           FT1: FT1,
           FT2: FT2,
           FT3: FT3,
           SL: SL,
-        })
+        });
       })
-
+      .catch((error) => resp.errorr(res, error));
   } else if (trade_type == "Nifty") {
     investment_amt = (req.body.no_of_lots * 50) * (req.body.active_value)
     console.log("InvestAMT", investment_amt)
@@ -308,10 +307,50 @@ exports.add_fnoEquity = async (req, res) => {
     date: getCurrentDate()
 
   });
+  const newTradeHistory = new TradeHistory({
 
+    script_type: script_type,
+    fnoequty_scrpt_name: fnoequty_scrpt_name,
+    active_value: active_value,
+    active_value2: active_value2,
+    call_type: call_type,
+    SL: SL,
+    sl_type: sl_type,
+    T1: T1,
+    t1_type: t1_type,
+    T2: T2,
+    t2_type: t2_type,
+    T3: T3,
+    t3_type: t3_type,
+    T4: T4,
+    t4_type: t4_type,
+    qty: qty,
+    investment_amt: investment_amt,
+    no_of_lots: no_of_lots,
+    expiryDate: expiryDate,
+    type: type,
+    status: status,
+    cstmMsg: cstmMsg,
+    date: getCurrentDate()
+
+  });
   newAlltrade
     .save()
-    .then((data) => resp.successr(res, data))
+    .then(async (data) => {
+      // Save the TradeHistory instance here
+      const makertradehistory = await TradeHistory.create(newTradeHistory);
+      console.log("TradeHistory saved:", makertradehistory);
+
+      res.status(200).json({
+        status: true,
+      message: "success",
+      count: data.length,
+      data: data,
+        // active_value2: av2,
+       // investment_amt: investment_amt,
+       
+      });
+    })
     .catch((error) => resp.errorr(res, error));
 }
 
@@ -342,7 +381,34 @@ exports.add_equityCash = async (req, res) => {
     t4_type: t4_type,
     qty: qty,
     investment_amt: investment_amt,
-     pl_type: pl_type,
+    pl_type: pl_type,
+    expiryDate: expiryDate,
+    type: type,
+    status: status,
+    cstmMsg: cstmMsg
+
+  });
+
+  const newTradeHistory = new TradeHistory({
+
+    script_type: script_type,
+    cash_scrpt_name: cash_scrpt_name,
+    active_value: active_value,
+    active_value2: active_value2,
+    call_type: call_type,
+    SL: SL,
+    sl_type: sl_type,
+    T1: T1,
+    t1_type: t1_type,
+    T2: T2,
+    t2_type: t2_type,
+    T3: T3,
+    t3_type: t3_type,
+    T4: T4,
+    t4_type: t4_type,
+    qty: qty,
+    investment_amt: investment_amt,
+    pl_type: pl_type,
     expiryDate: expiryDate,
     type: type,
     status: status,
@@ -352,7 +418,21 @@ exports.add_equityCash = async (req, res) => {
 
   newnewAlltrade
     .save()
-    .then((data) => resp.successr(res, data))
+    .then(async (data) => {
+      // Save the TradeHistory instance here
+      const makertradehistory = await TradeHistory.create(newTradeHistory);
+      console.log("TradeHistory saved:", makertradehistory);
+
+      res.status(200).json({
+        status: true,
+      message: "success",
+      count: data.length,
+      data: data,
+        // active_value2: av2,
+       // investment_amt: investment_amt,
+       
+      });
+    })
     .catch((error) => resp.errorr(res, error));
 }
 
@@ -4062,7 +4142,7 @@ exports.today_profit_loss = async (req, res) => {
 
   let getdate = await Alltrade.find({ date: today })
   console.log("TODAY", today)
-
+console.log("getdate",getdate)
   var newarrToday = getdate.map(function (value) {
     return value.pl;
   });
