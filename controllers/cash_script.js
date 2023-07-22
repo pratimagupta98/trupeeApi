@@ -22,7 +22,7 @@ exports.addCashScript = async (req, res) => {
 
 
 exports.getCashScript = async (req, res) => {
-    await CashScript.find()
+    await CashScript.find({status:"Active"})
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -50,9 +50,26 @@ exports.getCashScript = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.dltCashScript = async (req, res) => {
-    await CashScript.deleteOne({ _id: req.params.id })
-      .then((data) => resp.deleter(res, data))
+  // exports.dltCashScript = async (req, res) => {
+  //   await CashScript.deleteOne({ _id: req.params.id })
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+  
+
+  exports.dltCashScript = async (req, res) => {    
+    await CashScript
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: {status:"Deactive"},
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
-  

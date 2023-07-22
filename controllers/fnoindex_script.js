@@ -22,7 +22,7 @@ exports.addFnoScript = async (req, res) => {
 
 
 exports.getFnoScript = async (req, res) => {
-    await FnoScript.find()
+    await FnoScript.find({status:"Active"})
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -51,9 +51,26 @@ exports.getFnoScript = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.dltFnoScript = async (req, res) => {
-    await FnoScript.deleteOne({ _id: req.params.id })
-      .then((data) => resp.deleter(res, data))
+  // exports.dltFnoScript = async (req, res) => {
+  //   await FnoScript.deleteOne({ _id: req.params.id })
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+  
+
+  exports.dltFnoScript = async (req, res) => {    
+    await FnoScript
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: {status:"Deactive"},
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
-  

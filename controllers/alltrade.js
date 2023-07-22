@@ -5209,10 +5209,30 @@ exports.monthly_profit_loss = async (req, res) => {
   })
 }
 
-
-
 exports.reportTradeFilter = async (req, res) => {
-  await Alltrade.find({ status: "Active" })
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
+  await Alltrade.find({ status: "Active" },{fnoindex_scrpt_name:req.params.id},{start_date:req.params.start_date},{end_date:req.params.end_date})
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error));
+    res.status(200).json({
+      status:true,
+      msg:"success"
+    })
+};
+
+
+exports.scriptlist = async (req, res) => {
+  const findall = await TradeHistory.find().sort({ sortorder: 1 })
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
 };

@@ -22,7 +22,7 @@ exports.addEquityScript = async (req, res) => {
 
 
 exports.getEquityScript = async (req, res) => {
-    await EquityScript.find()
+    await EquityScript.find({status:"Active"})
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -50,9 +50,24 @@ exports.getEquityScript = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.dltEquityScript = async (req, res) => {
-    await EquityScript.deleteOne({ _id: req.params.id })
-      .then((data) => resp.deleter(res, data))
+  // exports.dltEquityScript = async (req, res) => {
+  //   await EquityScript.deleteOne({ _id: req.params.id })
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+  exports.dltEquityScript = async (req, res) => {    
+    await EquityScript
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set:{status:"Deactive"}
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
-  
