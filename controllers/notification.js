@@ -18,11 +18,13 @@ cloudinary.config({
 
 exports.add_notification = async (req, res) => {
   try {
-    const { title, desc, img } = req.body;
+    const { title, desc, img,emoji } = req.body;
 
     const newNotification = new Notification({
       title: title,
       desc: desc,
+      emoji:emoji
+
     });
 
     const findexist = await Notification.findOne({ title: title });

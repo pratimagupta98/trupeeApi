@@ -343,12 +343,12 @@ exports.add_fnoEquity = async (req, res) => {
 
       res.status(200).json({
         status: true,
-      message: "success",
-      count: data.length,
-      data: data,
+        message: "success",
+        count: data.length,
+        data: data,
         // active_value2: av2,
-       // investment_amt: investment_amt,
-       
+        // investment_amt: investment_amt,
+
       });
     })
     .catch((error) => resp.errorr(res, error));
@@ -425,12 +425,12 @@ exports.add_equityCash = async (req, res) => {
 
       res.status(200).json({
         status: true,
-      message: "success",
-      count: data.length,
-      data: data,
+        message: "success",
+        count: data.length,
+        data: data,
         // active_value2: av2,
-       // investment_amt: investment_amt,
-       
+        // investment_amt: investment_amt,
+
       });
     })
     .catch((error) => resp.errorr(res, error));
@@ -1744,15 +1744,11 @@ exports.editalltrade = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
-
 exports.viewonetrades = async (req, res) => {
   await Alltrade.findOne({ _id: req.params.id })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
-
-
 
 exports.add_notificationss = async (req, res) => {
   const { title, desc, img, noti_status } = req.body;
@@ -1789,7 +1785,6 @@ exports.add_notificationss = async (req, res) => {
   }
 }
 
-
 // exports.notificationList = async (req, res) => {
 //   await TradeHistory.find({ $or: [{ status: "Active" }, { noti_status: "Notification" }] }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
 //     .sort({ sortorder: 1 })
@@ -1817,10 +1812,6 @@ exports.addTnotification = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 }
-
-
-
-
 exports.datefilter = async (req, res) => {
   var dateStr = new Date(year, month, day, 0, 0, 0);
   var nextDate = new Date(year, month, day, 23, 59, 59);
@@ -3885,8 +3876,6 @@ exports.completedTrade = async (req, res) => {
 
 //   }
 // }
-
-
 exports.tradeHistory = async (req, res) => {
   const findall = await TradeHistory.find({ tradeId: req.params.id }).sort({ sortorder: 1 })
   if (findall) {
@@ -3903,7 +3892,6 @@ exports.tradeHistory = async (req, res) => {
     });
   }
 };
-
 exports.searchTradeBydate = async (req, res) => {
 
 }
@@ -3944,8 +3932,6 @@ exports.dateSrchFltr = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
-
 
 exports.getweekdaywisedata = async (req, res) => {
 
@@ -4128,13 +4114,7 @@ exports.getweekdaywisedata = async (req, res) => {
 
 
 };
-
-
 exports.today_profit_loss = async (req, res) => {
-
-
-
-
   let d = new Date();
   console.log('Today is: ' + d.toLocaleDateString());
   var today = moment(d).format('DD-MM-YYYY');
@@ -4142,7 +4122,7 @@ exports.today_profit_loss = async (req, res) => {
 
   let getdate = await Alltrade.find({ date: today })
   console.log("TODAY", today)
-console.log("getdate",getdate)
+  console.log("getdate", getdate)
   var newarrToday = getdate.map(function (value) {
     return value.pl;
   });
@@ -4207,10 +4187,6 @@ console.log("getdate",getdate)
 
 
 }
-
-
-
-
 exports.editFnoindex = async (req, res) => {
   const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots } = req.body
 
@@ -5184,8 +5160,6 @@ exports.weekely_profit_loss = async (req, res) => {
 
 
 }
-
-
 exports.monthly_profit_loss = async (req, res) => {
 
 
@@ -5234,3 +5208,11 @@ exports.monthly_profit_loss = async (req, res) => {
     thirtydays_prft_loss: thirtydays_prft_loss
   })
 }
+
+
+
+exports.reportTradeFilter = async (req, res) => {
+  await Alltrade.find({ status: "Active" })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};

@@ -11,6 +11,9 @@ const thisSchema = new Schema(
        img:{
         type: Array, 
        },
+       emoji:{
+        type: String, 
+       },
        
       },
      
