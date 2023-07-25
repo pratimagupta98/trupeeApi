@@ -9,7 +9,8 @@ exports.addCashScript = async (req, res) => {
     status: "Active"
 
   });
-  const findexist = await CashScript.findOne({ scriptName: scriptName });
+  const findexist = await CashScript.findOne({ scriptName: scriptName,
+    status: "Active", });
   if (findexist) {
     resp.alreadyr(res);
   } else {

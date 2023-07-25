@@ -9,7 +9,7 @@ exports.addFnoScript = async (req, res) => {
     status:"Active"
      
   });
-  const findexist = await FnoScript.findOne({ scriptName:scriptName });
+  const findexist = await FnoScript.findOne({ scriptName:scriptName, status: "Active", });
   if (findexist) {
     resp.alreadyr(res);
   } else {
