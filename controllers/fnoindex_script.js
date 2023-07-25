@@ -6,7 +6,7 @@ exports.addFnoScript = async (req, res) => {
 
   const newFnoScript = new FnoScript({
     scriptName: scriptName,
-    status:status
+    status:"Active"
      
   });
   const findexist = await FnoScript.findOne({ scriptName:scriptName });
