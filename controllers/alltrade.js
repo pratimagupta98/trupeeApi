@@ -1,5 +1,7 @@
 const Alltrade = require("../models/alltrade");
-const moment = require('moment');
+//const moment = require('moment');
+//const moment = require('moment');
+
 const resp = require("../helpers/apiResponse");
 const TradeHistory = require("../models/tradeHistory");
 var cron = require('node-cron');
@@ -5236,3 +5238,30 @@ exports.scriptlist = async (req, res) => {
     });
   }
 };
+
+
+const moment = require('moment');
+
+// const startDate = new Date("2023-07-01"); // Replace with your desired start date
+// const endDate = new Date("2023-07-31"); // Replace with your desired end date
+
+exports.tradefilterBydate = async (req, res) => {
+  // Extract the start and end dates from the query parameters
+  const { start, end } = req.query;
+
+  // Parse the start and end dates into Date objects
+//   const startDate = new Date(start);
+//   const endDate = new Date(end);
+// console.log("startDate",startDate)
+  await Alltrade.find({
+    date: {
+      $gte: start,
+      $lte: end,
+    },
+  })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+
