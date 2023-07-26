@@ -69,18 +69,64 @@ exports.getone_notification = async (req, res) => {
 };
 
 
+// exports.edit_notification = async (req, res) => {
+//   await Notification.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     { $set: req.body },
+//     { new: true }
+//   )
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
+
 exports.edit_notification = async (req, res) => {
+  const { title,desc,img,emoji } = req.body;
+ 
+  data = {};
+  if (title) {
+    data.title = title;
+  }
+  if (desc) {
+    data.desc = desc;
+  }
+  if (emoji) {
+    data.emoji = emoji;
+  }
+
+  
+  if (req.files) {
+    if (req.files.img) {
+      alluploads = [];
+      for (let i = 0; i < req.files.img.length; i++) {
+        // console.log(i);
+        const resp = await cloudinary.uploader.upload(req.files.img[i].path, {
+          use_filename: true,
+          unique_filename: false,
+        });
+        fs.unlinkSync(req.files.img[i].path);
+        alluploads.push(resp.secure_url);
+      }
+      // newStore.storeImg = alluploads;
+      data.img = alluploads;
+    }
+  }
   await Notification.findOneAndUpdate(
     {
       _id: req.params.id,
+      //  console.log(req.params._id);
     },
-    { $set: req.body },
+    {
+      $set: data,
+    },
     { new: true }
   )
+
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
-};
 
+};
 
 exports.dlt_notification = async (req, res) => {
   await Notification.deleteOne({ _id: req.params.id })

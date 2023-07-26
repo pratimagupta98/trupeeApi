@@ -53,7 +53,7 @@ router.get("/admin/get_notification", get_notification);
 router.get("/admin/dlt_notification/:id", dlt_notification);
 
 router.get("/admin/getone_notification/:id", getone_notification);
-router.post("/admin/edit_notification/:id", edit_notification);
+router.post("/admin/edit_notification/:id",multipleUpload, edit_notification);
 
 module.exports = router;
  
