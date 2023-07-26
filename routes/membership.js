@@ -20,10 +20,6 @@ const {
 } = require("../controllers/membership");
 
  
-
- 
- 
- 
  router.post("/user/addmembership",addmembership);
 router.get("/admin/allmembership", allmembership);
  router.get("/admin/viewonemembership/:id", viewonemembership);
