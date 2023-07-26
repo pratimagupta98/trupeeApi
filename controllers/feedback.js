@@ -25,7 +25,7 @@ exports.getFeedback = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   exports.getoneFeedback = async (req, res) => {
-    await Feedback.findOne({ _id: req.params.id })
+    await Feedback.findOne({ _id: req.params.id }).populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
