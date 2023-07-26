@@ -24,7 +24,11 @@ exports.getFeedback = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
-
+  exports.getoneFeedback = async (req, res) => {
+    await Feedback.findOne({ _id: req.params.id })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
 
   exports.dltFeedback = async (req, res) => {
     await Feedback.deleteOne({ _id: req.params.id })
