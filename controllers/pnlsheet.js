@@ -71,3 +71,9 @@ exports.addPnlsheet = async (req, res) => {
           .then((data) => resp.deleter(res, data))
           .catch((error) => resp.errorr(res, error));
       };
+
+      exports.getonePnlSheet = async (req, res) => {
+        await PnlSheet.findOne({ _id: req.params.id }).populate("userId")
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      };

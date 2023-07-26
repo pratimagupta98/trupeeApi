@@ -9,9 +9,9 @@ if (!fs.existsSync("./uploads")) {
   fs.mkdirSync("./uploads");
   var base64Data = req.rawBody.replace(/^data:image\/png;base64,/, "");
 
-require("fs").writeFile("out.png", base64Data, 'base64', function(err) {
-  console.log(err);
-});
+  require("fs").writeFile("out.png", base64Data, 'base64', function (err) {
+    console.log(err);
+  });
 }
 
 const storage = multer.diskStorage({
@@ -27,30 +27,32 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const {
-    addPnlsheet,
-    getPnlSheet,
-    dltPnlsheet
- 
+  addPnlsheet,
+  getPnlSheet,
+  dltPnlsheet,
+  getonePnlSheet
+
 } = require("../controllers/pnlsheet");
 
 //PATHS
 
 router.post(
-  "/admin/addPnlsheet",verifytoken,
-   
+  "/admin/addPnlsheet", verifytoken,
+
   upload.fields([
     {
       name: "pnlimg",
     },
-     
+
   ]),
   addPnlsheet
 );
 router.get("/admin/getPnlSheet", getPnlSheet);
 router.get("/admin/dltPnlsheet/:id", dltPnlsheet);
+router.get("/admin/getonePnlSheet/:id", getonePnlSheet);
 
- 
- 
+
+
 module.exports = router;
- 
+
 
