@@ -34,7 +34,8 @@ const {
     today_profit_loss,
     weekely_profit_loss,
     monthly_profit_loss,
-    tradefilterBydate
+    tradefilterBydate,
+    activeTradeList
      
 } = require("../controllers/alltrade");
 const storage = multer.diskStorage({
@@ -116,6 +117,6 @@ let multipleUpload = uploads.fields([
   
   
 
- // router.post("/admin/updatefnoindex/:id", updatefnoindex);
+  router.get("/admin/activeTradeList", activeTradeList);
 module.exports = router;
  

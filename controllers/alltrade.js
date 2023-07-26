@@ -5265,3 +5265,19 @@ exports.tradefilterBydate = async (req, res) => {
 
 
 
+exports.activeTradeList = async (req, res) => {
+  await Alltrade.find({ status: "Active" })
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+};
