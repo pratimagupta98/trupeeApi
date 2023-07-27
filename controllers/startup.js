@@ -18,9 +18,6 @@ cloudinary.config({
 exports.addStartup = async (req, res) => {
   const { title, desc, image, video_link } =
     req.body;
-
-  
-  
   const newStartup = new Startup({
     title: title,
     desc: desc,
@@ -29,40 +26,20 @@ exports.addStartup = async (req, res) => {
     
   });
 
-//   const findexist = await Startup.findOne({
-//     $or: [{ email: email }, { mobile: mobile }],
-//   });
-//   if (findexist) {
-//     resp.alreadyr(res);
-//   } else {
-    if (req.files) {
-      if (req.files.image[0].path) {
-        alluploads = [];
-        for (let i = 0; i < req.files.image.length; i++) {
-          const resp = await cloudinary.uploader.upload(
-            req.files.image[i].path,
-            { use_filename: true, unique_filename: false }
-          );
-          fs.unlinkSync(req.files.image[i].path);
-          alluploads.push(resp.secure_url);
-        }
-        newStartup.image = alluploads;
-      }
+ 
+  if (req.files.image) {
+    const alluploads = [];
+    for (let i = 0; i < req.files.image.length; i++) {
+      const resp = await cloudinary.uploader.upload(
+        req.files.image[i].path,
+        { use_filename: true, unique_filename: false }
+      );
+      fs.unlinkSync(req.files.image[i].path);
+      alluploads.push(resp.secure_url);
     }
-    // if(req.files.video_link){
-    //     console.log(req.files)
-    //     if(req.files.video_link){
-    //         const geturl = await uploadFile(
-    //           req.files.video_link[0]?.path,
-    //           req.files.video_link[0]?.filename,
-    //           "mp4"
-    //           );
-    //           if (geturl) {
-    //             newStartup.video_link = geturl.Location;
-    //          //  fs.unlinkSync(`../uploads/${req.files.video_file[0]?.filename}`);
-    //     }
-    // }
-    //   }
+    newNotification.image = alluploads;
+  }
+
       newStartup.save()
 
 

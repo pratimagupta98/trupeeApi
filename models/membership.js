@@ -20,9 +20,9 @@ const membershipplan = new Schema(
     planId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "plan",
-  //   trim: true,
+      //   trim: true,
     },
-    refral_Code:{type: String},
+    refral_Code: { type: String },
     // amount: {
     //   type: Number,
     //   trim: true,
@@ -30,31 +30,31 @@ const membershipplan = new Schema(
     // },
     amount: {
       type: Number,
-     // default: 0,
+      // default: 0,
     },
-    type :{
-      type:String
+    type: {
+      type: String
     },
-    status:{
-      type:String,
-      default:"Active"
+    status: {
+      type: String,
+      default: "Active"
     },
-    mem_status:{
-      type:String,
+    mem_status: {
+      type: String,
       //default:"false"
     },
-    razorpay_payment_id:{
-      type:String
+    razorpay_payment_id: {
+      type: String
     },
-    exp_free_mem:{
-      type:String,
-    default:"true"
+    exp_free_mem: {
+      type: String,
+      default: "true"
     },
-    start_date:{
-      type:String,
+    start_date: {
+      type: String,
     },
-    expdate:{
-      type:String,
+    expdate: {
+      type: String,
     }
   },
   { timestamps: true }
