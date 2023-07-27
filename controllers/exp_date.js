@@ -6,9 +6,9 @@ exports.addExpDate = async (req, res) => {
 
   const newExpDate = new ExpDate({
     expDate: expDate,
-    
+    status: "Active"
   });
-  const findexist = await ExpDate.findOne({ expDate: expDate });
+  const findexist = await ExpDate.findOne({ expDate: expDate, status: "Active", });
   if (findexist) {
     resp.alreadyr(res);
   } else {
@@ -21,7 +21,7 @@ exports.addExpDate = async (req, res) => {
 
 
 exports.datelist = async (req, res) => {
-    await ExpDate.find()
+    await ExpDate.find({ status: "Active" })
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -33,9 +33,27 @@ exports.datelist = async (req, res) => {
   };
   
 
+  // exports.dltDate = async (req, res) => {
+  //   await ExpDate.deleteOne({ _id: req.params.id })
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+
+
   exports.dltDate = async (req, res) => {
-    await ExpDate.deleteOne({ _id: req.params.id })
-      .then((data) => resp.deleter(res, data))
+    await ExpDate
+  
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          //  console.log(req.params._id);
+        },
+        {
+          $set: { status: "Deactive" },
+        },
+        { new: true }
+      )
+      .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 

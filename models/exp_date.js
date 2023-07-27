@@ -8,7 +8,11 @@ const thisSchema = new Schema(
         type: String,
       },
        
-       
+      status: {
+        type: String,
+        default:"Deactive"
+    },
+
       },
      
     { timestamps: true }
