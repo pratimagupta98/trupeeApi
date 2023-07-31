@@ -1795,8 +1795,8 @@ exports.add_notificationss = async (req, res) => {
 // };
 
 exports.notificationList = async (req, res) => {
-  await TradeHistory.find().populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId")
-    .sort({ sortorder: 1 })
+  await TradeHistory.find().populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate").populate("tradeId").sort({ createdAt: -1 })
+    // .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -5212,13 +5212,13 @@ exports.monthly_profit_loss = async (req, res) => {
 }
 
 exports.reportTradeFilter = async (req, res) => {
-  await Alltrade.find({ status: "Active" },{fnoindex_scrpt_name:req.params.id},{start_date:req.params.start_date},{end_date:req.params.end_date})
-    // .then((data) => resp.successr(res, data))
-    // .catch((error) => resp.errorr(res, error));
-    res.status(200).json({
-      status:true,
-      msg:"success"
-    })
+  await Alltrade.find({ status: "Active" }, { fnoindex_scrpt_name: req.params.id }, { start_date: req.params.start_date }, { end_date: req.params.end_date })
+  // .then((data) => resp.successr(res, data))
+  // .catch((error) => resp.errorr(res, error));
+  res.status(200).json({
+    status: true,
+    msg: "success"
+  })
 };
 
 
@@ -5250,9 +5250,9 @@ exports.tradefilterBydate = async (req, res) => {
   const { start, end } = req.query;
 
   // Parse the start and end dates into Date objects
-//   const startDate = new Date(start);
-//   const endDate = new Date(end);
-// console.log("startDate",startDate)
+  //   const startDate = new Date(start);
+  //   const endDate = new Date(end);
+  // console.log("startDate",startDate)
   await Alltrade.find({
     date: {
       $gte: start,
@@ -5280,4 +5280,53 @@ exports.activeTradeList = async (req, res) => {
         error: error,
       });
     });
+};
+
+
+exports.Scriptlist = async (req, res) => {
+  await Alltrade.find(fnoindex_scrpt_name).populate("fnoindex_scrpt_name").populate("expiryDate")
+    .sort({ createdAt: -1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+exports.Scriptlist = async (req, res) => {
+  const type = req.params;
+  const list = await Alltrade.find({ $and: [{ type: req.params.id }, { status: "Active" }] });
+  const typeArray = list.map(item => item.type);
+  console.log(typeArray);
+
+  if (type == "Index") {
+    console.log("Index");
+    const listt = await Alltrade.find( { status: "Active" });  
+    const typeArray = listt.map(item => item.fnoindex_scrpt_name);
+
+      console.log("typeArray,typeArray");
+  } else if (type == "Equity") {
+    console.log("Equity");
+  } else if (type == "Cash") {
+    console.log("Cash");
+  }
+
+  // rest of your code...
+};
+
+exports.getbannerbytype = async (req, res) => {
+  const findall = await Banner.find({ banner_title: req.params.id }).sort({
+    sortorder: 1,
+  });
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
 };
