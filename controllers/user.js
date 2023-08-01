@@ -331,34 +331,229 @@ exports.adminverifyOtp = async (req, res) => {
 
 //  }
 
+// exports.verifyotp = async (req, res) => {
+//   const { mobile, otp,walletId } = req.body;
+
+//   if (otp == "123456") {
+//     const findone = await User.findOne({ mobile: mobile });
+//     const x = findone.userverified
+//     console.log("X",x)
+//     if(x == true){
+//  console.log(x)
+
+//  const today = moment().startOf('day'); // Get the current date without time
+//       const expDate = moment(findone.expdate).startOf('day')
+
+
+//  const token = jwt.sign(
+//         {
+//           userId: findone._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       )
+//       await User.findOneAndUpdate(
+//         {
+//           _id: findone._id,
+//         },
+//         { $set: { userverified: true } },
+//         { new: true }).populate("planId")
+//         .then((data) => {
+//           res.header("auth-token",token).status(200).send({
+//             status: "success",
+//             token: token,
+//             msg: "Welcome Back",
+//             otpverified: true,
+//             redirectto: "dashboard",
+//             _id: data?._id,
+//             userId: data._id,
+//             exp_free_mem:data?.exp_free_mem,
+//             start_date:data?.start_date,
+//             expdate:data?.expdate,
+//             planId :data?.planId
+          
+           
+//           })
+//         })
+//     }else  {
+//       const token = jwt.sign(
+//         {
+//           userId: findone._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       )
+//     await User.findOneAndUpdate(
+//       {
+//         _id: findone._id,
+//       },
+//       { $set: { userverified: true,walletId: findone._id } },
+//       { new: true })
+//       .then((data) => {
+//        res.header("auth-token", token).status(200).send({
+//             status: "success",
+//             token:token,
+//             msg: "Continue signup",
+//             otpverified: true,
+//             //userdata:userdata,
+//             redirectto: "signupdetail",
+//             walletId: data.walletId,
+            
+//           });
+//         })
+//     }  
+  
+// }else {
+//   res.status(400).json({
+//     status: false,
+//     msg: "Incorrect otp",
+//   });
+// }
+// }
+ // const moment = require("moment"); // Import the 'moment' library to handle dates
+
+ //const moment = require("moment");
+
+ //const moment = require("moment");
+
+// const moment = require("moment");
+
+//  exports.verifyotp = async (req, res) => {
+//    const { mobile, otp, walletId } = req.body;
+ 
+//    if (otp == "123456") {
+//      const findone = await User.findOne({ mobile: mobile });
+//      const x = findone.userverified;
+//      console.log("X", x);
+ 
+//      if (x == true) {
+//        console.log(x);
+ 
+//        const todayDate = moment().format("DD-MM-YYYY");
+//        console.log("todayDate", todayDate);
+ 
+//        // Use moment with the specified date format to parse the expdate
+//        const expDate = moment(findone.expdate, "DD-MM-YYYY", true); // Specify the date format and set strict mode to true
+ 
+//        if (expDate.isValid() && expDate.isSame(todayDate, "day")) {
+//         console.log("treuuu")
+//          await User.findOneAndUpdate(
+//            { _id: findone._id },
+//            { $set: { userverified: true, exp_free_mem: "false" } },
+//            { new: true }
+//          ).populate("planId")
+//          .then((data) => {
+//            const token = jwt.sign(
+//              {
+//                userId: findone._id,
+//              },
+//              process.env.TOKEN_SECRET,
+//              {
+//                expiresIn: 86400000,
+//              }
+//            );
+ 
+//            res.header("auth-token", token).status(200).send({
+//              status: "success",
+//              token: token,
+//              msg: "Welcome Back",
+//              otpverified: true,
+//              redirectto: "dashboard",
+//              _id: data?._id,
+//              userId: data._id,
+//              exp_free_mem: data?.exp_free_mem,
+//              start_date: data?.start_date,
+//              expdate: data?.expdate,
+//              planId: data?.planId,
+//            });
+//          });
+//        } else {
+//         console.log("strrr")
+//          const token = jwt.sign(
+//            {
+//              userId: findone._id,
+//            },
+//            process.env.TOKEN_SECRET,
+//            {
+//              expiresIn: 86400000,
+//            }
+//          );
+ 
+//          await User.findOneAndUpdate(
+//            { _id: findone._id },
+//            { $set: { userverified: true } },
+//            { new: true }
+//          ).populate("planId")
+//          .then((data) => {
+//            res.header("auth-token", token).status(200).send({
+//              status: "success",
+//              token: token,
+//              msg: "Welcome Back",
+//              otpverified: true,
+//              redirectto: "dashboard",
+//              _id: data?._id,
+//              userId: data._id,
+//              exp_free_mem: data?.exp_free_mem,
+//              start_date: data?.start_date,
+//              expdate: data?.expdate,
+//              planId: data?.planId,
+//            });
+//          });
+//        }
+//      } else {
+//        // Rest of the code remains the same
+//        // ...
+//      }
+//    } else {
+//      res.status(400).json({
+//        status: false,
+//        msg: "Incorrect otp",
+//      });
+//    }
+//  };
+ 
+ 
 exports.verifyotp = async (req, res) => {
-  const { mobile, otp,walletId } = req.body;
+  const { mobile, otp, walletId } = req.body;
 
   if (otp == "123456") {
     const findone = await User.findOne({ mobile: mobile });
-    const x = findone.userverified
-    console.log("X",x)
-    if(x == true){
- console.log(x)
+    const x = findone.userverified;
+    console.log("X", x);
 
+    if (x == true) {
+      console.log(x);
+     
+      // Check if 'expdate' and current date are the same
+      const todayDate = moment().format("DD-MM-YYYY");
+      console.log("todayDate",todayDate);
+      const expDate =findone.expdate  // Get the 'expdate' without time
+console.log("expDate",expDate)
+      if (expDate ===todayDate ) {
+        console.log("expDate",expDate)
 
- const token = jwt.sign(
-        {
-          userId: findone._id,
-        },
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: 86400000,
-        }
-      )
-      await User.findOneAndUpdate(
-        {
-          _id: findone._id,
-        },
-        { $set: { userverified: true } },
-        { new: true }).populate("planId")
+        // If 'expdate' and current date are the same, set 'exp_free_mem' to false
+        await User.findOneAndUpdate(
+          { _id: findone._id },
+          { $set: { userverified: true, exp_free_mem: "false" } },
+          { new: true }
+        ).populate("planId")
         .then((data) => {
-          res.header("auth-token",token).status(200).send({
+          const token = jwt.sign(
+            {
+              userId: findone._id,
+            },
+            process.env.TOKEN_SECRET,
+            {
+              expiresIn: 86400000,
+            }
+          );
+
+          res.header("auth-token", token).status(200).send({
             status: "success",
             token: token,
             msg: "Welcome Back",
@@ -366,49 +561,54 @@ exports.verifyotp = async (req, res) => {
             redirectto: "dashboard",
             _id: data?._id,
             userId: data._id,
-            planId :data?.planId
-          
-           
-          })
-        })
-    }else  {
-      const token = jwt.sign(
-        {
-          userId: findone._id,
-        },
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: 86400000,
-        }
-      )
-    await User.findOneAndUpdate(
-      {
-        _id: findone._id,
-      },
-      { $set: { userverified: true,walletId: findone._id } },
-      { new: true })
-      .then((data) => {
-       res.header("auth-token", token).status(200).send({
-            status: "success",
-            token:token,
-            msg: "Continue signup",
-            otpverified: true,
-            //userdata:userdata,
-            redirectto: "signupdetail",
-            walletId: data.walletId,
-            
+            exp_free_mem: data?.exp_free_mem,
+            start_date: data?.start_date,
+            expdate: data?.expdate,
+            planId: data?.planId,
           });
-        })
+        });
+      } else {
+        // 'expdate' and current date are different, continue the regular flow
+
+        const token = jwt.sign(
+          {
+            userId: findone._id,
+          },
+          process.env.TOKEN_SECRET,
+          {
+            expiresIn: 86400000,
+          }
+        );
+
+        await User.findOneAndUpdate(
+          { _id: findone._id },
+          { $set: { userverified: true } },
+          { new: true }
+        ).populate("planId")
+        .then((data) => {
+          res.header("auth-token", token).status(200).send({
+            status: "success",
+            token: token,
+            msg: "Welcome Back",
+            otpverified: true,
+            redirectto: "dashboard",
+            _id: data?._id,
+            userId: data._id,
+            exp_free_mem: data?.exp_free_mem,
+            start_date: data?.start_date,
+            expdate: data?.expdate,
+            planId: data?.planId,
+          });
+        });
+      }
     }  
-  
-}else {
-  res.status(400).json({
-    status: false,
-    msg: "Incorrect otp",
-  });
-}
-}
-  
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "Incorrect otp",
+    });
+  }
+};
 
 exports.myWallet = async (req, res) => {
   const getdata = await User.findOne({_id:req.userId})
