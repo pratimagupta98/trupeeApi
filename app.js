@@ -45,8 +45,9 @@ const exp_date = require("./routes/exp_date")
 const pnlsheet = require("./routes/pnlsheet")
 const refEarn = require("./routes/refEarn")
 const razorpayment = require("./routes/razorpayment")
- 
- 
+const tradeAlert = require("./routes/tradeAlert")
+
+
 //use
 app.use("/", user);
 app.use("/", admin);
@@ -82,6 +83,8 @@ app.use("/", exp_date);
 app.use("/", pnlsheet);
 app.use("/", refEarn);
 app.use("/", razorpayment);
+app.use("/", tradeAlert);
+
  
  
 app.get("/", (req, res) => {
