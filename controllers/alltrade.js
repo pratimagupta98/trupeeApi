@@ -5291,26 +5291,82 @@ exports.Scriptlist = async (req, res) => {
 };
 
 
+// Assuming you have the required imports and database connection in place.
+
+// Define the schema for the referenced document (assuming FNOIndexScript schema)
+
+
 exports.Scriptlist = async (req, res) => {
-  const type = req.params;
-  const list = await Alltrade.find({ $and: [{ type: req.params.id }, { status: "Active" }] });
-  const typeArray = list.map(item => item.type);
-  console.log(typeArray);
+  const type = req.params.type; // Extract the 'type' parameter as a string
 
-  if (type == "Index") {
+  if (type === "Index") {
     console.log("Index");
-    const listt = await Alltrade.find( { status: "Active" });  
-    const typeArray = listt.map(item => item.fnoindex_scrpt_name);
+    try {
+      const scripts = await Alltrade.find({ type: "Index", status: "Active" }).populate("fnoindex_scrpt_name");
+      //  console.log("Scripts:", scripts);
 
-      console.log("typeArray,typeArray");
-  } else if (type == "Equity") {
+      const typeArray = scripts.map(item => (item ? item.fnoindex_scrpt_name : null));
+      //   console.log("stttttt", typeArray);
+
+      const scriptNames = typeArray.map(item => (item ? item.scriptName : null));
+      //     console.log("scriptNames", scriptNames);
+
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: scriptNames,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  } else if (type === "Equity") {
     console.log("Equity");
-  } else if (type == "Cash") {
-    console.log("Cash");
-  }
+    // Handle other types similarly
+    try {
+      const scripts = await Alltrade.find({ type: "Equity", status: "Active" }).populate("fnoequty_scrpt_name");
+      //  console.log("Scripts:", scripts);
 
-  // rest of your code...
+      const typeArray = scripts.map(item => (item ? item.fnoequty_scrpt_name : null));
+      //   console.log("stttttt", typeArray);
+
+      const scriptNames = typeArray.map(item => (item ? item.scriptName : null))
+      //     console.log("scriptNames", scriptNames);
+
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: scriptNames,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  } else if (type === "Cash") {
+    console.log("Cash");
+    try {
+      const scripts = await Alltrade.find({ type: "Cash", status: "Active" }).populate("cash_scrpt_name");
+      //  console.log("Scripts:", scripts);
+
+      const typeArray = scripts.map(item => (item ? item.cash_scrpt_name : null));
+      //   console.log("stttttt", typeArray);
+
+      const scriptNames = typeArray.map(item => (item ? item.scriptName : null));
+      //     console.log("scriptNames", scriptNames);
+
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: scriptNames,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+    // Handle other types similarly
+  } else {
+    return res.status(400).json({ error: "Invalid type parameter" });
+  }
 };
+
+
 
 exports.getbannerbytype = async (req, res) => {
   const findall = await Banner.find({ banner_title: req.params.id }).sort({

@@ -115,7 +115,7 @@ let multipleUpload = uploads.fields([
   router.get("/admin/monthly_profit_loss", monthly_profit_loss);
   router.get("/user/tradefilterBydate", tradefilterBydate);
 
-  router.get("/user/Scriptlist/:id", Scriptlist);
+  router.get("/user/Scriptlist/:type", Scriptlist);
 
   
 
