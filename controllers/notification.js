@@ -18,12 +18,12 @@ cloudinary.config({
 
 exports.add_notification = async (req, res) => {
   try {
-    const { title, desc, img,emoji } = req.body;
+    const { title, desc, img, emoji } = req.body;
 
     const newNotification = new Notification({
       title: title,
       desc: desc,
-      emoji:emoji
+      emoji: emoji
 
     });
 
@@ -82,8 +82,8 @@ exports.getone_notification = async (req, res) => {
 // };
 
 exports.edit_notification = async (req, res) => {
-  const { title,desc,img,emoji } = req.body;
- 
+  const { title, desc, img, emoji } = req.body;
+
   data = {};
   if (title) {
     data.title = title;
@@ -95,7 +95,7 @@ exports.edit_notification = async (req, res) => {
     data.emoji = emoji;
   }
 
-  
+
   if (req.files) {
     if (req.files.img) {
       alluploads = [];
@@ -134,56 +134,105 @@ exports.dlt_notification = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+const push_notification = require("../models/notification");
+
+//const FCM = require('fcm-node');
+//const util = require('util'); // Import the 'util' module
+//const push_notification = require('./path/to/push_notification_module');
+
+// exports.sendPushNotification = async (userid, message) => {
+//   const SERVER_KEY = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+//   const push_tokens = 'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI';
+
+//   try {
+//     console.log('USER ID:- ' + userid);
+//     console.log('message from admin :- ' + message);
+
+//     fs.readFile(path.join(__dirname, '../FireBaseConfig.json'), "utf8", async (err, jsonString) => {
+//       if (err) {
+//         console.log("Error Reading file from disk", err);
+//         return err;
+//       }
+//       try {
+//         const data = JSON.parse(jsonString);
+//         const serverkey = data.SERVER_KEY;
+//         const fcm = new FCM(serverkey);
+//         const pushTokens = await push_notification.find({
+//           where: {
+//             user_id: userid
+//           }
+//         });
+//         const regIds = [];
+//         pushTokens.forEach(token => {
+//           regIds.push(token.fcm_token);
+//         });
+//         if (regIds.length > 0) {
+//           const pushMessage = {
+//             registration_ids: regIds,
+//             content_available: true,
+//             mutable_content: true,
+//             notification: {
+//               body: message,
+//               icon: 'myicon',
+//               sound: 'sound'
+//             }
+//           };
+//           fcm.send(pushMessage, function (err, apiResponse) {
+//             if (err) {
+//               console.log('something has gone wrong!', err);
+//             } else {
+//               // Use util.inspect to handle circular references
+//               console.log('push notification sent', util.inspect(apiResponse, { showHidden: false, depth: null }));
+//             }
+//           });
+//         }
+//       } catch (err) {
+//         console.log("Error parsing JSON String", err);
+//       }
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 
-const sendPushNotification = async (userid, message) => {
-  try {
-    console.log('USER ID:- ' + userid)
-    console.log('message from admin :- ' + message)
 
-    fs.readFile(path.join(__dirname, '../FireBaseConfig.json'), "utf8", async (err, jsonString) => {
+ const admin = require('firebase-admin');
+
+ 
+// Endpoint to send push notification
+exports.sendPushNotification = async (req, res) => {
+ 
+
+
+   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+  var fcm = new FCM(serverKey);
+
+  var message = {
+to:'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI',
+      notification: {
+          title: 'TrupeeNotification',
+          body: '{"Message from node js app"}',
+      },
+
+      data: { //you can send only notification or only data(or include both)
+          title: 'ok testing',
+          body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+      }
+
+  };
+
+  fcm.send(message, function(err, response) {
       if (err) {
-        console.log("Error Reading file from disk", err)
-        return err;
+          console.log("Something has gone wrong!"+err);
+    console.log("Respponse:! "+response);
+      } else {
+          // showToast("Successfully sent with response");
+          console.log("Successfully sent with response: ", response);
       }
-      try {
-        const data = JSON.parse(jsonString)
-        var serverkey = data.SERVER_KEY
-        var fcm = new FCM(serverkey)
-        var push_tokens = await push_notification.find({
-          where: {
-            user_id: userId
-          }
-        })
-        var reg_ids = []
-        push_tokens.forEach(token => {
-          reg_ids.push(token.fcm_token)
-        })
-        if (reg_ids.length > 0) {
-          var pushMessage = {
-            registration_ids: reg_ids,
-            content_available: true,
-            mutable_content: true,
-            notification: {
-              body: message,
-              icon: 'myicon',
-              sound: 'sound'
-            }
-          }
-          fcm.send(pushMessage, function (err, apiResponse) {
-            if (err) {
-              console.log('something has gone wrong!', err)
-            } else {
-              console.log('push notification sent', response)
-            }
-          })
-        }
-      } catch (err) {
-        console.log("Error parsing JSON String", err)
-      }
-    })
 
-  } catch (error) {
-    console.log(error)
-  }
-}
+  });
+};
+
+ 
+

@@ -5266,7 +5266,7 @@ exports.tradefilterBydate = async (req, res) => {
 
 
 exports.activeTradeList = async (req, res) => {
-  await Alltrade.find({ status: "Active" })
+  await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name")
     .then((data) => {
       res.status(200).json({
         status: true,

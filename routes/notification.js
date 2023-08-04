@@ -9,7 +9,8 @@ const {
     get_notification,
     dlt_notification,
     getone_notification,
-    edit_notification
+    edit_notification,
+    sendPushNotification
 } = require("../controllers/notification");
 
 const storage = multer.diskStorage({
@@ -54,6 +55,6 @@ router.get("/admin/dlt_notification/:id", dlt_notification);
 
 router.get("/admin/getone_notification/:id", getone_notification);
 router.post("/admin/edit_notification/:id",multipleUpload, edit_notification);
+router.post("/admin/sendPushNotification", sendPushNotification);
 
 module.exports = router;
- 
