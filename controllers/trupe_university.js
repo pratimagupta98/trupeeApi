@@ -8,6 +8,7 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const key = "verysecretkey";
 const bcrypt = require("bcrypt");
+const { create } = require("../models/startup");
 dotenv.config();
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -40,7 +41,7 @@ exports.add_Tuniversity = async (req, res) => {
 
   exports.get_Tuniversity= async (req, res) => {
     await Tuniversity.find()
-      .sort({ sortorder: 1 })
+      .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
