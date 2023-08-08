@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 var FCM = require('fcm-node');
 const path = require("path");
+const User = require("../models/user");
 
 const jwt = require("jsonwebtoken");
 const key = "verysecretkey";
@@ -16,6 +17,46 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// exports.add_notification = async (req, res) => {
+//   try {
+//     const { title, desc, img, emoji } = req.body;
+
+//     const newNotification = new Notification({
+//       title: title,
+//       desc: desc,
+//       emoji: emoji
+
+//     });
+
+//     const findexist = await Notification.findOne({ title: title });
+//     if (findexist) {
+//       resp.alreadyr(res);
+//     } else {
+//       if (req.files.img) {
+//         const alluploads = [];
+//         for (let i = 0; i < req.files.img.length; i++) {
+//           const resp = await cloudinary.uploader.upload(
+//             req.files.img[i].path,
+//             { use_filename: true, unique_filename: false }
+//           );
+//           fs.unlinkSync(req.files.img[i].path);
+//           alluploads.push(resp.secure_url);
+//         }
+//         newNotification.img = alluploads;
+//       }
+
+//       newNotification
+//         .save()
+//         .then((data) => resp.successr(res, data))
+//         .catch((error) => resp.errorr(res, error));
+//     }
+//   } catch (error) {
+//     resp.errorr(res, error);
+//   }
+// };
+
+// Assuming you have the 'sendPushNotification' function defined as shown in the previous code
+
 exports.add_notification = async (req, res) => {
   try {
     const { title, desc, img, emoji } = req.body;
@@ -23,8 +64,7 @@ exports.add_notification = async (req, res) => {
     const newNotification = new Notification({
       title: title,
       desc: desc,
-      emoji: emoji
-
+      emoji: emoji,
     });
 
     const findexist = await Notification.findOne({ title: title });
@@ -34,26 +74,67 @@ exports.add_notification = async (req, res) => {
       if (req.files.img) {
         const alluploads = [];
         for (let i = 0; i < req.files.img.length; i++) {
-          const resp = await cloudinary.uploader.upload(
-            req.files.img[i].path,
-            { use_filename: true, unique_filename: false }
-          );
+          const resp = await cloudinary.uploader.upload(req.files.img[i].path, {
+            use_filename: true,
+            unique_filename: false,
+          });
           fs.unlinkSync(req.files.img[i].path);
           alluploads.push(resp.secure_url);
         }
         newNotification.img = alluploads;
       }
 
+      // Save the new notification
       newNotification
         .save()
-        .then((data) => resp.successr(res, data))
+        .then(async (data) => {
+          // Send the push notification to all devices after saving the notification
+          try {
+            var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+            var fcm = new FCM(serverKey);
+
+            const usersWithTokens = await User.find({
+              fcmToken: { $exists: true, $ne: null },
+            });
+
+            const userTokens = usersWithTokens.map((user) => user.fcmToken);
+
+            for (const token of userTokens) {
+              var message = {
+                to: token,
+                notification: {
+                  title: 'Trupee Notification',
+                  body: 'hello trupee',
+                },
+                data: {
+                  title: 'ok testing',
+                  body:data
+                   // '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
+                },
+              };
+
+              fcm.send(message, function (err, response) {
+                if (err) {
+                  console.log('Something has gone wrong!' + err);
+                  console.log('Response: ' + response);
+                } else {
+                  console.log('Successfully sent with response: ', response);
+                }
+              });
+            }
+
+            // Return a response to the client (optional)
+            resp.successr(res, data);
+          } catch (error) {
+            resp.errorr(res, error);
+          }
+        })
         .catch((error) => resp.errorr(res, error));
     }
   } catch (error) {
     resp.errorr(res, error);
   }
 };
-
 
 exports.get_notification = async (req, res) => {
   await Notification.find()
@@ -197,42 +278,144 @@ const push_notification = require("../models/notification");
 
 
 
- const admin = require('firebase-admin');
+const admin = require('firebase-admin');
+const { response } = require("express");
 
- 
+
 // Endpoint to send push notification
+// exports.sendPushNotification = async (req, res) => {
+
+
+
+//   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+//   var fcm = new FCM(serverKey);
+
+//   var message = {
+//     to: 'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI',
+//     notification: {
+//       title: 'TrupeeNotification',
+//       body: '{"Message from Trupee"}',
+//     },
+
+//     data: { //you can send only notification or only data(or include both)
+//       title: 'ok testing',
+//       body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+//     }
+
+//   };
+
+//   fcm.send(message, function (err, response) {
+//     if (err) {
+//       console.log("Something has gone wrong!" + err);
+//       console.log("Respponse:! " + response);
+//     } else {
+//       // showToast("Successfully sent with response");
+//       console.log("Successfully sent with response: ", response);
+//     }
+
+//   });
+// };const FCM = require('fcm-node'); // Assuming you've already installed the fcm-node package
+//@@@@@@@@@
+// exports.sendPushNotification = async (req, res) => {
+//   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+//   var fcm = new FCM(serverKey);
+
+//   var message = {
+//     // Change "to" to the topic name
+//     to: '',
+//     notification: {
+//       title: 'TrupeeNotification',
+//       body: 'Message from Trupee',
+//     },
+//     data: { 
+//       title: 'ok testing',
+//       body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+//     }
+//   };
+
+//   fcm.send(message, function (err, response) {
+//     if (err) {
+//       console.log("Something has gone wrong!" + err);
+//       console.log("Response: " + response);
+//     } else {
+//       console.log("Successfully sent with response: ", response);
+//     }
+//   });
+// };
+
+
+
+//@@@@@@@@@@@@@@@
+//  const SERVER_KEY='AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_'
+// exports.sendPushNotification = async(req,res)=>{
+//   try{
+// let fcm = new FCM(SERVER_KEY) 
+
+
+// let message={
+//   to:'/topics/' + req.body.topic,
+//   notification:{
+//     title:req.body.title,
+//     body:req.body.body,
+//     'click_action':"FCM_PLUGIN_ACTIVITY",
+//     "icon":"fcm_push_icon"
+//   }
+// }
+// fcm.send(message,(err,response)=>{
+//   if(err){
+//     res.json(err)
+//   }else{
+//     res.json(response)
+//   }
+// })
+
+//   }catch(error){
+
+//   }
+// }
+
+
+
 exports.sendPushNotification = async (req, res) => {
- 
-
-
-   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+  var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_'; // Replace with your FCM server key
   var fcm = new FCM(serverKey);
 
-  var message = {
-to:'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI',
-      notification: {
+  try {
+    // Fetch all users from the database who have a valid FCM token
+    const usersWithTokens = await User.find({ fcmToken: { $exists: true, $ne: null } });
+    console.log("usersWithTokens", usersWithTokens)
+    // Extract the FCM tokens from the users and put them in an array
+    const userTokens = usersWithTokens.map((user) => user.fcmToken);
+
+    // Send notifications to each device token
+    for (const token of userTokens) {
+      var message = {
+        to: token,
+        notification: {
           title: 'TrupeeNotification',
-          body: '{"Message from node js app"}',
-      },
-
-      data: { //you can send only notification or only data(or include both)
+          body: 'Message from Trupee',
+        },
+        data: {
           title: 'ok testing',
-          body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
-      }
+          body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
+        },
+      };
 
-  };
-
-  fcm.send(message, function(err, response) {
-      if (err) {
-          console.log("Something has gone wrong!"+err);
-    console.log("Respponse:! "+response);
-      } else {
-          // showToast("Successfully sent with response");
+      fcm.send(message, function (err, response) {
+        if (err) {
+          console.log("Something has gone wrong!" + err);
+          console.log("Response: " + response);
+        } else {
           console.log("Successfully sent with response: ", response);
-      }
+        }
+      });
+    }
 
-  });
+    // Return a response to the client (optional)
+    res.send('Notifications sent to all devices.');
+  } catch (error) {
+    console.error("Error fetching user tokens:", error);
+    // Handle the error and return an appropriate response
+    res.status(500).json({ error: 'Error fetching user tokens.' });
+  }
 };
-
- 
-

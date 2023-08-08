@@ -120,16 +120,16 @@ exports.editAdmin = async (req, res) => {
     data.mobile = mobile;
   }
 
-  if (password) {
-    const salt = await bcrypt.genSalt(10);
-    let hashPassword = await bcrypt.hash(password, salt);
-    data.password = hashPassword;
-  }
-  if (cnfmPassword) {
-    const salt = await bcrypt.genSalt(10);
-    let hashPassword = await bcrypt.hash(password, salt);
-    data.cnfmPassword = hashPassword;
-  }
+  // if (password) {
+  //   const salt = await bcrypt.genSalt(10);
+  //   let hashPassword = await bcrypt.hash(password, salt);
+  //   data.password = hashPassword;
+  // }
+  // if (cnfmPassword) {
+  //   const salt = await bcrypt.genSalt(10);
+  //   let hashPassword = await bcrypt.hash(password, salt);
+  //   data.cnfmPassword = hashPassword;
+  // }
   if (req.files) {
     if (req.files.adminimg) {
       alluploads = [];
@@ -162,12 +162,12 @@ exports.editAdmin = async (req, res) => {
 
 };
 
-exports.chngpass = async (req, res) => {
+exports.changeAdmingpassword = async (req, res) => {
   const { oldPass, password, cnfmPassword } = req.body;
   const admin = await Admin.findOne({ _id: req.params.id });
   if (admin) {
     console.log(admin)
-    const validPass = await bcrypt.compare(req.body.oldPass, password, admin.password);
+    const validPass = await bcrypt.compare(oldPass, admin.password);
     console.log("String", validPass)
     if (validPass) {
 
@@ -197,13 +197,19 @@ exports.chngpass = async (req, res) => {
           });
         }
       } else {
-        res.status(400).json({
+        res.status(403).json({
           status: false,
           msg: "error",
-          error: "Password not matched",
+          error: "Password and Confirm password not matched",
         })
       }
-    };
+    }else{
+      res.status(401).json({
+        status: false,
+        msg: "error",
+        error: "Password not matched",
+      })
+    }
 
 
 

@@ -582,7 +582,7 @@ console.log("expDate",expDate)
 
         await User.findOneAndUpdate(
           { _id: findone._id },
-          { $set: { userverified: true } },
+          { $set: { userverified: true,fcmToken:token } },
           { new: true }
         ).populate("planId")
         .then((data) => {
