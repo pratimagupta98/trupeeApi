@@ -50,7 +50,7 @@ exports.addStartup = async (req, res) => {
 
   exports.get_startup= async (req, res) => {
     await Startup.find()
-      .sort({ sortorder: 1 })
+      .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
