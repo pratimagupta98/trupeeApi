@@ -37,7 +37,7 @@ exports.addStartup = async (req, res) => {
       fs.unlinkSync(req.files.image[i].path);
       alluploads.push(resp.secure_url);
     }
-    newNotification.image = alluploads;
+    newStartup.image = alluploads;
   }
 
       newStartup.save()
