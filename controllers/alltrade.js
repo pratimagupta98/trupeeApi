@@ -34,7 +34,7 @@ exports.add_fnoIndex = async (req, res) => {
   const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, date, tradeId } = req.body;
 
   if (trade_type == "BankNifty") {
-    investment_amt = (req.body.no_of_lots * 25) * (req.body.active_value)
+    investment_amt = (req.body.no_of_lots * 15) * (req.body.active_value)
     console.log("InvestAMT", investment_amt)
     let av2 = parseInt(req.body.active_value) + parseInt(10)
     console.log(av2)
@@ -83,7 +83,7 @@ exports.add_fnoIndex = async (req, res) => {
       active_value: active_value,
       active_value2: av2,
       call_type: call_type,
-      qty: 25,
+      qty: 15,
       investment_amt: investment_amt,
       no_of_lots: no_of_lots,
       status: status,
@@ -4246,7 +4246,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("sahi h")
 
       let sl = findone.SL
-      let loss = (lotsqty * 25) * (sl - Av1)
+      let loss = (lotsqty * 15) * (sl - Av1)
       console.log("Loss", loss)
       let loss_per = (loss / invest_amt * 100).toFixed(2)
       console.log("LOSS %", loss_per)
@@ -4269,7 +4269,7 @@ exports.editFnoindex = async (req, res) => {
 
       // let FT77tym = new Date().toString()
       // console.log("FT77tym",FT77tym)
-      let plft7 = (lotsqty * 25) * (req.body.FT7 - Av1);
+      let plft7 = (lotsqty * 15) * (req.body.FT7 - Av1);
 
       // const date = new Date();
       let date = new Date();
@@ -4293,7 +4293,7 @@ exports.editFnoindex = async (req, res) => {
     else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6) {
 
       console.log("FT4", "FT5", "FT6")
-      let plft6 = (lotsqty * 25) * (req.body.FT6 - Av1)
+      let plft6 = (lotsqty * 15) * (req.body.FT6 - Av1)
       let pl_per = (plft6 / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
@@ -4309,7 +4309,7 @@ exports.editFnoindex = async (req, res) => {
       //   console.log("getupdate",getupdate)
     } else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT5 && req.body.FT6 && req.body.FT7) {
       console.log("FT5", "FT6", "FT7")
-      plft7 = (lotsqty * 25) * (req.body.FT7 - Av1)
+      let plft7 = (lotsqty * 15) * (req.body.FT7 - Av1)
       let pl_per = (plft7 / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
@@ -4325,7 +4325,7 @@ exports.editFnoindex = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
     } else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT5 && req.body.FT6) {
       console.log("FT5", "FT6")
-      plft6 = (lotsqty * 25) * (req.body.FT6 - Av1)
+      plft6 = (lotsqty * 15) * (req.body.FT6 - Av1)
       let pl_per = (plft6 / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
@@ -4346,7 +4346,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("FT4", "FT5")
       // console.log("FT5555")
       // console.log("FT5")
-      let plft5 = (lotsqty * 25) * (req.body.FT5 - Av1)
+      let plft5 = (lotsqty * 15) * (req.body.FT5 - Av1)
       let pl_per = (plft5 / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
@@ -4366,7 +4366,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("FT4tym", FT4tym)
       console.log("FT4444")
 
-      let plft4 = (lotsqty * 25) * (req.body.FT4 - Av1)
+      let plft4 = (lotsqty * 15) * (req.body.FT4 - Av1)
       let pl_per = (plft4 / invest_amt * 100).toFixed(2);
       console.log("PL%%%%", pl_per)
 
@@ -4381,7 +4381,7 @@ exports.editFnoindex = async (req, res) => {
     }
     else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true") {
       console.log("FT3_TYPE")
-      let pl = (lotsqty * 25) * (ft3 - Av1)
+      let pl = (lotsqty * 15) * (ft3 - Av1)
       console.log("Profit", pl)
 
       let pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -4399,7 +4399,7 @@ exports.editFnoindex = async (req, res) => {
     }
     else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true") {
       console.log("FT2_TYPE")
-      let pl = (lotsqty * 25) * (ft2 - Av1)
+      let pl = (lotsqty * 15) * (ft2 - Av1)
       console.log("Profit", pl)
 
       let pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -4417,7 +4417,7 @@ exports.editFnoindex = async (req, res) => {
     }
     else if (trl_type == "true" && FT1_type == "true") {
       console.log("TRL TYPE ", "FT1_TYPE")
-      let pl = (lotsqty * 25) * (ft1 - Av1)
+      let pl = (lotsqty * 15) * (ft1 - Av1)
       console.log("Profit", pl)
 
       let pl_per = (pl / invest_amt * 100).toFixed(2);
@@ -4436,7 +4436,7 @@ exports.editFnoindex = async (req, res) => {
     }
     else if (trl_type == "true") {
       // let trltyp= findone.trl_type
-      let pl = (lotsqty * 25) * (trL - Av1)
+      let pl = (lotsqty * 15) * (trL - Av1)
       console.log("pl", pl)
       let pl_per = (pl / invest_amt * 100).toFixed(2)
       console.log("pl_per %", pl_per)
