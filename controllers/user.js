@@ -522,11 +522,11 @@ exports.verifyotp = async (req, res) => {
 
   if (otp == "123456") {
     const findone = await User.findOne({ mobile: mobile });
-    const x = findone.userverified;
-    console.log("X", x);
+    // const x = findone.userverified;
+    // console.log("X", x);
 
-    if (x == true) {
-      console.log(x);
+    // if (x == true) {
+    //   console.log(x);
      
       // Check if 'expdate' and current date are the same
       const todayDate = moment().format("DD-MM-YYYY");
@@ -601,7 +601,7 @@ console.log("expDate",expDate)
           });
         });
       }
-    }  
+   // }  
   } else {
     res.status(400).json({
       status: false,
