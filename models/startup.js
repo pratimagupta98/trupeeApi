@@ -14,7 +14,7 @@ const thisSchema = new Schema(
         
       },
       video_link:{
-        type: Array,
+        type: String,
       }
      
        
