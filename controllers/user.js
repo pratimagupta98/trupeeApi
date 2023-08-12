@@ -54,13 +54,13 @@ exports.signupsendotp = async (req, res) => {
     return random_string;
   }
 
-  // Generate id For WALLET
+  
   // const Wltid = crypto.randomBytes(16).toString("hex");
   // console.log(Wltid);
   const newUser = new User({
     mobile: req.body.mobile,
     refral_Code:random_string,
-    walletId :  req.body.walletId,
+   walletId :   req.body.walletId,
   });
   console.log("hghg",newUser)
   const findexist = await User.findOne({ mobile: req.body.mobile });
@@ -78,13 +78,14 @@ exports.signupsendotp = async (req, res) => {
     })
   } else {
        newUser.otp = otp;
-      //newUser.walletId = Wltid
+      newUser.walletId = newUser._id
     newUser
     .save()
       .then((result) => {
         const token = jwt.sign(
           {
             userId: result._id,
+            walletId:result._id,
           },
           process.env.TOKEN_SECRET,
           {
@@ -101,7 +102,7 @@ exports.signupsendotp = async (req, res) => {
                userId: result._id,
               otp: result.otp,
              refral_Code:random_string,
-          //   walletId:Wltid,
+          walletId:result._id,
              
         });
       })

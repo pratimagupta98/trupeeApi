@@ -3,6 +3,7 @@ const User = require("../models/user");
 const Plan = require("../models/plan");
 const ReferEarn = require("../models/refer_earn");
 const moment = require('moment');
+const RefEarn = require("../models/refEarn");
 
 const resp = require("../helpers/apiResponse");
 const _ = require("lodash");
@@ -322,7 +323,7 @@ exports.refer_earn = async (req, res) => {
 
 }
 exports.referearn_list = async (req, res) => {
-  await ReferEarn.find().populate("userid").populate("refer_from").populate("planId")
+  await RefEarn.find().populate("userid").populate("refer_from").populate("planId")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
