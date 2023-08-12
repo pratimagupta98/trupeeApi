@@ -323,7 +323,7 @@ exports.refer_earn = async (req, res) => {
 
 }
 exports.referearn_list = async (req, res) => {
-  await RefEarn.find().populate("userid").populate("refer_from").populate("planId")
+  await RefEarn.find().populate("refer_from_id").populate("refer_to_id")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
