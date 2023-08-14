@@ -22,7 +22,7 @@ type:String
     },
     membership:{
       type: Schema.Types.ObjectId,
-      ref: "membership",
+      ref: "plan",
     },
     amount:{
       type :Number
