@@ -520,10 +520,11 @@ exports.adminverifyOtp = async (req, res) => {
  
  
 exports.verifyotp = async (req, res) => {
-  const { mobile, otp, walletId } = req.body;
+  const { mobile, otp, walletId ,fcmToken,expDate} = req.body;
 
   if (otp == "123456") {
     const findone = await User.findOne({ mobile: mobile });
+    console.log("findone",findone)
     // const x = findone.userverified;
     // console.log("X", x);
 
@@ -534,9 +535,9 @@ exports.verifyotp = async (req, res) => {
       const todayDate = moment().format("DD-MM-YYYY");
       console.log("todayDate",todayDate);
       const expDate =findone.expdate  // Get the 'expdate' without time
-console.log("expDate",expDate)
+console.log("expDDate",expDate)
       if (expDate ===todayDate ) {
-        console.log("expDate",expDate)
+        console.log("expDateeee",expDate)
 
         // If 'expdate' and current date are the same, set 'exp_free_mem' to false
         await User.findOneAndUpdate(
@@ -545,17 +546,17 @@ console.log("expDate",expDate)
           { new: true }
         ).populate("planId")
         .then((data) => {
-          const token = jwt.sign(
-            {
-              userId: findone._id,
-            },
-            process.env.TOKEN_SECRET,
-            {
-              expiresIn: 86400000,
-            }
-          );
+          // const token = jwt.sign(
+          //   {
+          //     userId: findone._id,
+          //   },
+          //   process.env.TOKEN_SECRET,
+          //   {
+          //     expiresIn: 86400000,
+          //   }
+          // );
 
-          res.header("auth-token", token).status(200).send({
+          res.send(200).send({
             status: "success",
             token: token,
             msg: "Welcome Back",
@@ -572,25 +573,25 @@ console.log("expDate",expDate)
       } else {
         // 'expdate' and current date are different, continue the regular flow
 
-        const token = jwt.sign(
-          {
-            userId: findone._id,
-          },
-          process.env.TOKEN_SECRET,
-          {
-            expiresIn: 86400000,
-          }
-        );
+        // const token = jwt.sign(
+        //   {
+        //     userId: findone._id,
+        //   },
+        //   process.env.TOKEN_SECRET,
+        //   {
+        //     expiresIn: 86400000,
+        //   }
+        // );
 
         await User.findOneAndUpdate(
           { _id: findone._id },
-          { $set: { userverified: true,fcmToken:token } },
+          { $set: { userverified: true,fcmToken: fcmToken } },
           { new: true }
         ).populate("planId")
         .then((data) => {
-          res.header("auth-token", token).status(200).send({
+          res.status(200).send({
             status: "success",
-            token: token,
+          //  token: token,
             msg: "Welcome Back",
             otpverified: true,
             redirectto: "dashboard",

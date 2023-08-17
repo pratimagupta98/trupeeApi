@@ -430,7 +430,7 @@ exports.sendPushNotification = async (req, res) => {
   var fcm = new FCM(serverKey);
 
   var message = {
-    to: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRkZWNmNDMwZmIwNjE5YzlmZjlmYTQiLCJpYXQiOjE2OTIyNjU3NDUsImV4cCI6MTc3ODY2NTc0NX0.GGtyaP1sjNBpV_p8uCl2UmqMjexWMBrSZHH4TjnUvIw',
+    to: 'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI',
     notification: {
       title: 'TrupeeNotification',
       body: '{"Message from Trupee"}',
