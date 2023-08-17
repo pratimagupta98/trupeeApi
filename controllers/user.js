@@ -35,90 +35,65 @@ function detectMimeType(b64) {
 
 
 exports.signupsendotp = async (req, res) => {
-  
   let length = 6;
-  //   let otp = (
-  //     "0".repeat(length) + Math.floor(Math.random() * 10 ** length)
-  //   ).slice(-length);
   let otp = "123456";
-  create_random_string(6);
+  
+  const random_string = create_random_string(6);
+  
   function create_random_string(string_length) {
-    (random_string = ""),
-      (characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
-    for (var i, i = 0; i < string_length; i++) {
-      random_string += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
+    let random_string = "";
+    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+    for (let i = 0; i < string_length; i++) {
+      random_string += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return random_string;
   }
 
-  
-  // const Wltid = crypto.randomBytes(16).toString("hex");
-  // console.log(Wltid);
   const newUser = new User({
     mobile: req.body.mobile,
-    refral_Code:random_string,
-   walletId :   req.body.walletId,
-   fcmToken:req.body.fcmToken
+    refral_Code: random_string,
+    walletId: req.body.walletId,
+    fcmToken: req.body.fcmToken
   });
-  console.log("hghg",newUser)
+
   const findexist = await User.findOne({ mobile: req.body.mobile });
   if (findexist) {
-    console.log("STRING",findexist)
     res.json({
       status: "success",
       msg: "Welcome Back Otp send successfully",
       registered: findexist?.mobile,
-    //  _id: findexist?._id,
-     // refral_Code: findexist?.refral_Code,
       otp: otp,
-
-      
-    })
+    });
   } else {
-       newUser.otp = otp;
-      newUser.walletId = newUser._id
+    newUser.otp = otp;
+    newUser.walletId = newUser._id;
+
     newUser
-    .save()
+      .save()
       .then((result) => {
-        const token = jwt.sign(
-          {
-            userId: result._id,
-            walletId:result._id,
-          },
-          process.env.TOKEN_SECRET,
-          {
-            expiresIn: 86400000,
-          }
-        );
-        res.header("auth-token", token).status(200).json({
-         
-          token: token,
+        res.status(200).json({
+          // token: fcmToken, // This line is not defined, you might need to replace it
           status: "success",
-               msg: "Otp send successfully",
-               registered: result?.mobile,
-              _id: result?._id,
-               userId: result._id,
-              otp: result.otp,
-             refral_Code:random_string,
-          walletId:result._id,
-             
+          msg: "Otp send successfully",
+          registered: result?.mobile,
+          _id: result?._id,
+          userId: result._id,
+          otp: result.otp,
+          refral_Code: random_string,
+          walletId: result._id,
         });
       })
       .catch((error) => {
+        console.error("Error in signupsendotp:", error); // Log the error for debugging
         res.status(400).json({
           status: false,
-          msg: "error",
-          error: error,
+          msg: "An error occurred",
+          error: error.message, // Send the error message in the response
         });
       });
-      
   }
-  
-}
-      
+};
+
  
 exports.adminverifyOtp = async (req, res) => {
 
