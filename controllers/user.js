@@ -61,6 +61,7 @@ exports.signupsendotp = async (req, res) => {
     mobile: req.body.mobile,
     refral_Code:random_string,
    walletId :   req.body.walletId,
+   fcmToken:req.body.fcmToken
   });
   console.log("hghg",newUser)
   const findexist = await User.findOne({ mobile: req.body.mobile });

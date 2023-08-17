@@ -124,6 +124,7 @@ exports.addRefEarn = async (req, res) => {
     verify_code,
     membership,
     status,
+    expiry_date
   } = req.body;
   let today = new Date();
   // ... (existing code)
@@ -131,14 +132,42 @@ exports.addRefEarn = async (req, res) => {
   console.log(new Date(onedayago));
   console.log(new Date(onedayago).getDay());
 
+
+//########
+
+const plan = await Plan.findOne({ _id: req.body.membership });
+
+if (plan) {
+  const packName = plan.pack_name.toLowerCase();
+  let expiryDate = new Date();
+
+  if (packName === "30days") {
+    expiryDate.setDate(expiryDate.getDate() + 30);
+  } else if (packName === "90days") {
+    expiryDate.setDate(expiryDate.getDate() + 90);
+  } else if (packName === "180days") {
+    expiryDate.setDate(expiryDate.getDate() + 180);
+  } else if (packName === "365days") {
+    expiryDate.setDate(expiryDate.getDate() + 365);
+  } else {
+    // Default case: No pack_name match, leave the expiry_date unchanged
+    expiryDate = new Date(req.body.expiry_date);
+  }
+
+
+
   const newRefEarn = new RefEarn({
     refer_from_id: refer_from_id,
     refer_to_id: refer_to_id,
     verify_code: verify_code,
     status: status,
-    membership: membership
+    membership: membership,
+    expiry_date:expiryDate
 
   });
+  let planid = await Plan.findOne({ _id: req.body.membership })
+  console.log("PLAN", planid)
+  let pack_name = planid.pack_name
   const findexist = await RefEarn.findOne({
     refer_to_id: refer_to_id
   });
@@ -219,10 +248,8 @@ console.log("updatedReferToWallet",updatedReferToWallet)
     }
   }
 };
-
-
 }
-
+}
 exports.addRefEarnnn = async (req, res) => {
   const {
     refer_from_id,
