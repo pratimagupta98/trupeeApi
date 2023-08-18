@@ -521,15 +521,15 @@ console.log("expDDate",expDate)
           { new: true }
         ).populate("planId")
         .then((data) => {
-          // const token = jwt.sign(
-          //   {
-          //     userId: findone._id,
-          //   },
-          //   process.env.TOKEN_SECRET,
-          //   {
-          //     expiresIn: 86400000,
-          //   }
-          // );
+          const token = jwt.sign(
+            {
+              userId: findone._id,
+            },
+            process.env.TOKEN_SECRET,
+            {
+              expiresIn: 86400000,
+            }
+          );
 
           res.send(200).send({
             status: "success",
@@ -546,17 +546,17 @@ console.log("expDDate",expDate)
           });
         });
       } else {
-        // 'expdate' and current date are different, continue the regular flow
+       // 'expdate' and current date are different, continue the regular flow
 
-        // const token = jwt.sign(
-        //   {
-        //     userId: findone._id,
-        //   },
-        //   process.env.TOKEN_SECRET,
-        //   {
-        //     expiresIn: 86400000,
-        //   }
-        // );
+        const token = jwt.sign(
+          {
+            userId: findone._id,
+          },
+          process.env.TOKEN_SECRET,
+          {
+            expiresIn: 86400000,
+          }
+        );
 
         await User.findOneAndUpdate(
           { _id: findone._id },
@@ -566,7 +566,7 @@ console.log("expDDate",expDate)
         .then((data) => {
           res.status(200).send({
             status: "success",
-          //  token: token,
+            token: token,
             msg: "Welcome Back",
             otpverified: true,
             redirectto: "dashboard",
