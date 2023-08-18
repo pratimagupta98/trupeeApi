@@ -103,16 +103,16 @@ exports.add_notification = async (req, res) => {
               var message = {
                 to: token,
                 notification: {
-                  title: 'Trupee Notification',
-                  body: 'hello trupee',
+                  title: 'Notification',
+                  body: 'Trupee New Notification',
                 },
                 data: {
                   title: 'ok testing',
-                  body:data
-                   // '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
+                  body: data
+                  // '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
                 },
               };
-
+console.log("data",data)
               fcm.send(message, function (err, response) {
                 if (err) {
                   console.log('Something has gone wrong!' + err);
@@ -379,78 +379,78 @@ const { response } = require("express");
 //
 
 
-// exports.sendPushNotification = async (req, res) => {
-//   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_'; // Replace with your FCM server key
-//   var fcm = new FCM(serverKey);
-
-//   try {
-//     // Fetch all users from the database who have a valid FCM token
-//     const usersWithTokens = await User.find({ fcmToken: { $exists: true, $ne: null } });
-//     console.log("usersWithTokens", usersWithTokens)
-//     // Extract the FCM tokens from the users and put them in an array
-//     const userTokens = usersWithTokens.map((user) => user.fcmToken);
-
-//     // Send notifications to each device token
-//     for (const token of userTokens) {
-//       var message = {
-//         to: token,
-//         notification: {
-//           title: 'TrupeeNotification',
-//           body: 'Message from Trupee',
-//         },
-//         data: {
-//           title: 'ok testing',
-//           body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
-//         },
-//       };
-
-//       fcm.send(message, function (err, response) {
-//         if (err) {
-//           console.log("Something has gone wrong!" + err);
-//           console.log("Response: " + response);
-//         } else {
-//           console.log("Successfully sent with response: ", response);
-//         }
-//       });
-//     }
-
-//     // Return a response to the client (optional)
-//     res.send('Notifications sent to all devices.');
-//   } catch (error) {
-//     console.error("Error fetching user tokens:", error);
-//     // Handle the error and return an appropriate response
-//     res.status(500).json({ error: 'Error fetching user tokens.' });
-//   }
-// };
 exports.sendPushNotification = async (req, res) => {
-
-
-
-  var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+  var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_'; // Replace with your FCM server key
   var fcm = new FCM(serverKey);
 
-  var message = {
-    to: 'eL1VACrJRwCN0SgIHjmbms:APA91bHMy_6Y7MFIfned1rfq3c551AmTYLD0LOxfBkveAV7PPhAn2WoLRqg0z0CUYo3UdqLXXsghXhTK8cxlnlkgVBvU9QkbrUCuyHwieSCjg3w7S59YUpyy5MKf5EiIJHy7z7mfgTOI',
-    notification: {
-      title: 'TrupeeNotification',
-      body: '{"Message from Trupee"}',
-    },
+  try {
+    // Fetch all users from the database who have a valid FCM token
+    const usersWithTokens = await User.find({ fcmToken: { $exists: true, $ne: null } });
+    console.log("usersWithTokens", usersWithTokens)
+    // Extract the FCM tokens from the users and put them in an array
+    const userTokens = usersWithTokens.map((user) => user.fcmToken);
 
-    data: { //you can send only notification or only data(or include both)
-      title: 'ok testing',
-      body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+    // Send notifications to each device token
+    for (const token of userTokens) {
+      var message = {
+        to: token,
+        notification: {
+          title: 'TrupeeNotification',
+          body: 'Message from Trupee',
+        },
+        data: {
+          title: 'ok testing',
+          body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}',
+        },
+      };
+
+      fcm.send(message, function (err, response) {
+        if (err) {
+          console.log("Something has gone wrong!" + err);
+          console.log("Response: " + response);
+        } else {
+          console.log("Successfully sent with response: ", response);
+        }
+      });
     }
 
-  };
-
-  fcm.send(message, function (err, response) {
-    if (err) {
-      console.log("Something has gone wrong!" + err);
-      console.log("Respponse:! " + response);
-    } else {
-      // showToast("Successfully sent with response");
-      console.log("Successfully sent with response: ", response);
-    }
-
-  });
+    // Return a response to the client (optional)
+    res.send('Notifications sent to all devices.');
+  } catch (error) {
+    console.error("Error fetching user tokens:", error);
+    // Handle the error and return an appropriate response
+    res.status(500).json({ error: 'Error fetching user tokens.' });
+  }
 };
+// exports.sendPushNotification = async (req, res) => {
+
+
+
+//   var serverKey = 'AAAAYmnAnfo:APA91bHuykyJnwz4hTITPWwChdMdS96e-cvmoDOtVIBfU_ZGVzarrrflOvkrunjvI41Bl_IUw-G_vAJd9UbFKLrh0JtBKrvVSTnieu2Ae4Xtt91Cl0ygN8NYgDA5cwo7HIlwXDqoHz1_';
+//   var fcm = new FCM(serverKey);
+
+//   var message = {
+//     to: 'deHUfYP-T765kWfM3jsHPy:APA91bG_wTeET8cWJAA_QHvvHW99rlI3-o4qLJkX1BBKLgy0Lx2E9ljDYsbcjDb_lhz_-fjplq5Xisgz1W9mzIp9G4INM57Aps4xriMuRPrfE_nHoKSttDuhsSxklHapmMNZztXkgrk8',
+//     notification: {
+//       title: 'TrupeeNotification',
+//       body: '{"Message from Trupee"}',
+//     },
+
+//     data: { //you can send only notification or only data(or include both)
+//       title: 'ok testing',
+//       body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+//     }
+
+//   };
+
+//   fcm.send(message, function (err, response) {
+//     if (err) {
+//       console.log("Something has gone wrong!" + err);
+//       console.log("Respponse:! " + response);
+//     } else {
+//       // showToast("Successfully sent with response");
+//       console.log("Successfully sent with response: ", response);
+//     }
+
+//   });
+// };

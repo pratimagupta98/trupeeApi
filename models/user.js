@@ -74,7 +74,8 @@ const UserSchema = new Schema(
       type: String
     },
     fcmToken:{
-      type: String
+      type: String,
+      default:""
     }
     //  status:{
     //   type: String,
