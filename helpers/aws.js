@@ -9,7 +9,7 @@ const s3 = new AWS.S3({
 
 
 const params = {
-    Bucket: 'trupee',
+    Bucket: 'deptiastro',
     CreateBucketConfiguration: {
         // Set your region here
         LocationConstraint: "ap-south-1"
