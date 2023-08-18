@@ -553,8 +553,10 @@ exports.freeMembership = async (req, res) => {
     type: "Free",
     expdate: after7days
   });
+  console.log("newMembership", newMembership)
 
   const findexist = await Membership.findOne({ $and: [{ type: "Free" }, { userid: req.userId }] })
+ 
   if (findexist) {
     resp.alreadyr(res);
   } else {
@@ -563,7 +565,7 @@ exports.freeMembership = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
 
-    let planid = await Plan.findOne({ planId: req.body.planId })
+    let planid = await Plan.findOne({ _id: "64b7c7b95f27c6afc5f3fbc1"})
     console.log("PLAN", planid)
     let pack_name = planid.pack_name
     console.log("Plan price", pack_name)

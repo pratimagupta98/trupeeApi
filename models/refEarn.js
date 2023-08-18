@@ -30,6 +30,9 @@ type:String
     usd:{
       type:Number
     },
+    expiry_date:{
+      type: String,
+    },
     createdAt: {
       type: Date,
       default: Date.now(),
