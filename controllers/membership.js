@@ -376,7 +376,7 @@ exports.addMemeberShip = async (req, res) => {
   console.log("PLAN", planid)
 
   let pack_name = planid.pack_name
-  if (pack_name == "30Days") {
+  if (pack_name == "1MONTH") {
     let dd = new Date();
     var crntdate = moment(dd).format('DD-MM-YYYY')
     console.log("ddd", crntdate)
@@ -406,7 +406,7 @@ exports.addMemeberShip = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error))
 
-  } else if (pack_name == "90Days") {
+  } else if (pack_name == "3MONTH") {
 
     let ddd = new Date();
     var dddd = moment(ddd).format('DD-MM-YYYY')
@@ -451,7 +451,7 @@ exports.addMemeberShip = async (req, res) => {
     //     let fullDate = `${day}-${month}-${year}.`;
     //     console.log("3MONTH",fullDate);
 
-  } else if (pack_name == "180Days") {
+  } else if (pack_name == "6MONTH") {
     let ddd = new Date();
     var dddd = moment(ddd).format('DD-MM-YYYY')
     console.log("ddd", dddd)
@@ -485,7 +485,7 @@ exports.addMemeberShip = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error))
 
-  } else if (pack_name == "365Days") {
+  } else if (pack_name == "1YEAR") {
 
 
 
@@ -556,7 +556,7 @@ exports.freeMembership = async (req, res) => {
   console.log("newMembership", newMembership)
 
   const findexist = await Membership.findOne({ $and: [{ type: "Free" }, { userid: req.userId }] })
- 
+
   if (findexist) {
     resp.alreadyr(res);
   } else {
@@ -565,7 +565,7 @@ exports.freeMembership = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
 
-    let planid = await Plan.findOne({ _id: "64b7c7b95f27c6afc5f3fbc1"})
+    let planid = await Plan.findOne({ _id: "64b7c7b95f27c6afc5f3fbc1" })
     console.log("PLAN", planid)
     let pack_name = planid.pack_name
     console.log("Plan price", pack_name)

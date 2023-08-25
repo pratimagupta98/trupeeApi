@@ -141,7 +141,7 @@ exports.addRefEarn = async (req, res) => {
     const packName = plan.pack_name.toLowerCase();
     let expiryDate = new Date();
 
-    if (packName === "30days") {
+    if (packName === "1MONTH") {
       let dd = new Date();
       var crntdate = moment(dd).format('DD-MM-YYYY')
       console.log("ddd", crntdate)
@@ -246,7 +246,7 @@ exports.addRefEarn = async (req, res) => {
           }
         }
       };
-    } else if (packName === "90days") {
+    } else if (packName === "3MONTH") {
       let ddd = new Date();
       var dddd = moment(ddd).format('DD-MM-YYYY')
       console.log("ddd", dddd)
@@ -355,7 +355,7 @@ exports.addRefEarn = async (req, res) => {
           }
         }
       };
-    } else if (packName === "180days") {
+    } else if (packName === "6MONTH") {
       let ddd = new Date();
       var dddd = moment(ddd).format('DD-MM-YYYY')
       console.log("ddd", dddd)
@@ -464,7 +464,7 @@ exports.addRefEarn = async (req, res) => {
           }
         }
       };
-    } else if (packName === "365days") {
+    } else if (packName === "1YEAR") {
       let dd = new Date();
       var ddd = moment(dd).format('DD-MM-YYYY')
      // console.log("ddd", ddd)
@@ -815,7 +815,7 @@ exports.addMemeberShip = async (req, res) => {
   console.log("PLAN", planid)
 
   let pack_name = planid.pack_name
-  if (pack_name == "30Days") {
+  if (pack_name == "1MONTH") {
     let dd = new Date();
     var crntdate = moment(dd).format('DD-MM-YYYY')
     console.log("ddd", crntdate)
@@ -845,7 +845,7 @@ exports.addMemeberShip = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error))
 
-  } else if (pack_name == "90Days") {
+  } else if (pack_name == "3MONTH") {
 
     let ddd = new Date();
     var dddd = moment(ddd).format('DD-MM-YYYY')
@@ -890,7 +890,7 @@ exports.addMemeberShip = async (req, res) => {
     //     let fullDate = `${day}-${month}-${year}.`;
     //     console.log("3MONTH",fullDate);
 
-  } else if (pack_name == "180Days") {
+  } else if (pack_name == "6MONTH") {
     let ddd = new Date();
     var dddd = moment(ddd).format('DD-MM-YYYY')
     console.log("ddd", dddd)
@@ -924,7 +924,7 @@ exports.addMemeberShip = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error))
 
-  } else if (pack_name == "365Days") {
+  } else if (pack_name == "1YEAR") {
 
 
 
