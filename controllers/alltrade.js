@@ -198,7 +198,8 @@ exports.add_fnoIndex = async (req, res) => {
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
-      updated_at: getCurrentDate()
+      updated_at: getCurrentDate(),
+      date: getCurrentDate(),
       // loss:loss,
       // losspr:losspr,
       //profit:profit,
@@ -226,7 +227,8 @@ exports.add_fnoIndex = async (req, res) => {
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
-      updated_at: getCurrentDate()
+      updated_at: getCurrentDate(),
+      date: getCurrentDate(),
       // loss:loss,
       // losspr:losspr,
       //profit:profit,
