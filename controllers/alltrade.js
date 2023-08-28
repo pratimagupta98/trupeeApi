@@ -387,8 +387,8 @@ exports.add_equityCash = async (req, res) => {
     expiryDate: expiryDate,
     type: type,
     status: status,
-    cstmMsg: cstmMsg
-
+    cstmMsg: cstmMsg,
+    date: getCurrentDate()
   });
 
   const newTradeHistory = new TradeHistory({
@@ -414,8 +414,8 @@ exports.add_equityCash = async (req, res) => {
     expiryDate: expiryDate,
     type: type,
     status: status,
-    cstmMsg: cstmMsg
-
+    cstmMsg: cstmMsg,
+    date: getCurrentDate()
   });
 
   newnewAlltrade
