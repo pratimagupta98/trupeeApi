@@ -442,9 +442,39 @@ exports.add_equityCash = async (req, res) => {
 
 
 //APP,ADMIN TRDAE LIST
+// exports.tradelist = async (req, res) => {
+//   const getdata = await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
+//     .sort({ createdAt: -1 })
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
 exports.tradelist = async (req, res) => {
-  const getdata = await Alltrade.find({ status: "Active" }).populate("fnoindex_scrpt_name").populate("fnoequty_scrpt_name").populate("cash_scrpt_name").populate("expiryDate")
-    .sort({ createdAt: -1 })
+  const today = new Date(); // Get today's date
+
+  // Create a date range for today
+  const startOfDay = new Date(today);
+  startOfDay.setHours(0, 0, 0, 0); // Set to the beginning of the day
+
+  const endOfDay = new Date(today);
+  endOfDay.setHours(23, 59, 59, 999); // Set to the end of the day
+
+  try {
+    const data = await Alltrade.find({
+      $or: [{ status: "Active" }, { status: "Closed" }],
+      createdAt: { $gte: startOfDay, $lte: endOfDay } // Filter by today's date
+    })
+      .populate("fnoindex_scrpt_name")
+      .populate("fnoequty_scrpt_name")
+      .populate("cash_scrpt_name")
+      .populate("expiryDate")
+      .sort({ createdAt: -1 });
+
+    resp.successr(res, data);
+  } catch (error) {
+    resp.errorr(res, error);
+  }
+};
+
 
     //     var newarrdate = getdata.map(function (value) {
     //       return value.addtrade_tym;
@@ -512,9 +542,6 @@ exports.tradelist = async (req, res) => {
     //   console.log("fff",)
     // })
 
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-};
 
 //ADMIN
 exports.fnoIndexlist = async (req, res) => {
