@@ -1373,6 +1373,60 @@ exports.editfnoOption = async (req, res) => {
       // console.log("TTTTT",updatee)
 
     }
+    else {
+      console.log("hfhjf")
+      if (req.body.active_value && req.body.qty) {
+        let investment_amt = (req.body.active_value) * (req.body.qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      }
+      else if (req.body.active_value) {
+        let investment_amt = (req.body.active_value) * (Qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, active_value: active_value } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      } else if (req.body.qty) {
+        let investment_amt = (Av1) * (req.body.qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, qty: qty } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      } else {
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: req.body },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      }
+    }
 
   } else {
     res.status(400).json({
@@ -1719,7 +1773,60 @@ exports.editCash = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
       // console.log("TTTTT",updatee)
 
+    } else {
+
+      if (req.body.active_value && req.body.qty) {
+        let investment_amt = (req.body.active_value) * (req.body.qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      } else if (req.body.active_value) {
+        let investment_amt = (req.body.active_value) * (Qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, active_value: active_value } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      } else if (req.body.qty) {
+        let investment_amt = (Av1) * (req.body.qty)
+        console.log("InvestAMT", investment_amt)
+
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: { investment_amt: investment_amt, qty: qty } },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      } else {
+        await Alltrade.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: req.body },
+          { new: true }
+        )
+          .then((data) => resp.successr(res, data))
+          .catch((error) => resp.errorr(res, error));
+      }
     }
+
   } else {
     res.status(400).json({
       status: false,
@@ -4195,7 +4302,7 @@ exports.editFnoindex = async (req, res) => {
   const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
-  console.log("FINFONE", findone)
+  console.log("FINDONE", findone)
   let invest_amt = findone.investment_amt
   console.log("INVESTAMT", invest_amt)
   let Qty = findone.qty
@@ -4456,6 +4563,86 @@ exports.editFnoindex = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
       //  console.log("Update",update)
 
+    } else if (req.body.active_value && req.body.no_of_lots) {
+      let investAmt = (no_of_lots * 15) * (req.body.active_value)
+      console.log("testttingg", investAmt)
+
+      let av2 = parseInt(req.body.active_value) + parseInt(10)
+      console.log(av2)
+      let SL = parseInt(req.body.active_value) - 30
+      let trl = parseInt(req.body.active_value) + parseInt(20)
+      console.log(trl)
+      let FT1 = parseInt(req.body.active_value) + parseInt(30)
+      console.log("FT1", FT1)
+      let FT2 = parseInt(FT1) + parseInt(30)
+      console.log("FT2", FT2)
+      let FT3 = parseInt(FT2) + parseInt(30)
+      console.log("FT3", FT3)
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+
+    }
+
+    else if (req.body.active_value) {
+
+      let investAmt = (lotsqty * 15) * (req.body.active_value)
+      console.log("InvestAMT", investAmt)
+      let av2 = parseInt(req.body.active_value) + parseInt(10)
+      console.log(av2)
+      let SL = parseInt(req.body.active_value) - 30
+      let trl = parseInt(req.body.active_value) + parseInt(20)
+      console.log(trl)
+      let FT1 = parseInt(req.body.active_value) + parseInt(30)
+      console.log("FT1", FT1)
+      let FT2 = parseInt(FT1) + parseInt(30)
+      console.log("FT2", FT2)
+      let FT3 = parseInt(FT2) + parseInt(30)
+      console.log("FT3", FT3)
+      console.log("hfhjf")
+      // if (req.body.active_value) {
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    }
+    else if (req.body.no_of_lots) {
+      let investAmt = (no_of_lots * 15) * (Av1)
+      console.log("InvestAMT", investAmt)
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    } else {
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: req.body },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+
     }
 
 
@@ -4704,6 +4891,83 @@ exports.editFnoindex = async (req, res) => {
         .catch((error) => resp.errorr(res, error));
       //  console.log("Update",update)
 
+    } else if (req.body.active_value && req.body.no_of_lots) {
+      let investAmt = (req.body.no_of_lots * 50) * (req.body.active_value)
+      console.log("InvestAMT", investAmt)
+      let av2 = parseInt(req.body.active_value) + parseInt(5)
+      console.log(av2)
+      let SL = parseInt(req.body.active_value) - 10
+      let trl = parseInt(req.body.active_value) + parseInt(5)
+      console.log(trl)
+      let FT1 = parseInt(trl) + parseInt(10)
+      console.log("FT1", FT1)
+      let FT2 = parseInt(FT1) + parseInt(10)
+      console.log("FT2", FT2)
+      let FT3 = parseInt(FT2) + parseInt(10)
+      console.log("FT3", FT2)
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+
+    } else if (req.body.active_value) {
+
+      let investAmt = (lotsqty * 50) * (req.body.active_value)
+      console.log("investAmttttt", investAmt)
+      let av2 = parseInt(req.body.active_value) + parseInt(5)
+      console.log(av2)
+      let SL = parseInt(req.body.active_value) - 10
+      let trl = parseInt(req.body.active_value) + parseInt(5)
+      console.log(trl)
+      let FT1 = parseInt(trl) + parseInt(10)
+      console.log("FT1", FT1)
+      let FT2 = parseInt(FT1) + parseInt(10)
+      console.log("FT2", FT2)
+      let FT3 = parseInt(FT2) + parseInt(10)
+      console.log("FT3", FT2)
+      // if (req.body.active_value) {
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    }
+    else if (req.body.no_of_lots) {
+
+      let investAmt = (req.body.no_of_lots * 50) * (Av1)
+      console.log("InvestAMT", investAmt)
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots } },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    } else {
+
+      await Alltrade.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: req.body },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+
     }
 
 
@@ -4755,12 +5019,17 @@ exports.editFnoindex = async (req, res) => {
     //            .then((data) => resp.successr(res, data))
     //            .catch((error) => resp.errorr(res, error));
     // }
-  } else {
+  }
+
+  else {
     res.status(400).json({
       status: false,
       msg: "error",
       error: "error"
     })
+
+
+
   }
 
 
