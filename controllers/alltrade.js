@@ -5685,3 +5685,77 @@ exports.getbannerbytype = async (req, res) => {
   }
 };
 
+
+exports.profit_loss_byDate = async (req, res) => {
+  let d = new Date();
+  console.log('Today is: ' + d.toLocaleDateString());
+  var today = moment(d).format('DD-MM-YYYY');
+  console.log("Today", today)
+
+  let getdate = await Alltrade.find({ date: req.params.date })
+  
+  console.log("getdate", getdate)
+  var newarrToday = getdate.map(function (value) {
+    return value.pl;
+  });
+  console.log("New Array", newarrToday);
+  sumprofit = _.sumBy([...newarrToday]);
+  console.log("Today PROFIT", sumprofit);
+
+
+  var newarrToday = getdate.map(function (value) {
+    return value.loss;
+  });
+  console.log("New Array", newarrToday);
+
+  sumloss = _.sumBy([...newarrToday]);
+
+  console.log("LOSS", sumloss);
+
+  let total_prft_loss = 0;
+  total_prft_loss = sumprofit + sumloss
+  console.log("ajj ka TOTAL PROFIT LOSS", total_prft_loss)
+
+  res.status(200).json({
+    status: true,
+    msg: "success",
+    sumprofit: sumprofit,
+    sumloss: sumloss,
+    total_prft_loss: total_prft_loss
+
+  })
+
+  //   var newarr = today.map(function (value) {
+  //       return value.pl;
+  //     });
+  //     console.log(newarr);
+  //     let sumprofit = _.sumBy([...newarr]);
+  //     console.log(sumprofit); 
+
+
+  //     var newarr2 = today.map(function (value) {
+  //       return value.loss;
+  //     });
+  //     console.log(newarr2);
+
+  //      sumloss = _.sumBy([...newarr2]);
+
+  //     console.log(sumloss);
+
+  //  let total_prft_loss = 0;
+  //     total_prft_loss =sumprofit + sumloss
+  //     console.log("TOTAL PROFIT LOSS",total_prft_loss)
+
+  //     res.status(200).json({
+  //       status:true,
+  //       msg:"success",
+  //       date :de,
+  //       Profit:sumprofit,
+  //       Loss:sumloss,
+  //       total_prft_loss:total_prft_loss
+
+  //   })
+
+
+
+}
