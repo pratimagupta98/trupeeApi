@@ -31,13 +31,13 @@ let getCurrentDate = function () {
 console.log("DATE", getCurrentDate())
 
 exports.add_fnoIndex = async (req, res) => {
-  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, date, tradeId } = req.body;
+  const { script_type, fnoindex_scrpt_name, active_value, call_type, FT1_type, FT5, qty, no_of_lots, status, trade_type, expiryDate, type, t5, cstmMsg, date, tradeId, active_value2 } = req.body;
 
   if (trade_type == "BankNifty") {
     investment_amt = (req.body.no_of_lots * 15) * (req.body.active_value)
     console.log("InvestAMT", investment_amt)
-    let av2 = parseInt(req.body.active_value) + parseInt(10)
-    console.log(av2)
+    // let av2 = parseInt(req.body.active_value) + parseInt(10)
+    // console.log(av2)
     let SL = parseInt(req.body.active_value) - 30
     let trl = parseInt(req.body.active_value) + parseInt(20)
     console.log(trl)
@@ -81,7 +81,7 @@ exports.add_fnoIndex = async (req, res) => {
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
       active_value: active_value,
-      active_value2: av2,
+      active_value2: active_value2,
       call_type: call_type,
       qty: 15,
       investment_amt: investment_amt,
@@ -95,7 +95,7 @@ exports.add_fnoIndex = async (req, res) => {
       FT5: FT5,
       SL: SL,
       trl: trl,
-      active_value2: av2,
+      //active_value2: av2,
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
@@ -110,7 +110,7 @@ exports.add_fnoIndex = async (req, res) => {
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
       active_value: active_value,
-      active_value2: av2,
+      active_value2: active_value2,
       call_type: call_type,
       qty: qty,
       investment_amt: investment_amt,
@@ -123,7 +123,6 @@ exports.add_fnoIndex = async (req, res) => {
       FT5: FT5,
       SL: SL,
       trl: trl,
-      active_value2: av2,
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
@@ -153,8 +152,8 @@ exports.add_fnoIndex = async (req, res) => {
   } else if (trade_type == "Nifty") {
     investment_amt = (req.body.no_of_lots * 50) * (req.body.active_value)
     console.log("InvestAMT", investment_amt)
-    let av2 = parseInt(req.body.active_value) + parseInt(5)
-    console.log(av2)
+    // let av2 = parseInt(req.body.active_value) + parseInt(5)
+    // console.log(av2)
     let SL = parseInt(req.body.active_value) - 10
     let trl = parseInt(req.body.active_value) + parseInt(5)
     console.log(trl)
@@ -180,7 +179,7 @@ exports.add_fnoIndex = async (req, res) => {
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
       active_value: active_value,
-      active_value2: av2,
+      active_value2: active_value2,
       call_type: call_type,
       qty: 50,
       investment_amt: investment_amt,
@@ -194,7 +193,7 @@ exports.add_fnoIndex = async (req, res) => {
       t5: t5,
       SL: SL,
       trl: trl,
-      active_value2: av2,
+      // active_value2: av2,
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
@@ -210,7 +209,7 @@ exports.add_fnoIndex = async (req, res) => {
       script_type: script_type,
       fnoindex_scrpt_name: fnoindex_scrpt_name,
       active_value: active_value,
-      active_value2: av2,
+      active_value2: active_value2,
       call_type: call_type,
       qty: qty,
       investment_amt: investment_amt,
@@ -223,7 +222,6 @@ exports.add_fnoIndex = async (req, res) => {
       FT5: FT5,
       SL: SL,
       trl: trl,
-      active_value2: av2,
       expiryDate: expiryDate,
       type: type,
       cstmMsg: cstmMsg,
@@ -476,71 +474,71 @@ exports.tradelist = async (req, res) => {
 };
 
 
-    //     var newarrdate = getdata.map(function (value) {
-    //       return value.addtrade_tym;
-    //     });
-    //     console.log("New Array",newarrdate)
-    // // var late30 = newarrdate
-    // console.log("currenttym",newarrdate)
+//     var newarrdate = getdata.map(function (value) {
+//       return value.addtrade_tym;
+//     });
+//     console.log("New Array",newarrdate)
+// // var late30 = newarrdate
+// console.log("currenttym",newarrdate)
 
 
-    //     var newarr30day = getdata.map(function (value) {
-    //       return value.delay30min;
-    //     });
-    //     console.log("New Array",newarr30day)
-    // var late30 = newarr30day
-    // console.log("late30",late30)
+//     var newarr30day = getdata.map(function (value) {
+//       return value.delay30min;
+//     });
+//     console.log("New Array",newarr30day)
+// var late30 = newarr30day
+// console.log("late30",late30)
 
 
-    //     var f = new Date()
-    //     var ff = new Date(f.getTime()).toLocaleTimeString()
-    //     console.log("ff",ff)
-    //     var minutesToAdd=30;
-    //     var currentDate = new Date();
-    //     var delay30min = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
-    //     console.log("fghg",delay30min)
+//     var f = new Date()
+//     var ff = new Date(f.getTime()).toLocaleTimeString()
+//     console.log("ff",ff)
+//     var minutesToAdd=30;
+//     var currentDate = new Date();
+//     var delay30min = new Date(currentDate.getTime() + minutesToAdd*60000).toLocaleTimeString()
+//     console.log("fghg",delay30min)
 
-    //     if(late30 == ff){
-    //       console.log("true")
-    //       let qur=  await User.updateMany(
-    //         { getdata:getdata },
+//     if(late30 == ff){
+//       console.log("true")
+//       let qur=  await User.updateMany(
+//         { getdata:getdata },
 
-    //         {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name,exp_free_mem:"true"}} ,
+//         {$set: {planId:planid,pack_name:pack_name,start_date:ddd,expdate:after7days,type:"Free",pack_name:pack_name,exp_free_mem:"true"}} ,
 
-    //       //{ $set: {status:"success"} },
-    //       { new: true }
+//       //{ $set: {status:"success"} },
+//       { new: true }
 
-    //     )
-    //     }else{
-    //       console.log("false")
-    //     }
+//     )
+//     }else{
+//       console.log("false")
+//     }
 
-    // var task = cron.schedule('00 00 1 * * *', () =>  {
-    //   console.log('Job excuted at 1:00am sharp in the morning');
-    //  this.checkifapiexecute();
-    // });
+// var task = cron.schedule('00 00 1 * * *', () =>  {
+//   console.log('Job excuted at 1:00am sharp in the morning');
+//  this.checkifapiexecute();
+// });
 
-    // console.log("de",task)
-    // cron.schedule('0 16 * * *', async () => {
-    //   /**
-    //    *  -> cron is use for update only today purchase/buy stock
-    //    *  -> update  only stock is pending and stock type is intra day by status 5 (square off )
-    //    *
-    //    */
-    //   var start_date = new Date(new Date().setMinutes(30, 0, 0, 0))
-    //   console.log("start_date",start_date)
-    //   var end_date = new Date(new Date().setMinutes(30, 0, 0, 0))
-    //   console.log("end_date",end_date)
+// console.log("de",task)
+// cron.schedule('0 16 * * *', async () => {
+//   /**
+//    *  -> cron is use for update only today purchase/buy stock
+//    *  -> update  only stock is pending and stock type is intra day by status 5 (square off )
+//    *
+//    */
+//   var start_date = new Date(new Date().setMinutes(30, 0, 0, 0))
+//   console.log("start_date",start_date)
+//   var end_date = new Date(new Date().setMinutes(30, 0, 0, 0))
+//   console.log("end_date",end_date)
 
-    //   const result = await Alltrade.updateMany(
-    //     {
-    //       createdAt: { $gte: start_date, $lt: end_date },
+//   const result = await Alltrade.updateMany(
+//     {
+//       createdAt: { $gte: start_date, $lt: end_date },
 
-    //     },
-    //     { $set: { delay_tym: "false" } }
-    //   )
-    //   console.log("fff",)
-    // })
+//     },
+//     { $set: { delay_tym: "false" } }
+//   )
+//   console.log("fff",)
+// })
 
 
 //ADMIN
@@ -4326,7 +4324,7 @@ exports.today_profit_loss = async (req, res) => {
 
 }
 exports.editFnoindex = async (req, res) => {
-  const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots } = req.body
+  const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots, active_value2 } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   console.log("FINDONE", findone)
@@ -4341,8 +4339,8 @@ exports.editFnoindex = async (req, res) => {
   let Av1 = findone.active_value
   console.log("Av1", Av1)
 
-  let active_value2 = findone.active_value2
-  console.log("Av2", active_value2)
+  let active_value22 = findone.active_value2
+  console.log("Av2", active_value22)
 
   let trL = findone.trl
   console.log("TRL", trL)
@@ -4594,8 +4592,8 @@ exports.editFnoindex = async (req, res) => {
       let investAmt = (no_of_lots * 15) * (req.body.active_value)
       console.log("testttingg", investAmt)
 
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log(av2)
+      // let av2 = parseInt(req.body.active_value) + parseInt(10)
+      // console.log(av2)
       let SL = parseInt(req.body.active_value) - 30
       let trl = parseInt(req.body.active_value) + parseInt(20)
       console.log(trl)
@@ -4609,7 +4607,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4621,8 +4619,8 @@ exports.editFnoindex = async (req, res) => {
 
       let investAmt = (lotsqty * 15) * (req.body.active_value)
       console.log("InvestAMT", investAmt)
-      let av2 = parseInt(req.body.active_value) + parseInt(10)
-      console.log(av2)
+      // let av2 = parseInt(req.body.active_value) + parseInt(10)
+      // console.log(av2)
       let SL = parseInt(req.body.active_value) - 30
       let trl = parseInt(req.body.active_value) + parseInt(20)
       console.log(trl)
@@ -4639,7 +4637,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4921,8 +4919,8 @@ exports.editFnoindex = async (req, res) => {
     } else if (req.body.active_value && req.body.no_of_lots) {
       let investAmt = (req.body.no_of_lots * 50) * (req.body.active_value)
       console.log("InvestAMT", investAmt)
-      let av2 = parseInt(req.body.active_value) + parseInt(5)
-      console.log(av2)
+      // let av2 = parseInt(req.body.active_value) + parseInt(5)
+      // console.log(av2)
       let SL = parseInt(req.body.active_value) - 10
       let trl = parseInt(req.body.active_value) + parseInt(5)
       console.log(trl)
@@ -4936,7 +4934,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4946,8 +4944,8 @@ exports.editFnoindex = async (req, res) => {
 
       let investAmt = (lotsqty * 50) * (req.body.active_value)
       console.log("investAmttttt", investAmt)
-      let av2 = parseInt(req.body.active_value) + parseInt(5)
-      console.log(av2)
+      // let av2 = parseInt(req.body.active_value) + parseInt(5)
+      // console.log(av2)
       let SL = parseInt(req.body.active_value) - 10
       let trl = parseInt(req.body.active_value) + parseInt(5)
       console.log(trl)
@@ -4963,7 +4961,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, active_value2: av2, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -5693,7 +5691,7 @@ exports.profit_loss_byDate = async (req, res) => {
   console.log("Today", today)
 
   let getdate = await Alltrade.find({ date: req.params.date })
-  
+
   console.log("getdate", getdate)
   var newarrToday = getdate.map(function (value) {
     return value.pl;
