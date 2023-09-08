@@ -1052,7 +1052,7 @@ exports.AppCashList = async (req, res) => {
 
 
 exports.editfnoOption = async (req, res) => {
-  const { fnoindex_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots,expiryDate } = req.body
+  const { fnoindex_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots, expiryDate } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   if (findone) {
@@ -1465,7 +1465,7 @@ exports.editfnoOption = async (req, res) => {
 
 
 exports.editCash = async (req, res) => {
-  const { cash_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, t6_type, T7, t7_type, cstmMsg, slTime, no_of_lots,expiryDate } = req.body
+  const { cash_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, t6_type, T7, t7_type, cstmMsg, slTime, no_of_lots, expiryDate, script_type, call_type,tradeStatus } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   console.log("findone", findone)
@@ -1808,7 +1808,7 @@ exports.editCash = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus, } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1821,7 +1821,7 @@ exports.editCash = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
