@@ -1478,8 +1478,8 @@ exports.editCash = async (req, res) => {
     //  console.log("lotsqty", lotsqty)
     let Av1 = findone.active_value
     console.log("Av1", Av1)
-    let active_value2 = findone.active_value2
-    console.log("Av2", active_value2)
+    // let active_value2 = findone.active_value2
+    // console.log("Av2", active_value2)
     // let trl = findone.trl
     // console.log("TRL",trl)
     let t1 = findone.T1
@@ -1791,7 +1791,7 @@ exports.editCash = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { t5_type: "true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl: plt7, status, T5, T7: req.body.T7, t7_type: "true", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, T7time: T7tym, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, status, tradeStatus } },
+        { $set: { t5_type: "true", SL, sl_type: "false", T2, t2_type, T3, t3_type, T4, t4_type, pl: plt7, status, T5, T7: req.body.T7, t7_type: "true", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, T7time: T7tym, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, status, tradeStatus, } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -1808,14 +1808,15 @@ exports.editCash = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus,active_value2 } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
           .catch((error) => resp.errorr(res, error));
       } else if (req.body.active_value) {
+console.log("act2")
         let investment_amt = (req.body.active_value) * (Qty)
-        console.log("InvestAMT", investment_amt)
+       // console.log("InvestAMT", investment_amt)
 
         await Alltrade.findOneAndUpdate(
           {
@@ -1834,7 +1835,7 @@ exports.editCash = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, qty: qty } },
+          { $set: { investment_amt: investment_amt, qty: qty,active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus,active_value2 } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
