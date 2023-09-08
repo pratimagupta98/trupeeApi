@@ -4325,7 +4325,7 @@ exports.today_profit_loss = async (req, res) => {
 }
 exports.editFnoindex = async (req, res) => {
   const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots, active_value2 } = req.body
-
+  console.log(req.body)
   let findone = await Alltrade.findOne({ _id: req.params.id })
   console.log("FINDONE", findone)
   let invest_amt = findone.investment_amt
