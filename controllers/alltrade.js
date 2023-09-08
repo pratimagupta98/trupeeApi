@@ -1465,7 +1465,7 @@ exports.editfnoOption = async (req, res) => {
 
 
 exports.editCash = async (req, res) => {
-  const { cash_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, t6_type, T7, t7_type, cstmMsg, slTime, no_of_lots, expiryDate, script_type, call_type,tradeStatus } = req.body
+  const { cash_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, t6_type, T7, t7_type, cstmMsg, slTime, no_of_lots, expiryDate, script_type, call_type,tradeStatus,active_value2 } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   console.log("findone", findone)
@@ -1531,7 +1531,7 @@ exports.editCash = async (req, res) => {
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss_per: loss_per, loss: loss, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, status } },
+        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss_per: loss_per, loss: loss, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, status,active_value2 } },
 
         //{ $set: {status:"success"} },
         { new: true }
@@ -1821,7 +1821,7 @@ exports.editCash = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty: qty, expiryDate, cash_scrpt_name, script_type, call_type, SL, T1, T2, T3, T4, status, tradeStatus,active_value2 } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
