@@ -4665,7 +4665,11 @@ exports.editFnoindex = async (req, res) => {
         { $set: req.body },
         { new: true }
       )
-        .then((data) => resp.successr(res, data))
+        .then((data) => {
+          console.log("data",data)
+           resp.successr(res, data) }
+
+        )
         .catch((error) => resp.errorr(res, error));
 
     }
