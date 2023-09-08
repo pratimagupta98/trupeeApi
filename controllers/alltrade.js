@@ -4324,34 +4324,34 @@ exports.today_profit_loss = async (req, res) => {
 
 }
 exports.editFnoindex = async (req, res) => {
-  const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots, active_value2 } = req.body
+  const { fnoindex_scrpt_name, active_value, trade_type, SL, sl_type, FT1, FT1_type, FT2, FT2_type, FT3, FT3_type, FT4, FT4_type, FT5, FT5_type, FT6, FT6_type, FT7, FT7_type, qty, cstmMsg, status, tradeStatus, trl, trl_type, pl, pl_per, type, FT1time, FT2time, FT3time, FT4time, FT5time, FT6time, FT7time, call_type, date, script_type, loss, loss_per, no_of_lots, active_value2,expiryDate } = req.body
   console.log(req.body)
   let findone = await Alltrade.findOne({ _id: req.params.id })
   console.log("FINDONE", findone)
-  let invest_amt = findone.investment_amt
+  let invest_amt = findone?.investment_amt
   console.log("INVESTAMT", invest_amt)
-  let Qty = findone.qty
+  let Qty = findone?.qty
   console.log("QTY", Qty)
 
-  let lotsqty = findone.no_of_lots
+  let lotsqty = findone?.no_of_lots
   console.log("lotsqty", lotsqty)
 
-  let Av1 = findone.active_value
+  let Av1 = findone?.active_value
   console.log("Av1", Av1)
 
-  let active_value22 = findone.active_value2
+  let active_value22 = findone?.active_value2
   console.log("Av2", active_value22)
 
-  let trL = findone.trl
+  let trL = findone?.trl
   console.log("TRL", trL)
 
-  let ft1 = findone.FT1
+  let ft1 = findone?.FT1
   console.log("FT1", ft1)
 
-  let ft2 = findone.FT2
+  let ft2 = findone?.FT2
   console.log("FT2", ft2)
 
-  let ft3 = findone.FT3
+  let ft3 = findone?.FT3
   console.log("FT3", ft3)
 
 
@@ -4607,7 +4607,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4637,7 +4637,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3,no_of_lots,fnoindex_scrpt_name,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4651,7 +4651,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4938,7 +4938,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4965,7 +4965,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3 } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -4980,7 +4980,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots } },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots,fnoindex_scrpt_name,script_type,call_type,qty,status,tradeStatus,expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
