@@ -2339,8 +2339,8 @@ exports.editFnoindex = async (req, res) => {
   let Av1 = findone?.active_value
   console.log("Av1", Av1)
 
-  let active_value22 = findone?.active_value2
-  console.log("Av2", active_value22)
+  // let active_value22 = findone?.active_value2
+  // console.log("Av2", active_value22)
 
   let trL = findone?.trl
   console.log("TRL", trL)
@@ -2389,7 +2389,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("isodate", sltym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, loss: loss, loss_per: loss_per, slTime: sltym, FT1_type: "false", FT2_type: "false", FT3_type: "false" } },
+        { $set: { sl_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, loss: loss, loss_per: loss_per, slTime: sltym, FT1_type: "false", FT2_type: "false", FT3_type: "false", active_value2, call_type, script_type, expiryDate } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2417,7 +2417,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("FT77tym", FT7tym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true" } },
+        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2435,7 +2435,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("FT66tym", FT6tym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, FT6time: FT6tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", trl_type: "true" } },
+        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, FT6time: FT6tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2451,7 +2451,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("FT77tym", FT7tym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "false", FT5_type: "true", FT6_type: "true", FT6_type: "true", FT7time: FT7tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7 } },
+        { $set: { SL, sl_type: "false", FT5_type: "true", FT6_type: "true", FT6_type: "true", FT7time: FT7tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2467,7 +2467,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "false", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT5time: FT5tym, FT6time: FT6tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6 } },
+        { $set: { SL, sl_type: "false", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT5time: FT5tym, FT6time: FT6tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2486,7 +2486,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { FT4: req.body.FT4, FT5: req.body.FT5, FT5_type: "true", FT4time: FT4tym, FT5time: FT5tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft5, pl_per: pl_per, status, SL, sl_type: "false", } },
+        { $set: { FT4: req.body.FT4, FT5: req.body.FT5, FT5_type: "true", FT4time: FT4tym, FT5time: FT5tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft5, pl_per: pl_per, status, SL, sl_type: "false", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2506,7 +2506,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { FT4: req.body.FT4, FT4time: FT4tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft4, pl_per: pl_per, status, SL, sl_type: "false", FT4_type: "true" } },
+        { $set: { FT4: req.body.FT4, FT4time: FT4tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft4, pl_per: pl_per, status, SL, sl_type: "false", FT4_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2523,7 +2523,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", FT2_type: "true", FT3_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT3time: FT3tym, } },
+        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", FT2_type: "true", FT3_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT3time: FT3tym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2542,7 +2542,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT2_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT2time: FT2tym, trl_type: "true" } },
+        { $set: { sl_type: "false", FT1_type: "true", FT2_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT2time: FT2tym, trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2560,7 +2560,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT1time: FT1tym, } },
+        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT1time: FT1tym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2580,7 +2580,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { trl_type: "true", sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: pl, pl_per: pl_per, FT1_type: "false", FT2_type: "false", FT3_type: "false", trlTime: trlTym } },
+        { $set: { trl_type: "true", sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: pl, pl_per: pl_per, FT1_type: "false", FT2_type: "false", FT3_type: "false", trlTime: trlTym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2607,7 +2607,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2651,7 +2651,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate } },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2739,7 +2739,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("isodate", sltym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, loss: loss, loss_per: loss_per, slTime: sltym, FT1_type: "false", FT2_type: "false", FT3_type: "false" } },
+        { $set: { sl_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, loss: loss, loss_per: loss_per, slTime: sltym, FT1_type: "false", FT2_type: "false", FT3_type: "false", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2756,7 +2756,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true", FT4: req.body.FT4, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7 } },
+        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true", FT4: req.body.FT4, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2775,7 +2775,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, FT6time: FT6tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", trl_type: "true", FT4: req.body.FT4, FT5: req.body.FT5, FT6: req.body.FT6 } },
+        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, FT6time: FT6tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", trl_type: "true", FT4: req.body.FT4, FT5: req.body.FT5, FT6: req.body.FT6, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2792,7 +2792,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "false", FT5_type: "true", FT6_type: "true", FT6_type: "true", FT7_type: "true", FT7time: FT7tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7 } },
+        { $set: { SL, sl_type: "false", FT5_type: "true", FT6_type: "true", FT6_type: "true", FT7_type: "true", FT7time: FT7tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, FT7: req.body.FT7, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2807,7 +2807,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { SL, sl_type: "false", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT5time: FT5tym, FT6time: FT6tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6 } },
+        { $set: { SL, sl_type: "false", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT5time: FT5tym, FT6time: FT6tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft6, pl_per: pl_per, status, FT5: req.body.FT5, FT6: req.body.FT6, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2823,7 +2823,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { FT4: req.body.FT4, FT5: req.body.FT5, FT5_type: "true", FT4time: FT4tym, FT5time: FT5tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft5, pl_per: pl_per, status, SL, sl_type: "false", } },
+        { $set: { FT4: req.body.FT4, FT5: req.body.FT5, FT5_type: "true", FT4time: FT4tym, FT5time: FT5tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft5, pl_per: pl_per, status, SL, sl_type: "false", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2840,7 +2840,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { FT4: req.body.FT4, FT4time: FT4tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft4, pl_per: pl_per, status, SL, sl_type: "false", FT4_type: "true" } },
+        { $set: { FT4: req.body.FT4, FT4time: FT4tym, cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft4, pl_per: pl_per, status, SL, sl_type: "false", FT4_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
 
@@ -2859,7 +2859,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", FT2_type: "true", FT3_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT3time: FT3tym, } },
+        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", FT2_type: "true", FT3_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT3time: FT3tym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2879,7 +2879,7 @@ exports.editFnoindex = async (req, res) => {
 
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", FT1_type: "true", FT2_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT2time: FT2tym, trl_type: "true" } },
+        { $set: { sl_type: "false", FT1_type: "true", FT2_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT2time: FT2tym, trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2894,7 +2894,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("PL %%", pl_per)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT1time: FT1tym, } },
+        { $set: { sl_type: "false", trl_type: "true", FT1_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl, pl_per, FT1time: FT1tym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2913,7 +2913,7 @@ exports.editFnoindex = async (req, res) => {
       console.log("isodate", sltym)
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { trl_type: "true", sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: pl, pl_per: pl_per, FT1_type: "false", FT2_type: "false", FT3_type: "false", trlTime: trlTym } },
+        { $set: { trl_type: "true", sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: pl, pl_per: pl_per, FT1_type: "false", FT2_type: "false", FT3_type: "false", trlTime: trlTym, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
 
         { new: true }
       )
@@ -2939,7 +2939,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2966,7 +2966,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate } },
+        { $set: { investment_amt: investAmt, active_value: active_value, SL: SL, trl: trl, FT1: FT1, FT2: FT2, FT3: FT3, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
@@ -2981,7 +2981,7 @@ exports.editFnoindex = async (req, res) => {
         {
           _id: req.params.id,
         },
-        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate } },
+        { $set: { investment_amt: investAmt, no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
         { new: true }
       )
         .then((data) => resp.successr(res, data))
