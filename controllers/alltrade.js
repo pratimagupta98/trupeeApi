@@ -1052,7 +1052,7 @@ exports.AppCashList = async (req, res) => {
 
 
 exports.editfnoOption = async (req, res) => {
-  const { fnoequty_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots, expiryDate, call_type, script_type, active_value2 } = req.body
+  const { fnoequty_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots, expiryDate, call_type, script_type, active_value2,tradeStatus } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   if (findone) {
@@ -1112,7 +1112,7 @@ exports.editfnoOption = async (req, res) => {
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss: loss, loss_per: loss_per, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, active_value2 } },
+        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss: loss, loss_per: loss_per, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, active_value2,expiryDate } },
 
         //{ $set: {status:"success"} },
         { new: true }
@@ -1435,7 +1435,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 } },
+          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,active_value} },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
