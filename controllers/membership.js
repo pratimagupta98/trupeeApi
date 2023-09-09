@@ -125,7 +125,7 @@ exports.allmembership = async (req, res) => {
 
 
 exports.viewonemembership = async (req, res) => {
-  const getdetail = await Membership.findOne({ _id: req.params.id }).populate("userid")
+  const getdetail = await Membership.findOne({ _id: req.params.id }).populate("userid").populate("planId")
   let dtt = getCurrentDate()
   let expp = getdetail.expdate
   console.log("dtt", dtt)

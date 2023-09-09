@@ -73,9 +73,9 @@ const UserSchema = new Schema(
     exp_free_mem: {
       type: String
     },
-    fcmToken:{
+    fcmToken: {
       type: String,
-      default:""
+      default: ""
     }
     //  status:{
     //   type: String,
