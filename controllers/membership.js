@@ -43,7 +43,6 @@ exports.addmembership = async (req, res) => {
     date: getCurrentDate(),
     transaction_id: transaction_id,
     planId: planId,
-
     expdate: det,
     //  status:status
   });
@@ -168,7 +167,7 @@ exports.viewonemembership = async (req, res) => {
 }
 
 exports.updatemembership = async (req, res) => {
-  await Membership
+const getdata=  await Membership
 
     .findOneAndUpdate(
       {
@@ -183,6 +182,21 @@ exports.updatemembership = async (req, res) => {
     .populate("planId")
     .populate("userid")
 
+    const getdeatil = req.params.id
+console.log("getdata",getdata.userid)
+const getuser=  await User
+   .findOneAndUpdate(
+      {
+        _id: getdata.userid,
+        //  console.log(req.params._id);
+      },
+      {
+        $set: req.body,
+      },
+      { new: true }
+    )
+
+   // console.log(getuser)
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
