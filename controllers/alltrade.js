@@ -1408,7 +1408,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,SL,T1,T2,T3,T4,T5,T7} },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1422,7 +1422,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 } },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,SL} },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1435,7 +1435,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,active_value} },
+          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,active_value,} },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
