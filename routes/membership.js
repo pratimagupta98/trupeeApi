@@ -16,7 +16,8 @@ const {
     referearn_list,
     dltReferEarn,
     membershipPayment,
-    UsermembershipPayment
+    UsermembershipPayment,
+    memberByType
 } = require("../controllers/membership");
 
  
@@ -35,6 +36,7 @@ router.get("/admin/allmembership", allmembership);
  router.get("/admin/ttlfreeusers", ttlfreeusers);
  router.get("/admin/membershipPayment", membershipPayment);
  router.get("/admin/UsermembershipPayment",verifytoken, UsermembershipPayment);
+ router.get("/admin/memberByType/:id", memberByType);
 
   
 module.exports = router;

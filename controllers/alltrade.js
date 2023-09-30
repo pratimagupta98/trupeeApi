@@ -138,7 +138,31 @@ exports.add_fnoIndex = async (req, res) => {
         const makertradehistory = await TradeHistory.create(newTradeHistory);
         //   const createNotification = await tradeNotification.create(makertradehistory);
         const createNotification = await tradeNotification.create({
-          makerTradeHistory: makertradehistory, // Assuming a field name like 'makerTradeHistory'
+          script_type: script_type,
+          fnoindex_scrpt_name: fnoindex_scrpt_name,
+          active_value: active_value,
+          active_value2: active_value2,
+          call_type: call_type,
+          qty: 15,
+          investment_amt: investment_amt,
+          no_of_lots: no_of_lots,
+          status: status,
+          trade_type: trade_type,
+          FT1: FT1,
+          FT1_type: FT1_type,
+          FT2: FT2,
+          FT3: FT3,
+          FT5: FT5,
+          SL: SL,
+          trl: trl,
+          //active_value2: av2,
+          expiryDate: expiryDate,
+          type: type,
+          cstmMsg: cstmMsg,
+          date: getCurrentDate(),
+          tradeId: tradeId,
+          delay30min: delay30min,
+          addtrade_tym: ff // Assuming a field name like 'makerTradeHistory'
           // Add any other properties you need for createNotification here
         });
 
@@ -2449,10 +2473,10 @@ exports.editFnoindex = async (req, res) => {
           FT1_type: "false",
           FT2_type: "false",
           FT3_type: "false",
-          active_value2,
-          call_type,
-          script_type,
-          expiryDate,
+          active_value2: findone.active_value2,
+          call_type: findone.call_type,
+          script_type: findone.script_type,
+          expiryDate: findone.expiryDate,
 
         });
         resp.successr(res, update);
@@ -2482,13 +2506,58 @@ exports.editFnoindex = async (req, res) => {
 
       const FT7tym = new Date().toString()
       console.log("FT77tym", FT7tym)
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
-        { new: true }
-      )
-        .then((data) => resp.successr(res, data))
-        .catch((error) => resp.errorr(res, error));
+      try {
+        let update = await Alltrade.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: { sl_type: "false", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, pl: plft7, pl_per: pl_per, FT7time: FT7tym, FT1_type: "true", FT2_type: "true", FT3_type: "true", FT4_type: "true", FT5_type: "true", FT6_type: "true", FT7_type: "true", trl_type: "true", no_of_lots: no_of_lots, fnoindex_scrpt_name, script_type, call_type, qty, status, tradeStatus, expiryDate, active_value2 } },
+          { new: true }
+        )
+        const createNotification = await tradeNotification.create({
+          //   tradeId: req.params.id,
+          active_value: findone.active_value,
+          fnoindex_scrpt_name: findone.fnoindex_scrpt_name,
+          call_type: findone.call_type,
+          SL: findone.SL,
+          trl: findone.trl,
+          qty: findone.qty,
+          investment_amt: findone.investment_amt,
+          no_of_lots: findone.no_of_lots,
+          FT1: findone.FT1,
+          FT2: findone.FT2,
+          FT3: findone.FT3,
+          FT4: req.body.FT4,
+          FT5: req.body.FT5,
+          FT6: req.body.FT6,
+          FT7: req.body.FT7,
+          type: findone.type,
+          delay30min: findone.delay30min,
+          sl_type: "false",
+          status: "Active",
+          cstmMsg: req.body.cstmMsg,
+          tradeStatus: req.body.tradeStatus,
+          loss: loss,
+          loss_per: loss_per,
+          slTime: sltym,
+          FT1_type: "true",
+          FT2_type: "true",
+          FT3_type: "true",
+          FT4_type: "true",
+          FT5_type: "true",
+          FT6_type: "true",
+          FT7_type: "true",
+          active_value2: findone.active_value2,
+          call_type: findone.call_type,
+          script_type: findone.script_type,
+          expiryDate: findone.expiryDate,
+
+        });
+        resp.successr(res, update);
+        //   console.log("createNotification", createNotification);
+
+      } catch (error) {
+        // Handle errors
+        resp.errorr(res, error);
+      }
     }
 
     else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6) {
@@ -3685,7 +3754,7 @@ exports.profit_loss_byDate = async (req, res) => {
 
 
 exports.appNotification_alert = async (req, res) => {
-  await tradeNotification.find().populate("fnoindex_scrpt_name")
+  await tradeNotification.find().populate("fnoindex_scrpt_name").populate("expiryDate")
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
