@@ -1,4 +1,7 @@
 const Alltrade = require("../models/alltrade");
+const tradeNotification = require("../models/tradeNotification");
+
+
 //const moment = require('moment');
 //const moment = require('moment');
 
@@ -133,7 +136,15 @@ exports.add_fnoIndex = async (req, res) => {
       .then(async (data) => {
         // Save the TradeHistory instance here
         const makertradehistory = await TradeHistory.create(newTradeHistory);
-        console.log("TradeHistory saved:", makertradehistory);
+        //   const createNotification = await tradeNotification.create(makertradehistory);
+        const createNotification = await tradeNotification.create({
+          makerTradeHistory: makertradehistory, // Assuming a field name like 'makerTradeHistory'
+          // Add any other properties you need for createNotification here
+        });
+
+        //console.log("TradeHistory saved:", makertradehistory);
+        //  console.log("createNotification saved:", createNotification);
+
 
         res.status(200).json({
           status: true,
@@ -1052,7 +1063,7 @@ exports.AppCashList = async (req, res) => {
 
 
 exports.editfnoOption = async (req, res) => {
-  const { fnoequty_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots, expiryDate, call_type, script_type, active_value2,tradeStatus } = req.body
+  const { fnoequty_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, T7, cstmMsg, T1time, F2time, T3time, T4time, T5time, T6time, T7time, slTime, no_of_lots, expiryDate, call_type, script_type, active_value2, tradeStatus } = req.body
 
   let findone = await Alltrade.findOne({ _id: req.params.id })
   if (findone) {
@@ -1112,7 +1123,7 @@ exports.editfnoOption = async (req, res) => {
       let update = await Alltrade.findOneAndUpdate(
         { _id: req.params.id },
 
-        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss: loss, loss_per: loss_per, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, active_value2,expiryDate } },
+        { $set: { SL, tradeStatus: "Closed", sl_type: "true", loss: loss, loss_per: loss_per, status, cstmMsg: req.body.cstmMsg, slTime: sltym, t1_type: "false", t2_type: "false", t3_type: "false", t4_type: "false", qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, active_value2, expiryDate } },
 
         //{ $set: {status:"success"} },
         { new: true }
@@ -1408,7 +1419,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,SL,T1,T2,T3,T4,T5,T7} },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2, SL, T1, T2, T3, T4, T5, T7 } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1422,7 +1433,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,SL} },
+          { $set: { investment_amt: investment_amt, active_value: active_value, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2, SL } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1435,7 +1446,7 @@ exports.editfnoOption = async (req, res) => {
           {
             _id: req.params.id,
           },
-          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2 ,active_value,} },
+          { $set: { investment_amt: investment_amt, qty, expiryDate, fnoequty_scrpt_name, script_type, call_type, status, tradeStatus, active_value2, active_value, } },
           { new: true }
         )
           .then((data) => resp.successr(res, data))
@@ -1461,8 +1472,6 @@ exports.editfnoOption = async (req, res) => {
     })
   }
 }
-
-
 
 exports.editCash = async (req, res) => {
   const { cash_scrpt_name, trade_type, qty, active_value, SL, sl_type, T1, t1_type, T2, t2_type, T3, t3_type, T4, t4_type, status, T5, t5_type, T6, t6_type, T7, t7_type, cstmMsg, slTime, no_of_lots, expiryDate, script_type, call_type, tradeStatus, active_value2 } = req.body
@@ -2379,22 +2388,80 @@ exports.editFnoindex = async (req, res) => {
     if (sl_type == "true") {
       console.log("sahi h")
 
-      let sl = findone.SL
-      let loss = (lotsqty * 15) * (sl - Av1)
-      console.log("Loss", loss)
-      let loss_per = (loss / invest_amt * 100).toFixed(2)
-      console.log("LOSS %", loss_per)
+      try {
+        let sl = findone.SL;
+        let loss = (lotsqty * 15) * (sl - Av1);
+        console.log("Loss", loss);
+        let loss_per = ((loss / invest_amt) * 100).toFixed(2);
+        console.log("LOSS %", loss_per);
 
-      const sltym = new Date().toString()
-      console.log("isodate", sltym)
-      let update = await Alltrade.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { sl_type: "true", status: "Active", cstmMsg: req.body.cstmMsg, tradeStatus: req.body.tradeStatus, loss: loss, loss_per: loss_per, slTime: sltym, FT1_type: "false", FT2_type: "false", FT3_type: "false", active_value2, call_type, script_type, expiryDate } },
-        { new: true }
-      )
-        .then((data) => resp.successr(res, data))
-        .catch((error) => resp.errorr(res, error));
-      //  console.log("Update",update)
+        const sltym = new Date().toString();
+        console.log("isodate", sltym);
+
+        // Attempt to update the Alltrade document
+        let update = await Alltrade.findOneAndUpdate(
+          { _id: req.params.id },
+          {
+            $set: {
+              sl_type: "true",
+              status: "Active",
+              cstmMsg: req.body.cstmMsg,
+              tradeStatus: req.body.tradeStatus,
+              loss: loss,
+              loss_per: loss_per,
+              slTime: sltym,
+              FT1_type: "false",
+              FT2_type: "false",
+              FT3_type: "false",
+              active_value2,
+              call_type,
+              script_type,
+              expiryDate,
+            },
+          },
+          { new: true }
+        );
+
+        // Respond with success
+
+        const createNotification = await tradeNotification.create({
+          _id: req.params.id,
+          active_value: findone.active_value,
+          fnoindex_scrpt_name: findone.fnoindex_scrpt_name,
+          call_type: findone.call_type,
+          SL: findone.SL,
+          trl: findone.trl,
+          qty: findone.qty,
+          investment_amt: findone.investment_amt,
+          no_of_lots: findone.no_of_lots,
+          FT1: findone.FT1,
+          FT2: findone.FT2,
+          FT3: findone.FT3,
+          type: findone.type,
+          delay30min: findone.delay30min,
+          sl_type: "true",
+          status: "Active",
+          cstmMsg: req.body.cstmMsg,
+          tradeStatus: req.body.tradeStatus,
+          loss: loss,
+          loss_per: loss_per,
+          slTime: sltym,
+          FT1_type: "false",
+          FT2_type: "false",
+          FT3_type: "false",
+          active_value2,
+          call_type,
+          script_type,
+          expiryDate,
+
+        });
+        resp.successr(res, update);
+        //   console.log("createNotification", createNotification);
+
+      } catch (error) {
+        // Handle errors
+        resp.errorr(res, error);
+      }
 
     } else if (trl_type == "true" && FT1_type == "true" && FT2_type == "true" && FT3_type == "true" && req.body.FT4 && req.body.FT5 && req.body.FT6 && req.body.FT7) {
       console.log("FT4", "FT5", "FT6", "FT7")
@@ -3065,8 +3132,6 @@ exports.editFnoindex = async (req, res) => {
 
 }
 
-
-
 exports.weekely_profit_loss = async (req, res) => {
   let d = new Date();
   console.log('Today is: ' + d.toLocaleDateString());
@@ -3616,3 +3681,12 @@ exports.profit_loss_byDate = async (req, res) => {
 
 
 }
+
+
+
+exports.appNotification_alert = async (req, res) => {
+  await tradeNotification.find().populate("fnoindex_scrpt_name")
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};

@@ -167,7 +167,7 @@ exports.viewonemembership = async (req, res) => {
 }
 
 exports.updatemembership = async (req, res) => {
-const getdata=  await Membership
+  const getdata = await Membership
 
     .findOneAndUpdate(
       {
@@ -182,10 +182,10 @@ const getdata=  await Membership
     .populate("planId")
     .populate("userid")
 
-    const getdeatil = req.params.id
-console.log("getdata",getdata.userid)
-const getuser=  await User
-   .findOneAndUpdate(
+  const getdeatil = req.params.id
+  console.log("getdata", getdata.userid)
+  const getuser = await User
+    .findOneAndUpdate(
       {
         _id: getdata.userid,
         //  console.log(req.params._id);
@@ -196,7 +196,7 @@ const getuser=  await User
       { new: true }
     )
 
-   // console.log(getuser)
+    // console.log(getuser)
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
