@@ -18,9 +18,6 @@ cloudinary.config({
 exports.addTrending_chart = async (req, res) => {
   const { title, desc, image, chart_type } =
     req.body;
-
-  
-  
   const newTreadingChart = new TreadingChart({
     title: title,
     desc: desc,
@@ -28,8 +25,8 @@ exports.addTrending_chart = async (req, res) => {
     chart_type: chart_type,
     
   });
-    if (req.files) {
-      if (req.files.image[0].path) {
+    if (req.files.image) {
+       
         alluploads = [];
         for (let i = 0; i < req.files.image.length; i++) {
           const resp = await cloudinary.uploader.upload(
@@ -41,7 +38,7 @@ exports.addTrending_chart = async (req, res) => {
         }
         newTreadingChart.image = alluploads;
       }
-    }
+    
     newTreadingChart.save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
